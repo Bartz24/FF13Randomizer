@@ -589,7 +589,7 @@ namespace FF13Randomizer
                 int rank = TieredItems.manager.GetRank(item, 1);
                 if (rank != -1)
                 {
-                    Tuple<Item, int> newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered));
+                    Tuple<Item, int> newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered,enemy));
                     DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
                     if (!enemies.ItemIDs.Contains(dataStr))
                         enemies.ItemIDs.Add(dataStr, enemies.ItemIDs.GetTrueSize());
@@ -601,13 +601,21 @@ namespace FF13Randomizer
             }
         }
 
-        private int GetDropWeight(Tiered<Item> t)
+        private int GetDropWeight(Tiered<Item> t,DataStoreEnemy enemy)
         {
-            if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return (int)(t.Weight + 58 * Math.Exp(-0.005 * t.Weight));
             if (t.Items.Where(i => i.ID == "").Count() > 0)
                 return 0;
-            return Math.Max(1, t.Weight / 4);
+            if (enemy.Level >= 50)
+            {
+                if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
+                    return 0;
+                if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
+                    return Math.Max(1, t.Weight / 4);
+                return t.Weight * 2;
+            }
+            if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
+                return  (int)(t.Weight + 58 * Math.Exp(-0.005 * t.Weight));
+            return  Math.Max(1, t.Weight / 4);
         }
 
         private static string FF13FilePath = null;
