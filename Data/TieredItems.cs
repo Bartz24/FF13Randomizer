@@ -573,8 +573,8 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> AxisBlade = new Tiered<Item>
-            (30, Items.BlazefireSaber, 3)
-            .Add(86, Items.Flamberge)
+            (30, Items.AxisBlade, 3)
+            .Add(86, Items.Enkindler)
             .Add(110, Items.OmegaWeapon2)
             .Register(manager);
 
