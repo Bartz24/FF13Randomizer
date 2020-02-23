@@ -473,7 +473,7 @@ namespace FF13Randomizer
                             {
                                 newItem = TieredItems.manager.Get(rank, tiered => GetTreasureWeight(tiered));
                                 rank--;
-                            } while (newItem == null || blacklisted.Contains(newItem.Item1));
+                            } while (rank >= 0 && (newItem == null || blacklisted.Contains(newItem.Item1)));
                             if (newItem.Item1.ID.StartsWith("wea_"))
                                 blacklisted.Add(newItem.Item1);
                             DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
@@ -585,7 +585,7 @@ namespace FF13Randomizer
                     {
                         RandomizeDrop(enemies, e, true);
                         RandomizeDrop(enemies, e, false);
-                    } while (e.CommonDropPointer == e.RareDropPointer);
+                    } while (e.CommonDropPointer == e.RareDropPointer && enemies.ItemIDs[(int)e.CommonDropPointer].Value != "");
                 });
             }
 
@@ -622,7 +622,14 @@ namespace FF13Randomizer
                 int rank = TieredItems.manager.GetRank(item, 1);
                 if (rank != -1)
                 {
-                    Tuple<Item, int> newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered,enemy));
+                    Tuple<Item, int> newItem;
+                    do
+                    {
+                        newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered,enemy));
+                        rank--;
+                    } while (newItem == null && rank >= 0);
+                    if (newItem.Item1 == null)
+                        return;
                     DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
                     if (!enemies.ItemIDs.Contains(dataStr))
                         enemies.ItemIDs.Add(dataStr, enemies.ItemIDs.GetTrueSize());
