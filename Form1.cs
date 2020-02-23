@@ -187,6 +187,14 @@ namespace FF13Randomizer
             string[] names = new string[] { "lightning", "fang", "snow", "sazh", "hope", "vanille" };
 
             Dictionary<string, CrystariumDatabase> crystariums = new Dictionary<string, CrystariumDatabase>();
+            Dictionary<string, Role[]> primaryRoles = new Dictionary<string, Role[]>();
+            primaryRoles.Add("lightning", new Role[] { Role.Commando, Role.Ravager, Role.Medic });
+            primaryRoles.Add("fang", new Role[] { Role.Commando, Role.Sentinel, Role.Saboteur });
+            primaryRoles.Add("snow", new Role[] { Role.Commando, Role.Ravager, Role.Sentinel });
+            primaryRoles.Add("sazh", new Role[] { Role.Commando, Role.Ravager, Role.Synergist });
+            primaryRoles.Add("hope", new Role[] { Role.Ravager, Role.Synergist, Role.Medic });
+            primaryRoles.Add("vanille", new Role[] { Role.Ravager, Role.Saboteur, Role.Medic });
+
             foreach (string name in names)
             {
                 crystariums.Add(name, new CrystariumDatabase($"{randoPath}\\original\\db\\crystal\\crystal_{name}.wdb"));
@@ -194,23 +202,74 @@ namespace FF13Randomizer
 
             if (Flags.CrystariumFlags.RandStats.FlagEnabled)
             {
+                Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages = new Dictionary<int, Dictionary<CrystariumType, List<int>>>();
                 for (int stage = 1; stage <= 10; stage++)
                 {
-                    List<Tuple<string, int>> statNodes = new List<Tuple<string, int>>();
+                    Dictionary<CrystariumType, List<int>> dict = new Dictionary<CrystariumType, List<int>>();
+                    dict.Add(CrystariumType.HP, new List<int>());
+                    dict.Add(CrystariumType.Strength, new List<int>());
+                    dict.Add(CrystariumType.Magic, new List<int>());
+                    statAverages.Add(stage, dict);
+                }
 
-                    foreach (string name in names)
+                statAverages.Values.ToList().ForEach(d => {
+                    d.Keys.ToList().ForEach(k =>
                     {
-                        statNodes.AddRange(crystariums[name].Crystarium.ToList()
-                            .Select((c, i) => new Tuple<string, int>(name, i))
-                            .Where(t =>
-                                crystariums[name].Crystarium[t.Item2].Stage == stage &&
-                                (crystariums[name].Crystarium[t.Item2].Type == CrystariumType.HP ||
-                                crystariums[name].Crystarium[t.Item2].Type == CrystariumType.Strength ||
-                                crystariums[name].Crystarium[t.Item2].Type == CrystariumType.Magic)));
+                        int avg = (int)Math.Ceiling((double)d[k].Sum(v => v)/d[k].Count);
+                        d[k].Clear();
+                        d[k].Add(avg);
+                    });
+                });
+
+                foreach (CrystariumDatabase crystarium in crystariums.Values)
+                {
+                    foreach (DataStoreCrystarium c in crystarium.Crystarium)
+                    {
+                        if (c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic)
+                        {
+                            statAverages[c.Stage][c.Type].Add(c.Value);
+                        }
+                    }
+                }
+                foreach (string name in names)
+                {
+                    CrystariumDatabase crystarium = crystariums[name];
+
+                    int hpMult = 1, strMult = 1, magMult = 1;
+                    while (hpMult + strMult + magMult < 300)
+                    {
+                        int val = Math.Max((300 - hpMult - strMult - magMult) / 15, 1);
+                        int select = RandomNum.randInt(0, 2);
+                        if (select == 0)
+                            hpMult += val;
+                        else if (select == 1)
+                            strMult += val;
+                        else
+                            magMult += val;
                     }
 
-                    statNodes.Shuffle((a, b) =>
-                            crystariums[a.Item1].Crystarium[a.Item2].SwapStats(crystariums[b.Item1].Crystarium[b.Item2]));
+                    foreach (DataStoreCrystarium c in crystarium.Crystarium)
+                    {
+                        if (c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic)
+                        {
+                            c.Type = RandomNum.SelectRandomWeighted(
+                                new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.ToList(),
+                                t => Math.Max(1, (int)Math.Sqrt(t == CrystariumType.HP ? hpMult : (t == CrystariumType.Strength ? strMult : magMult))));
+
+                            int avgValue = statAverages[c.Stage][c.Type][0];
+                            if (primaryRoles[name].Contains(c.Role))
+                                avgValue = (int)Math.Ceiling(avgValue * 1.2d);
+                            else
+                                avgValue = (int)Math.Ceiling(avgValue * 0.5d);
+
+                            if (c.Type == CrystariumType.HP)
+                                c.Value = (ushort)Math.Round(Math.Max(1, (float)avgValue * (float)hpMult / 100f));
+                            if (c.Type == CrystariumType.Strength)
+                                c.Value = (ushort)Math.Round(Math.Max(1, (float)avgValue * (float)strMult / 100f));
+                            if (c.Type == CrystariumType.Magic)
+                                c.Value = (ushort)Math.Round(Math.Max(1, (float)avgValue * (float)magMult / 100f));
+                        }
+                    }
                 }
             }
 
@@ -308,33 +367,7 @@ namespace FF13Randomizer
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
                         }
                     }
-                }
-
-                if (Flags.CrystariumFlags.RandStats.FlagEnabled)
-                {
-                    int hpMult = 0, strMult = 0, magMult = 0;
-                    while (hpMult + strMult + magMult < 300)
-                    {
-                        int val = Math.Max((300 - hpMult - strMult - magMult) / 15, 1);
-                        int select = RandomNum.randInt(0, 2);
-                        if (select == 0)
-                            hpMult += val;
-                        else if (select == 1)
-                            strMult += val;
-                        else
-                            magMult += val;
-                    }
-
-                    foreach (DataStoreCrystarium c in crystarium.Crystarium)
-                    {
-                        if (c.Type == CrystariumType.HP)
-                            c.Value = (ushort)Math.Round(Math.Max(1, (float)c.Value * (float)hpMult / 100f));
-                        if (c.Type == CrystariumType.Strength)
-                            c.Value = (ushort)Math.Round(Math.Max(1, (float)c.Value * (float)strMult / 100f));
-                        if (c.Type == CrystariumType.Magic)
-                            c.Value = (ushort)Math.Round(Math.Max(1, (float)c.Value * (float)magMult / 100f));
-                    }
-                }
+                }                
 
                 crystarium.Save($"db\\crystal\\crystal_{name}.wdb");
 
