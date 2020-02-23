@@ -21,6 +21,8 @@ namespace FF13Data
                 weightFunc = t => t.Weight;
             List<Tiered<T>> items = GetTiered(rank);
             List<Tuple<T, int>> possible = RandomNum.SelectRandomWeighted(items, weightFunc).Get(rank);
+            if (possible.Count == 0)
+                return new Tuple<T, int>(default(T), 0);
             return possible[RandomNum.randInt(0, possible.Count - 1)];
         }
 

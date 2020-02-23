@@ -44,6 +44,8 @@ namespace FF13Data
         public static T SelectRandomWeighted<T>(List<T> list, Func<T, int> weightFunc)
         {
             List<T> weightedList = list.Where(t => weightFunc.Invoke(t) > 0).ToList();
+            if (weightedList.Count == 0)
+                return default(T);
             int totalWeight = weightedList.Sum(t => weightFunc.Invoke(t));
             if (totalWeight == 0)
                 throw new Exception("Total weight cannot be 0");

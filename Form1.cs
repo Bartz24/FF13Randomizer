@@ -425,6 +425,8 @@ namespace FF13Randomizer
             {
                 treasures.ItemIDs.Clear();
 
+                List<Item> blacklisted = new List<Item>();
+
                 treasures.Treasures.ToList().ForEach(t =>
                 {
                     Item item = Items.items.Where(i => i.ID == oldTreasures.ItemIDs[(int)t.StartingPointer]?.Value).FirstOrDefault();
@@ -433,7 +435,14 @@ namespace FF13Randomizer
                         int rank = TieredItems.manager.GetRank(item, (int)t.Count);
                         if (rank != -1)
                         {
-                            Tuple<Item, int> newItem = TieredItems.manager.Get(rank, tiered => GetTreasureWeight(tiered));
+                            Tuple<Item, int> newItem;
+                            do
+                            {
+                                newItem = TieredItems.manager.Get(rank, tiered => GetTreasureWeight(tiered));
+                                rank--;
+                            } while (newItem == null || blacklisted.Contains(newItem.Item1));
+                            if (newItem.Item1.ID.StartsWith("wea_"))
+                                blacklisted.Add(newItem.Item1);
                             DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
                             if (!treasures.ItemIDs.Contains(dataStr))
                                 treasures.ItemIDs.Add(dataStr, treasures.ItemIDs.GetTrueSize());
@@ -486,7 +495,7 @@ namespace FF13Randomizer
         }
 
         private int GetTreasureWeight(Tiered<Item> t)
-        {
+        {            
             if (t.Items.Where(i => i.ID.StartsWith("material") || i.ID == "").Count() > 0)
                 return Math.Max(1, t.Weight / 5);
             return (int)(t.Weight + 5 * Math.Exp(-0.05 * t.Weight));
