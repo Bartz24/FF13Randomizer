@@ -22,6 +22,30 @@ namespace FF13Data
             .Add(100, Items.Elixir)
             .Register(manager);
 
+        public static Tiered<Item> Antidote = new Tiered<Item>
+            (12, Items.Antidote, 1, 99)
+            .Register(manager);
+
+        public static Tiered<Item> HolyWater = new Tiered<Item>
+            (12, Items.HolyWater, 1, 99)
+            .Register(manager);
+
+        public static Tiered<Item> Painkiller = new Tiered<Item>
+            (12, Items.Painkiller, 1, 99)
+            .Register(manager);
+
+        public static Tiered<Item> FoulLiquid = new Tiered<Item>
+            (12, Items.FoulLiquid, 1, 99)
+            .Register(manager);
+
+        public static Tiered<Item> Wax = new Tiered<Item>
+            (12, Items.Wax, 1, 99)
+            .Register(manager);
+
+        public static Tiered<Item> Mallet = new Tiered<Item>
+            (12, Items.Mallet, 1, 99)
+            .Register(manager);
+
         public static Tiered<Item> Ethersol = new Tiered<Item>
             (60, Items.Ethersol, 10)
             .Register(manager);
@@ -142,6 +166,11 @@ namespace FF13Data
             (15, Items.ClayRing, 5)
             .Add(28, Items.StilstoneRing)
             .Add(52, Items.GaianRing)
+            .Register(manager);
+
+
+        public static Tiered<Item> EntiteRing = new Tiered<Item>
+            (80, Items.EntiteRing, 3)
             .Register(manager);
 
         public static Tiered<Item> Glove = new Tiered<Item>
