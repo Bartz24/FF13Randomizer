@@ -539,8 +539,11 @@ namespace FF13Randomizer
             {
                 enemies.Enemies.ToList().ForEach(e =>
                 {
-                    RandomizeDrop(enemies, e, true);
-                    RandomizeDrop(enemies, e, false);
+                    do
+                    {
+                        RandomizeDrop(enemies, e, true);
+                        RandomizeDrop(enemies, e, false);
+                    } while (e.CommonDropPointer == e.RareDropPointer);
                 });
             }
 
