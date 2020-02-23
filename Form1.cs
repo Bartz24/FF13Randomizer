@@ -467,6 +467,8 @@ namespace FF13Randomizer
                 shopsRemaining.Clear();
                 for (int i = 1; i <= 13; i++)
                 {
+                    if (i == 4)
+                        continue;
                     shopsRemaining.Add("key_shop_" + i.ToString("00"));
                 }
                 shopsRemaining.Shuffle();
