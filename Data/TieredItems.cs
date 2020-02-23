@@ -87,16 +87,16 @@ namespace FF13Data
             (12, Items.PowerWristband, 30)
             .Add(20, Items.BrawlersWristband)
             .Add(35, Items.WarriorsWristband)
-            .Add(50, Items.PowerGlove)
-            .Add(80, Items.KaiserKnuckles)
+            .Add(66, Items.PowerGlove)
+            .Add(94, Items.KaiserKnuckles)
             .Register(manager);
 
         public static Tiered<Item> Mark = new Tiered<Item>
             (12, Items.MagiciansMark, 30)
             .Add(20, Items.ShamansMark)
             .Add(35, Items.SorcerersMark)
-            .Add(50, Items.WeirdingGlyph)
-            .Add(80, Items.MagistralCrest)
+            .Add(66, Items.WeirdingGlyph)
+            .Add(94, Items.MagistralCrest)
             .Register(manager);
 
         public static Tiered<Item> Belt = new Tiered<Item>
@@ -434,7 +434,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Seed = new Tiered<Item>
-            (40, Items.MoonblossomSeed, 1, 99, 1.2f)
+            (46, Items.MoonblossomSeed, 1, 99, 1.2f)
             .Add(70, Items.StarblossomSeed)
             .Register(manager);
 
