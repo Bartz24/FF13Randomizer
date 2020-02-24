@@ -230,6 +230,8 @@ namespace FF13Randomizer
                         d[k].Clear();
                         d[k].Add(avg);
                     });
+                    int avgStrMag = (d[CrystariumType.Strength][0] + d[CrystariumType.Magic][0]) / 2;
+                    d[CrystariumType.Strength][0] = d[CrystariumType.Magic][0] = avgStrMag;
                 });
 
                 foreach (string name in names)
