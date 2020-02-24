@@ -9,25 +9,26 @@ namespace FF13Data
     public class Tiered<T>
     {
         protected List<Tuple<int, T>> list = new List<Tuple<int, T>>();
-        private int maxCount, weight;
-        private float countScale;
+        protected int maxCount, weight;
+        protected float countScale;
 
         public Tiered(int rank, T item,int weight=1, int max=1, float scale = 1.1f)
         {
             this.maxCount = max;
             this.weight = weight;
             this.countScale = scale;
-            Add(rank, item);
+            if (rank >= 0)
+                Add(rank, item);
         }
 
-        public Tiered<T> Add(int rank, T item)
+        public virtual Tiered<T> Add(int rank, T item)
         {
             list.Add(new Tuple<int, T>(rank, item));
             list.Sort((a, b) => a.Item1.CompareTo(b.Item1));
             return this;
         }
 
-        public Tiered<T> Register(TieredManager<T> manager)
+        public virtual Tiered<T> Register(TieredManager<T> manager)
         {
             manager.list.Add(this);
             return this;
@@ -87,8 +88,10 @@ namespace FF13Data
             return Math.Min(maxCount, Math.Max(1, (int)Math.Pow(rankBoost, countScale)));
         }
 
-        public List<Tuple<T, int>> Get(int rank)
+        public List<Tuple<T, int>> Get(int rank, Func<T, bool> meetsReq = null)
         {
+            if (meetsReq == null)
+                meetsReq = t => true;
             if (rank < LowBound || rank > HighBound)
                 return new List<Tuple<T, int>>();
             List<int> validIndexes = new List<int>();
@@ -96,7 +99,7 @@ namespace FF13Data
             {
                 int upperBound = (i == list.Count - 1 ? HighBound : list[i + 1].Item1);
                 upperBound = Math.Max(upperBound, list[i].Item1 + GetCountBoost(maxCount));
-                if (rank >= list[i].Item1 && rank <= upperBound)
+                if (rank >= list[i].Item1 && rank <= upperBound && meetsReq.Invoke(list[i].Item2))
                     validIndexes.Add(i);
             }
             return validIndexes.Select(i => new Tuple<T, int>(list[i].Item2, GetCount(rank - list[i].Item1))).ToList();

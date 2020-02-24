@@ -61,10 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\TieredAbilities.cs" />
     <Compile Include="Data\DataStores\DataStoreEnemy.cs" />
     <Compile Include="Data\DataStores\DataStoreTreasure.cs" />
     <Compile Include="Data\EnemyStatDatabase.cs" />
     <Compile Include="Data\Random.cs" />
+    <Compile Include="Data\TieredDependent.cs" />
     <Compile Include="Data\TreasureDatabase.cs" />
     <Compile Include="Data\Items.cs" />
     <Compile Include="Data\Abilities.cs" />

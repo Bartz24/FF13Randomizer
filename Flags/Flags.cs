@@ -59,6 +59,14 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "The order nodes appear in on a stage level is randomized.\n" +
                 "-Does not affect CP Cost.  CP Cost is based on location."
             }.Register();
+
+            public static Flag HalfCPCost = new Flag()
+            {
+                Text = "Half CP Cost",
+                FlagID = "HfCPCost",
+                DescriptionFormat = "CP Cost is halved on all nodes to reduce grinding.",
+                FullDescriptionFormat = "CP Cost is halved on all nodes to reduce grinding."
+            }.Register();
         }
 
 
