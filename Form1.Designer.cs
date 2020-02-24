@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -56,9 +57,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonUninstall = new System.Windows.Forms.Button();
             this.tabPageDebug = new System.Windows.Forms.TabPage();
-            this.flagInfo1 = new FF13Randomizer.FlagInfo();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.flagInfo1 = new FF13Randomizer.FlagInfo();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
@@ -150,7 +153,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(601, 525);
+            this.tabControl1.Size = new System.Drawing.Size(597, 537);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 7;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
@@ -169,7 +172,7 @@
             this.tabPageBasics.Location = new System.Drawing.Point(104, 4);
             this.tabPageBasics.Name = "tabPageBasics";
             this.tabPageBasics.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBasics.Size = new System.Drawing.Size(493, 517);
+            this.tabPageBasics.Size = new System.Drawing.Size(489, 529);
             this.tabPageBasics.TabIndex = 0;
             this.tabPageBasics.Text = "Basics";
             this.tabPageBasics.UseVisualStyleBackColor = true;
@@ -243,7 +246,7 @@
             this.tabPageFlags.Location = new System.Drawing.Point(104, 4);
             this.tabPageFlags.Name = "tabPageFlags";
             this.tabPageFlags.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFlags.Size = new System.Drawing.Size(493, 517);
+            this.tabPageFlags.Size = new System.Drawing.Size(489, 529);
             this.tabPageFlags.TabIndex = 1;
             this.tabPageFlags.Text = "Flags";
             this.tabPageFlags.UseVisualStyleBackColor = true;
@@ -255,7 +258,7 @@
             this.tabPageFinish.Controls.Add(this.buttonRandomize);
             this.tabPageFinish.Location = new System.Drawing.Point(104, 4);
             this.tabPageFinish.Name = "tabPageFinish";
-            this.tabPageFinish.Size = new System.Drawing.Size(493, 517);
+            this.tabPageFinish.Size = new System.Drawing.Size(489, 529);
             this.tabPageFinish.TabIndex = 3;
             this.tabPageFinish.Text = "Finish";
             this.tabPageFinish.UseVisualStyleBackColor = true;
@@ -275,7 +278,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRandomize.Location = new System.Drawing.Point(26, 28);
             this.buttonRandomize.Name = "buttonRandomize";
-            this.buttonRandomize.Size = new System.Drawing.Size(134, 23);
+            this.buttonRandomize.Size = new System.Drawing.Size(130, 23);
             this.buttonRandomize.TabIndex = 5;
             this.buttonRandomize.Text = "RANDOMIZE!";
             this.buttonRandomize.UseVisualStyleBackColor = true;
@@ -283,6 +286,8 @@
             // 
             // tabPageUninstall
             // 
+            this.tabPageUninstall.Controls.Add(this.label9);
+            this.tabPageUninstall.Controls.Add(this.label8);
             this.tabPageUninstall.Controls.Add(this.label6);
             this.tabPageUninstall.Controls.Add(this.button9);
             this.tabPageUninstall.Controls.Add(this.label4);
@@ -291,7 +296,7 @@
             this.tabPageUninstall.Controls.Add(this.buttonUninstall);
             this.tabPageUninstall.Location = new System.Drawing.Point(104, 4);
             this.tabPageUninstall.Name = "tabPageUninstall";
-            this.tabPageUninstall.Size = new System.Drawing.Size(493, 517);
+            this.tabPageUninstall.Size = new System.Drawing.Size(489, 529);
             this.tabPageUninstall.TabIndex = 4;
             this.tabPageUninstall.Text = "Uninstall";
             this.tabPageUninstall.UseVisualStyleBackColor = true;
@@ -312,7 +317,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button9.Location = new System.Drawing.Point(34, 81);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(157, 23);
+            this.button9.Size = new System.Drawing.Size(153, 23);
             this.button9.TabIndex = 10;
             this.button9.Text = "Full Uninstall and Reextract";
             this.button9.UseVisualStyleBackColor = true;
@@ -333,7 +338,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFullUninstall.Location = new System.Drawing.Point(34, 52);
             this.buttonFullUninstall.Name = "buttonFullUninstall";
-            this.buttonFullUninstall.Size = new System.Drawing.Size(157, 23);
+            this.buttonFullUninstall.Size = new System.Drawing.Size(153, 23);
             this.buttonFullUninstall.TabIndex = 8;
             this.buttonFullUninstall.Text = "Full Uninstall";
             this.buttonFullUninstall.Click += new System.EventHandler(this.button11_Click);
@@ -353,7 +358,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUninstall.Location = new System.Drawing.Point(34, 23);
             this.buttonUninstall.Name = "buttonUninstall";
-            this.buttonUninstall.Size = new System.Drawing.Size(157, 23);
+            this.buttonUninstall.Size = new System.Drawing.Size(153, 23);
             this.buttonUninstall.TabIndex = 6;
             this.buttonUninstall.Text = "Uninstall";
             this.buttonUninstall.UseVisualStyleBackColor = true;
@@ -373,20 +378,10 @@
             this.tabPageDebug.Controls.Add(this.button4);
             this.tabPageDebug.Location = new System.Drawing.Point(104, 4);
             this.tabPageDebug.Name = "tabPageDebug";
-            this.tabPageDebug.Size = new System.Drawing.Size(493, 517);
+            this.tabPageDebug.Size = new System.Drawing.Size(489, 529);
             this.tabPageDebug.TabIndex = 2;
             this.tabPageDebug.Text = "DEBUG";
             this.tabPageDebug.UseVisualStyleBackColor = true;
-            // 
-            // flagInfo1
-            // 
-            this.flagInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flagInfo1.Location = new System.Drawing.Point(619, 12);
-            this.flagInfo1.Name = "flagInfo1";
-            this.flagInfo1.Size = new System.Drawing.Size(317, 525);
-            this.flagInfo1.TabIndex = 8;
-            this.flagInfo1.Visible = false;
             // 
             // label7
             // 
@@ -406,13 +401,43 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(83, 147);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(320, 26);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "NOTE: If you are just starting a new seed, just hit randomize again!\r\nNo need to " +
+    "uninstall!";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(83, 204);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(295, 65);
+            this.label9.TabIndex = 13;
+            this.label9.Text = resources.GetString("label9.Text");
+            // 
+            // flagInfo1
+            // 
+            this.flagInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flagInfo1.Location = new System.Drawing.Point(615, 12);
+            this.flagInfo1.Name = "flagInfo1";
+            this.flagInfo1.Size = new System.Drawing.Size(317, 537);
+            this.flagInfo1.TabIndex = 8;
+            this.flagInfo1.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(948, 549);
+            this.ClientSize = new System.Drawing.Size(944, 561);
             this.Controls.Add(this.flagInfo1);
             this.Controls.Add(this.tabControl1);
+            this.MaximumSize = new System.Drawing.Size(960, 600);
             this.Name = "Form1";
             this.Text = "FF13 Randomizer";
             this.tabControl1.ResumeLayout(false);
@@ -461,6 +486,8 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }
 
