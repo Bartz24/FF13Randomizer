@@ -469,9 +469,14 @@ namespace FF13Randomizer
         }
 
         List<string> shopsRemaining = new List<string>();
+        List<Item> blacklistedWeapons = new List<Item>();
 
         private void RandomizeTreasures()
         {
+            Items.items.ForEach(i=>{
+                if (i.ID.StartsWith("wea_") && i.ID.EndsWith("_001"))
+                    blacklistedWeapons.Add(i);
+            });
             TreasureDatabase oldTreasures = new TreasureDatabase($"{randoPath}\\original\\db\\resident\\treasurebox.wdb");
 
             TreasureDatabase treasures = new TreasureDatabase($"{randoPath}\\original\\db\\resident\\treasurebox.wdb");
@@ -494,7 +499,7 @@ namespace FF13Randomizer
                             {
                                 newItem = TieredItems.manager.Get(rank, tiered => GetTreasureWeight(tiered));
                                 rank--;
-                            } while (rank >= 0 && (newItem == null || blacklisted.Contains(newItem.Item1)));
+                            } while (rank >= 0 && (newItem == null || blacklisted.Contains(newItem.Item1) || blacklistedWeapons.Contains(newItem.Item1)));
                             if (newItem.Item1.ID.StartsWith("wea_"))
                                 blacklisted.Add(newItem.Item1);
                             DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
@@ -648,7 +653,7 @@ namespace FF13Randomizer
                     {
                         newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered,enemy));
                         rank--;
-                    } while (newItem == null && rank >= 0);
+                    } while ((newItem == null || blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
                     if (newItem.Item1 == null)
                         return;
                     DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
