@@ -212,15 +212,6 @@ namespace FF13Randomizer
                     statAverages.Add(stage, dict);
                 }
 
-                statAverages.Values.ToList().ForEach(d => {
-                    d.Keys.ToList().ForEach(k =>
-                    {
-                        int avg = (int)Math.Ceiling((double)d[k].Sum(v => v)/d[k].Count);
-                        d[k].Clear();
-                        d[k].Add(avg);
-                    });
-                });
-
                 foreach (CrystariumDatabase crystarium in crystariums.Values)
                 {
                     foreach (DataStoreCrystarium c in crystarium.Crystarium)
@@ -231,9 +222,33 @@ namespace FF13Randomizer
                         }
                     }
                 }
+
+                statAverages.Values.ToList().ForEach(d => {
+                    d.Keys.ToList().ForEach(k =>
+                    {
+                        int avg = (int)Math.Ceiling((double)d[k].Sum(v => v) / d[k].Count);
+                        d[k].Clear();
+                        d[k].Add(avg);
+                    });
+                });
+
                 foreach (string name in names)
                 {
                     CrystariumDatabase crystarium = crystariums[name];
+
+                    Dictionary<int, Dictionary<Role, int>> nodeCounts = new Dictionary<int, Dictionary<Role, int>>();
+                    for (int stage = 1; stage <= 10; stage++)
+                    {
+                        Dictionary<Role, int> stageDict = new Dictionary<Role, int>();
+                        foreach (Role role in Enum.GetValues(typeof(Role)))
+                        {
+                            stageDict.Add(role, crystarium.Crystarium.Where(
+                                c => c.Stage == stage && c.Role == role &&
+                                (c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic))
+                                .Count());
+                        }
+                        nodeCounts.Add(stage, stageDict);
+                    }
 
                     int hpMult = 1, strMult = 1, magMult = 1;
                     while (hpMult + strMult + magMult < 300)
@@ -254,13 +269,19 @@ namespace FF13Randomizer
                         {
                             c.Type = RandomNum.SelectRandomWeighted(
                                 new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.ToList(),
-                                t => Math.Max(1, (int)Math.Sqrt(t == CrystariumType.HP ? hpMult : (t == CrystariumType.Strength ? strMult : magMult))));
+                                t => Math.Max(1, (int)Math.Pow(t == CrystariumType.HP ? hpMult : (t == CrystariumType.Strength ? strMult : magMult), 1 / 1.5d)));
 
                             int avgValue = statAverages[c.Stage][c.Type][0];
                             if (primaryRoles[name].Contains(c.Role))
-                                avgValue = (int)Math.Ceiling(avgValue * 1.2d);
+                            {
+                                avgValue = (int)Math.Ceiling(avgValue * (5 * Math.Exp(-0.5d * nodeCounts[c.Stage][c.Role]) + 1));
+                            }
                             else
-                                avgValue = (int)Math.Ceiling(avgValue * 0.5d);
+                                avgValue = (int)Math.Ceiling(avgValue / 1.8d);
+
+                            if(name!="fang" && c.CPCost == 0)
+                                avgValue = (int)Math.Floor(avgValue * 2.8d);
+
 
                             if (c.Type == CrystariumType.HP)
                                 c.Value = (ushort)Math.Round(Math.Max(1, (float)avgValue * (float)hpMult / 100f));
