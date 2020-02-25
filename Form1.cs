@@ -178,13 +178,16 @@ namespace FF13Randomizer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RandomizeCrystarium();
+            //RandomizeCrystarium();
             MessageBox.Show("Done.");
         }
 
-        private void RandomizeCrystarium()
+        private void RandomizeCrystarium(BackgroundWorker backgroundWorker)
         {
             string[] names = new string[] { "lightning", "fang", "snow", "sazh", "hope", "vanille" };
+
+            Dictionary<Role, StatValues> roleMults = new Dictionary<Role, StatValues>();
+            Dictionary<string, StatValues> charMults = new Dictionary<string, StatValues>();
 
             Dictionary<string, CrystariumDatabase> crystariums = new Dictionary<string, CrystariumDatabase>();
             Dictionary<string, Role[]> primaryRoles = new Dictionary<string, Role[]>();
@@ -202,6 +205,20 @@ namespace FF13Randomizer
 
             if (Flags.CrystariumFlags.RandStats.FlagEnabled)
             {
+                foreach (Role role in Enum.GetValues(typeof(Role)))
+                {
+                    StatValues stats = new StatValues(1, 1, 1);
+                    stats.Randomize(300);
+                    roleMults.Add(role, stats);
+                }
+
+                foreach (string name in names)
+                {
+                    StatValues stats = new StatValues(1, 1, 1);
+                    stats.Randomize(300);
+                    charMults.Add(name, stats);
+                }
+
                 Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages = new Dictionary<int, Dictionary<CrystariumType, List<int>>>();
                 for (int stage = 1; stage <= 10; stage++)
                 {
@@ -221,14 +238,15 @@ namespace FF13Randomizer
                             statAverages[c.Stage][c.Type].Add(c.Value);
                         }
 
-                        if(Flags.CrystariumFlags.HalfCPCost.FlagEnabled)
+                        if (Flags.CrystariumFlags.HalfCPCost.FlagEnabled)
                         {
                             c.CPCost /= 2;
                         }
                     }
                 }
 
-                statAverages.Values.ToList().ForEach(d => {
+                statAverages.Values.ToList().ForEach(d =>
+                {
                     d.Keys.ToList().ForEach(k =>
                     {
                         int avg = (int)Math.Ceiling((double)d[k].Sum(v => v) / d[k].Count);
@@ -257,26 +275,13 @@ namespace FF13Randomizer
                         nodeCounts.Add(stage, stageDict);
                     }
 
-                    int hpMult = 1, strMult = 1, magMult = 1;
-                    while (hpMult + strMult + magMult < 300)
-                    {
-                        int val = Math.Max((300 - hpMult - strMult - magMult) / 15, 1);
-                        int select = RandomNum.randInt(0, 2);
-                        if (select == 0)
-                            hpMult += val;
-                        else if (select == 1)
-                            strMult += val;
-                        else
-                            magMult += val;
-                    }
-
                     foreach (DataStoreCrystarium c in crystarium.Crystarium)
                     {
                         if (c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic)
                         {
                             c.Type = RandomNum.SelectRandomWeighted(
                                 new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.ToList(),
-                                t => Math.Max(1, (int)Math.Pow(t == CrystariumType.HP ? hpMult : (t == CrystariumType.Strength ? strMult : magMult), 1 / 1.5d)));
+                                t => Math.Max(1, (int)Math.Pow(t == CrystariumType.HP ? charMults[name].HP : (t == CrystariumType.Strength ? charMults[name].STR : charMults[name].MAG), 1 / 1.5d)));
 
                             int avgValue = statAverages[c.Stage][c.Type][0];
                             if (primaryRoles[name].Contains(c.Role))
@@ -286,18 +291,39 @@ namespace FF13Randomizer
                             else
                                 avgValue = (int)Math.Ceiling(avgValue / 1.8d);
 
-                            if(name!="fang" && c.CPCost == 0)
+                            if (name != "fang" && c.CPCost == 0)
                                 avgValue = (int)Math.Floor(avgValue * 2.8d);
 
 
                             if (c.Type == CrystariumType.HP)
-                                c.Value = (ushort)Math.Round(Math.Max(1, (float)avgValue * (float)hpMult / 100f));
+                                c.Value = (ushort)Math.Round(Math.Max(1,
+                                    (float)avgValue * (float)charMults[name].HP * (float)roleMults[c.Role].HP / 10000f));
                             if (c.Type == CrystariumType.Strength)
-                                c.Value = (ushort)Math.Round(Math.Max(1, (float)avgValue * (float)strMult / 100f));
+                                c.Value = (ushort)Math.Round(Math.Max(1,
+                                    (float)avgValue * (float)charMults[name].STR * (float)roleMults[c.Role].STR / 10000f));
                             if (c.Type == CrystariumType.Magic)
-                                c.Value = (ushort)Math.Round(Math.Max(1, (float)avgValue * (float)magMult / 100f));
+                                c.Value = (ushort)Math.Round(Math.Max(1,
+                                    (float)avgValue * (float)charMults[name].MAG * (float)roleMults[c.Role].MAG / 10000f));
                         }
                     }
+
+                    List<DataStoreCrystarium> list = crystarium.Crystarium.Where(
+                        c => c.Type == CrystariumType.HP ||
+                    c.Type == CrystariumType.Strength ||
+                    c.Type == CrystariumType.Magic).ToList();
+
+                    for (int i = 0; i < list.Count() / 2; i++)
+                    {
+                        DataStoreCrystarium c = list[RandomNum.randInt(0, list.Count - 1)];
+                        float mult = RandomNum.randInt(100, 300) / 100f;
+                        list.ForEach(cr =>
+                        {
+                            if (c.Type == cr.Type && c.Stage == cr.Stage)
+                                cr.Value = (ushort)Math.Ceiling(cr == c ? (cr.Value * mult) : (cr.Value * .97f));
+                        });
+                    }
+
+                    backgroundWorker.ReportProgress(names.ToList().IndexOf(name) * (50 / 6));
                 }
             }
 
@@ -312,9 +338,9 @@ namespace FF13Randomizer
                                 && c.CPCost > 0).ToList()
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
                 }
-                
+
                 List<Tiered<Ability>> techniques = TieredAbilities.manager.list.Where(
-                    t => t.Items.Where(a=> a.Role == Role.None).Count() > 0).ToList();
+                    t => t.Items.Where(a => a.Role == Role.None).Count() > 0).ToList();
 
                 for (int r = 1; r <= 6; r++)
                 {
@@ -352,7 +378,7 @@ namespace FF13Randomizer
                         List<Ability> obtained = new List<Ability>();
                         int maxStage = 1;
                         for (int i = 0; i < abilityNodes.Count; i++)
-                        {                            
+                        {
                             DataStoreCrystarium cryst = crystarium.Crystarium[abilityNodes[i]];
                             if (cryst.Stage < maxStage)
                                 throw new Exception("Went down in stage!");
@@ -360,7 +386,7 @@ namespace FF13Randomizer
 
                             Ability orig = Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)cryst.AbilityPointer]?.Value).FirstOrDefault();
 
-                            if(orig == Abilities.Libra || orig == Abilities.Renew || orig == Abilities.Stopga || orig == Abilities.Quake || orig == Abilities.Dispelga)
+                            if (orig == Abilities.Libra || orig == Abilities.Renew || orig == Abilities.Stopga || orig == Abilities.Quake || orig == Abilities.Dispelga)
                             {
                                 int newI;
                                 Ability ability;
@@ -391,7 +417,7 @@ namespace FF13Randomizer
                                     crystarium.AbilityIDs.Add(dataStr, crystarium.AbilityIDs.GetTrueSize());
                                 cryst.AbilityPointer = (uint)crystarium.AbilityIDs.IndexOf(dataStr);
                                 obtained.Add(ability);
-                                starting.RemoveAt(newI);                                
+                                starting.RemoveAt(newI);
                                 abilityNodes.RemoveAt(i);
                                 break;
                             }
@@ -399,7 +425,7 @@ namespace FF13Randomizer
                         maxStage = 1;
                         rest.AddRange(starting);
                         for (int i = 0; i < abilityNodes.Count; i++)
-                        {       
+                        {
                             DataStoreCrystarium cryst = crystarium.Crystarium[abilityNodes[i]];
                             if (cryst.Stage < maxStage)
                                 throw new Exception("Went down in stage!");
@@ -452,34 +478,41 @@ namespace FF13Randomizer
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
                         }
                     }
-                }                
+                }
 
                 crystarium.Save($"db\\crystal\\crystal_{name}.wdb");
+
+                backgroundWorker.ReportProgress(50 + names.ToList().IndexOf(name) * (50 / 6));
 
             }
         }
 
-        private void runCommand(string command, bool showConsole = true)
+        private static BackgroundWorker commandWorker;
+        private static int workerStart, workerMax,maxLines,curLines;
+
+        private void runCommand(string command, bool showConsole = true, BackgroundWorker backgroundWorker=null,int cur=0, int max=0,int maxLine=0)
         {
             ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + command);
 
-            //procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.RedirectStandardOutput = true;
             procStartInfo.UseShellExecute = false;
             procStartInfo.Verb = "runas";
 
-            procStartInfo.CreateNoWindow = !showConsole;
+            procStartInfo.CreateNoWindow = true;
 
-#if DEBUG
-            procStartInfo.CreateNoWindow = false;
-#endif
-
+            commandWorker = backgroundWorker;
+            workerStart = cur;
+            workerMax = max;
+            curLines = 0;
+            maxLines = maxLine;
             // wrap IDisposable into using (in order to release hProcess) 
             using (Process process = new Process())
-            {
+            {                
                 process.OutputDataReceived += new DataReceivedEventHandler(MyProcOutputHandler);
                 process.StartInfo = procStartInfo;
                 process.Start();
 
+                process.BeginOutputReadLine();
                 // Add this: wait until process does its work
                 process.WaitForExit();                
             }
@@ -492,10 +525,13 @@ namespace FF13Randomizer
             if (!String.IsNullOrEmpty(outLine.Data))
             {
                 Console.WriteLine(outLine.Data);
+                curLines++;
+                if (commandWorker != null)
+                    commandWorker.ReportProgress(workerStart + (curLines * (workerMax - workerStart) / maxLines));
             }
         }
 
-        private void insertFiles(bool newFiles)
+        private void insertFiles(BackgroundWorker backgroundWorker, bool newFiles)
         {
             foreach (string path in fileNamesModified)
             {
@@ -509,6 +545,7 @@ namespace FF13Randomizer
                     $"\"{GetFF13Directory() + "\\white_data\\sys\\white_imgu.win32.bin"}\" "+
                     $"\"{filePath}\"";
                 runCommand(command, false);
+                backgroundWorker.ReportProgress(fileNamesModified.ToList().IndexOf(path) * 100 / fileNamesModified.Length);
             }
         }
 
@@ -527,7 +564,7 @@ namespace FF13Randomizer
 
         private void button3_Click(object sender, EventArgs e)
         {
-            RandomizeTreasures();
+            //RandomizeTreasures();
             MessageBox.Show("Done.");
 
         }
@@ -535,7 +572,7 @@ namespace FF13Randomizer
         List<string> shopsRemaining = new List<string>();
         List<Item> blacklistedWeapons = new List<Item>();
 
-        private void RandomizeTreasures()
+        private void RandomizeTreasures(BackgroundWorker backgroundWorker)
         {
             Items.items.ForEach(i=>{
                 if (i.ID.StartsWith("wea_") && i.ID.EndsWith("_001"))
@@ -549,7 +586,7 @@ namespace FF13Randomizer
                 treasures.ItemIDs.Clear();
 
                 List<Item> blacklisted = new List<Item>();
-
+                int completed = 0;
                 treasures.Treasures.ToList().ForEach(t =>
                 {
                     Item item = Items.items.Where(i => i.ID == oldTreasures.ItemIDs[(int)t.StartingPointer]?.Value).FirstOrDefault();
@@ -591,6 +628,9 @@ namespace FF13Randomizer
                     if (t.StartingPointer > 0xAAAA || t.EndingPointer > 0xAAAA)
                         throw new Exception("Too large");
 
+                    completed++;
+
+                    backgroundWorker.ReportProgress(completed * 100 / treasures.Treasures.count);
                 });
             }
 
@@ -662,13 +702,14 @@ namespace FF13Randomizer
             MessageBox.Show("Done.");
         }
 
-        private void RandomizeDrops()
+        private void RandomizeDrops(BackgroundWorker backgroundWorker)
         {
             byte[] scene = File.ReadAllBytes($"{ randoPath}\\original\\db\\resident\\bt_scene.wdb");
             EnemyStatDatabase enemies = new EnemyStatDatabase($"{randoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
 
             if (Flags.ItemFlags.Drops.FlagEnabled)
             {
+                int completed = 0;
                 enemies.Enemies.ToList().ForEach(e =>
                 {
                     do
@@ -676,6 +717,8 @@ namespace FF13Randomizer
                         RandomizeDrop(enemies, e, true);
                         RandomizeDrop(enemies, e, false);
                     } while (e.CommonDropPointer == e.RareDropPointer && enemies.ItemIDs[(int)e.CommonDropPointer].Value != "");
+                    completed++;
+                    backgroundWorker.ReportProgress(completed * 95 / enemies.Enemies.count);
                 });
             }
 
@@ -882,17 +925,17 @@ namespace FF13Randomizer
 
         private void button9_Click(object sender, EventArgs e)
         {
-            ExtractFiles();
+
+            new ProgressForm("Extracting files...", bw => ExtractFiles(bw)).ShowDialog();
 
             RandomNum.SetSeed(GetIntSeed(textBoxSeed.Text));
 
-            MessageBox.Show("Randomizing...Please Wait. After pressing OK.");
+            new ProgressForm("Randomizing crystarium...", bw => RandomizeCrystarium(bw)).ShowDialog();
+            new ProgressForm("Randomizing treasures...", bw => RandomizeTreasures(bw)).ShowDialog();
+            new ProgressForm("Randomizing drops...", bw => RandomizeDrops(bw)).ShowDialog();
 
-            RandomizeCrystarium();
-            RandomizeTreasures();
-            RandomizeDrops();
 
-            insertFiles(true);
+            new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
 
             UserFlagsSeed.Export(randoPath + "\\FlagsSeeds", textBoxSeed.Text.Trim(), version);
 
@@ -914,34 +957,37 @@ namespace FF13Randomizer
             return false;
         }
 
-        private void ExtractFiles(bool force=false)
+        private void ExtractFiles(BackgroundWorker backgroundWorker, bool force=false)
         {
             if (!force && !NeedsExtracting())
                 return;
-            MessageBox.Show("Extracting FF13 files!!!\nThis will take a while and should only be done the first time.\nIt'll take a while. Maybe a few minutes...");
             
             if (Directory.Exists(randoPath))
             {
                 if (File.Exists(randoPath + "\\filelistu.win32.bin"))
-                    FullUninstall();
+                    new ProgressForm("Fully reverting to vanilla files...", bw => FullUninstall(bw)).ShowDialog();
                 Directory.GetDirectories(randoPath).Where(d=>!d.EndsWith("FlagsSeeds")).ToList().ForEach(d => Directory.Delete(d, true));
             }
+            backgroundWorker.ReportProgress(10);
             Directory.CreateDirectory(randoPath);
             File.Copy(GetFF13Directory() + "\\white_data\\sys\\filelistu.win32.bin", randoPath + "\\filelistu.win32.bin",true);
+            backgroundWorker.ReportProgress(20);
             File.Copy(GetFF13Directory() + "\\white_data\\sys\\white_imgu.win32.bin", randoPath + "\\white_imgu.win32.bin",true);
+            backgroundWorker.ReportProgress(30);
 
-            runCommand($"ff13tool.exe -x \"{randoPath + "\\filelistu.win32.bin"}\" \"{randoPath + "\\white_imgu.win32.bin"}\"");
+            runCommand($"ff13tool.exe -x \"{randoPath + "\\filelistu.win32.bin"}\" \"{randoPath + "\\white_imgu.win32.bin"}\"", false, backgroundWorker, 30, 70, 14106);
+            backgroundWorker.ReportProgress(70);
 
             foreach (string path in fileNamesModified)
             {
                 Directory.CreateDirectory(randoPath + "\\original\\" + Path.GetDirectoryName(path.Replace("/", "\\")));
                 Directory.CreateDirectory(Path.GetDirectoryName(path.Replace("/", "\\")));
                 File.Copy(randoPath + "\\white_imgu\\" + path.Replace("/", "\\"), randoPath + "\\original\\" + path.Replace("/", "\\"));
+                
             }
+            backgroundWorker.ReportProgress(85);
 
             Directory.Delete(randoPath + "\\white_imgu", true);
-
-            MessageBox.Show("Finished Extracting!");
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -951,33 +997,33 @@ namespace FF13Randomizer
                 MessageBox.Show("Randomizer hasn't extracted the files...no reason to uninstall.");
                 return;
             }
-            MessageBox.Show("Begin Uninstalling...");
-            insertFiles(false);
-            MessageBox.Show("Finished Uninstalling!");
+            new ProgressForm("Reverting to vanilla files...", bw => insertFiles(bw, false)).ShowDialog();
 
         }
         private void button11_Click(object sender, EventArgs e)
         {
-            FullUninstall();
+            new ProgressForm("Fully reverting to vanilla files...", bw => FullUninstall(bw)).ShowDialog();
         }
 
-        private void FullUninstall()
+        private void FullUninstall(BackgroundWorker backgroundWorker)
         {
             if (!Directory.Exists(randoPath))
             {
                 MessageBox.Show("Randomizer hasn't extracted the files...no reason to uninstall.");
                 return;
             }
-            MessageBox.Show("Begin Uninstalling...");
             File.Copy(randoPath + "\\filelistu.win32.bin", GetFF13Directory() + "\\white_data\\sys\\filelistu.win32.bin", true);
+            backgroundWorker.ReportProgress(50);
             File.Copy(randoPath + "\\white_imgu.win32.bin", GetFF13Directory() + "\\white_data\\sys\\white_imgu.win32.bin", true);
-            MessageBox.Show("Finished Uninstalling!");
+            backgroundWorker.ReportProgress(100);
         }
 
         private void button9_Click_1(object sender, EventArgs e)
         {
-            FullUninstall();
-            ExtractFiles(true);
+            new ProgressForm("Fully reverting to vanilla files...", bw => FullUninstall(bw)).ShowDialog();
+            new ProgressForm("Extracting files...", bw => ExtractFiles(bw,true)).ShowDialog();
+
+            MessageBox.Show("Finished reextracting!");
         }
 
         private void button10_Click_1(object sender, EventArgs e)
