@@ -780,6 +780,8 @@ namespace FF13Randomizer
                 return 0;
             if (enemy.Level >= 50)
             {
+                if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
+                    return t.Weight * 3;
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                     return 0;
                 if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
@@ -787,8 +789,8 @@ namespace FF13Randomizer
                 return t.Weight * 2;
             }
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return  (int)(t.Weight + 58 * Math.Exp(-0.005 * t.Weight));
-            return  Math.Max(1, t.Weight / 4);
+                return  (int)(t.Weight + 38 * Math.Exp(-0.005 * t.Weight));
+            return  (int)Math.Max(1, t.Weight / 3.5f);
         }
 
         private static string FF13FilePath = null;

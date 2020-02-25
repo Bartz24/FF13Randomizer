@@ -11,39 +11,39 @@ namespace FF13Data
         public static TieredManager<Item> manager = new TieredManager<Item>();
 
         public static Tiered<Item> Gil = new Tiered<Item>
-            (0, Items.Gil, 10, 100000, 2.7f)
+            (0, Items.Gil, 15, 100000, 2.7f)
             .Register(manager);
 
         #region Consumables
 
         public static Tiered<Item> HealingItem = new Tiered<Item>
-            (8, Items.Potion, 50, 99, 0.85f)
+            (8, Items.Potion, 20, 99, 0.85f)
             .Add(15, Items.PhoenixDown)
             .Add(100, Items.Elixir)
             .Register(manager);
 
         public static Tiered<Item> Antidote = new Tiered<Item>
-            (12, Items.Antidote, 1, 99)
+            (12, Items.Antidote, 1, 99, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> HolyWater = new Tiered<Item>
-            (12, Items.HolyWater, 1, 99)
+            (12, Items.HolyWater, 1, 99, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Painkiller = new Tiered<Item>
-            (12, Items.Painkiller, 1, 99)
+            (12, Items.Painkiller, 1, 99, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> FoulLiquid = new Tiered<Item>
-            (12, Items.FoulLiquid, 1, 99)
+            (12, Items.FoulLiquid, 1, 99, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Wax = new Tiered<Item>
-            (12, Items.Wax, 1, 99)
+            (12, Items.Wax, 1, 99, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Mallet = new Tiered<Item>
-            (12, Items.Mallet, 1, 99)
+            (12, Items.Mallet, 1, 99, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Ethersol = new Tiered<Item>
@@ -71,7 +71,7 @@ namespace FF13Data
         #region Accessories
 
         public static Tiered<Item> Bangle = new Tiered<Item>
-            (10, Items.IronBangle, 40)
+            (10, Items.IronBangle, 10)
             .Add(15, Items.SilverBangle)
             .Add(20, Items.TungstenBangle)
             .Add(28, Items.TitaniumBangle)
@@ -84,7 +84,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Wristband = new Tiered<Item>
-            (12, Items.PowerWristband, 30)
+            (12, Items.PowerWristband, 8)
             .Add(20, Items.BrawlersWristband)
             .Add(35, Items.WarriorsWristband)
             .Add(66, Items.PowerGlove)
@@ -92,7 +92,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Mark = new Tiered<Item>
-            (12, Items.MagiciansMark, 30)
+            (12, Items.MagiciansMark, 8)
             .Add(20, Items.ShamansMark)
             .Add(35, Items.SorcerersMark)
             .Add(66, Items.WeirdingGlyph)
@@ -573,7 +573,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Catalyst = new Tiered<Item>
-            (0, Items.Millerite)
+            (0, Items.Millerite, 5)
             .Add(12, Items.Rhodochrosite)
             .Add(22, Items.Cobaltite)
             .Add(34, Items.Perovskite)
