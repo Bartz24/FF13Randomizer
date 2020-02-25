@@ -23,10 +23,10 @@ namespace FF13Randomizer
 
             public static Flag ShuffleATBAccessory = new Flag()
             {
-                Text = "Shuffle ATB Levels and Accessories",
+                Text = "Shuffle ATB Levels, Accessories, and Techniques",
                 FlagID = "ShATBAcc",
-                DescriptionFormat = "Shuffles the ATB Level node and Accessory nodes across all roles.",
-                FullDescriptionFormat = "Shuffles the ATB Level node and Accessory nodes across all roles."
+                DescriptionFormat = "Shuffles the ATB Level node, Accessory nodes and techniques across all roles.",
+                FullDescriptionFormat = "Shuffles the ATB Level node, Accessory nodes and techniques across all roles."
             }.Register();
 
             public static Flag ShuffleNonStat = new Flag()

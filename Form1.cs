@@ -334,7 +334,9 @@ namespace FF13Randomizer
                 if (Flags.CrystariumFlags.ShuffleATBAccessory.FlagEnabled)
                 {
                     crystarium.Crystarium.ToList()
-                                .Where(c => (c.Type == CrystariumType.Accessory || c.Type == CrystariumType.ATBLevel)
+                                .Where(c => (c.Type == CrystariumType.Accessory || c.Type == CrystariumType.ATBLevel
+                                || (c.Type == CrystariumType.Ability &&
+                                isTechnique(Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)c.AbilityPointer]?.Value).FirstOrDefault())))
                                 && c.CPCost > 0).ToList()
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
                 }
@@ -353,7 +355,10 @@ namespace FF13Randomizer
                                 || c.Type == CrystariumType.Ability
                                 || c.Type == CrystariumType.ATBLevel
                                 || c.Type == CrystariumType.RoleLevel)
-                                && c.Role == role && c.CPCost > 0
+                                && c.Role == role
+                                && (c.CPCost > 0 || 
+                                (c.Type == CrystariumType.Ability &&
+                                isTechnique(Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)c.AbilityPointer]?.Value).FirstOrDefault())))
                                 && ((!primaryRoles[name].Contains(role) && c.Stage > 1) || primaryRoles[name].Contains(role))).ToList()
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
                     }
@@ -386,7 +391,7 @@ namespace FF13Randomizer
 
                             Ability orig = Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)cryst.AbilityPointer]?.Value).FirstOrDefault();
 
-                            if (orig == Abilities.Libra || orig == Abilities.Renew || orig == Abilities.Stopga || orig == Abilities.Quake || orig == Abilities.Dispelga)
+                            if (isTechnique(orig))
                             {
                                 int newI;
                                 Ability ability;
@@ -433,7 +438,7 @@ namespace FF13Randomizer
 
                             Ability orig = Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)cryst.AbilityPointer]?.Value).FirstOrDefault();
 
-                            if (orig == Abilities.Libra || orig == Abilities.Renew || orig == Abilities.Stopga || orig == Abilities.Quake || orig == Abilities.Dispelga)
+                            if (isTechnique(orig))
                             {
                                 int newI;
                                 Ability ability;
@@ -485,6 +490,11 @@ namespace FF13Randomizer
                 backgroundWorker.ReportProgress(50 + names.ToList().IndexOf(name) * (50 / 6));
 
             }
+        }
+
+        private static bool isTechnique(Ability orig)
+        {
+            return orig == Abilities.Libra || orig == Abilities.Renew || orig == Abilities.Stopga || orig == Abilities.Quake || orig == Abilities.Dispelga;
         }
 
         private static BackgroundWorker commandWorker;
