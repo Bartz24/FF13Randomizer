@@ -791,19 +791,22 @@ namespace FF13Randomizer
         {
             if (t.Items.Where(i => i.ID == "").Count() > 0)
                 return 0;
+            float mult;
             if (enemy.Level >= 50 && !forceNormalDrop)
-            {               
+            {
+                mult = (float)Math.Pow(enemy.Level - 49, 1.25f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
-                    return t.Weight * 3;
+                    return (int)(t.Weight * 3 * mult);
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                     return 0;
                 if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
                     return Math.Max(1, t.Weight / 4);
-                return t.Weight * 2;
+                return (int)(t.Weight * 2 * mult);
             }
+            mult = (float)Math.Pow(enemy.Level + 1, 1.25f);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return  (int)(t.Weight + 38 * Math.Exp(-0.005 * t.Weight));
-            return  (int)Math.Max(1, t.Weight / 3.5f);
+                return  (int)((t.Weight + 38 * Math.Exp(-0.005 * t.Weight)));
+            return  (int)Math.Max(1, t.Weight / 3.5f * mult);
         }
 
         private static string FF13FilePath = null;
