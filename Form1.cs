@@ -867,6 +867,8 @@ namespace FF13Randomizer
             float mult;
             if (enemy.Level >= 50 && !forceNormalDrop)
             {
+                if (t.Items.Contains(Items.DoctorsCode))
+                    return t.Weight * 5;
                 mult = 1 + .01f * (float)Math.Pow(enemy.Level - 50, .8f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                     return (int)(t.Weight * 3 * mult);

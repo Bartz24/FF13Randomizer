@@ -47,19 +47,19 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Ethersol = new Tiered<Item>
-            (60, Items.Ethersol, 10)
+            (60, Items.Ethersol, 15)
             .Register(manager);
 
         public static Tiered<Item> Fortisol = new Tiered<Item>
-            (50, Items.Fortisol, 10)
+            (50, Items.Fortisol, 15)
             .Register(manager);
 
         public static Tiered<Item> Aegisol = new Tiered<Item>
-            (50, Items.Aegisol, 10)
+            (50, Items.Aegisol, 15)
             .Register(manager);
 
         public static Tiered<Item> Deceptisol = new Tiered<Item>
-            (30, Items.Deceptisol, 10)
+            (30, Items.Deceptisol, 15)
             .Register(manager);
 
 
