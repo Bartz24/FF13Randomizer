@@ -281,7 +281,10 @@ namespace FF13Randomizer
                         {
                             c.Type = RandomNum.SelectRandomWeighted(
                                 new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.ToList(),
-                                t => Math.Max(1, (int)Math.Pow(t == CrystariumType.HP ? charMults[name].HP : (t == CrystariumType.Strength ? charMults[name].STR : charMults[name].MAG), 1 / 1.5d)));
+                                t => Math.Max(1, (int)Math.Pow(
+                                    t == CrystariumType.HP ? (charMults[name].HP * roleMults[c.Role].HP) : (
+                                    t == CrystariumType.Strength ? (charMults[name].STR * roleMults[c.Role].STR) : 
+                                    (charMults[name].MAG * roleMults[c.Role].MAG)), 1 / 1.5d)));
 
                             int avgValue = statAverages[c.Stage][c.Type][0];
                             if (primaryRoles[name].Contains(c.Role))
