@@ -768,7 +768,7 @@ namespace FF13Randomizer
                     Tuple<Item, int> newItem;
                     do
                     {
-                        newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered,enemy));
+                        newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered, enemy, item.ID.StartsWith("it") && enemy.Level > 50));
                         rank--;
                     } while ((newItem == null || blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
                     if (newItem.Item1 == null)
@@ -784,12 +784,12 @@ namespace FF13Randomizer
             }
         }
 
-        private int GetDropWeight(Tiered<Item> t,DataStoreEnemy enemy)
+        private int GetDropWeight(Tiered<Item> t,DataStoreEnemy enemy,bool forceNormalDrop)
         {
             if (t.Items.Where(i => i.ID == "").Count() > 0)
                 return 0;
-            if (enemy.Level >= 50)
-            {
+            if (enemy.Level >= 50 && !forceNormalDrop)
+            {               
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                     return t.Weight * 3;
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
