@@ -60,12 +60,15 @@ namespace FF13Randomizer
                 "-Does not affect CP Cost.  CP Cost is based on location."
             }.Register();
 
-            public static Flag HalfCPCost = new Flag()
+            public static Flag ScaledCPCost = new Flag()
             {
-                Text = "Half CP Cost",
-                FlagID = "HfCPCost",
-                DescriptionFormat = "CP Cost is halved on all nodes to reduce grinding.",
-                FullDescriptionFormat = "CP Cost is halved on all nodes to reduce grinding."
+                Text = "Scaled CP Cost",
+                FlagID = "ScCPCost",
+                DescriptionFormat = "CP Cost scales down as stage increases.",
+                FullDescriptionFormat = "CP Cost scales down as stage increases.\n" +
+                "-Stage 1 is 1x multiplier\n" +
+                "-Stage 5 is 0.7x multiplier\n" +
+                "-Stage 9 and 10 are 0.5x multiplier"
             }.Register();
         }
 

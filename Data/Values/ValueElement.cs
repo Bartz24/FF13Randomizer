@@ -27,4 +27,14 @@ namespace FF13Data
         Medic = 6,
         Saboteur = 5
     }
+
+    public enum ElementalRes : byte
+    {
+        Normal = 0,
+        Weak = 1,
+        Halved = 2,
+        Resistant = 3,
+        Immune = 4,
+        Absorb = 5
+    }
 }

@@ -46,6 +46,46 @@ namespace FF13Data
             set { Data.SetUShort(0x162, value); }
         }
 
+        public byte PhysicalRes
+        {
+            get { return Data.ReadByte(0x100); }
+            set { Data.SetByte(0x100, value); }
+        }
+
+        public byte ElemRes1
+        {
+            //get { return (byte)(Data.ReadByte(0x128) / 0x10); }
+            //set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) % 0x10 + value * 0x10)); }
+            get { return Data.ReadByte(0x128); }
+            set { Data.SetByte(0x128, value); }
+        }
+        public ElementalRes MagicRes
+        {
+            get { return (ElementalRes)(Data.ReadByte(0x128) % 0x10); }
+            set { Data.SetByte(0x128, (byte)((Data.ReadByte(0x128) / 0x10) * 0x10 + (byte)value)); }
+        }
+
+        public byte ElemRes2
+        {
+            get { return (byte)(Data.ReadByte(0x12D) % 0x10); }
+            set { Data.SetByte(0x12D, (byte)((Data.ReadByte(0x12D) / 0x10) * 0x10 + value)); }
+        }
+        public byte ElemRes3
+        {
+            get { return Data.ReadByte(0x12E); }
+            set { Data.SetByte(0x12E, value); }
+        }
+        public byte ElemRes4
+        {
+            get { return Data.ReadByte(0x12F); }
+            set { Data.SetByte(0x12F, value); }
+        }
+        public byte[] DebuffRes
+        {
+            get { return Data.SubArray(0x130, 16).Data; }
+            set { Data.SetSubArray(0x130, value); }
+        }
+
         public override int GetSize()
         {
             return 0x168;
