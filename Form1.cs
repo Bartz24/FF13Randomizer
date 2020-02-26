@@ -794,7 +794,7 @@ namespace FF13Randomizer
             float mult;
             if (enemy.Level >= 50 && !forceNormalDrop)
             {
-                mult = (float)Math.Pow(enemy.Level - 49, 1.25f);
+                mult = (float)Math.Pow(enemy.Level - 49, 1.6f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                     return (int)(t.Weight * 3 * mult);
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
@@ -803,7 +803,7 @@ namespace FF13Randomizer
                     return Math.Max(1, t.Weight / 4);
                 return (int)(t.Weight * 2 * mult);
             }
-            mult = (float)Math.Pow(enemy.Level + 1, 1.25f);
+            mult = (float)Math.Pow(enemy.Level + 1, 1.6f);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                 return  (int)((t.Weight + 38 * Math.Exp(-0.005 * t.Weight)));
             return  (int)Math.Max(1, t.Weight / 3.5f * mult);
