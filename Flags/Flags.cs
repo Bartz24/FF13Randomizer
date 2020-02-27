@@ -89,9 +89,9 @@ namespace FF13Randomizer
             {
                 Text = "Randomize Treasures",
                 FlagID = "RandTreas",
-                DescriptionFormat = "Treasures will be randomized.",
+                DescriptionFormat = "Treasures will be randomized. 'Rank' +/- ${Value}",
                 FullDescriptionFormat = "Treasures will be randomized.\n" +
-                "-Based on the 'rank' of each item.  New items will be of similar 'rank'.\n" +
+                "-Based on the 'rank' of each item.  New items will be by items 'rank' +/- ${Value}.\n" +
                 "-Material items (upgrade components) are given LESS weight and will appear less often in treasures."
             }.Register();
 
@@ -99,10 +99,11 @@ namespace FF13Randomizer
             {
                 Text = "Randomize Enemy Drops",
                 FlagID = "RandDrop",
-                DescriptionFormat = "Enemy common and rare will be randomized.",
+                DescriptionFormat = "Enemy common and rare will be randomized. 'Rank' +/- ${Value}",
                 FullDescriptionFormat = "Enemy common and rare will be randomized.\n" +
-                "-Based on the 'rank' of each item.  New items will be of similar 'rank'.\n" +
-                "-Material items (upgrade components) are given MORE weight and will appear more often as drops."
+                "-Based on the 'rank' of each item.  New items will be replaced by items 'rank' +/- ${Value}.\n" +
+                "-Material items (upgrade components) are given MORE weight and will appear more often as drops.\n" +
+                "-Bosses will drop accessories and weapons more often"
             }.Register();
 
             public static Flag Shops = new Flag()
@@ -144,7 +145,7 @@ namespace FF13Randomizer
 
             public static Flag Debuffs = new Flag()
             {
-                Text = "Shuffle Elemental Debuff Resistances",
+                Text = "Shuffle Debuff Resistances",
                 FlagID = "ShDebffRes",
                 DescriptionFormat = "Debuff resistances will be shuffled between enemies.",
                 FullDescriptionFormat = "Debuff resistances will be shuffled between enemies."

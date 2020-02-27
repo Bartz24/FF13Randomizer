@@ -67,18 +67,19 @@ namespace FF13Randomizer
             tableLayout.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayout.AutoScroll = true;
             tabPageFlags.Controls.Add(tableLayout);
-
+            
             foreach (Flag flag in Flags.flags)
             {
                 addFlagEvents(flag);
                 flag.Dock = DockStyle.Fill;
-                flag.FlagEnabled = true;
 
                 flag.OnChangedEvent();
                 flag.OnChanged += Flag_OnChanged;
 
                 tableLayout.Controls.Add(flag);
             }
+
+            presetEvenedOdds_Click(null, null);
 
             SetRandomSeed();
 
@@ -1119,6 +1120,78 @@ namespace FF13Randomizer
         private void button11_Click(object sender, EventArgs e)
         {
             new ProgressForm("Fully reverting to vanilla files...", bw => FullUninstall(bw)).ShowDialog();
+        }
+
+        private void presetEvenedOdds_Click(object sender, EventArgs e)
+        {
+            foreach (Flag flag in Flags.flags)
+            {
+                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances)
+                    flag.FlagEnabled = false;
+                else
+                    flag.FlagEnabled = true;
+            }
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 0;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 0;
+            if(sender!=null)
+            MessageBox.Show("Applied!");
+        }
+
+        private void presetDiversity_Click(object sender, EventArgs e)
+        {
+            foreach (Flag flag in Flags.flags)
+            {
+                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.CrystariumFlags.LibraStart)
+                    flag.FlagEnabled = false;
+                else
+                    flag.FlagEnabled = true;
+            }
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 5;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 5;
+
+            MessageBox.Show("Applied!");
+        }
+
+        private void presetDirtyFighting_Click(object sender, EventArgs e)
+        {
+            foreach (Flag flag in Flags.flags)
+            {
+                flag.FlagEnabled = true;
+            }
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 10;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 10;
+
+            MessageBox.Show("Applied!");
+        }
+
+        private void presetBully_Click(object sender, EventArgs e)
+        {
+            foreach (Flag flag in Flags.flags)
+            {
+                if (flag == Flags.CrystariumFlags.LibraStart || flag == Flags.CrystariumFlags.ScaledCPCost)
+                    flag.FlagEnabled = false;
+                else
+                    flag.FlagEnabled = true;
+            }
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 15;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 15;
+
+            MessageBox.Show("Applied!");
+        }
+
+        private void presetRuthless_Click(object sender, EventArgs e)
+        {
+            foreach (Flag flag in Flags.flags)
+            {
+                if (flag == Flags.CrystariumFlags.LibraStart || flag == Flags.CrystariumFlags.ScaledCPCost)
+                    flag.FlagEnabled = false;
+                else
+                    flag.FlagEnabled = true;
+            }
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
+
+            MessageBox.Show("Applied!");
         }
 
         private void FullUninstall(BackgroundWorker backgroundWorker)

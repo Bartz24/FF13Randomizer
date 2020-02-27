@@ -50,6 +50,8 @@
             this.labelFlagsSelected = new System.Windows.Forms.Label();
             this.buttonRandomize = new System.Windows.Forms.Button();
             this.tabPageUninstall = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -59,9 +61,20 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.presetEvenedOdds = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.presetDiversity = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.presetDirtyFighting = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.presetBully = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.presetRuthless = new System.Windows.Forms.Button();
             this.flagInfo1 = new FF13Randomizer.FlagInfo();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
@@ -162,6 +175,19 @@
             // tabPageBasics
             // 
             this.tabPageBasics.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageBasics.Controls.Add(this.label17);
+            this.tabPageBasics.Controls.Add(this.label16);
+            this.tabPageBasics.Controls.Add(this.label15);
+            this.tabPageBasics.Controls.Add(this.presetRuthless);
+            this.tabPageBasics.Controls.Add(this.label14);
+            this.tabPageBasics.Controls.Add(this.presetBully);
+            this.tabPageBasics.Controls.Add(this.label13);
+            this.tabPageBasics.Controls.Add(this.presetDirtyFighting);
+            this.tabPageBasics.Controls.Add(this.label12);
+            this.tabPageBasics.Controls.Add(this.presetDiversity);
+            this.tabPageBasics.Controls.Add(this.label11);
+            this.tabPageBasics.Controls.Add(this.label10);
+            this.tabPageBasics.Controls.Add(this.presetEvenedOdds);
             this.tabPageBasics.Controls.Add(this.label5);
             this.tabPageBasics.Controls.Add(this.button8);
             this.tabPageBasics.Controls.Add(this.button7);
@@ -286,6 +312,7 @@
             // 
             // tabPageUninstall
             // 
+            this.tabPageUninstall.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabPageUninstall.Controls.Add(this.label9);
             this.tabPageUninstall.Controls.Add(this.label8);
             this.tabPageUninstall.Controls.Add(this.label6);
@@ -300,6 +327,25 @@
             this.tabPageUninstall.TabIndex = 4;
             this.tabPageUninstall.Text = "Uninstall";
             this.tabPageUninstall.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(83, 204);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(295, 65);
+            this.label9.TabIndex = 13;
+            this.label9.Text = resources.GetString("label9.Text");
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(83, 147);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(320, 26);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "NOTE: If you are just starting a new seed, just hit randomize again!\r\nNo need to " +
+    "uninstall!";
             // 
             // label6
             // 
@@ -317,7 +363,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button9.Location = new System.Drawing.Point(34, 81);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(153, 23);
+            this.button9.Size = new System.Drawing.Size(149, 23);
             this.button9.TabIndex = 10;
             this.button9.Text = "Full Uninstall and Reextract";
             this.button9.UseVisualStyleBackColor = true;
@@ -338,7 +384,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFullUninstall.Location = new System.Drawing.Point(34, 52);
             this.buttonFullUninstall.Name = "buttonFullUninstall";
-            this.buttonFullUninstall.Size = new System.Drawing.Size(153, 23);
+            this.buttonFullUninstall.Size = new System.Drawing.Size(149, 23);
             this.buttonFullUninstall.TabIndex = 8;
             this.buttonFullUninstall.Text = "Full Uninstall";
             this.buttonFullUninstall.Click += new System.EventHandler(this.button11_Click);
@@ -358,7 +404,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUninstall.Location = new System.Drawing.Point(34, 23);
             this.buttonUninstall.Name = "buttonUninstall";
-            this.buttonUninstall.Size = new System.Drawing.Size(153, 23);
+            this.buttonUninstall.Size = new System.Drawing.Size(149, 23);
             this.buttonUninstall.TabIndex = 6;
             this.buttonUninstall.Text = "Uninstall";
             this.buttonUninstall.UseVisualStyleBackColor = true;
@@ -401,24 +447,113 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // presetEvenedOdds
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(83, 147);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(320, 26);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "NOTE: If you are just starting a new seed, just hit randomize again!\r\nNo need to " +
-    "uninstall!";
+            this.presetEvenedOdds.Location = new System.Drawing.Point(12, 241);
+            this.presetEvenedOdds.Name = "presetEvenedOdds";
+            this.presetEvenedOdds.Size = new System.Drawing.Size(134, 23);
+            this.presetEvenedOdds.TabIndex = 11;
+            this.presetEvenedOdds.Text = "Evened Odds";
+            this.presetEvenedOdds.UseVisualStyleBackColor = true;
+            this.presetEvenedOdds.Click += new System.EventHandler(this.presetEvenedOdds_Click);
             // 
-            // label9
+            // label10
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(83, 204);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(295, 65);
-            this.label9.TabIndex = 13;
-            this.label9.Text = resources.GetString("label9.Text");
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(9, 198);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Presets";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(152, 246);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(242, 39);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "The most basic of randomization.\r\nDoes not randomize enemy resistances.\r\nForced L" +
+    "ibra start and scaled CP cost are applied.";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(152, 296);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(212, 39);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Treasures and drops are a bit more random.\r\nDoes not randomize enemy resistances." +
+    "\r\nScaled CP Cost is applied.";
+            // 
+            // presetDiversity
+            // 
+            this.presetDiversity.Location = new System.Drawing.Point(12, 291);
+            this.presetDiversity.Name = "presetDiversity";
+            this.presetDiversity.Size = new System.Drawing.Size(134, 23);
+            this.presetDiversity.TabIndex = 14;
+            this.presetDiversity.Text = "Diversity";
+            this.presetDiversity.UseVisualStyleBackColor = true;
+            this.presetDiversity.Click += new System.EventHandler(this.presetDiversity_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(152, 381);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(242, 39);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Treasures and drops are even more random.\r\nDoes randomize enemy resistances.\r\nFor" +
+    "ced Libra start and scaled CP cost are applied.";
+            // 
+            // presetDirtyFighting
+            // 
+            this.presetDirtyFighting.Location = new System.Drawing.Point(12, 376);
+            this.presetDirtyFighting.Name = "presetDirtyFighting";
+            this.presetDirtyFighting.Size = new System.Drawing.Size(134, 23);
+            this.presetDirtyFighting.TabIndex = 16;
+            this.presetDirtyFighting.Text = "Dirty Fighting";
+            this.presetDirtyFighting.UseVisualStyleBackColor = true;
+            this.presetDirtyFighting.Click += new System.EventHandler(this.presetDirtyFighting_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(152, 431);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(186, 26);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "Treasures and drops are very random.\r\nDoes randomize enemy resistances.";
+            // 
+            // presetBully
+            // 
+            this.presetBully.Location = new System.Drawing.Point(12, 426);
+            this.presetBully.Name = "presetBully";
+            this.presetBully.Size = new System.Drawing.Size(134, 23);
+            this.presetBully.TabIndex = 18;
+            this.presetBully.Text = "Bully";
+            this.presetBully.UseVisualStyleBackColor = true;
+            this.presetBully.Click += new System.EventHandler(this.presetBully_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(152, 481);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(197, 26);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "Treasures and drops are maxed random.\r\nDoes randomize enemy resistances.";
+            // 
+            // presetRuthless
+            // 
+            this.presetRuthless.Location = new System.Drawing.Point(12, 476);
+            this.presetRuthless.Name = "presetRuthless";
+            this.presetRuthless.Size = new System.Drawing.Size(134, 23);
+            this.presetRuthless.TabIndex = 20;
+            this.presetRuthless.Text = "Ruthless";
+            this.presetRuthless.UseVisualStyleBackColor = true;
+            this.presetRuthless.Click += new System.EventHandler(this.presetRuthless_Click);
             // 
             // flagInfo1
             // 
@@ -429,6 +564,24 @@
             this.flagInfo1.Size = new System.Drawing.Size(317, 537);
             this.flagInfo1.TabIndex = 8;
             this.flagInfo1.Visible = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 221);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(103, 13);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Race recommended";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(9, 350);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(124, 13);
+            this.label17.TabIndex = 23;
+            this.label17.Text = "NOT race recommended";
             // 
             // Form1
             // 
@@ -488,6 +641,19 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button presetRuthless;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button presetBully;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button presetDirtyFighting;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button presetDiversity;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button presetEvenedOdds;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
     }
 }
 
