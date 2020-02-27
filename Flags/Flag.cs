@@ -28,7 +28,7 @@ namespace FF13Randomizer
 
         }
 
-        public void setFlagData(Control flagData = null)
+        public Flag SetFlagData(Control flagData = null)
         {
             FlagData = flagData;
             if (FlagData != null)
@@ -36,6 +36,7 @@ namespace FF13Randomizer
                 FlagData.Dock = DockStyle.Fill;
                 panel1.Controls.Add(FlagData);
             }
+            return this;
         }
 
         public string DescriptionFormat { get; set; } = "";
@@ -79,7 +80,7 @@ namespace FF13Randomizer
 
         public string FlagID { get; set; }
 
-        public Control FlagData { get; set; }
+        public Control FlagData { get; set; }        
 
         public static readonly Flag Empty = emptyFlag();
 

@@ -359,9 +359,10 @@ namespace FF13Randomizer
                                 || c.Type == CrystariumType.ATBLevel
                                 || c.Type == CrystariumType.RoleLevel)
                                 && c.Role == role
-                                && (c.CPCost > 0 || 
+                                && (c.CPCost > 0 ||
                                 (c.Type == CrystariumType.Ability &&
-                                isTechnique(Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)c.AbilityPointer]?.Value).FirstOrDefault())))
+                                isTechnique(Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == 
+                                crystarium.AbilityIDs[(int)c.AbilityPointer]?.Value).FirstOrDefault())))
                                 && ((!primaryRoles[name].Contains(role) && c.Stage > 1) || primaryRoles[name].Contains(role))).ToList()
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
                     }
@@ -393,6 +394,9 @@ namespace FF13Randomizer
                             maxStage = cryst.Stage;
 
                             Ability orig = Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)cryst.AbilityPointer]?.Value).FirstOrDefault();
+
+                            if (Flags.CrystariumFlags.LibraStart.FlagEnabled && orig == Abilities.Libra)
+                                continue;
 
                             if (isTechnique(orig))
                             {
@@ -440,6 +444,9 @@ namespace FF13Randomizer
                             maxStage = cryst.Stage;
 
                             Ability orig = Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)cryst.AbilityPointer]?.Value).FirstOrDefault();
+
+                            if (Flags.CrystariumFlags.LibraStart.FlagEnabled && orig == Abilities.Libra)
+                                continue;
 
                             if (isTechnique(orig))
                             {
@@ -497,6 +504,8 @@ namespace FF13Randomizer
 
         private static bool isTechnique(Ability orig)
         {
+            if (Flags.CrystariumFlags.LibraStart.FlagEnabled && orig == Abilities.Libra)
+                return false;
             return orig == Abilities.Libra || orig == Abilities.Renew || orig == Abilities.Stopga || orig == Abilities.Quake || orig == Abilities.Dispelga;
         }
 
@@ -587,7 +596,9 @@ namespace FF13Randomizer
 
         private void RandomizeTreasures(BackgroundWorker backgroundWorker)
         {
-            Items.items.ForEach(i=>{
+            int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
+            Items.items.ForEach(i =>
+            {
                 if (i.ID.StartsWith("wea_") && i.ID.EndsWith("_001"))
                     blacklistedWeapons.Add(i);
             });
@@ -606,6 +617,8 @@ namespace FF13Randomizer
                     if (item != null)
                     {
                         int rank = TieredItems.manager.GetRank(item, (int)t.Count);
+                        if (rankAdj > 0)
+                            rank = Math.Max(0, rank + RandomNum.randInt(-rankAdj, rankAdj));
                         if (rank != -1)
                         {
                             Tuple<Item, int> newItem;
@@ -760,48 +773,55 @@ namespace FF13Randomizer
                         RandomizeDrop(enemies, e, false);
                     } while (e.CommonDropPointer == e.RareDropPointer && enemies.ItemIDs[(int)e.CommonDropPointer].Value != "");
                 }
+                
                 DataStoreEnemy swap;
-                do
+                if (Flags.EnemyFlags.Resistances.FlagEnabled)
                 {
-                    swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
-                } while (!(physValues[swap.PhysicalRes] >= ElementalRes.Resistant && swap.MagicRes >= ElementalRes.Resistant)
-                != !(physValues[e.PhysicalRes] >= ElementalRes.Resistant && e.MagicRes >= ElementalRes.Resistant));
+                    do
+                    {
+                        swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
+                    } while (!(physValues[swap.PhysicalRes] >= ElementalRes.Resistant && swap.MagicRes >= ElementalRes.Resistant)
+                    != !(physValues[e.PhysicalRes] >= ElementalRes.Resistant && e.MagicRes >= ElementalRes.Resistant));
 
-                byte o = e.ElemRes1;
-                e.ElemRes1 = swap.ElemRes1;
-                swap.ElemRes1 = o;
+                    byte o = e.ElemRes1;
+                    e.ElemRes1 = swap.ElemRes1;
+                    swap.ElemRes1 = o;
 
-                o = e.ElemRes2;
-                e.ElemRes2 = swap.ElemRes2;
-                swap.ElemRes2 = o;
+                    o = e.ElemRes2;
+                    e.ElemRes2 = swap.ElemRes2;
+                    swap.ElemRes2 = o;
 
-                o = e.ElemRes3;
-                e.ElemRes3 = swap.ElemRes3;
-                swap.ElemRes3 = o;
+                    o = e.ElemRes3;
+                    e.ElemRes3 = swap.ElemRes3;
+                    swap.ElemRes3 = o;
 
-                o = e.ElemRes4;
-                e.ElemRes4 = swap.ElemRes4;
-                swap.ElemRes4 = o;
+                    o = e.ElemRes4;
+                    e.ElemRes4 = swap.ElemRes4;
+                    swap.ElemRes4 = o;
 
-                o = e.PhysicalRes;
-                e.PhysicalRes = swap.PhysicalRes;
-                swap.PhysicalRes = o;
-
-
-                swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
-
-                byte[] swapped = swap.DebuffRes;
-                byte[] enem = e.DebuffRes;
-
-                for (int i = 0; i < 16; i++)
-                {
-                    o = enem[i];
-                    enem[i] = swapped[i];
-                    swapped[i] = o;
+                    o = e.PhysicalRes;
+                    e.PhysicalRes = swap.PhysicalRes;
+                    swap.PhysicalRes = o;
                 }
 
-                swap.DebuffRes = swapped;
-                e.DebuffRes = enem;
+                if (Flags.EnemyFlags.Debuffs.FlagEnabled)
+                {
+                    swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
+
+                    byte[] swapped = swap.DebuffRes;
+                    byte[] enem = e.DebuffRes;
+
+                    
+                    for (int i = 0; i < 16; i++)
+                    {
+                        byte o = enem[i];
+                        enem[i] = swapped[i];
+                        swapped[i] = o;
+                    }
+
+                    swap.DebuffRes = swapped;
+                    e.DebuffRes = enem;
+                }
 
                 completed++;
                 backgroundWorker.ReportProgress(completed * 100 / enemies.Enemies.count);
@@ -830,6 +850,7 @@ namespace FF13Randomizer
 
         private void RandomizeDrop(EnemyStatDatabase enemies, DataStoreEnemy enemy, bool common)
         {
+            int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
             Item item = null;
             if (enemies.ItemIDs[(int)(common ? enemy.CommonDropPointer : enemy.RareDropPointer)].Value != "")
                 item = Items.items.Where(i => i.ID ==
@@ -839,6 +860,8 @@ namespace FF13Randomizer
                 if (item.ID == "")
                     throw new Exception("LUL");
                 int rank = TieredItems.manager.GetRank(item, 1);
+                if (rankAdj > 0)
+                    rank = Math.Max(0, rank + RandomNum.randInt(-rankAdj, rankAdj));
                 if (rank != -1)
                 {
                     Tuple<Item, int> newItem;
@@ -1025,7 +1048,7 @@ namespace FF13Randomizer
 
             new ProgressForm("Randomizing crystarium...", bw => RandomizeCrystarium(bw)).ShowDialog();
             new ProgressForm("Randomizing treasures...", bw => RandomizeTreasures(bw)).ShowDialog();
-            new ProgressForm("Randomizing drops...", bw => RandomizeEnemies(bw)).ShowDialog();
+            new ProgressForm("Randomizing enemies... (Drops/Resistances)", bw => RandomizeEnemies(bw)).ShowDialog();
 
 
             new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();

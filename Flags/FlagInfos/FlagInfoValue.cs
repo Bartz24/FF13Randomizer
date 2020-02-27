@@ -32,12 +32,17 @@ namespace FF13Randomizer
             numericUpDown1.Minimum = FlagValue.Range.MinRange.MinRange;
             numericUpDown1.Maximum = FlagValue.Range.MinRange.MaxRange;
             numericUpDown1.Value = FlagValue.Range.MinRange.Value;
+            numericUpDown1.Visible = FlagValue.Level >= FlagValue.ValueAdvancedLevel.Value;
+            numericUpDown1.Enabled = FlagValue.Level >= FlagValue.ValueAdvancedLevel.MinMax;
             numericUpDown2.Minimum = FlagValue.Range.MinRange.MinRange;
             numericUpDown2.Maximum = FlagValue.Range.MaxRange.MaxRange;
             numericUpDown2.Value = FlagValue.Range.Value;
+            numericUpDown2.Visible = FlagValue.Level >= FlagValue.ValueAdvancedLevel.Value;
             numericUpDown3.Minimum = FlagValue.Range.MaxRange.MinRange;
             numericUpDown3.Maximum = FlagValue.Range.MaxRange.MaxRange;
             numericUpDown3.Value = FlagValue.Range.MaxRange.Value;
+            numericUpDown3.Visible = FlagValue.Level >= FlagValue.ValueAdvancedLevel.Value;
+            numericUpDown3.Enabled = FlagValue.Level >= FlagValue.ValueAdvancedLevel.MinMax;
         }
 
         private void NumericUpDown3_ValueChanged(object sender, EventArgs e)

@@ -42,13 +42,14 @@ namespace FF13Randomizer
             {
                 Text = "Randomize Stats",
                 FlagID = "RanStat",
-                DescriptionFormat = "Stat nodes are shuffled across all character, and then adjusted.",
-                FullDescriptionFormat = "Stat nodes are shuffled across all character, and then adjusted.\n" +
-                "-Nodes across all characters are shuffled to provide a random balance of HP, Strength, and Magic.\n" +
-                "-Each character is then assigned 300 'stat points' randomly to specialize in HP, Strength, or Magic. For example:\n" +
+                DescriptionFormat = "Characters and roles are given random stat affinities.",
+                FullDescriptionFormat = "Characters and roles are given random stat affinities.\n" +
+                "-Each character and role is assigned 300 'stat points' randomly to specialize in HP, Strength, or Magic. For example:\n" +
                 "   -100 stat points in HP = no adjustments to HP nodes\n" +
                 "   -50 stat points in HP = HP nodes cut in half\n" +
-                "   -150 stat points in HP = HP nodes are 1.5x higher"
+                "   -150 stat points in HP = HP nodes are 1.5x higher\n" +
+                "-The character and role stat points both apply to the nodes.\n" +
+                "-The amount of nodes that appear is also related to the stat points. For example: more HP stat points will have more HP nodes appear."
             }.Register();
 
             public static Flag ShuffleStage = new Flag()
@@ -69,6 +70,15 @@ namespace FF13Randomizer
                 "-Stage 1 is 1x multiplier\n" +
                 "-Stage 5 is 0.7x multiplier\n" +
                 "-Stage 9 and 10 are 0.5x multiplier"
+            }.Register();
+
+
+            public static Flag LibraStart = new Flag()
+            {
+                Text = "Force Libra Start",
+                FlagID = "Libra",
+                DescriptionFormat = "Libra is a forced starting ability.",
+                FullDescriptionFormat = "Libra is a forced starting ability."
             }.Register();
         }
 
@@ -104,12 +114,48 @@ namespace FF13Randomizer
                 "-Includes shops from special battle drops and treasures.\n" +
                 "-Does not include Omnikit."
             }.Register();
+
+            static ItemFlags()
+            {
+                FlagValue treasures = new FlagValue(Treasures);
+                treasures.Range.MinRange.MinRange = 0;
+                treasures.Range.MaxRange.MaxRange = 20;
+                treasures.Range.Value = 0;
+                Treasures.SetFlagData(treasures);
+
+                FlagValue drops = new FlagValue(Drops);
+                drops.Range.MinRange.MinRange = 0;
+                drops.Range.MaxRange.MaxRange = 20;
+                drops.Range.Value = 0;
+                Drops.SetFlagData(drops);
+            }
         }
 
-            public Flags()
+        public class EnemyFlags
+        {
+            public static Flag Resistances = new Flag()
+            {
+                Text = "Shuffle Elemental Resistances",
+                FlagID = "ShElemRes",
+                DescriptionFormat = "Elemental and physical/magical resistances will be shuffled between enemies.",
+                FullDescriptionFormat = "Elemental and physical/magical resistances will be shuffled between enemies.\n" +
+                "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune."
+            }.Register();
+
+            public static Flag Debuffs = new Flag()
+            {
+                Text = "Shuffle Elemental Debuff Resistances",
+                FlagID = "ShDebffRes",
+                DescriptionFormat = "Debuff resistances will be shuffled between enemies.",
+                FullDescriptionFormat = "Debuff resistances will be shuffled between enemies."
+            }.Register();
+        }
+
+        public Flags()
         {
             new CrystariumFlags();
             new ItemFlags();
+            new EnemyFlags();
         }
     }
 }

@@ -20,6 +20,8 @@ namespace FF13Randomizer
             MinMax = 2 // min max can be adjusted
         }
 
+        public ValueAdvancedLevel Level { get; set; } = ValueAdvancedLevel.Value;
+
         public FlagValue(Flag flag)
         {
             InitializeComponent();
@@ -92,7 +94,7 @@ namespace FF13Randomizer
             map.addMapping("Min", flagValue => ((FlagValue)flagValue).Range.MinRange.Value.ToString());
             map.addMapping("Max", flagValue => ((FlagValue)flagValue).Range.MaxRange.Value.ToString());
             return map;
-        }
+        }        
 
         public NumericRangeMinMax<int> Range { get; set; } = new NumericRangeMinMax<int>();
     }
