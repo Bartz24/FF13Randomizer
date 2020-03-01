@@ -17,7 +17,7 @@ namespace FF13Randomizer
 {
     public partial class Form1 : Form
     {
-        public static string version = "1.3.0";
+        public static string version = "1.3.2";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -255,7 +255,8 @@ namespace FF13Randomizer
                         d[k].Add(avg);
                     });
                     int avgStrMag = (d[CrystariumType.Strength][0] + d[CrystariumType.Magic][0]) / 2;
-                    d[CrystariumType.Strength][0] = d[CrystariumType.Magic][0] = avgStrMag;
+                    d[CrystariumType.Strength][0] = d[CrystariumType.Magic][0] = (int)Math.Max(1, avgStrMag * 1.05);
+                    d[CrystariumType.HP][0] = (int)Math.Max(1, d[CrystariumType.HP][0] * 0.95);
                 });
 
                 foreach (string name in names)
@@ -311,20 +312,25 @@ namespace FF13Randomizer
                         }
                     }
 
-                    List<DataStoreCrystarium> list = crystarium.Crystarium.Where(
-                        c => c.Type == CrystariumType.HP ||
-                    c.Type == CrystariumType.Strength ||
-                    c.Type == CrystariumType.Magic).ToList();
-
-                    for (int i = 0; i < list.Count() / 2; i++)
+                    foreach (Role role in Enum.GetValues(typeof(Role)))
                     {
-                        DataStoreCrystarium c = list[RandomNum.randInt(0, list.Count - 1)];
-                        float mult = RandomNum.randInt(100, 300) / 100f;
-                        list.ForEach(cr =>
+                        List<DataStoreCrystarium> list = crystarium.Crystarium.Where(
+                        c => (c.Type == CrystariumType.HP ||
+                    c.Type == CrystariumType.Strength ||
+                    c.Type == CrystariumType.Magic) && c.Role == role).ToList();
+                        
+                        for (int i = 0; i < list.Count() / 2; i++)
                         {
-                            if (c.Type == cr.Type && c.Stage == cr.Stage)
-                                cr.Value = (ushort)Math.Ceiling(cr == c ? (cr.Value * mult) : (cr.Value * .97f));
-                        });
+                            DataStoreCrystarium c = list[RandomNum.randInt(0, list.Count - 1)];
+                            int count = list.Where(c2 => c.Type == c2.Type).Count();
+                            float mult = RandomNum.randInt(100, 100 + (int)Math.Sqrt(Math.Max(0, (count - 1)) * 20)) / 100f;
+                            list.ForEach(cr =>
+                            {
+                                if (c.Type == cr.Type && c.Stage == cr.Stage)
+                                    cr.Value = (ushort)Math.Max(1, Math.Ceiling(cr == c ? (cr.Value * mult) : (cr.Value / Math.Sqrt(mult) - 1)));
+                            });
+                            c.Value = (ushort)Math.Max(1, c.Value * 1);
+                        }
                     }
 
                     backgroundWorker.ReportProgress(names.ToList().IndexOf(name) * (50 / 6));
@@ -618,10 +624,10 @@ namespace FF13Randomizer
                     if (item != null)
                     {
                         int rank = TieredItems.manager.GetRank(item, (int)t.Count);
-                        if (rankAdj > 0)
-                            rank = Math.Max(0, rank + RandomNum.randInt(-rankAdj, rankAdj));
                         if (rank != -1)
                         {
+                            if (rankAdj > 0)
+                                rank = RandomNum.randInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
                             Tuple<Item, int> newItem;
                             do
                             {
@@ -861,10 +867,10 @@ namespace FF13Randomizer
                 if (item.ID == "")
                     throw new Exception("LUL");
                 int rank = TieredItems.manager.GetRank(item, 1);
-                if (rankAdj > 0)
-                    rank = Math.Max(0, rank + RandomNum.randInt(-rankAdj, rankAdj));
                 if (rank != -1)
                 {
+                    if (rankAdj > 0)
+                        rank = Math.Max(0, rank + RandomNum.randInt(-rankAdj, rankAdj));
                     Tuple<Item, int> newItem;
                     do
                     {
