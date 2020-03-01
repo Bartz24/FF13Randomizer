@@ -795,7 +795,9 @@ namespace FF13Randomizer
         }
 
         private int GetTreasureWeight(Tiered<Item> t)
-        {            
+        {
+            if (t == TieredItems.Catalyst || t == TieredItems.Ethersol || t == TieredItems.DoctorsCode)
+                return t.Weight + 20;
             if (t.Items.Where(i => i.ID.StartsWith("material") || i.ID == "").Count() > 0)
                 return Math.Max(1, t.Weight / 5);
             return (int)(t.Weight + 5 * Math.Exp(-0.05 * t.Weight));
