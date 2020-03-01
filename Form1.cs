@@ -684,15 +684,18 @@ namespace FF13Randomizer
 
         private void button2_Click(object sender, EventArgs e)
         {
-            byte[] bytes = File.ReadAllBytes("old/treasurebox.wdb");
-            uint gil = 1;
-            for (int i = 0x477C; i < bytes.Length; i += 0xC)
+            //MessageBox.Show(TieredItems.manager.GetRank(Items.Trapezohedron).ToString());
+            int rank = 121;
+            int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
+            if (rankAdj > 0)
+                rank = RandomNum.randInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
+            Tuple<Item, int> item;
+            do
             {
-                bytes.SetSubArray(i, new byte[] { 0x00, 0x00, 0x08, 0xB0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0xB0 });
-                bytes.SetSubArray(i + 4, BitConverter.GetBytes(gil).ReverseArray());
-                gil++;
-            }
-            File.WriteAllBytes("db/resident/treasurebox.wdb", bytes);
+                item = TieredItems.manager.Get(rank, 1);
+                rank--;
+            } while (item.Item1 ==null);
+            MessageBox.Show(item.Item1.ID + "x" + item.Item2);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -735,7 +738,7 @@ namespace FF13Randomizer
                             Tuple<Item, int> newItem;
                             do
                             {
-                                newItem = TieredItems.manager.Get(rank, tiered => GetTreasureWeight(tiered));
+                                newItem = TieredItems.manager.Get(rank, Int32.MaxValue, tiered => GetTreasureWeight(tiered));
                                 rank--;
                             } while (rank >= 0 && (newItem == null || blacklisted.Contains(newItem.Item1) || blacklistedWeapons.Contains(newItem.Item1)));
                             if (newItem.Item1.ID.StartsWith("wea_"))
@@ -990,7 +993,7 @@ namespace FF13Randomizer
                     Tuple<Item, int> newItem;
                     do
                     {
-                        newItem = TieredItems.manager.Get(rank, tiered => GetDropWeight(tiered, enemy, item.ID.StartsWith("it") && enemy.Level > 50));
+                        newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy, item.ID.StartsWith("it") && enemy.Level > 50));
                         rank--;
                     } while ((newItem == null || blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
                     if (newItem.Item1 == null)

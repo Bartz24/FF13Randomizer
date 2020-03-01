@@ -10,16 +10,16 @@ namespace FF13Data
     {
         public List<Tiered<T>> list = new List<Tiered<T>>();
 
-        public List<Tiered<T>> GetTiered(int rank)
+        public List<Tiered<T>> GetTiered(int rank, int count)
         {
-            return list.Where(t => rank >= t.LowBound && rank <= t.HighBound).ToList();
+            return list.Where(t => rank >= t.LowBound && rank <= t.LowBound + t.GetCountBoost(count)).ToList();
         }
 
-        public Tuple<T,int> Get(int rank, Func<Tiered<T>,int> weightFunc = null)
+        public Tuple<T,int> Get(int rank, int maxCount, Func<Tiered<T>,int> weightFunc = null)
         {
             if (weightFunc == null)
                 weightFunc = t => t.Weight;
-            List<Tiered<T>> items = GetTiered(rank);
+            List<Tiered<T>> items = GetTiered(rank, maxCount);
             Tiered<T> tiered = RandomNum.SelectRandomWeighted(items, weightFunc);
             return Get(rank,tiered);
         }
@@ -32,7 +32,7 @@ namespace FF13Data
             return possible[RandomNum.randInt(0, possible.Count - 1)];
         }
 
-        public int GetRank(T obj, int count)
+        public int GetRank(T obj, int count=1)
         {
             int avg = 0, avgCount = 0;
             foreach(Tiered<T> tiered in list)

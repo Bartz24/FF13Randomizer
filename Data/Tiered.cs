@@ -56,7 +56,7 @@ namespace FF13Data
 
         public int GetCountBoost(int count)
         {
-            return (int)Math.Ceiling(Math.Pow(count, 1f / countScale));
+            return (int)Math.Ceiling(Math.Pow(Math.Min(count, maxCount), 1f / countScale));
         }
 
         public int GetRank(T obj, int count)
