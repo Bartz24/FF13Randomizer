@@ -38,6 +38,19 @@
             this.button6 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageBasics = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.presetRuthless = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.presetBully = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.presetDirtyFighting = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.presetDiversity = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.presetEvenedOdds = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -61,20 +74,7 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.presetEvenedOdds = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.presetDiversity = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.presetDirtyFighting = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.presetBully = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.presetRuthless = new System.Windows.Forms.Button();
             this.flagInfo1 = new FF13Randomizer.FlagInfo();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
@@ -202,6 +202,132 @@
             this.tabPageBasics.TabIndex = 0;
             this.tabPageBasics.Text = "Basics";
             this.tabPageBasics.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(9, 350);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(247, 13);
+            this.label17.TabIndex = 23;
+            this.label17.Text = "NOT race recommended (Some experimental flags)";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 221);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(103, 13);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Race recommended";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(152, 481);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(197, 26);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "Treasures and drops are maxed random.\r\nDoes randomize enemy resistances.";
+            // 
+            // presetRuthless
+            // 
+            this.presetRuthless.Location = new System.Drawing.Point(12, 476);
+            this.presetRuthless.Name = "presetRuthless";
+            this.presetRuthless.Size = new System.Drawing.Size(134, 23);
+            this.presetRuthless.TabIndex = 20;
+            this.presetRuthless.Text = "Ruthless";
+            this.presetRuthless.UseVisualStyleBackColor = true;
+            this.presetRuthless.Click += new System.EventHandler(this.presetRuthless_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(152, 431);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(186, 26);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "Treasures and drops are very random.\r\nDoes randomize enemy resistances.";
+            // 
+            // presetBully
+            // 
+            this.presetBully.Location = new System.Drawing.Point(12, 426);
+            this.presetBully.Name = "presetBully";
+            this.presetBully.Size = new System.Drawing.Size(134, 23);
+            this.presetBully.TabIndex = 18;
+            this.presetBully.Text = "Bully";
+            this.presetBully.UseVisualStyleBackColor = true;
+            this.presetBully.Click += new System.EventHandler(this.presetBully_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(152, 381);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(242, 39);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Treasures and drops are even more random.\r\nDoes randomize enemy resistances.\r\nFor" +
+    "ced Libra start and scaled CP cost are applied.";
+            // 
+            // presetDirtyFighting
+            // 
+            this.presetDirtyFighting.Location = new System.Drawing.Point(12, 376);
+            this.presetDirtyFighting.Name = "presetDirtyFighting";
+            this.presetDirtyFighting.Size = new System.Drawing.Size(134, 23);
+            this.presetDirtyFighting.TabIndex = 16;
+            this.presetDirtyFighting.Text = "Dirty Fighting";
+            this.presetDirtyFighting.UseVisualStyleBackColor = true;
+            this.presetDirtyFighting.Click += new System.EventHandler(this.presetDirtyFighting_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(152, 296);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(212, 39);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Treasures and drops are a bit more random.\r\nDoes not randomize enemy resistances." +
+    "\r\nScaled CP Cost is applied.";
+            // 
+            // presetDiversity
+            // 
+            this.presetDiversity.Location = new System.Drawing.Point(12, 291);
+            this.presetDiversity.Name = "presetDiversity";
+            this.presetDiversity.Size = new System.Drawing.Size(134, 23);
+            this.presetDiversity.TabIndex = 14;
+            this.presetDiversity.Text = "Diversity";
+            this.presetDiversity.UseVisualStyleBackColor = true;
+            this.presetDiversity.Click += new System.EventHandler(this.presetDiversity_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(152, 246);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(242, 39);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "The most basic of randomization.\r\nDoes not randomize enemy resistances.\r\nForced L" +
+    "ibra start and scaled CP cost are applied.";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(9, 198);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Presets";
+            // 
+            // presetEvenedOdds
+            // 
+            this.presetEvenedOdds.Location = new System.Drawing.Point(12, 241);
+            this.presetEvenedOdds.Name = "presetEvenedOdds";
+            this.presetEvenedOdds.Size = new System.Drawing.Size(134, 23);
+            this.presetEvenedOdds.TabIndex = 11;
+            this.presetEvenedOdds.Text = "Evened Odds";
+            this.presetEvenedOdds.UseVisualStyleBackColor = true;
+            this.presetEvenedOdds.Click += new System.EventHandler(this.presetEvenedOdds_Click);
             // 
             // label5
             // 
@@ -447,114 +573,6 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // presetEvenedOdds
-            // 
-            this.presetEvenedOdds.Location = new System.Drawing.Point(12, 241);
-            this.presetEvenedOdds.Name = "presetEvenedOdds";
-            this.presetEvenedOdds.Size = new System.Drawing.Size(134, 23);
-            this.presetEvenedOdds.TabIndex = 11;
-            this.presetEvenedOdds.Text = "Evened Odds";
-            this.presetEvenedOdds.UseVisualStyleBackColor = true;
-            this.presetEvenedOdds.Click += new System.EventHandler(this.presetEvenedOdds_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(9, 198);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(49, 13);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Presets";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(152, 246);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(242, 39);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "The most basic of randomization.\r\nDoes not randomize enemy resistances.\r\nForced L" +
-    "ibra start and scaled CP cost are applied.";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(152, 296);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(212, 39);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "Treasures and drops are a bit more random.\r\nDoes not randomize enemy resistances." +
-    "\r\nScaled CP Cost is applied.";
-            // 
-            // presetDiversity
-            // 
-            this.presetDiversity.Location = new System.Drawing.Point(12, 291);
-            this.presetDiversity.Name = "presetDiversity";
-            this.presetDiversity.Size = new System.Drawing.Size(134, 23);
-            this.presetDiversity.TabIndex = 14;
-            this.presetDiversity.Text = "Diversity";
-            this.presetDiversity.UseVisualStyleBackColor = true;
-            this.presetDiversity.Click += new System.EventHandler(this.presetDiversity_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(152, 381);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(242, 39);
-            this.label13.TabIndex = 17;
-            this.label13.Text = "Treasures and drops are even more random.\r\nDoes randomize enemy resistances.\r\nFor" +
-    "ced Libra start and scaled CP cost are applied.";
-            // 
-            // presetDirtyFighting
-            // 
-            this.presetDirtyFighting.Location = new System.Drawing.Point(12, 376);
-            this.presetDirtyFighting.Name = "presetDirtyFighting";
-            this.presetDirtyFighting.Size = new System.Drawing.Size(134, 23);
-            this.presetDirtyFighting.TabIndex = 16;
-            this.presetDirtyFighting.Text = "Dirty Fighting";
-            this.presetDirtyFighting.UseVisualStyleBackColor = true;
-            this.presetDirtyFighting.Click += new System.EventHandler(this.presetDirtyFighting_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(152, 431);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(186, 26);
-            this.label14.TabIndex = 19;
-            this.label14.Text = "Treasures and drops are very random.\r\nDoes randomize enemy resistances.";
-            // 
-            // presetBully
-            // 
-            this.presetBully.Location = new System.Drawing.Point(12, 426);
-            this.presetBully.Name = "presetBully";
-            this.presetBully.Size = new System.Drawing.Size(134, 23);
-            this.presetBully.TabIndex = 18;
-            this.presetBully.Text = "Bully";
-            this.presetBully.UseVisualStyleBackColor = true;
-            this.presetBully.Click += new System.EventHandler(this.presetBully_Click);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(152, 481);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(197, 26);
-            this.label15.TabIndex = 21;
-            this.label15.Text = "Treasures and drops are maxed random.\r\nDoes randomize enemy resistances.";
-            // 
-            // presetRuthless
-            // 
-            this.presetRuthless.Location = new System.Drawing.Point(12, 476);
-            this.presetRuthless.Name = "presetRuthless";
-            this.presetRuthless.Size = new System.Drawing.Size(134, 23);
-            this.presetRuthless.TabIndex = 20;
-            this.presetRuthless.Text = "Ruthless";
-            this.presetRuthless.UseVisualStyleBackColor = true;
-            this.presetRuthless.Click += new System.EventHandler(this.presetRuthless_Click);
-            // 
             // flagInfo1
             // 
             this.flagInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -564,24 +582,6 @@
             this.flagInfo1.Size = new System.Drawing.Size(317, 537);
             this.flagInfo1.TabIndex = 8;
             this.flagInfo1.Visible = false;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(9, 221);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(103, 13);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Race recommended";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(9, 350);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(124, 13);
-            this.label17.TabIndex = 23;
-            this.label17.Text = "NOT race recommended";
             // 
             // Form1
             // 

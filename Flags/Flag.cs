@@ -18,7 +18,7 @@ namespace FF13Randomizer
         {
             InitializeComponent();
             checkBoxEnabled.CheckedChanged += OnChangedEvent;
-
+            Experimental = experimental;
         }
 
         public Flag Register()
@@ -38,6 +38,17 @@ namespace FF13Randomizer
             }
             return this;
         }
+        private bool experimental = false;
+        public bool Experimental
+        {
+            get => experimental;
+            set
+            {
+                experimental = value;
+                if (experimental)
+                    BackColor = experimental ? Color.Gold : Color.White;
+            }
+        }
 
         public string DescriptionFormat { get; set; } = "";
         public string Description
@@ -45,8 +56,8 @@ namespace FF13Randomizer
             get
             {
                 if (FlagData == null || !(FlagData is IFlagData))
-                    return DescriptionFormat;
-                return ((IFlagData)FlagData).getDescription(DescriptionFormat);
+                    return (experimental ? "[EXPERIMENTAL] " : "") + DescriptionFormat;
+                return (experimental ? "[EXPERIMENTAL] " : "") + ((IFlagData)FlagData).getDescription(DescriptionFormat);
             }
         }
 
@@ -56,10 +67,10 @@ namespace FF13Randomizer
             get
             {
                 if (FullDescriptionFormat == "")
-                    return Description;
+                    return (experimental ? "[EXPERIMENTAL] " : "") + Description;
                 if (FlagData == null || !(FlagData is IFlagData))
-                    return FullDescriptionFormat;
-                return ((IFlagData)FlagData).getDescription(FullDescriptionFormat);
+                    return (experimental ? "[EXPERIMENTAL] " : "") + FullDescriptionFormat;
+                return (experimental ? "[EXPERIMENTAL] " : "") + ((IFlagData)FlagData).getDescription(FullDescriptionFormat);
             }
         }
         [EditorBrowsable(EditorBrowsableState.Always)]

@@ -28,7 +28,111 @@ namespace FF13Randomizer
             "db/crystal/crystal_sazh.wdb",
             "db/resident/treasurebox.wdb",
             "db/resident/bt_chara_spec.wdb",
-            "db/resident/bt_scene.wdb"
+            "db/resident/bt_scene.wdb",
+            #region Sound
+            "sound/pack/8000/usa/music_100rosh.win32.scd",
+            "sound/pack/8000/usa/music_101ldun_f.win32.scd",
+            "sound/pack/8000/usa/music_102far3_b.win32.scd",
+            "sound/pack/8000/usa/music_105kibou.win32.scd",
+            "sound/pack/8000/usa/music_105kyoufu.win32.scd",
+            "sound/pack/8000/usa/music_105saigo.win32.scd",
+            "sound/pack/8000/usa/music_105titarr.win32.scd",
+            "sound/pack/8000/usa/music_106ofa2_b.win32.scd",
+            "sound/pack/8000/usa/music_12snow_1.win32.scd",
+            "sound/pack/8000/usa/music_13gekai_f.win32.scd",
+            "sound/pack/8000/usa/music_14fmv.win32.scd",
+            "sound/pack/8000/usa/music_150sinpi.win32.scd",
+            "sound/pack/8000/usa/music_151run.win32.scd",
+            "sound/pack/8000/usa/music_152magni.win32.scd",
+            "sound/pack/8000/usa/music_153fuan.win32.scd",
+            "sound/pack/8000/usa/music_154syuge2.win32.scd",
+            "sound/pack/8000/usa/music_155far1or.win32.scd",
+            "sound/pack/8000/usa/music_156far3or.win32.scd",
+            "sound/pack/8000/usa/music_158opn1_i.win32.scd",
+            "sound/pack/8000/usa/music_159opn_b.win32.scd",
+            "sound/pack/8000/usa/music_160field.win32.scd",
+            "sound/pack/8000/usa/music_161bo_fi.win32.scd",
+            "sound/pack/8000/usa/music_162seifu.win32.scd",
+            "sound/pack/8000/usa/music_163gso.win32.scd",
+            "sound/pack/8000/usa/music_164fmv_2.win32.scd",
+            "sound/pack/8000/usa/music_165vin_ch.win32.scd",
+            "sound/pack/8000/usa/music_166vin_u2.win32.scd",
+            "sound/pack/8000/usa/music_167choro.win32.scd",
+            "sound/pack/8000/usa/music_168faru_l.win32.scd",
+            "sound/pack/8000/usa/music_16gfaru_b.win32.scd",
+            "sound/pack/8000/usa/music_17pls.win32.scd",
+            "sound/pack/8000/usa/music_18vin_uta.win32.scd",
+            "sound/pack/8000/usa/music_19hanabi.win32.scd",
+            "sound/pack/8000/usa/music_20eien.win32.scd",
+            "sound/pack/8000/usa/music_21sn_sera.win32.scd",
+            "sound/pack/8000/usa/music_26psicom.win32.scd",
+            "sound/pack/8000/usa/music_27ansoku.win32.scd",
+            "sound/pack/8000/usa/music_28shouk_b.win32.scd",
+            "sound/pack/8000/usa/music_29kihei.win32.scd",
+            "sound/pack/8000/usa/music_30hot.win32.scd",
+            "sound/pack/8000/usa/music_31grv.win32.scd",
+            "sound/pack/8000/usa/music_32vpek_f.win32.scd",
+            "sound/pack/8000/usa/music_33light_1.win32.scd",
+            "sound/pack/8000/usa/music_34comical.win32.scd",
+            "sound/pack/8000/usa/music_36gapra_f.win32.scd",
+            "sound/pack/8000/usa/music_39hope_1.win32.scd",
+            "sound/pack/8000/usa/music_40monst_b.win32.scd",
+            "sound/pack/8000/usa/music_41sra.win32.scd",
+            "sound/pack/8000/usa/music_42snls_f.win32.scd",
+            "sound/pack/8000/usa/music_43sazh_1.win32.scd",
+            "sound/pack/8000/usa/music_44sazh_2a.win32.scd",
+            "sound/pack/8000/usa/music_44sazh_3b.win32.scd",
+            "sound/pack/8000/usa/music_45kinpaku.win32.scd",
+            "sound/pack/8000/usa/music_46vani_1.win32.scd",
+            "sound/pack/8000/usa/music_47ppm.win32.scd",
+            "sound/pack/8000/usa/music_49farusi.win32.scd",
+            "sound/pack/8000/usa/music_50abs.win32.scd",
+            "sound/pack/8000/usa/music_54snow_2.win32.scd",
+            "sound/pack/8000/usa/music_55hope_fu.win32.scd",
+            "sound/pack/8000/usa/music_56fang.win32.scd",
+            "sound/pack/8000/usa/music_57snow_3.win32.scd",
+            "sound/pack/8000/usa/music_59hope_ie.win32.scd",
+            "sound/pack/8000/usa/music_61prd.win32.scd",
+            "sound/pack/8000/usa/music_62nati_f.win32.scd",
+            "sound/pack/8000/usa/music_64choco_c.win32.scd",
+            "sound/pack/8000/usa/music_65kanasii.win32.scd",
+            "sound/pack/8000/usa/music_67va_sazh.win32.scd",
+            "sound/pack/8000/usa/music_68tak.win32.scd",
+            "sound/pack/8000/usa/music_6gameover.win32.scd",
+            "sound/pack/8000/usa/music_70daisuri.win32.scd",
+            "sound/pack/8000/usa/music_71kanta_f.win32.scd",
+            "sound/pack/8000/usa/music_72waiban.win32.scd",
+            "sound/pack/8000/usa/music_74faru1_b.win32.scd",
+            "sound/pack/8000/usa/music_76pro.win32.scd",
+            "sound/pack/8000/usa/music_77fark_f.win32.scd",
+            "sound/pack/8000/usa/music_78rainz_2.win32.scd",
+            "sound/pack/8000/usa/music_81gto.win32.scd",
+            "sound/pack/8000/usa/music_83s_gp_f.win32.scd",
+            "sound/pack/8000/usa/music_84daihe_f.win32.scd",
+            "sound/pack/8000/usa/music_85gp_b.win32.scd",
+            "sound/pack/8000/usa/music_86choco_f.win32.scd",
+            "sound/pack/8000/usa/music_89vani_2.win32.scd",
+            "sound/pack/8000/usa/music_90ligh_sn.win32.scd",
+            "sound/pack/8000/usa/music_91teiji_f.win32.scd",
+            "sound/pack/8000/usa/music_92saiha_f.win32.scd",
+            "sound/pack/8000/usa/music_93ragu_se.win32.scd",
+            "sound/pack/8000/usa/music_96grp.win32.scd",
+            "sound/pack/8000/usa/music_97eden_pa.win32.scd",
+            "sound/pack/8000/usa/music_98hikari.win32.scd",
+            "sound/pack/8000/usa/music_bat_short.win32.scd",
+            "sound/pack/8000/usa/music_bossa.win32.scd",
+            "sound/pack/8000/usa/music_dark.win32.scd",
+            "sound/pack/8000/usa/music_fanfare.win32.scd",
+            "sound/pack/8000/usa/music_handsnow.win32.scd",
+            "sound/pack/8000/usa/music_handsnow2.win32.scd",
+            "sound/pack/8000/usa/music_madfade.win32.scd",
+            "sound/pack/8000/usa/music_result.win32.scd",
+            "sound/pack/8000/usa/music_snowfade.win32.scd",
+            "sound/pack/8000/usa/music_theme_b.win32.scd",
+            "sound/pack/8000/usa/music_title.win32.scd",
+            "sound/pack/8000/usa/music_white_at.win32.scd",
+            "sound/pack/8000/usa/music_white_e3.win32.scd"
+#endregion
         };
 
         public Form1()
@@ -767,11 +871,21 @@ namespace FF13Randomizer
 
             byte[] scene = File.ReadAllBytes($"{ randoPath}\\original\\db\\resident\\bt_scene.wdb");
             EnemyStatDatabase enemies = new EnemyStatDatabase($"{randoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
-            
+            byte[] bytes = File.ReadAllBytes($"{randoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
+
             int completed = 0;
             List<DataStoreEnemy> enemyList = enemies.Enemies.ToList();
             enemyList.ForEach(e =>
             {
+                byte[] idBytes = bytes.SubArray(completed * 0x20 + 0x90, 0x10);
+                string id = Encoding.UTF8.GetString(idBytes).Replace("\0", "");
+
+                if (id.StartsWith("pc"))
+                {
+                    completed++;
+                    return;
+                }
+
                 if (Flags.ItemFlags.Drops.FlagEnabled)
                 {
                     do
@@ -912,6 +1026,26 @@ namespace FF13Randomizer
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                 return  (int)((t.Weight + 38 * Math.Exp(-0.005 * t.Weight)));
             return  (int)Math.Max(1, t.Weight / 3.5f * mult);
+        }
+
+        private void ShuffleMusic(BackgroundWorker backgroundWorker)
+        {
+            List<string> musicList = fileNamesModified.Where(p => p.Contains("music_")).ToList();
+            musicList.ForEach(p => File.Copy($"{randoPath}\\original\\{p}", p,true));
+            if (Flags.Other.Music.FlagEnabled)
+            {
+                int count = 0;
+                musicList.Shuffle((p1, p2) =>
+                {
+                    count++;
+                    if (p1 == p2)
+                        return;
+                    File.Move(p1, p1 + ".temp");
+                    File.Move(p2, p1);
+                    File.Move(p1 + ".temp", p2);
+                    backgroundWorker.ReportProgress(count * 100 / musicList.Count);
+                });
+            }
         }
 
         private static string FF13FilePath = null;
@@ -1056,6 +1190,7 @@ namespace FF13Randomizer
             new ProgressForm("Randomizing crystarium...", bw => RandomizeCrystarium(bw)).ShowDialog();
             new ProgressForm("Randomizing treasures...", bw => RandomizeTreasures(bw)).ShowDialog();
             new ProgressForm("Randomizing enemies... (Drops/Resistances)", bw => RandomizeEnemies(bw)).ShowDialog();
+            new ProgressForm("Randomizing music...", bw => ShuffleMusic(bw)).ShowDialog();
 
 
             new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
@@ -1132,7 +1267,7 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances)
+                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.Other.Music)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
@@ -1147,13 +1282,13 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.CrystariumFlags.LibraStart)
+                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.CrystariumFlags.LibraStart || flag == Flags.Other.Music)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
             }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 5;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 5;
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 10;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 10;
 
             MessageBox.Show("Applied!");
         }
@@ -1164,8 +1299,8 @@ namespace FF13Randomizer
             {
                 flag.FlagEnabled = true;
             }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 10;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 10;
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
 
             MessageBox.Show("Applied!");
         }
@@ -1179,8 +1314,8 @@ namespace FF13Randomizer
                 else
                     flag.FlagEnabled = true;
             }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 15;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 15;
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 50;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 50;
 
             MessageBox.Show("Applied!");
         }
@@ -1194,8 +1329,8 @@ namespace FF13Randomizer
                 else
                     flag.FlagEnabled = true;
             }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 100;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 100;
 
             MessageBox.Show("Applied!");
         }

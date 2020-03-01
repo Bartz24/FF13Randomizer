@@ -23,7 +23,7 @@ namespace FF13Randomizer
 
             public static Flag ShuffleATBAccessory = new Flag()
             {
-                Text = "Shuffle ATB Levels, Accessories, and Techniques",
+                Text = "Shuffle Special Nodes",
                 FlagID = "ShATBAcc",
                 DescriptionFormat = "Shuffles the ATB Level node, Accessory nodes and techniques across all roles.",
                 FullDescriptionFormat = "Shuffles the ATB Level node, Accessory nodes and techniques across all roles."
@@ -120,13 +120,13 @@ namespace FF13Randomizer
             {
                 FlagValue treasures = new FlagValue(Treasures);
                 treasures.Range.MinRange.MinRange = 0;
-                treasures.Range.MaxRange.MaxRange = 20;
+                treasures.Range.MaxRange.MaxRange = 100;
                 treasures.Range.Value = 0;
                 Treasures.SetFlagData(treasures);
 
                 FlagValue drops = new FlagValue(Drops);
                 drops.Range.MinRange.MinRange = 0;
-                drops.Range.MaxRange.MaxRange = 20;
+                drops.Range.MaxRange.MaxRange = 100;
                 drops.Range.Value = 0;
                 Drops.SetFlagData(drops);
             }
@@ -140,7 +140,8 @@ namespace FF13Randomizer
                 FlagID = "ShElemRes",
                 DescriptionFormat = "Elemental and physical/magical resistances will be shuffled between enemies.",
                 FullDescriptionFormat = "Elemental and physical/magical resistances will be shuffled between enemies.\n" +
-                "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune."
+                "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune.",
+                Experimental = true
             }.Register();
 
             public static Flag Debuffs = new Flag()
@@ -148,7 +149,21 @@ namespace FF13Randomizer
                 Text = "Shuffle Debuff Resistances",
                 FlagID = "ShDebffRes",
                 DescriptionFormat = "Debuff resistances will be shuffled between enemies.",
-                FullDescriptionFormat = "Debuff resistances will be shuffled between enemies."
+                FullDescriptionFormat = "Debuff resistances will be shuffled between enemies.",
+                Experimental = true
+            }.Register();
+        }
+
+        public class Other
+        {
+            public static Flag Music = new Flag()
+            {
+                Text = "Shuffle Music",
+                FlagID = "ShMusic",
+                DescriptionFormat = "Shuffles all music tracks.",
+                FullDescriptionFormat = "Shuffles all music tracks.\n" +
+                "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune.",
+                Experimental = true
             }.Register();
         }
 
@@ -157,6 +172,7 @@ namespace FF13Randomizer
             new CrystariumFlags();
             new ItemFlags();
             new EnemyFlags();
+            new Other();
         }
     }
 }
