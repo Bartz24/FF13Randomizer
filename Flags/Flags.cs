@@ -156,7 +156,7 @@ namespace FF13Randomizer
 
         public class Other
         {
-            public static Flag Music = new Flag()
+            /*public static Flag Music = new Flag()
             {
                 Text = "Shuffle Music",
                 FlagID = "ShMusic",
@@ -164,7 +164,7 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "Shuffles all music tracks.\n" +
                 "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune.",
                 Experimental = true
-            }.Register();
+            }.Register();*/
         }
 
         public Flags()

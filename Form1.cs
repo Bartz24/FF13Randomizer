@@ -1051,8 +1051,8 @@ namespace FF13Randomizer
 
         private void ShuffleMusic(BackgroundWorker backgroundWorker)
         {
-            List<string> musicList = fileNamesModified.Where(p => p.Contains("music_")).ToList();
-            musicList.ForEach(p => File.Copy($"{randoPath}\\original\\{p}", p,true));
+            /*List<string> musicList = fileNamesModified.Where(p => p.Contains("music_")).ToList();
+            musicList.ForEach(p => File.Copy($"{randoPath}\\original\\{p}", p,true));            
             if (Flags.Other.Music.FlagEnabled)
             {
                 int count = 0;
@@ -1066,7 +1066,7 @@ namespace FF13Randomizer
                     File.Move(p1 + ".temp", p2);
                     backgroundWorker.ReportProgress(count * 100 / musicList.Count);
                 });
-            }
+            }*/
         }
 
         private static string FF13FilePath = null;
@@ -1288,7 +1288,7 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.Other.Music)
+                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances/* || flag == Flags.Other.Music*/)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
@@ -1303,7 +1303,7 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.CrystariumFlags.LibraStart || flag == Flags.Other.Music)
+                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.CrystariumFlags.LibraStart/* || flag == Flags.Other.Music*/)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
