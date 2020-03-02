@@ -416,7 +416,6 @@ namespace FF13Data
 
         static TieredAbilities()
         {
-            Console.WriteLine("hello");
         }
 
         public static Ability Get(Tiered<Ability> tiered, List<Ability> obtained)

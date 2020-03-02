@@ -70,15 +70,21 @@ namespace FF13Data
                 {
                     List<Tuple<T, int>> tuples = Get(rank);
                     if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 <= count).Count() > 0)
+                    {
                         minRank = rank;
+                        break;
+                    }
                 }
                 for (int rank = HighBound; rank >= minRank; rank--)
                 {
                     List<Tuple<T, int>> tuples = Get(rank);
                     if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 >= count).Count() > 0)
+                    {
                         maxRank = rank;
+                        break;
+                    }
                 }
-                return (minRank + maxRank) / 2;
+                return minRank;
             }
             return -1;
         }

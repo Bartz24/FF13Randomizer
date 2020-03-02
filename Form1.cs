@@ -657,7 +657,7 @@ namespace FF13Randomizer
             // Collect the sort command output. 
             if (!String.IsNullOrEmpty(outLine.Data))
             {
-                Console.WriteLine(outLine.Data);
+                //Console.WriteLine(outLine.Data);
                 curLines++;
                 if (commandWorker != null)
                     commandWorker.ReportProgress(workerStart + (curLines * (workerMax - workerStart) / maxLines));
@@ -668,6 +668,8 @@ namespace FF13Randomizer
         {
             foreach (string path in fileNamesModified)
             {
+                if (path.Contains("music"))
+                    continue;
                 if (!newFiles)
                 {
                     File.Copy(randoPath + "\\original\\" + path.Replace("/", "\\"), path.Replace("/", "\\"), true);
@@ -685,17 +687,32 @@ namespace FF13Randomizer
         private void button2_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(TieredItems.manager.GetRank(Items.Trapezohedron).ToString());
-            int rank = 121;
+            int rank = TieredItems.manager.GetRank(Items.TetradicCrown);
+            Console.WriteLine("\n"+rank.ToString());
             int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
             if (rankAdj > 0)
                 rank = RandomNum.randInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
+            Console.WriteLine(rank.ToString());
             Tuple<Item, int> item;
             do
             {
-                item = TieredItems.manager.Get(rank, 1);
+                item = TieredItems.manager.Get(rank, 1,t=> 
+                {
+
+                    if (t.Items.Where(i => i.ID == "").Count() > 0)
+                        return 0;
+                    float mult = 1 + .01f * (float)Math.Pow(68 - 50, .8f);
+                    if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
+                        return (int)(t.Weight * 3 * mult);
+                    if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
+                        return 0;
+                    if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
+                        return Math.Max(1, t.Weight / 4);
+                    return (int)(t.Weight * 2 * mult);
+                });
                 rank--;
             } while (item.Item1 ==null);
-            MessageBox.Show(item.Item1.ID + "x" + item.Item2);
+            MessageBox.Show(item.Item1.Name + " x " + item.Item2);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -740,7 +757,7 @@ namespace FF13Randomizer
                             {
                                 newItem = TieredItems.manager.Get(rank, Int32.MaxValue, tiered => GetTreasureWeight(tiered));
                                 rank--;
-                            } while (rank >= 0 && (newItem == null || blacklisted.Contains(newItem.Item1) || blacklistedWeapons.Contains(newItem.Item1)));
+                            } while (rank >= 0 && (newItem.Item1 == null || blacklisted.Contains(newItem.Item1) || blacklistedWeapons.Contains(newItem.Item1)));
                             if (newItem.Item1.ID.StartsWith("wea_"))
                                 blacklisted.Add(newItem.Item1);
                             DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
@@ -800,10 +817,10 @@ namespace FF13Randomizer
         private int GetTreasureWeight(Tiered<Item> t)
         {
             if (t == TieredItems.Catalyst || t == TieredItems.Ethersol || t == TieredItems.DoctorsCode)
-                return t.Weight + 20;
+                return (int)(t.Weight * 1.6);
             if (t.Items.Where(i => i.ID.StartsWith("material") || i.ID == "").Count() > 0)
-                return Math.Max(1, t.Weight / 5);
-            return (int)(t.Weight + 5 * Math.Exp(-0.05 * t.Weight));
+                return Math.Max(1, t.Weight / 20);
+            return (int)(t.Weight * 2);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -990,12 +1007,13 @@ namespace FF13Randomizer
                 {
                     if (rankAdj > 0)
                         rank = Math.Max(0, rank + RandomNum.randInt(-rankAdj, rankAdj));
+                    int oldRank = rank + 0;
                     Tuple<Item, int> newItem;
                     do
                     {
                         newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy, item.ID.StartsWith("it") && enemy.Level > 50));
                         rank--;
-                    } while ((newItem == null || blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
+                    } while ((newItem.Item1 == null || blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
                     if (newItem.Item1 == null)
                         return;
                     DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
@@ -1016,8 +1034,6 @@ namespace FF13Randomizer
             float mult;
             if (enemy.Level >= 50 && !forceNormalDrop)
             {
-                if (t.Items.Contains(Items.DoctorsCode))
-                    return t.Weight * 5;
                 mult = 1 + .01f * (float)Math.Pow(enemy.Level - 50, .8f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                     return (int)(t.Weight * 3 * mult);
@@ -1029,8 +1045,8 @@ namespace FF13Randomizer
             }
             mult = 1 + .01f * (float)Math.Pow(enemy.Level, .8f);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return  (int)((t.Weight + 38 * Math.Exp(-0.005 * t.Weight)));
-            return  (int)Math.Max(1, t.Weight / 3.5f * mult);
+                return  (int)(t.Weight * 12.2f);
+            return  (int)Math.Max(1, t.Weight / 22.5f * mult);
         }
 
         private void ShuffleMusic(BackgroundWorker backgroundWorker)
@@ -1277,8 +1293,8 @@ namespace FF13Randomizer
                 else
                     flag.FlagEnabled = true;
             }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 0;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 0;
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 5;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 5;
             if(sender!=null)
             MessageBox.Show("Applied!");
         }
@@ -1292,8 +1308,8 @@ namespace FF13Randomizer
                 else
                     flag.FlagEnabled = true;
             }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 10;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 10;
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
 
             MessageBox.Show("Applied!");
         }
@@ -1304,8 +1320,8 @@ namespace FF13Randomizer
             {
                 flag.FlagEnabled = true;
             }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
+            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 40;
+            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 40;
 
             MessageBox.Show("Applied!");
         }

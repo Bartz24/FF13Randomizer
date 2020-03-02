@@ -10,9 +10,11 @@ namespace FF13Data
     public class Item
     {
         public string ID { get; set; }
+        public string Name { get; set; }
 
-        public Item(string id)
+        public Item(string name, string id)
         {
+            this.Name = name;
             this.ID = id;
             Items.items.Add(this);
         }
