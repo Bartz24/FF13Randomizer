@@ -73,6 +73,15 @@ namespace FF13Randomizer
             }.Register();
 
 
+            public static Flag HalfSecondaryCPCost = new Flag()
+            {
+                Text = "Half Secondary CP Cost",
+                FlagID = "HfSecCP",
+                DescriptionFormat = "CP Cost is halved on secondary roles.",
+                FullDescriptionFormat = "CP Cost is halved on secondary roles. Applies on top of Scaled CP Cost."
+            }.Register();
+
+
             public static Flag LibraStart = new Flag()
             {
                 Text = "Force Libra Start",

@@ -12,7 +12,7 @@ namespace FF13Data
 
         public List<Tiered<T>> GetTiered(int rank, int count)
         {
-            return list.Where(t => rank >= t.LowBound && rank <= t.LowBound + t.GetCountBoost(count)).ToList();
+            return list.Where(t => rank >= t.LowBound && rank <= t.GetHighBound(count)).ToList();
         }
 
         public Tuple<T,int> Get(int rank, int maxCount, Func<Tiered<T>,int> weightFunc = null)

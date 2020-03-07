@@ -47,19 +47,19 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Ethersol = new Tiered<Item>
-            (60, Items.Ethersol, 220, 99, 0.5f)
+            (60, Items.Ethersol, 20, 99, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Fortisol = new Tiered<Item>
-            (50, Items.Fortisol, 200, 99, 0.5f)
+            (50, Items.Fortisol, 25, 99, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Aegisol = new Tiered<Item>
-            (50, Items.Aegisol, 200, 99, 0.5f)
+            (50, Items.Aegisol, 25, 99, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Deceptisol = new Tiered<Item>
-            (30, Items.Deceptisol, 200, 99, 0.5f)
+            (30, Items.Deceptisol, 25, 99, 0.5f)
             .Register(manager);
 
 
@@ -71,7 +71,7 @@ namespace FF13Data
         #region Accessories
 
         public static Tiered<Item> Bangle = new Tiered<Item>
-            (10, Items.IronBangle, 100)
+            (10, Items.IronBangle, 120)
             .Add(15, Items.SilverBangle)
             .Add(20, Items.TungstenBangle)
             .Add(28, Items.TitaniumBangle)
@@ -84,7 +84,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Wristband = new Tiered<Item>
-            (12, Items.PowerWristband, 80)
+            (12, Items.PowerWristband, 90)
             .Add(20, Items.BrawlersWristband)
             .Add(35, Items.WarriorsWristband)
             .Add(66, Items.PowerGlove)
@@ -92,7 +92,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Mark = new Tiered<Item>
-            (12, Items.MagiciansMark, 80)
+            (12, Items.MagiciansMark, 90)
             .Add(20, Items.ShamansMark)
             .Add(35, Items.SorcerersMark)
             .Add(66, Items.WeirdingGlyph)
@@ -572,9 +572,12 @@ namespace FF13Data
             .Add(96, Items.PlushChocobo)
             .Register(manager);
 
+        public static Tiered<Item> Millerite = new Tiered<Item>
+            (4, Items.Millerite, 1, 5, 1.2f)
+            .Register(manager);
+
         public static Tiered<Item> Catalyst = new Tiered<Item>
-            (4, Items.Millerite, 70, 10, 1.2f)
-            .Add(12, Items.Rhodochrosite)
+            (12, Items.Rhodochrosite, 70, 10, 1.2f)
             .Add(22, Items.Cobaltite)
             .Add(34, Items.Perovskite)
             .Add(48, Items.Uraninite)

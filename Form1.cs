@@ -17,7 +17,7 @@ namespace FF13Randomizer
 {
     public partial class Form1 : Form
     {
-        public static string version = "1.3.2";
+        public static string version = "1.3.176868764481093634";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -334,9 +334,9 @@ namespace FF13Randomizer
                     statAverages.Add(stage, dict);
                 }
 
-                foreach (CrystariumDatabase crystarium in crystariums.Values)
+                foreach (string name in crystariums.Keys)
                 {
-                    foreach (DataStoreCrystarium c in crystarium.Crystarium)
+                    foreach (DataStoreCrystarium c in crystariums[name].Crystarium)
                     {
                         if (c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic)
                         {
@@ -345,7 +345,12 @@ namespace FF13Randomizer
 
                         if (Flags.CrystariumFlags.ScaledCPCost.FlagEnabled)
                         {
-                            c.CPCost = (uint)Math.Floor(c.CPCost * Math.Max(0.5,Math.Min(1, 1.08684 * Math.Exp(-0.08664 * c.Stage))));
+                            c.CPCost = (uint)Math.Floor(c.CPCost * Math.Max(0.5, Math.Min(1, 1.08684 * Math.Exp(-0.08664 * c.Stage))));
+                        }
+
+                        if (Flags.CrystariumFlags.HalfSecondaryCPCost.FlagEnabled && !primaryRoles[name].Contains(c.Role))
+                        {
+                            c.CPCost /= 2;
                         }
                     }
                 }
@@ -359,8 +364,8 @@ namespace FF13Randomizer
                         d[k].Add(avg);
                     });
                     int avgStrMag = (d[CrystariumType.Strength][0] + d[CrystariumType.Magic][0]) / 2;
-                    d[CrystariumType.Strength][0] = d[CrystariumType.Magic][0] = (int)Math.Max(1, avgStrMag * 1.05);
-                    d[CrystariumType.HP][0] = (int)Math.Max(1, d[CrystariumType.HP][0] * 0.95);
+                    d[CrystariumType.Strength][0] = d[CrystariumType.Magic][0] = (int)Math.Max(1, avgStrMag * 1.04);
+                    d[CrystariumType.HP][0] = (int)Math.Max(1, d[CrystariumType.HP][0] * 1.03);
                 });
 
                 foreach (string name in names)
@@ -395,7 +400,7 @@ namespace FF13Randomizer
                             int avgValue = statAverages[c.Stage][c.Type][0];
                             if (primaryRoles[name].Contains(c.Role))
                             {
-                                avgValue = (int)Math.Ceiling(avgValue * (5 * Math.Exp(-0.5d * nodeCounts[c.Stage][c.Role]) + 1));
+                                //avgValue = (int)Math.Ceiling(avgValue * (5 * Math.Exp(-0.5d * nodeCounts[c.Stage][c.Role]) + 1));
                             }
                             else
                                 avgValue = (int)Math.Ceiling(avgValue / 1.8d);
@@ -431,9 +436,9 @@ namespace FF13Randomizer
                             list.ForEach(cr =>
                             {
                                 if (c.Type == cr.Type && c.Stage == cr.Stage)
-                                    cr.Value = (ushort)Math.Max(1, Math.Ceiling(cr == c ? (cr.Value * mult) : (cr.Value / Math.Sqrt(mult) - 1)));
+                                    cr.Value = (ushort)Math.Max(1, Math.Ceiling(cr == c ? (cr.Value * mult) : (cr.Value / Math.Pow(mult, 1/2.2f) - 1)));
                             });
-                            c.Value = (ushort)Math.Max(1, c.Value * 1);
+                            c.Value = (ushort)Math.Max(1, (int)c.Value);
                         }
                     }
 
@@ -1044,8 +1049,10 @@ namespace FF13Randomizer
                 return (int)(t.Weight * 2 * mult);
             }
             mult = 1 + .01f * (float)Math.Pow(enemy.Level, .8f);
+            if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
+                return (int)(t.Weight);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return  (int)(t.Weight * 12.2f);
+                return  (int)(t.Weight * 18.2f);
             return  (int)Math.Max(1, t.Weight / 22.5f * mult);
         }
 
@@ -1288,7 +1295,9 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances/* || flag == Flags.Other.Music*/)
+                if (flag == Flags.EnemyFlags.Debuffs || 
+                    flag == Flags.EnemyFlags.Resistances/* || 
+                    flag == Flags.Other.Music*/)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
@@ -1303,7 +1312,10 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.EnemyFlags.Debuffs || flag == Flags.EnemyFlags.Resistances || flag == Flags.CrystariumFlags.LibraStart/* || flag == Flags.Other.Music*/)
+                if (flag == Flags.EnemyFlags.Debuffs || 
+                    flag == Flags.EnemyFlags.Resistances || 
+                    flag == Flags.CrystariumFlags.LibraStart/* || 
+                    flag == Flags.Other.Music*/)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
@@ -1330,7 +1342,9 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.CrystariumFlags.LibraStart || flag == Flags.CrystariumFlags.ScaledCPCost)
+                if (flag == Flags.CrystariumFlags.LibraStart || 
+                    flag == Flags.CrystariumFlags.ScaledCPCost || 
+                    flag == Flags.CrystariumFlags.HalfSecondaryCPCost)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
@@ -1345,7 +1359,9 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                if (flag == Flags.CrystariumFlags.LibraStart || flag == Flags.CrystariumFlags.ScaledCPCost)
+                if (flag == Flags.CrystariumFlags.LibraStart || 
+                    flag == Flags.CrystariumFlags.ScaledCPCost || 
+                    flag == Flags.CrystariumFlags.HalfSecondaryCPCost)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;

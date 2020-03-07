@@ -51,7 +51,12 @@ namespace FF13Data
 
         public int HighBound
         {
-            get => list[list.Count - 1].Item1 + GetCountBoost(maxCount);
+            get => GetHighBound(maxCount);
+        }
+
+        public int GetHighBound(int count)
+        {
+            return list[list.Count - 1].Item1 + GetCountBoost(count);
         }
 
         public int GetCountBoost(int count)

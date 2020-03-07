@@ -264,10 +264,10 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(152, 381);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(242, 39);
+            this.label13.Size = new System.Drawing.Size(236, 39);
             this.label13.TabIndex = 17;
             this.label13.Text = "Treasures and drops are even more random.\r\nDoes randomize enemy resistances.\r\nFor" +
-    "ced Libra start and scaled CP cost are applied.";
+    "ced Libra start and lower CP cost are applied.";
             // 
             // presetDirtyFighting
             // 
@@ -287,7 +287,7 @@
             this.label12.Size = new System.Drawing.Size(212, 39);
             this.label12.TabIndex = 15;
             this.label12.Text = "Treasures and drops are a bit more random.\r\nDoes not randomize enemy resistances." +
-    "\r\nScaled CP Cost is applied.";
+    "\r\nLower CP Cost is applied.";
             // 
             // presetDiversity
             // 
@@ -304,10 +304,10 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(152, 246);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(242, 39);
+            this.label11.Size = new System.Drawing.Size(236, 39);
             this.label11.TabIndex = 13;
             this.label11.Text = "The most basic of randomization.\r\nDoes not randomize enemy resistances.\r\nForced L" +
-    "ibra start and scaled CP cost are applied.";
+    "ibra start and lower CP cost are applied.";
             // 
             // label10
             // 
