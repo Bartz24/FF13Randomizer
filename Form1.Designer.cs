@@ -74,6 +74,7 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
             this.flagInfo1 = new FF13Randomizer.FlagInfo();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
@@ -217,18 +218,18 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(9, 221);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(103, 13);
+            this.label16.Size = new System.Drawing.Size(234, 13);
             this.label16.TabIndex = 22;
-            this.label16.Text = "Race recommended";
+            this.label16.Text = "Race recommended (Minimal experimental flags)";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(152, 481);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(197, 26);
+            this.label15.Size = new System.Drawing.Size(223, 26);
             this.label15.TabIndex = 21;
-            this.label15.Text = "Treasures and drops are maxed random.\r\nDoes randomize enemy resistances.";
+            this.label15.Text = "Stats, treasures and drops are maxed random.\r\nDoes randomize enemy resistances.";
             // 
             // presetRuthless
             // 
@@ -245,9 +246,9 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(152, 431);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(186, 26);
+            this.label14.Size = new System.Drawing.Size(212, 26);
             this.label14.TabIndex = 19;
-            this.label14.Text = "Treasures and drops are very random.\r\nDoes randomize enemy resistances.";
+            this.label14.Text = "Stats, treasures and drops are very random.\r\nDoes randomize enemy resistances.";
             // 
             // presetBully
             // 
@@ -264,10 +265,10 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(152, 381);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(236, 39);
+            this.label13.Size = new System.Drawing.Size(242, 39);
             this.label13.TabIndex = 17;
-            this.label13.Text = "Treasures and drops are even more random.\r\nDoes randomize enemy resistances.\r\nFor" +
-    "ced Libra start and lower CP cost are applied.";
+            this.label13.Text = "Stats, treasures and drops are even more random.\r\nDoes randomize enemy resistance" +
+    "s.\r\nForced Libra start and lower CP cost are applied.";
             // 
             // presetDirtyFighting
             // 
@@ -284,10 +285,10 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(152, 296);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(212, 39);
+            this.label12.Size = new System.Drawing.Size(238, 39);
             this.label12.TabIndex = 15;
-            this.label12.Text = "Treasures and drops are a bit more random.\r\nDoes not randomize enemy resistances." +
-    "\r\nLower CP Cost is applied.";
+            this.label12.Text = "Stats, treasures and drops are a bit more random.\r\nDoes not randomize enemy resis" +
+    "tances.\r\nLower CP Cost is applied.";
             // 
             // presetDiversity
             // 
@@ -406,6 +407,7 @@
             // tabPageFinish
             // 
             this.tabPageFinish.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageFinish.Controls.Add(this.label18);
             this.tabPageFinish.Controls.Add(this.labelFlagsSelected);
             this.tabPageFinish.Controls.Add(this.buttonRandomize);
             this.tabPageFinish.Location = new System.Drawing.Point(104, 4);
@@ -573,6 +575,17 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(86, 82);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(278, 52);
+            this.label18.TabIndex = 13;
+            this.label18.Text = "NOTE: Only works with English voices right now!\r\n\r\nNOTE: Logs for crystarium, tre" +
+    "asures, and latestSeed can\r\nbe found in the logs folder where this program is lo" +
+    "cated";
+            // 
             // flagInfo1
             // 
             this.flagInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -654,6 +667,7 @@
         private System.Windows.Forms.Button presetEvenedOdds;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label18;
     }
 }
 

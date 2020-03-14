@@ -9,29 +9,37 @@ namespace FF13Randomizer
 {
     public class StatValues
     {
-        public int HP { get; set; }
-        public int STR { get; set; }
-        public int MAG { get; set; }
+        public int[] Vals { get; set; }
 
-        public StatValues(int hp, int str, int mag)
+        public StatValues(int count)
         {
-            HP = hp;
-            STR = str;
-            MAG = mag;
+            Vals = new int[count];
         }
 
-        public void Randomize(int total)
+        public void Randomize(int variance)
         {
-            while (HP + STR + MAG < total)
+            int randTotal = variance * 3;
+            while (Vals.Sum() < randTotal)
             {
-                int val = Math.Max((total - (HP + STR + MAG)) / (total / 20), 1);
-                int select = RandomNum.randInt(0, 2);
-                if (select == 0)
-                    HP += val;
-                else if (select == 1)
-                    STR += val;
-                else
-                    MAG += val;
+                int val = (int)Math.Max((randTotal - Vals.Sum()) / (randTotal / 20f), 1);
+                int select = RandomNum.randInt(0, Vals.Length-1);
+                Vals[select] += val;
+            }
+            for (int i = 0; i < Vals.Length; i++)
+            {
+                Vals[i] += 100 - variance;
+            }
+        }
+
+        public int this[int i]
+        {
+            get
+            {
+                return Vals[i];
+            }
+            set
+            {
+                Vals[i] = value;
             }
         }
     }

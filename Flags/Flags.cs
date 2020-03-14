@@ -42,14 +42,10 @@ namespace FF13Randomizer
             {
                 Text = "Randomize Stats",
                 FlagID = "RanStat",
-                DescriptionFormat = "Characters and roles are given random stat affinities.",
-                FullDescriptionFormat = "Characters and roles are given random stat affinities.\n" +
-                "-Each character and role is assigned 300 'stat points' randomly to specialize in HP, Strength, or Magic. For example:\n" +
-                "   -100 stat points in HP = no adjustments to HP nodes\n" +
-                "   -50 stat points in HP = HP nodes cut in half\n" +
-                "   -150 stat points in HP = HP nodes are 1.5x higher\n" +
-                "-The character and role stat points both apply to the nodes.\n" +
-                "-The amount of nodes that appear is also related to the stat points. For example: more HP stat points will have more HP nodes appear."
+                DescriptionFormat = "Characters and roles are given random stat affinities. Variance of ${Value}%",
+                FullDescriptionFormat = "Characters and roles are given random stat affinities. Variance of ${Value}%.\n" +
+                "-Each character and role gets varied multipliers on stats based on the stage. These multipliers stack.\n" +
+                "-The amount of nodes that appear is also related to the stat multiplier. For example: Higher HP multiplier also means more HP nodes will appear."
             }.Register();
 
             public static Flag ShuffleStage = new Flag()
@@ -89,6 +85,15 @@ namespace FF13Randomizer
                 DescriptionFormat = "Libra is a forced starting ability.",
                 FullDescriptionFormat = "Libra is a forced starting ability."
             }.Register();
+
+            static CrystariumFlags()
+            {
+                FlagValue stats = new FlagValue(RandStats);
+                stats.Range.MinRange.MinRange = 0;
+                stats.Range.MaxRange.MaxRange = 100;
+                stats.Range.Value = 0;
+                RandStats.SetFlagData(stats);
+            }
         }
 
 
@@ -161,6 +166,25 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "Debuff resistances will be shuffled between enemies.",
                 Experimental = true
             }.Register();
+
+
+            public static Flag RandStats = new Flag()
+            {
+                Text = "Randomize Stats",
+                FlagID = "RanStat",
+                DescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%",
+                FullDescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%",
+                Experimental = true
+            }.Register();
+
+            static EnemyFlags()
+            {
+                FlagValue stats = new FlagValue(RandStats);
+                stats.Range.MinRange.MinRange = 0;
+                stats.Range.MaxRange.MaxRange = 50;
+                stats.Range.Value = 0;
+                RandStats.SetFlagData(stats);
+            }
         }
 
         public class Other

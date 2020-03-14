@@ -13,6 +13,13 @@ namespace FF13Data
             get { return Data.ReadUInt(0x10); }
             set { Data.SetUInt(0x10, value); }
         }
+
+        public uint ChainRes
+        {
+            get { return Data.ReadUInt(0x24); }
+            set { Data.SetUInt(0x24, value); }
+        }
+
         public uint CP
         {
             get { return Data.ReadUInt(0xEC); }
@@ -32,6 +39,24 @@ namespace FF13Data
         {
             get { return Data.ReadUInt(0xF4); }
             set { Data.SetUInt(0xF4, value); }
+        }
+
+        public ushort Magic
+        {
+            get { return Data.ReadUShort(0x10C); }
+            set { Data.SetUShort(0x10C, value); }
+        }
+
+        public ushort Strength
+        {
+            get { return Data.ReadUShort(0x10E); }
+            set { Data.SetUShort(0x10E, value); }
+        }
+
+        public ushort StaggerPoint
+        {
+            get { return Data.ReadUShort(0x126); }
+            set { Data.SetUShort(0x126, value); }
         }
 
         public ushort CommonDropChance

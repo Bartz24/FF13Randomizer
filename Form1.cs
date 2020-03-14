@@ -17,7 +17,7 @@ namespace FF13Randomizer
 {
     public partial class Form1 : Form
     {
-        public static string version = "1.3.176868764481093634.1";
+        public static string version = "1.4.0";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -314,15 +314,17 @@ namespace FF13Randomizer
             {
                 foreach (Role role in Enum.GetValues(typeof(Role)))
                 {
-                    StatValues stats = new StatValues(1, 1, 1);
-                    stats.Randomize(300);
+                    StatValues stats = new StatValues(3);
+                    int variance = ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value;
+                    stats.Randomize(variance);
                     roleMults.Add(role, stats);
                 }
 
                 foreach (string name in names)
                 {
-                    StatValues stats = new StatValues(1, 1, 1);
-                    stats.Randomize(300);
+                    StatValues stats = new StatValues(3);
+                    int variance = ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value;
+                    stats.Randomize(variance);
                     charMults.Add(name, stats);
                 }
 
@@ -395,9 +397,9 @@ namespace FF13Randomizer
                             c.Type = RandomNum.SelectRandomWeighted(
                                 new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.ToList(),
                                 t => Math.Max(1, (int)Math.Pow(
-                                    t == CrystariumType.HP ? (charMults[name].HP * roleMults[c.Role].HP) : (
-                                    t == CrystariumType.Strength ? (charMults[name].STR * roleMults[c.Role].STR) : 
-                                    (charMults[name].MAG * roleMults[c.Role].MAG)), 1 / 1.5d)));
+                                    t == CrystariumType.HP ? (charMults[name][0] * roleMults[c.Role][0]) : (
+                                    t == CrystariumType.Strength ? (charMults[name][1] * roleMults[c.Role][1]) : 
+                                    (charMults[name][2] * roleMults[c.Role][2])), 1 / 1.5d)));
 
                             int avgValue = statAverages[c.Stage][c.Type][0];
                             if (primaryRoles[name].Contains(c.Role))
@@ -413,13 +415,13 @@ namespace FF13Randomizer
 
                             if (c.Type == CrystariumType.HP)
                                 c.Value = (ushort)Math.Round(Math.Max(1,
-                                    (float)avgValue * (float)charMults[name].HP * (float)roleMults[c.Role].HP / 10000f));
+                                    (float)avgValue * (float)charMults[name][0] * (float)roleMults[c.Role][0] / 10000f));
                             if (c.Type == CrystariumType.Strength)
                                 c.Value = (ushort)Math.Round(Math.Max(1,
-                                    (float)avgValue * (float)charMults[name].STR * (float)roleMults[c.Role].STR / 10000f));
+                                    (float)avgValue * (float)charMults[name][1] * (float)roleMults[c.Role][1] / 10000f));
                             if (c.Type == CrystariumType.Magic)
                                 c.Value = (ushort)Math.Round(Math.Max(1,
-                                    (float)avgValue * (float)charMults[name].MAG * (float)roleMults[c.Role].MAG / 10000f));
+                                    (float)avgValue * (float)charMults[name][2] * (float)roleMults[c.Role][2] / 10000f));
                         }
                     }
 
@@ -818,10 +820,12 @@ namespace FF13Randomizer
 
         private int GetTreasureWeight(Tiered<Item> t)
         {
-            if (t == TieredItems.Catalyst || t == TieredItems.Ethersol || t == TieredItems.DoctorsCode)
-                return (int)(t.Weight * 1.6);
-            if (t.Items.Where(i => i.ID.StartsWith("material") || i.ID == "").Count() > 0)
+            if (t == TieredItems.Ethersol)
+                return (int)(t.Weight * 3.6);
+            if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                 return Math.Max(1, t.Weight / 20);
+            if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
+                return Math.Max(1, t.Weight * 20);
             return (int)(t.Weight * 2);
         }
 
@@ -966,6 +970,18 @@ namespace FF13Randomizer
 
                     swap.DebuffRes = swapped;
                     e.DebuffRes = enem;
+                }
+
+                if (Flags.EnemyFlags.RandStats.FlagEnabled)
+                {
+                    StatValues stats = new StatValues(5);
+                    int variance = ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value;
+                    stats.Randomize(variance);
+                    e.HP = (uint)Math.Max(1, e.HP * stats[0] / 100f);
+                    e.Strength = (ushort)Math.Max(1, e.Strength * stats[1] / 100f);
+                    e.Magic = (ushort)Math.Max(1, e.Magic * stats[2] / 100f);
+                    e.ChainRes = (uint)Math.Min(100,Math.Max(0, e.ChainRes + stats[3] - 100));
+                    e.StaggerPoint = (ushort)Math.Min(999, Math.Max(101, e.StaggerPoint + stats[4] - 100));
                 }
 
                 completed++;
@@ -1216,7 +1232,7 @@ namespace FF13Randomizer
 
             new ProgressForm("Randomizing crystarium...", bw => RandomizeCrystarium(bw)).ShowDialog();
             new ProgressForm("Randomizing treasures...", bw => RandomizeTreasures(bw)).ShowDialog();
-            new ProgressForm("Randomizing enemies... (Drops/Resistances)", bw => RandomizeEnemies(bw)).ShowDialog();
+            new ProgressForm("Randomizing enemies... (Drops/Resistances/Stats)", bw => RandomizeEnemies(bw)).ShowDialog();
             new ProgressForm("Randomizing music...", bw => ShuffleMusic(bw)).ShowDialog();
 
 
@@ -1297,14 +1313,17 @@ namespace FF13Randomizer
             {
                 if (flag == Flags.EnemyFlags.Debuffs || 
                     flag == Flags.EnemyFlags.Resistances/* || 
-                    flag == Flags.Other.Music*/)
+                    flag == Flags.Other.Music*/ ||
+                    flag == Flags.EnemyFlags.RandStats)
                     flag.FlagEnabled = false;
                 else
                     flag.FlagEnabled = true;
             }
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 5;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 5;
-            if(sender!=null)
+            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 15;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 0;
+            if (sender!=null)
             MessageBox.Show("Applied!");
         }
 
@@ -1322,6 +1341,8 @@ namespace FF13Randomizer
             }
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
+            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 25;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 5;
 
             MessageBox.Show("Applied!");
         }
@@ -1334,6 +1355,8 @@ namespace FF13Randomizer
             }
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 40;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 40;
+            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 40;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 15;
 
             MessageBox.Show("Applied!");
         }
@@ -1351,6 +1374,8 @@ namespace FF13Randomizer
             }
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 50;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 50;
+            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 80;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 25;
 
             MessageBox.Show("Applied!");
         }
@@ -1368,6 +1393,8 @@ namespace FF13Randomizer
             }
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 100;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 100;
+            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 100;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 50;
 
             MessageBox.Show("Applied!");
         }
