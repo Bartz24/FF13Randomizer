@@ -11,60 +11,60 @@ namespace FF13Data
         public static TieredManager<Item> manager = new TieredManager<Item>();
 
         public static Tiered<Item> Gil = new Tiered<Item>
-            (0, Items.Gil, 150, 100000, 2.7f)
+            (0, Items.Gil, 400, 100000, 2.7f)
             .Register(manager);
 
         #region Consumables
 
         public static Tiered<Item> HealingItem = new Tiered<Item>
-            (8, Items.Potion, 15, 99, 0.85f)
+            (8, Items.Potion, 50, 20, 0.85f)
             .Add(15, Items.PhoenixDown)
             .Add(100, Items.Elixir)
             .Register(manager);
 
         public static Tiered<Item> Antidote = new Tiered<Item>
-            (12, Items.Antidote, 1, 99, 0.45f)
+            (12, Items.Antidote, 1, 20, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> HolyWater = new Tiered<Item>
-            (12, Items.HolyWater, 1, 99, 0.45f)
+            (12, Items.HolyWater, 1, 20, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Painkiller = new Tiered<Item>
-            (12, Items.Painkiller, 1, 99, 0.45f)
+            (12, Items.Painkiller, 1, 20, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> FoulLiquid = new Tiered<Item>
-            (12, Items.FoulLiquid, 1, 99, 0.45f)
+            (12, Items.FoulLiquid, 1, 20, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Wax = new Tiered<Item>
-            (12, Items.Wax, 1, 99, 0.45f)
+            (12, Items.Wax, 1, 20, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Mallet = new Tiered<Item>
-            (12, Items.Mallet, 1, 99, 0.45f)
+            (12, Items.Mallet, 1, 20, 0.45f)
             .Register(manager);
 
         public static Tiered<Item> Ethersol = new Tiered<Item>
-            (60, Items.Ethersol, 20, 99, 0.5f)
+            (60, Items.Ethersol, 20, 5, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Fortisol = new Tiered<Item>
-            (50, Items.Fortisol, 28, 99, 0.5f)
+            (50, Items.Fortisol, 28, 5, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Aegisol = new Tiered<Item>
-            (50, Items.Aegisol, 28, 99, 0.5f)
+            (50, Items.Aegisol, 28, 5, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Deceptisol = new Tiered<Item>
-            (30, Items.Deceptisol, 28, 99, 0.5f)
+            (30, Items.Deceptisol, 28, 5, 0.5f)
             .Register(manager);
 
 
         public static Tiered<Item> Librascope = new Tiered<Item>
-            (25, Items.Librascope, 20, 99, 0.6f)
+            (25, Items.Librascope, 20, 5, 0.6f)
             .Register(manager);
         #endregion
 
@@ -117,7 +117,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> FireRing = new Tiered<Item>
-            (10, Items.FlamebaneBrooch, 5)
+            (10, Items.FlamebaneBrooch, 8)
             .Add(15, Items.EmberRing)
             .Add(28, Items.BlazeRing)
             .Add(36, Items.FlameshieldEarring)
@@ -127,7 +127,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> IceRing = new Tiered<Item>
-            (10, Items.FrostbaneBrooch, 5)
+            (10, Items.FrostbaneBrooch, 8)
             .Add(15, Items.FrostRing)
             .Add(28, Items.IcicleRing)
             .Add(36, Items.FrostshieldEarring)
@@ -137,7 +137,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> ThunderRing = new Tiered<Item>
-            (10, Items.SparkbaneBrooch, 5)
+            (10, Items.SparkbaneBrooch, 8)
             .Add(15, Items.SparkRing)
             .Add(28, Items.FulmenRing)
             .Add(36, Items.SparkshieldEarring)
@@ -147,7 +147,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> WaterRing = new Tiered<Item>
-            (10, Items.AquabaneBrooch, 5)
+            (10, Items.AquabaneBrooch, 8)
             .Add(15, Items.AquaRing)
             .Add(28, Items.RiptideRing)
             .Add(36, Items.AquashieldEarring)
@@ -157,14 +157,14 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> WindRing = new Tiered<Item>
-            (15, Items.ZephyrRing, 5)
+            (15, Items.ZephyrRing, 8)
             .Add(28, Items.GaleRing)
             .Add(48, Items.WindCharm)
             .Add(52, Items.SylphidRing)
             .Register(manager);
 
         public static Tiered<Item> EarthRing = new Tiered<Item>
-            (15, Items.ClayRing, 5)
+            (15, Items.ClayRing, 8)
             .Add(28, Items.StilstoneRing)
             .Add(48, Items.EarthCharm)
             .Add(52, Items.GaianRing)
@@ -172,7 +172,7 @@ namespace FF13Data
 
 
         public static Tiered<Item> EntiteRing = new Tiered<Item>
-            (80, Items.EntiteRing, 3)
+            (80, Items.EntiteRing, 5)
             .Register(manager);
 
         public static Tiered<Item> Glove = new Tiered<Item>
@@ -241,42 +241,42 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> ProtectAmulet = new Tiered<Item>
-            (8, Items.GuardianAmulet, 5)
+            (8, Items.GuardianAmulet, 8)
             .Add(36, Items.ShieldTalisman)
             .Register(manager);
 
         public static Tiered<Item> ShellAmulet = new Tiered<Item>
-            (8, Items.AuricAmulet, 5)
+            (8, Items.AuricAmulet, 8)
             .Add(36, Items.SoulfontTalisman)
             .Register(manager);
 
         public static Tiered<Item> VeilAmulet = new Tiered<Item>
-            (8, Items.WatchmansAmulet, 5)
+            (8, Items.WatchmansAmulet, 8)
             .Add(36, Items.ShroudingTalisman)
             .Register(manager);
 
         public static Tiered<Item> BraveryAmulet = new Tiered<Item>
-            (8, Items.HerosAmulet, 5)
+            (8, Items.HerosAmulet, 8)
             .Add(36, Items.MoraleTalisman)
             .Register(manager);
 
         public static Tiered<Item> FaithAmulet = new Tiered<Item>
-            (8, Items.SaintsAmulet, 5)
+            (8, Items.SaintsAmulet, 8)
             .Add(36, Items.BlessedTalisman)
             .Register(manager);
 
         public static Tiered<Item> VigilanceAmulet = new Tiered<Item>
-            (8, Items.ZealotAmulet, 5)
+            (8, Items.ZealotAmulet, 8)
             .Add(36, Items.BattleTalisman)
             .Register(manager);
 
         public static Tiered<Item> HasteShoes = new Tiered<Item>
-            (20, Items.HermesSandals, 5)
+            (20, Items.HermesSandals, 8)
             .Add(50, Items.SprintShoes)
             .Register(manager);
 
         public static Tiered<Item> Tetradic = new Tiered<Item>
-            (40, Items.TetradicCrown, 5)
+            (40, Items.TetradicCrown, 8)
             .Add(65, Items.TetradicTiara)
             .Register(manager);
 
@@ -324,181 +324,181 @@ namespace FF13Data
         #region Components
 
         public static Tiered<Item> Claw = new Tiered<Item>
-            (0, Items.BegrimedClaw, 10, 99, 1.2f)
+            (0, Items.BegrimedClaw, 10, 25, 1.2f)
             .Add(5, Items.BestialClaw)
             .Add(12, Items.GargantuanClaw)
             .Add(20, Items.HellishTalon)
             .Register(manager);
 
         public static Tiered<Item> Bone = new Tiered<Item>
-            (0, Items.ShatteredBone, 10, 99, 1.5f)
+            (0, Items.ShatteredBone, 10, 25, 1.5f)
             .Add(5, Items.SturdyBone)
             .Add(12, Items.OtherworldlyBone)
             .Add(20, Items.AncientBone)
             .Register(manager);
 
         public static Tiered<Item> Scale = new Tiered<Item>
-            (0, Items.MoistenedScale, 10, 99, 1.5f)
+            (0, Items.MoistenedScale, 10, 25, 1.5f)
             .Add(5, Items.SeapetalScale)
             .Add(12, Items.AbyssalScale)
             .Add(20, Items.SeakingsBeard)
             .Register(manager);
 
         public static Tiered<Item> Carapace = new Tiered<Item>
-            (0, Items.SegmentedCarapace, 10, 99, 1.5f)
+            (0, Items.SegmentedCarapace, 10, 25, 1.5f)
             .Add(5, Items.IronShell)
             .Add(12, Items.ArmoredShell)
             .Add(20, Items.RegeneratingCarapace)
             .Register(manager);
 
         public static Tiered<Item> Fang = new Tiered<Item>
-            (0, Items.ChippedFang, 10, 99, 1.5f)
+            (0, Items.ChippedFang, 10, 25, 1.5f)
             .Add(5, Items.WickedFang)
             .Add(12, Items.MonstrousFang)
             .Add(20, Items.SinisterFang)
             .Register(manager);
 
         public static Tiered<Item> Wing = new Tiered<Item>
-            (0, Items.SeveredWing, 10, 99, 1.5f)
+            (0, Items.SeveredWing, 10, 25, 1.5f)
             .Add(5, Items.ScaledWing)
             .Add(12, Items.AbominableWing)
             .Add(20, Items.MenacingWings)
             .Register(manager);
 
         public static Tiered<Item> Tail = new Tiered<Item>
-            (0, Items.MoltedTail, 10, 99, 1.5f)
+            (0, Items.MoltedTail, 10, 25, 1.5f)
             .Add(5, Items.BarbedTail)
             .Add(12, Items.DiabolicTail)
             .Add(20, Items.EntrancingTail)
             .Register(manager);
 
         public static Tiered<Item> Leather = new Tiered<Item>
-            (0, Items.TornLeather, 10, 99, 1.5f)
+            (0, Items.TornLeather, 10, 25, 1.5f)
             .Add(5, Items.ThickenedHide)
             .Add(12, Items.SmoothHide)
             .Add(20, Items.SuppleLeather)
             .Register(manager);
 
         public static Tiered<Item> Oil = new Tiered<Item>
-            (0, Items.GummyOil, 10, 99, 1.5f)
+            (0, Items.GummyOil, 10, 25, 1.5f)
             .Add(5, Items.FragrantOil)
             .Add(12, Items.MedicinalOil)
             .Add(20, Items.EsotericOil)
             .Register(manager);
 
         public static Tiered<Item> Wool = new Tiered<Item>
-            (0, Items.ScragglyWool, 10, 99, 1.5f)
+            (0, Items.ScragglyWool, 10, 25, 1.5f)
             .Add(5, Items.RoughWool)
             .Add(12, Items.ThickWool)
             .Add(20, Items.FluffyWool)
             .Register(manager);
 
         public static Tiered<Item> Ooze = new Tiered<Item>
-            (0, Items.MurkyOoze, 10, 99, 1.5f)
+            (0, Items.MurkyOoze, 10, 25, 1.5f)
             .Add(5, Items.VibrantOoze)
             .Add(12, Items.TransparentOoze)
             .Add(20, Items.WonderGel)
             .Register(manager);
 
         public static Tiered<Item> Horn = new Tiered<Item>
-            (0, Items.FracturedHorn, 10, 99, 1.5f)
+            (0, Items.FracturedHorn, 10, 25, 1.5f)
             .Add(5, Items.SpinedHorn)
             .Add(12, Items.FiendishHorn)
             .Add(20, Items.InfernalHorn)
             .Register(manager);
 
         public static Tiered<Item> Fluid = new Tiered<Item>
-            (0, Items.StrangeFluid, 10, 99, 1.5f)
+            (0, Items.StrangeFluid, 10, 25, 1.5f)
             .Add(5, Items.EnigmaticFluid)
             .Add(12, Items.MysteriousFluid)
             .Add(20, Items.IneffableFluid)
             .Register(manager);
 
         public static Tiered<Item> Tear = new Tiered<Item>
-            (0, Items.CiethTear, 10, 99, 1.5f)
+            (0, Items.CiethTear, 10, 25, 1.5f)
             .Add(5, Items.TearOfFrustration)
             .Add(12, Items.TearOfRemorse)
             .Add(20, Items.TearOfWoe)
             .Register(manager);
 
         public static Tiered<Item> Mycelium = new Tiered<Item>
-            (0, Items.RedMycelium, 10, 99, 1.5f)
+            (0, Items.RedMycelium, 10, 25, 1.5f)
             .Add(5, Items.BlueMycelium)
             .Add(12, Items.WhiteMycelium)
             .Add(20, Items.BlackMycelium)
             .Register(manager);
 
         public static Tiered<Item> Dew = new Tiered<Item>
-            (10, Items.DawnlightDew, 10, 99, 1.5f)
+            (10, Items.DawnlightDew, 10, 25, 1.5f)
             .Add(20, Items.DusklightDew)
             .Add(34, Items.Gloomstalk)
             .Add(58, Items.Sunpetal)
             .Register(manager);
 
         public static Tiered<Item> Seed = new Tiered<Item>
-            (46, Items.MoonblossomSeed, 10, 99, 1.5f)
+            (46, Items.MoonblossomSeed, 10, 25, 1.5f)
             .Add(70, Items.StarblossomSeed)
             .Register(manager);
 
         public static Tiered<Item> Chocobo = new Tiered<Item>
-            (0, Items.ChocoboPlume, 10, 99, 1.5f)
+            (0, Items.ChocoboPlume, 10, 25, 1.5f)
             .Add(12, Items.ChocoboTailFeather)
             .Register(manager);
 
         public static Tiered<Item> Fruit = new Tiered<Item>
-            (32, Items.SucculentFruit, 10, 99, 1.5f)
+            (32, Items.SucculentFruit, 10, 25, 1.5f)
             .Add(58, Items.MalodorousFruit)
             .Register(manager);
 
         public static Tiered<Item> NeedlePerfume = new Tiered<Item>
-            (46, Items.GreenNeedle, 10, 99, 1.5f)
+            (46, Items.GreenNeedle, 10, 25, 1.5f)
             .Add(65, Items.Perfume)
             .Register(manager);
 
         public static Tiered<Item> Cable = new Tiered<Item>
-            (10, Items.InsulatedCabling, 10, 99, 1.5f)
+            (10, Items.InsulatedCabling, 10, 25, 1.5f)
             .Add(28, Items.FibreOpticCable)
             .Register(manager);
 
         public static Tiered<Item> Lens = new Tiered<Item>
-            (10, Items.LiquidCrystalLens, 10, 99, 1.5f)
+            (10, Items.LiquidCrystalLens, 10, 25, 1.5f)
             .Add(28, Items.RingJoint)
             .Register(manager);
 
         public static Tiered<Item> Gear = new Tiered<Item>
-            (10, Items.EpicyclicGear, 10, 99, 1.5f)
+            (10, Items.EpicyclicGear, 10, 25, 1.5f)
             .Add(28, Items.Crankshaft)
             .Register(manager);
 
         public static Tiered<Item> CapacitorFly = new Tiered<Item>
-            (10, Items.ElectrolyticCapacitor, 10, 99, 1.5f)
+            (10, Items.ElectrolyticCapacitor, 10, 25, 1.5f)
             .Add(28, Items.Flywheel)
             .Register(manager);
 
         public static Tiered<Item> SprocketActuator = new Tiered<Item>
-            (10, Items.Sprocket, 10, 99, 1.5f)
+            (10, Items.Sprocket, 10, 25, 1.5f)
             .Add(28, Items.Actuator)
             .Register(manager);
 
         public static Tiered<Item> Plug = new Tiered<Item>
-            (10, Items.SparkPlug, 10, 99, 1.5f)
+            (10, Items.SparkPlug, 10, 25, 1.5f)
             .Add(28, Items.IridiumPlug)
             .Register(manager);
 
         public static Tiered<Item> Valve = new Tiered<Item>
-            (10, Items.NeedleValve, 10, 99, 1.5f)
+            (10, Items.NeedleValve, 10, 25, 1.5f)
             .Add(28, Items.ButterflyValve)
             .Register(manager);
 
         public static Tiered<Item> Bomb = new Tiered<Item>
-            (10, Items.BombAshes, 10, 99, 1.5f)
+            (10, Items.BombAshes, 10, 25, 1.5f)
             .Add(28, Items.BombFragment)
             .Add(48, Items.BombShell)
             .Add(70, Items.BombCore)
             .Register(manager);
 
         public static Tiered<Item> Circuit = new Tiered<Item>
-            (10, Items.AnalogCircuit, 10, 99, 1.5f)
+            (10, Items.AnalogCircuit, 10, 25, 1.5f)
             .Add(28, Items.DigitalCircuit)
             .Add(48, Items.Gyroscope)
             .Add(70, Items.Electrode)
@@ -510,76 +510,76 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Bearing = new Tiered<Item>
-            (28, Items.RadialBearing, 10, 99, 1.5f)
+            (28, Items.RadialBearing, 10, 25, 1.5f)
             .Add(42, Items.ThrustBearing)
             .Add(48, Items.Solenoid)
             .Add(70, Items.MobiusCoil)
             .Register(manager);
 
         public static Tiered<Item> Tube = new Tiered<Item>
-            (48, Items.TungstenTube, 10, 99, 1.5f)
+            (48, Items.TungstenTube, 10, 25, 1.5f)
             .Add(70, Items.TitaniumTube)
             .Register(manager);
 
         public static Tiered<Item> Detector = new Tiered<Item>
-            (48, Items.PassiveDetector, 10, 99, 1.5f)
+            (48, Items.PassiveDetector, 10, 25, 1.5f)
             .Add(70, Items.ActiveDetector)
             .Register(manager);
 
         public static Tiered<Item> Transformer = new Tiered<Item>
-            (10, Items.Transformer, 10, 99, 1.5f)
+            (10, Items.Transformer, 10, 25, 1.5f)
             .Add(28, Items.Amplifier)
             .Add(48, Items.Carburetor)
             .Add(70, Items.Supercharger)
             .Register(manager);
 
         public static Tiered<Item> ElementOscillator = new Tiered<Item>
-            (48, Items.PiezoelectricElement, 10, 99, 1.5f)
+            (48, Items.PiezoelectricElement, 10, 25, 1.5f)
             .Add(70, Items.CrystalOscillator)
             .Register(manager);
 
         public static Tiered<Item> MachineOil = new Tiered<Item>
-            (10, Items.ParaffinOil, 10, 99, 1.5f)
+            (10, Items.ParaffinOil, 10, 25, 1.5f)
             .Add(28, Items.SiliconeOil)
             .Add(48, Items.SyntheticMuscle)
             .Add(70, Items.Turboprop)
             .Register(manager);
 
         public static Tiered<Item> Turbojet = new Tiered<Item>
-            (48, Items.Turbojet, 10, 99, 1.5f)
+            (48, Items.Turbojet, 10, 25, 1.5f)
             .Add(70, Items.TeslaTurbine)
             .Register(manager);
 
         public static Tiered<Item> Conductor = new Tiered<Item>
-            (10, Items.PolymerEmulsion, 10, 99, 1.5f)
+            (10, Items.PolymerEmulsion, 10, 25, 1.5f)
             .Add(28, Items.FerroelectricFilm)
             .Add(48, Items.Superconductor)
             .Add(70, Items.PerfectConductor)
             .Register(manager);
 
         public static Tiered<Item> AcceleratorReactor = new Tiered<Item>
-            (88, Items.ParticalAccelerator, 10, 99)
+            (88, Items.ParticalAccelerator, 10, 25)
             .Add(110, Items.UltracompactReactor)
             .Register(manager);
 
         public static Tiered<Item> Chip = new Tiered<Item>
-            (28, Items.CreditChip, 10, 99, 1.5f)
+            (28, Items.CreditChip, 10, 25, 1.5f)
             .Add(50, Items.IncentiveChip)
             .Register(manager);
 
         public static Tiered<Item> Doll = new Tiered<Item>
-            (60, Items.CactuarDoll, 10, 99, 1.5f)
+            (60, Items.CactuarDoll, 10, 25, 1.5f)
             .Add(68, Items.MooglePuppet)
             .Add(88, Items.TonberryFigurine)
             .Add(96, Items.PlushChocobo)
             .Register(manager);
 
         public static Tiered<Item> Millerite = new Tiered<Item>
-            (4, Items.Millerite, 1, 5, 1.2f)
+            (4, Items.Millerite, 1, 3, 1.2f)
             .Register(manager);
 
         public static Tiered<Item> Catalyst = new Tiered<Item>
-            (12, Items.Rhodochrosite, 50, 10, 1.2f)
+            (12, Items.Rhodochrosite, 50, 3, 1.2f)
             .Add(22, Items.Cobaltite)
             .Add(34, Items.Perovskite)
             .Add(48, Items.Uraninite)

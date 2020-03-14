@@ -179,9 +179,13 @@ namespace FF13Randomizer
 
             static EnemyFlags()
             {
+                /*FlagBool res = new FlagBool(Resistances);
+                res.Name = "No Physical/Magical Immunity";
+                Resistances.SetFlagData(res);*/
+
                 FlagValue stats = new FlagValue(RandStats);
                 stats.Range.MinRange.MinRange = 0;
-                stats.Range.MaxRange.MaxRange = 50;
+                stats.Range.MaxRange.MaxRange = 100;
                 stats.Range.Value = 0;
                 RandStats.SetFlagData(stats);
             }

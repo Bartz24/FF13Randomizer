@@ -18,7 +18,7 @@ namespace FF13Randomizer
 
         public void Randomize(int variance)
         {
-            int randTotal = variance * 3;
+            int randTotal = variance * Vals.Length;
             while (Vals.Sum() < randTotal)
             {
                 int val = (int)Math.Max((randTotal - Vals.Sum()) / (randTotal / 20f), 1);

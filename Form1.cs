@@ -17,7 +17,7 @@ namespace FF13Randomizer
 {
     public partial class Form1 : Form
     {
-        public static string version = "1.4.0";
+        public static string version = "1.4.1";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -820,12 +820,12 @@ namespace FF13Randomizer
 
         private int GetTreasureWeight(Tiered<Item> t)
         {
-            if (t == TieredItems.Ethersol)
-                return (int)(t.Weight * 3.6);
+            if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
+                return Math.Max(1, t.Weight * 8);
             if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                 return Math.Max(1, t.Weight / 20);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return Math.Max(1, t.Weight * 20);
+                return Math.Max(1, t.Weight * 8);
             return (int)(t.Weight * 2);
         }
 
@@ -903,6 +903,7 @@ namespace FF13Randomizer
 
             int completed = 0;
             List<DataStoreEnemy> enemyList = enemies.Enemies.ToList();
+            bool noImmune = false; // ((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value;
             enemyList.ForEach(e =>
             {
                 byte[] idBytes = bytes.SubArray(completed * 0x20 + 0x90, 0x10);
@@ -951,6 +952,18 @@ namespace FF13Randomizer
                     o = e.PhysicalRes;
                     e.PhysicalRes = swap.PhysicalRes;
                     swap.PhysicalRes = o;
+
+                    if (noImmune)
+                    {
+                        if (physValues[e.PhysicalRes] == ElementalRes.Immune)
+                        {
+                            e.PhysicalRes = physValues.Keys.Where(k => physValues[k] == ElementalRes.Halved).First();
+                        }
+                        if (e.MagicRes == ElementalRes.Immune)
+                        {
+                            e.MagicRes = ElementalRes.Halved;
+                        }
+                    }
                 }
 
                 if (Flags.EnemyFlags.Debuffs.FlagEnabled)
@@ -980,8 +993,8 @@ namespace FF13Randomizer
                     e.HP = (uint)Math.Max(1, e.HP * stats[0] / 100f);
                     e.Strength = (ushort)Math.Max(1, e.Strength * stats[1] / 100f);
                     e.Magic = (ushort)Math.Max(1, e.Magic * stats[2] / 100f);
-                    e.ChainRes = (uint)Math.Min(100,Math.Max(0, e.ChainRes + stats[3] - 100));
-                    e.StaggerPoint = (ushort)Math.Min(999, Math.Max(101, e.StaggerPoint + stats[4] - 100));
+                    e.ChainRes = (uint)Math.Min(100,Math.Max(0, e.ChainRes * stats[3] / 100f));
+                    e.StaggerPoint = (ushort)Math.Min(999, Math.Max(101, (e.StaggerPoint -100) * stats[4] / 100f + 100));
                 }
 
                 completed++;
@@ -1323,6 +1336,7 @@ namespace FF13Randomizer
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 5;
             ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 15;
             ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 0;
+            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = false;
             if (sender!=null)
             MessageBox.Show("Applied!");
         }
@@ -1342,7 +1356,8 @@ namespace FF13Randomizer
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
             ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 25;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 5;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 15;
+            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = false;
 
             MessageBox.Show("Applied!");
         }
@@ -1356,7 +1371,8 @@ namespace FF13Randomizer
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 40;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 40;
             ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 40;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 15;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 50;
+            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = true;
 
             MessageBox.Show("Applied!");
         }
@@ -1375,7 +1391,8 @@ namespace FF13Randomizer
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 50;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 50;
             ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 80;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 25;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 75;
+            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = true;
 
             MessageBox.Show("Applied!");
         }
@@ -1394,7 +1411,8 @@ namespace FF13Randomizer
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 100;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 100;
             ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 100;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 50;
+            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 100;
+            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = true;
 
             MessageBox.Show("Applied!");
         }

@@ -118,6 +118,12 @@
       <DependentUpon>FlagInfoValue.cs</DependentUpon>
     </Compile>
     <Compile Include="Flags\Flags.cs" />
+    <Compile Include="Flags\FlagBool.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Flags\FlagBool.Designer.cs">
+      <DependentUpon>FlagBool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Flags\FlagValue.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Flags\FlagInfos\FlagInfoValue.resx">
       <DependentUpon>FlagInfoValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Flags\FlagBool.resx">
+      <DependentUpon>FlagBool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Flags\FlagValue.resx">
       <DependentUpon>FlagValue.cs</DependentUpon>

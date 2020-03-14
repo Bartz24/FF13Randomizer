@@ -35,8 +35,11 @@ namespace FF13Randomizer
                     {
                         UserControl control = flagData.getFlagInfo();
 
-                        control.Dock = DockStyle.Fill;
-                        panel1.Controls.Add(control);
+                        if (control != null)
+                        {
+                            control.Dock = DockStyle.Fill;
+                            panel1.Controls.Add(control);
+                        }
                     }
                     panel1.Refresh();
                 }
