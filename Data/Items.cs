@@ -195,7 +195,7 @@ namespace FF13Data
         public static Item IceCharm = new Item("IceCharm", "acc_048_000");
         public static Item LightningCharm = new Item("LightningCharm", "acc_049_000");
         public static Item WaterCharm = new Item("WaterCharm", "acc_050_000");
-        public static Item Windharm = new Item("Windharm", "acc_051_000");
+        public static Item WindCharm = new Item("Windharm", "acc_051_000");
         public static Item EarthCharm = new Item("EarthCharm", "acc_052_000");
 
         public static Item DoctorsCode = new Item("DoctorsCode", "acc_053_000");

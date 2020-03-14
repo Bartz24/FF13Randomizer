@@ -17,7 +17,7 @@ namespace FF13Randomizer
 {
     public partial class Form1 : Form
     {
-        public static string version = "1.3.176868764481093634";
+        public static string version = "1.3.176868764481093634.1";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -140,7 +140,9 @@ namespace FF13Randomizer
             if (GetFF13Directory() == null)
                 AutoSearchDir();
 
-            if(GetFF13Directory()!=null)
+            Directory.CreateDirectory("logs");
+
+            if (GetFF13Directory()!=null)
             {
                 Directory.CreateDirectory(randoPath+"\\FlagsSeeds");
                 if (Directory.GetFiles(randoPath+"\\FlagsSeeds").Count() > 0)
@@ -616,6 +618,8 @@ namespace FF13Randomizer
                 backgroundWorker.ReportProgress(50 + names.ToList().IndexOf(name) * (50 / 6));
 
             }
+
+            DocsJSONGenerator.CreateCrystariumDocs(crystariums, primaryRoles);
         }
 
         private static bool isTechnique(Ability orig)
@@ -741,60 +745,51 @@ namespace FF13Randomizer
             TreasureDatabase oldTreasures = new TreasureDatabase($"{randoPath}\\original\\db\\resident\\treasurebox.wdb");
 
             TreasureDatabase treasures = new TreasureDatabase($"{randoPath}\\original\\db\\resident\\treasurebox.wdb");
-            if (Flags.ItemFlags.Treasures.FlagEnabled)
-            {
-                treasures.ItemIDs.Clear();
+            int[] ranks = new int[treasures.Treasures.count];
 
                 List<Item> blacklisted = new List<Item>();
-                int completed = 0;
-                treasures.Treasures.ToList().ForEach(t =>
+                int completed = 0, index = -1;
+            treasures.Treasures.ToList().ForEach(t =>
+            {
+                index++;
+                Item item = Items.items.Where(i => i.ID == oldTreasures.ItemIDs[(int)t.StartingPointer]?.Value).FirstOrDefault();
+                int rank = -1;
+                if (item != null)
                 {
-                    Item item = Items.items.Where(i => i.ID == oldTreasures.ItemIDs[(int)t.StartingPointer]?.Value).FirstOrDefault();
-                    if (item != null)
+                    rank = TieredItems.manager.GetRank(item, (int)t.Count);
+                    if (rank != -1 && Flags.ItemFlags.Treasures.FlagEnabled)
                     {
-                        int rank = TieredItems.manager.GetRank(item, (int)t.Count);
-                        if (rank != -1)
+                        if (rankAdj > 0)
+                            rank = RandomNum.randInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
+                        Tuple<Item, int> newItem;
+                        rank++;
+                        do
                         {
-                            if (rankAdj > 0)
-                                rank = RandomNum.randInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
-                            Tuple<Item, int> newItem;
-                            do
-                            {
-                                newItem = TieredItems.manager.Get(rank, Int32.MaxValue, tiered => GetTreasureWeight(tiered));
-                                rank--;
-                            } while (rank >= 0 && (newItem.Item1 == null || blacklisted.Contains(newItem.Item1) || blacklistedWeapons.Contains(newItem.Item1)));
-                            if (newItem.Item1.ID.StartsWith("wea_"))
-                                blacklisted.Add(newItem.Item1);
-                            DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
-                            if (!treasures.ItemIDs.Contains(dataStr))
-                                treasures.ItemIDs.Add(dataStr, treasures.ItemIDs.GetTrueSize());
-                            t.StartingPointer = (uint)treasures.ItemIDs.IndexOf(dataStr);
-                            if (t.StartingPointer == 0xFFFFFFFF)
-                                treasures.ItemIDs.IndexOf(dataStr);
-                            t.EndingPointer = (uint)(t.StartingPointer + dataStr.Value.Length);
-                            t.Count = (uint)newItem.Item2;
+                            rank--;
+                            newItem = TieredItems.manager.Get(rank, Int32.MaxValue, tiered => GetTreasureWeight(tiered));
+                        } while (rank >= 0 && (newItem.Item1 == null || blacklisted.Contains(newItem.Item1) || blacklistedWeapons.Contains(newItem.Item1)));
+                        if (newItem.Item1.ID.StartsWith("wea_"))
+                            blacklisted.Add(newItem.Item1);
+                        DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
+                        if (!treasures.ItemIDs.Contains(dataStr))
+                            treasures.ItemIDs.Add(dataStr, treasures.ItemIDs.GetTrueSize());
+                        t.StartingPointer = (uint)treasures.ItemIDs.IndexOf(dataStr);
+                        if (t.StartingPointer == 0xFFFFFFFF)
+                            treasures.ItemIDs.IndexOf(dataStr);
+                        t.EndingPointer = (uint)(t.StartingPointer + dataStr.Value.Length);
+                        t.Count = (uint)newItem.Item2;
 
-                            if (t.StartingPointer > 0xAAAA || t.EndingPointer > 0xAAAA)
-                                throw new Exception("Too large");
-
-                            return;
-                        }
+                        if (t.StartingPointer > 0xAAAA || t.EndingPointer > 0xAAAA)
+                            throw new Exception("Too large");
                     }
+                }
 
-                    DataStoreString str = oldTreasures.ItemIDs[(int)t.StartingPointer];
-                    if (!treasures.ItemIDs.Contains(str))
-                        treasures.ItemIDs.Add(str, treasures.ItemIDs.GetTrueSize());
-                    t.StartingPointer = (uint)treasures.ItemIDs.IndexOf(str);
-                    t.EndingPointer = (uint)(t.StartingPointer + str.Value.Length);
+                ranks[index] = rank;
 
-                    if (t.StartingPointer > 0xAAAA || t.EndingPointer > 0xAAAA)
-                        throw new Exception("Too large");
+                completed++;
 
-                    completed++;
-
-                    backgroundWorker.ReportProgress(completed * 100 / treasures.Treasures.count);
-                });
-            }
+                backgroundWorker.ReportProgress(completed * 100 / treasures.Treasures.count);
+            });
 
             if (Flags.ItemFlags.Shops.FlagEnabled)
             {
@@ -817,6 +812,8 @@ namespace FF13Randomizer
             }
 
             treasures.Save($"db\\resident\\treasurebox.wdb");
+
+            DocsJSONGenerator.CreateTreasureDocs(treasures, ranks);
         }
 
         private int GetTreasureWeight(Tiered<Item> t)
@@ -1119,18 +1116,20 @@ namespace FF13Randomizer
                 if (File.Exists("ff13path.txt"))
                 {
                     FF13FilePath = File.ReadAllText("ff13path.txt").Replace("/", "\\");
-                    FF13FilePath = (String.IsNullOrEmpty(FF13FilePath) || !FF13FilePath.EndsWith("FINAL FANTASY XIII\\FFXiiiSteam.dll") ? null : FF13FilePath);
+                    FF13FilePath = (String.IsNullOrEmpty(FF13FilePath) || !File.Exists(FF13FilePath.Substring(0, FF13FilePath.LastIndexOf("\\")) + "\\white_data\\prog\\win\\bin\\ffxiiiimg.exe")) ? null : FF13FilePath;
                     if (File.Exists(FF13FilePath))
                         return FF13FilePath;
                 }
                 if (directoryCheck != null && Directory.Exists(directoryCheck))
                 {
                     string[] paths = Directory.GetFiles(directoryCheck, "FFXiiiSteam.dll", SearchOption.AllDirectories);
-                    paths.ToList().ForEach(p => 
+                    paths.ToList().ForEach(p =>
                     {
-                        if (p.Replace("/", "\\").EndsWith("FINAL FANTASY XIII\\FFXiiiSteam.dll"))
+                        p = p.Replace("/", "\\").Replace("\\\\", "\\");
+                        string path = p.Substring(0, p.LastIndexOf("\\")) + "\\white_data\\prog\\win\\bin\\ffxiiiimg.exe";
+                        if (File.Exists(path))
                             FF13FilePath = p.Replace("/", "\\");
-                    });                    
+                    });
                 }
             }
 
@@ -1196,13 +1195,13 @@ namespace FF13Randomizer
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         //Get the path of specified file
-                        filePath = openFileDialog.FileName;
+                        filePath = openFileDialog.FileName.Replace("\\\\", "\\");
                     }
                 }
                 if (filePath.EndsWith("FFXiiiSteam.dll"))
                 {
                     File.WriteAllText("ff13path.txt", filePath);
-                    
+                    FF13FilePath = null;
                     textBox2.Text = GetFF13Directory();
                 }
             }
@@ -1224,6 +1223,7 @@ namespace FF13Randomizer
             new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
 
             UserFlagsSeed.Export(randoPath + "\\FlagsSeeds", textBoxSeed.Text.Trim(), version);
+            UserFlagsSeed.Export("logs", textBoxSeed.Text.Trim(), version);
 
             MessageBox.Show("Complete! Ready to play! Whenever you need to uninstall the rando, come back to this program and go to the Uninstall tab!");
         }

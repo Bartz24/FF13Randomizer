@@ -70,22 +70,22 @@ namespace FF13Data
             {
                 if (!t.Item2.Equals(obj))
                     continue;
-                int minRank = 0, maxRank = 0;
-                for (int rank = 0; rank <= HighBound; rank++)
+                int minRank = LowBound, maxRank = HighBound;
+                for (int rank = LowBound; rank <= HighBound; rank++)
                 {
                     List<Tuple<T, int>> tuples = Get(rank);
-                    if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 <= count).Count() > 0)
+                    if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 > count).Count() > 0)
                     {
-                        minRank = rank;
+                        minRank = rank - 1;
                         break;
                     }
                 }
-                for (int rank = HighBound; rank >= minRank; rank--)
+                for (int rank = HighBound - 1; rank >= minRank; rank--)
                 {
                     List<Tuple<T, int>> tuples = Get(rank);
-                    if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 >= count).Count() > 0)
+                    if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 < count).Count() > 0)
                     {
-                        maxRank = rank;
+                        maxRank = rank + 1;
                         break;
                     }
                 }

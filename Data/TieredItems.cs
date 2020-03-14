@@ -159,12 +159,14 @@ namespace FF13Data
         public static Tiered<Item> WindRing = new Tiered<Item>
             (15, Items.ZephyrRing, 50)
             .Add(28, Items.GaleRing)
+            .Add(48, Items.WindCharm)
             .Add(52, Items.SylphidRing)
             .Register(manager);
 
         public static Tiered<Item> EarthRing = new Tiered<Item>
             (15, Items.ClayRing, 50)
             .Add(28, Items.StilstoneRing)
+            .Add(48, Items.EarthCharm)
             .Add(52, Items.GaianRing)
             .Register(manager);
 

@@ -11,6 +11,7 @@ namespace FF13Data
     {
         public Role Role { get; set; }
         public bool Starting { get; set; } = false;
+        public string Name { get; set; }
         public class AbilityData
         {
             public string ID { get; set; }
@@ -35,8 +36,9 @@ namespace FF13Data
         /// <param name="role"></param>
         /// <param name="id"></param>
         /// <param name="characters"></param>
-        public Ability(Role role, string id, string characters = "lsvzhf")
+        public Ability(String name, Role role, string id, string characters = "lsvzhf")
         {
+            this.Name = name;
             Role = role;
             Add(id, characters);
             Abilities.abilities.Add(this);

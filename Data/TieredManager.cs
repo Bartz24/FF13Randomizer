@@ -40,6 +40,8 @@ namespace FF13Data
                 int rank = tiered.GetRank(obj, count);
                 if (rank != -1)
                 {
+                    if (count > 99)
+                        Console.WriteLine(tiered.GetRank(obj, count));
                     avg += rank;
                     avgCount++;
                 }
