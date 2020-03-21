@@ -152,8 +152,8 @@ namespace FF13Randomizer
             {
                 Text = "Shuffle Elemental Resistances",
                 FlagID = "ShElemRes",
-                DescriptionFormat = "Elemental and physical/magical resistances will be shuffled between enemies.",
-                FullDescriptionFormat = "Elemental and physical/magical resistances will be shuffled between enemies.\n" +
+                DescriptionFormat = "Elemental resistances will be shuffled between enemies.",
+                FullDescriptionFormat = "Elemental resistances will be shuffled between enemies.\n" +
                 "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune.",
                 Experimental = true
             }.Register();
@@ -163,8 +163,7 @@ namespace FF13Randomizer
                 Text = "Shuffle Debuff Resistances",
                 FlagID = "ShDebffRes",
                 DescriptionFormat = "Debuff resistances will be shuffled between enemies.",
-                FullDescriptionFormat = "Debuff resistances will be shuffled between enemies.",
-                Experimental = true
+                FullDescriptionFormat = "Debuff resistances will be shuffled between enemies."
             }.Register();
 
 
@@ -173,7 +172,15 @@ namespace FF13Randomizer
                 Text = "Randomize Stats",
                 FlagID = "RanStat",
                 DescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%",
-                FullDescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%",
+                FullDescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%"
+            }.Register();
+
+            public static Flag RandLevel = new Flag()
+            {
+                Text = "Randomize Enemy Levels",
+                FlagID = "RanLevels",
+                DescriptionFormat = "Enemies' Levels will be shifted by up to +/- ${Value} and affect CP, HP, Strength, and Magic.",
+                FullDescriptionFormat = "Enemies' Levels will be shifted by up to +/- ${Value} and affect CP, HP, Strength, and Magic.",
                 Experimental = true
             }.Register();
 
@@ -188,6 +195,12 @@ namespace FF13Randomizer
                 stats.Range.MaxRange.MaxRange = 100;
                 stats.Range.Value = 0;
                 RandStats.SetFlagData(stats);
+
+                FlagValue levels = new FlagValue(RandLevel);
+                levels.Range.MinRange.MinRange = 0;
+                levels.Range.MaxRange.MaxRange = 50;
+                levels.Range.Value = 0;
+                RandLevel.SetFlagData(levels);
             }
         }
 

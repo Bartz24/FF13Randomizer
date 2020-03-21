@@ -77,12 +77,12 @@ namespace FF13Data
             set { Data.SetByte(0x100, value); }
         }
 
-        public byte ElemRes1
+        public ElementalRes ElemRes1
         {
-            //get { return (byte)(Data.ReadByte(0x128) / 0x10); }
-            //set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) % 0x10 + value * 0x10)); }
-            get { return Data.ReadByte(0x128); }
-            set { Data.SetByte(0x128, value); }
+            get { return (ElementalRes)(Data.ReadByte(0x128) / 0x10); }
+            set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) % 0x10 + (byte)value * 0x10)); }
+            //get { return Data.ReadByte(0x128); }
+            //set { Data.SetByte(0x128, value); }
         }
         public ElementalRes MagicRes
         {
