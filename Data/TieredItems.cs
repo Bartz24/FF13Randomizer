@@ -11,7 +11,7 @@ namespace FF13Data
         public static TieredManager<Item> manager = new TieredManager<Item>();
 
         public static Tiered<Item> Gil = new Tiered<Item>
-            (0, Items.Gil, 400, 100000, 2.7f)
+            (0, Items.Gil, 100, 100000, 2.1f)
             .Register(manager);
 
         #region Consumables

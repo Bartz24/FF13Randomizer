@@ -99,6 +99,13 @@ namespace FF13Data
             return Math.Min(maxCount, Math.Max(1, (int)Math.Pow(rankBoost, countScale)));
         }
 
+        public int GetRandomCount(int rankBoost)
+        {
+            int lower = GetCount(rankBoost);
+            int upper = GetCount(rankBoost + 1);
+            return lower >= upper ? lower : RandomNum.randInt(lower, upper - 1);
+        }
+
         public List<Tuple<T, int>> Get(int rank, Func<T, bool> meetsReq = null)
         {
             if (meetsReq == null)
@@ -113,7 +120,7 @@ namespace FF13Data
                 if (rank >= list[i].Item1 && rank <= upperBound && meetsReq.Invoke(list[i].Item2))
                     validIndexes.Add(i);
             }
-            return validIndexes.Select(i => new Tuple<T, int>(list[i].Item2, GetCount(rank - list[i].Item1))).ToList();
+            return validIndexes.Select(i => new Tuple<T, int>(list[i].Item2, GetRandomCount(rank - list[i].Item1))).ToList();
         }
 
     }

@@ -163,7 +163,8 @@ namespace FF13Randomizer
                 Text = "Shuffle Debuff Resistances",
                 FlagID = "ShDebffRes",
                 DescriptionFormat = "Debuff resistances will be shuffled between enemies.",
-                FullDescriptionFormat = "Debuff resistances will be shuffled between enemies."
+                FullDescriptionFormat = "Debuff resistances will be shuffled between enemies.",
+                Experimental = true
             }.Register();
 
 
