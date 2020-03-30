@@ -189,8 +189,8 @@ namespace FF13Randomizer
             {
                 Text = "Boost Enemy Levels",
                 FlagID = "BstLevels",
-                DescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect CP, HP, Strength, and Magic. In-game level is not changed!",
-                FullDescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect CP, HP, Strength, and Magic. In-game level is not changed!",
+                DescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect HP, Strength, and Magic. In-game level is not changed!",
+                FullDescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect HP, Strength, and Magic. In-game level is not changed!",
                 Experimental = true
             }.Register();
 
@@ -211,6 +211,12 @@ namespace FF13Randomizer
                 levels.Range.MaxRange.MaxRange = 50;
                 levels.Range.Value = 0;
                 RandLevel.SetFlagData(levels);
+
+                FlagValue boost = new FlagValue(BoostLevel);
+                boost.Range.MinRange.MinRange = 0;
+                boost.Range.MaxRange.MaxRange = 100;
+                boost.Range.Value = 0;
+                BoostLevel.SetFlagData(boost);
             }
         }
 

@@ -712,7 +712,7 @@ namespace FF13Randomizer
             Console.WriteLine("\n"+rank.ToString());
             int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
             if (rankAdj > 0)
-                rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
+                rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));            
             Console.WriteLine(rank.ToString());
             Tuple<Item, int> item;
             do
@@ -932,23 +932,22 @@ namespace FF13Randomizer
                     e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
                     e.Strength = (ushort)Math.Max(1, e.Strength * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
                     e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
-                    if (e.CP > 0)
-                        e.CP = (uint)Math.Max(1, e.CP * Math.Exp(Math.Pow(level + boost, 0.4) - Math.Pow(level, 0.4)));
                 }
 
                 if (Flags.EnemyFlags.RandLevel.FlagEnabled)
                 {
                     Flags.EnemyFlags.RandLevel.SetRand();
                     int variance = ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value;
+                    int boost = Flags.EnemyFlags.BoostLevel.FlagEnabled ? ((FlagValue)Flags.EnemyFlags.BoostLevel.FlagData).Range.Value : 0;
                     bool lv0 = e.Level == 0;
                     byte level = (byte)(lv0 ? 10 : e.Level);
                     if (level < 50)
                         e.Level = (byte)RandomNum.RandInt(Math.Max(1, level - variance), Math.Min(49, level + variance));
                     else if (level > 50)
                         e.Level = (byte)RandomNum.RandInt(Math.Max(51, level - variance), Math.Min(99, level + variance));
-                    e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(e.Level, 0.25) - Math.Pow(level, 0.25)));
-                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Exp(Math.Pow(e.Level, 0.25) - Math.Pow(level, 0.25)));
-                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(e.Level, 0.25) - Math.Pow(level, 0.25)));
+                    e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(e.Level + boost, 0.25) - Math.Pow(level + boost, 0.25)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Exp(Math.Pow(e.Level + boost, 0.25) - Math.Pow(level + boost, 0.25)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(e.Level + boost, 0.25) - Math.Pow(level + boost, 0.25)));
                     if (e.CP > 0)
                         e.CP = (uint)Math.Max(1, e.CP * Math.Exp(Math.Pow(e.Level, 0.4) - Math.Pow(level, 0.4)));
                     if (lv0)
@@ -1088,7 +1087,7 @@ namespace FF13Randomizer
                 if (rank != -1)
                 {
                     if (rankAdj > 0)
-                        rank = Math.Max(0, rank + RandomNum.RandInt(-rankAdj, rankAdj));
+                        rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));
                     int oldRank = rank + 0;
                     Tuple<Item, int> newItem;
                     do

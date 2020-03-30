@@ -49,5 +49,25 @@ namespace FF13Data
             }
             return avgCount == 0 ? -1 : (int)Math.Round((float)avg / avgCount);
         }
+
+        public int GetLowBound()
+        {
+            int lowest = Int32.MaxValue;
+            list.ForEach(t => {
+                if (t.LowBound < lowest)
+                    lowest = t.LowBound;
+            });
+            return lowest;
+        }
+
+        public int GetHighBound()
+        {
+            int highest = Int32.MinValue;
+            list.ForEach(t => {
+                if (t.HighBound > highest)
+                    highest = t.LowBound;
+            });
+            return highest;
+        }
     }
 }
