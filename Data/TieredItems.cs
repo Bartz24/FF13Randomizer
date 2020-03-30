@@ -607,289 +607,289 @@ namespace FF13Data
         #region Weapons
 
         public static Tiered<Item> BlazefireSaber = new Tiered<Item>
-            (15, Items.BlazefireSaber, 30)
+            (15, Items.BlazefireSaber, 10)
             .Add(60, Items.Flamberge)
             .Add(100, Items.OmegaWeapon1)
             .Register(manager);
 
         public static Tiered<Item> AxisBlade = new Tiered<Item>
-            (30, Items.AxisBlade, 30)
+            (30, Items.AxisBlade, 10)
             .Add(86, Items.Enkindler)
             .Add(110, Items.OmegaWeapon2)
             .Register(manager);
 
         public static Tiered<Item> EdgedCarbine = new Tiered<Item>
-            (15, Items.EdgedCarbine, 30)
+            (15, Items.EdgedCarbine, 10)
             .Add(60, Items.RazorCarbine)
             .Add(100, Items.OmegaWeapon3)
             .Register(manager);
 
         public static Tiered<Item> Lifesaber = new Tiered<Item>
-            (24, Items.Lifesaber, 30)
+            (24, Items.Lifesaber, 10)
             .Add(72, Items.Peacemaker)
             .Add(108, Items.OmegaWeapon4)
             .Register(manager);
 
         public static Tiered<Item> Gladius = new Tiered<Item>
-            (20, Items.Gladius, 30)
+            (20, Items.Gladius, 10)
             .Add(68, Items.Helterskelter)
             .Add(105, Items.OmegaWeapon5)
             .Register(manager);
 
         public static Tiered<Item> Organyx = new Tiered<Item>
-            (18, Items.Organyx, 30)
+            (18, Items.Organyx, 10)
             .Add(64, Items.Apocalypse)
             .Add(102, Items.OmegaWeapon6)
             .Register(manager);
 
         public static Tiered<Item> Hauteclaire = new Tiered<Item>
-            (20, Items.Hauteclaire, 30)
+            (20, Items.Hauteclaire, 10)
             .Add(68, Items.Durandal)
             .Add(105, Items.OmegaWeapon7)
             .Register(manager);
 
         public static Tiered<Item> Lionheart = new Tiered<Item>
-            (24, Items.Lionheart, 30)
+            (24, Items.Lionheart, 10)
             .Add(72, Items.UltimaWeapon)
             .Add(108, Items.OmegaWeapon8)
             .Register(manager);
 
         public static Tiered<Item> Vega42s = new Tiered<Item>
-            (15, Items.Vega42s, 30)
+            (15, Items.Vega42s, 10)
             .Add(60, Items.Altairs)
             .Add(100, Items.TotalEclipses1)
             .Register(manager);
 
         public static Tiered<Item> SpicaDefenders = new Tiered<Item>
-            (24, Items.SpicaDefenders, 30)
+            (24, Items.SpicaDefenders, 10)
             .Add(72, Items.SiriusSidearms)
             .Add(108, Items.TotalEclipses2)
             .Register(manager);
 
         public static Tiered<Item> DenebDuellers = new Tiered<Item>
-            (15, Items.DenebDuellers, 30)
+            (15, Items.DenebDuellers, 10)
             .Add(60, Items.CanopusAMPs)
             .Add(100, Items.TotalEclipses3)
             .Register(manager);
 
         public static Tiered<Item> Rigels = new Tiered<Item>
-            (20, Items.Rigels, 30)
+            (20, Items.Rigels, 10)
             .Add(68, Items.PolarisSpecials)
             .Add(105, Items.TotalEclipses4)
             .Register(manager);
 
         public static Tiered<Item> Aldebarans = new Tiered<Item>
-            (18, Items.Aldebarans, 30)
+            (18, Items.Aldebarans, 10)
             .Add(64, Items.Sadalmeliks)
             .Add(102, Items.TotalEclipses5)
             .Register(manager);
 
         public static Tiered<Item> PleiadesHiPowers = new Tiered<Item>
-            (15, Items.PleiadesHiPowers, 30)
+            (15, Items.PleiadesHiPowers, 10)
             .Add(60, Items.HyadesMagnums)
             .Add(100, Items.TotalEclipses6)
             .Register(manager);
 
         public static Tiered<Item> AntaresDeluxes = new Tiered<Item>
-            (20, Items.AntaresDeluxes, 30)
+            (20, Items.AntaresDeluxes, 10)
             .Add(68, Items.FomalhautElites)
             .Add(105, Items.TotalEclipses7)
             .Register(manager);
 
         public static Tiered<Item> Procyons = new Tiered<Item>
-            (36, Items.Procyons, 30)
+            (36, Items.Procyons, 10)
             .Add(94, Items.BetelgeuseCustoms)
             .Add(116, Items.TotalEclipses8)
             .Register(manager);
 
         public static Tiered<Item> WildBear = new Tiered<Item>
-            (15, Items.WildBear, 30)
+            (15, Items.WildBear, 10)
             .Add(60, Items.FeralPride)
             .Add(100, Items.SaveTheQueen1)
             .Register(manager);
 
         public static Tiered<Item> Paladin = new Tiered<Item>
-            (24, Items.Paladin, 30)
+            (24, Items.Paladin, 10)
             .Add(72, Items.WingedSaint)
             .Add(108, Items.SaveTheQueen2)
             .Register(manager);
 
         public static Tiered<Item> RebelHeart = new Tiered<Item>
-            (20, Items.RebelHeart, 30)
+            (20, Items.RebelHeart, 10)
             .Add(68, Items.WarriorsEmblem)
             .Add(105, Items.SaveTheQueen3)
             .Register(manager);
 
         public static Tiered<Item> PowerCircle = new Tiered<Item>
-            (24, Items.PowerCircle, 30)
+            (24, Items.PowerCircle, 10)
             .Add(72, Items.BattleStandard)
             .Add(108, Items.SaveTheQueen4)
             .Register(manager);
 
         public static Tiered<Item> Feymark = new Tiered<Item>
-            (20, Items.Feymark, 30)
+            (20, Items.Feymark, 10)
             .Add(68, Items.SoulBlazer)
             .Add(105, Items.SaveTheQueen5)
             .Register(manager);
 
         public static Tiered<Item> SacrificialCircle = new Tiered<Item>
-            (24, Items.SacrificialCircle, 30)
+            (24, Items.SacrificialCircle, 10)
             .Add(72, Items.Indomitus)
             .Add(108, Items.SaveTheQueen6)
             .Register(manager);
 
         public static Tiered<Item> UnsettingSun = new Tiered<Item>
-            (15, Items.UnsettingSun, 30)
+            (15, Items.UnsettingSun, 10)
             .Add(60, Items.MidnightSun)
             .Add(100, Items.SaveTheQueen7)
             .Register(manager);
 
         public static Tiered<Item> Umbra = new Tiered<Item>
-            (30, Items.Umbra, 30)
+            (30, Items.Umbra, 10)
             .Add(86, Items.Solaris)
             .Add(110, Items.SaveTheQueen8)
             .Register(manager);
 
         public static Tiered<Item> Airwing = new Tiered<Item>
-            (20, Items.Airwing, 30)
+            (20, Items.Airwing, 10)
             .Add(68, Items.Skycutter)
             .Add(105, Items.Nue1)
             .Register(manager);
 
         public static Tiered<Item> Hawkeye = new Tiered<Item>
-            (15, Items.Hawkeye, 30)
+            (15, Items.Hawkeye, 10)
             .Add(60, Items.Eagletalon)
             .Add(100, Items.Nue2)
             .Register(manager);
 
         public static Tiered<Item> Otshirvani = new Tiered<Item>
-            (24, Items.Otshirvani, 30)
+            (24, Items.Otshirvani, 10)
             .Add(72, Items.Urubutsin)
             .Add(108, Items.Nue3)
             .Register(manager);
 
         public static Tiered<Item> Ninurta = new Tiered<Item>
-            (15, Items.Ninurta, 30)
+            (15, Items.Ninurta, 10)
             .Add(60, Items.Jatayu)
             .Add(100, Items.Nue4)
             .Register(manager);
 
         public static Tiered<Item> Vidofnir = new Tiered<Item>
-            (24, Items.Vidofnir, 30)
+            (24, Items.Vidofnir, 10)
             .Add(72, Items.Hresvelgr)
             .Add(108, Items.Nue5)
             .Register(manager);
 
         public static Tiered<Item> Simurgh = new Tiered<Item>
-            (20, Items.Simurgh, 30)
+            (20, Items.Simurgh, 10)
             .Add(68, Items.Tezcatlipoca)
             .Add(105, Items.Nue6)
             .Register(manager);
 
         public static Tiered<Item> Malphas = new Tiered<Item>
-            (15, Items.Malphas, 30)
+            (15, Items.Malphas, 10)
             .Add(60, Items.Naberius)
             .Add(100, Items.Nue7)
             .Register(manager);
 
         public static Tiered<Item> Alicanto = new Tiered<Item>
-            (20, Items.Alicanto, 30)
+            (20, Items.Alicanto, 10)
             .Add(68, Items.Caladrius)
             .Add(105, Items.Nue8)
             .Register(manager);
 
         public static Tiered<Item> BindingRod = new Tiered<Item>
-            (15, Items.BindingRod, 30)
+            (15, Items.BindingRod, 10)
             .Add(60, Items.HuntersRod)
             .Add(100, Items.Nirvana1)
             .Register(manager);
 
         public static Tiered<Item> Tigerclaw = new Tiered<Item>
-            (18, Items.Tigerclaw, 30)
+            (18, Items.Tigerclaw, 10)
             .Add(64, Items.Wyrmfang)
             .Add(102, Items.Nirvana2)
             .Register(manager);
 
         public static Tiered<Item> HealersStaff = new Tiered<Item>
-            (30, Items.HealersStaff, 30)
+            (30, Items.HealersStaff, 10)
             .Add(86, Items.PhysiciansStaff)
             .Add(110, Items.Nirvana3)
             .Register(manager);
 
         public static Tiered<Item> PearlwingStaff = new Tiered<Item>
-            (15, Items.PearlwingStaff, 30)
+            (15, Items.PearlwingStaff, 10)
             .Add(60, Items.BrightwingStaff)
             .Add(100, Items.Nirvana4)
             .Register(manager);
 
         public static Tiered<Item> RodOfThorns = new Tiered<Item>
-            (15, Items.RodOfThorns, 30)
+            (15, Items.RodOfThorns, 10)
             .Add(60, Items.OrochiRod)
             .Add(100, Items.Nirvana5)
             .Register(manager);
 
         public static Tiered<Item> Mistilteinn = new Tiered<Item>
-            (24, Items.Mistilteinn, 30)
+            (24, Items.Mistilteinn, 10)
             .Add(72, Items.ErinyesCane)
             .Add(108, Items.Nirvana6)
             .Register(manager);
 
         public static Tiered<Item> BelladonnaWand = new Tiered<Item>
-            (20, Items.BelladonnaWand, 30)
+            (20, Items.BelladonnaWand, 10)
             .Add(68, Items.MalboroWand)
             .Add(105, Items.Nirvana7)
             .Register(manager);
 
         public static Tiered<Item> HeavenlyAxis = new Tiered<Item>
-            (20, Items.HeavenlyAxis, 30)
+            (20, Items.HeavenlyAxis, 10)
             .Add(68, Items.Abraxas)
             .Add(105, Items.Nirvana8)
             .Register(manager);
 
         public static Tiered<Item> BladedLance = new Tiered<Item>
-            (15, Items.BladedLance, 30)
+            (15, Items.BladedLance, 10)
             .Add(60, Items.Glaive)
             .Add(100, Items.KainsLance1)
             .Register(manager);
 
         public static Tiered<Item> DragoonLance = new Tiered<Item>
-            (20, Items.DragoonLance, 30)
+            (20, Items.DragoonLance, 10)
             .Add(68, Items.Dragonhorn)
             .Add(105, Items.KainsLance2)
             .Register(manager);
 
         public static Tiered<Item> Partisan = new Tiered<Item>
-            (15, Items.Partisan, 30)
+            (15, Items.Partisan, 10)
             .Add(60, Items.Rhomphaia)
             .Add(100, Items.KainsLance3)
             .Register(manager);
 
         public static Tiered<Item> ShamanicSpear = new Tiered<Item>
-            (20, Items.ShamanicSpear, 30)
+            (20, Items.ShamanicSpear, 10)
             .Add(68, Items.HereticsHalberd)
             .Add(105, Items.KainsLance4)
             .Register(manager);
 
         public static Tiered<Item> Punisher = new Tiered<Item>
-            (24, Items.Punisher, 30)
+            (24, Items.Punisher, 10)
             .Add(72, Items.BanescissorSpear)
             .Add(108, Items.KainsLance5)
             .Register(manager);
 
         public static Tiered<Item> PandoranSpear = new Tiered<Item>
-            (24, Items.PandoranSpear, 30)
+            (24, Items.PandoranSpear, 10)
             .Add(72, Items.CalamitySpear)
             .Add(108, Items.KainsLance6)
             .Register(manager);
 
         public static Tiered<Item> TamingPole = new Tiered<Item>
-            (20, Items.TamingPole, 30)
+            (20, Items.TamingPole, 10)
             .Add(68, Items.VenusGospel)
             .Add(105, Items.KainsLance7)
             .Register(manager);
 
         public static Tiered<Item> GaeBolg = new Tiered<Item>
-            (24, Items.GaeBolg, 30)
+            (24, Items.GaeBolg, 10)
             .Add(72, Items.Gungnir)
             .Add(108, Items.KainsLance8)
             .Register(manager);

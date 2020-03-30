@@ -103,7 +103,7 @@ namespace FF13Data
         {
             int lower = GetCount(rankBoost);
             int upper = GetCount(rankBoost + 1);
-            return lower >= upper ? lower : RandomNum.randInt(lower, upper - 1);
+            return lower >= upper ? lower : RandomNum.RandInt(lower, upper - 1);
         }
 
         public List<Tuple<T, int>> Get(int rank, Func<T, bool> meetsReq = null)

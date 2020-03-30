@@ -17,7 +17,7 @@ namespace FF13Randomizer
 {
     public partial class Form1 : Form
     {
-        public static string version = "1.4.3";
+        public static string version = "1.4.4";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -312,6 +312,7 @@ namespace FF13Randomizer
 
             if (Flags.CrystariumFlags.RandStats.FlagEnabled)
             {
+                Flags.CrystariumFlags.RandStats.SetRand();
                 foreach (Role role in Enum.GetValues(typeof(Role)))
                 {
                     StatValues stats = new StatValues(3);
@@ -434,9 +435,9 @@ namespace FF13Randomizer
                         
                         for (int i = 0; i < list.Count() / 2; i++)
                         {
-                            DataStoreCrystarium c = list[RandomNum.randInt(0, list.Count - 1)];
+                            DataStoreCrystarium c = list[RandomNum.RandInt(0, list.Count - 1)];
                             int count = list.Where(c2 => c.Type == c2.Type).Count();
-                            float mult = RandomNum.randInt(100, 100 + (int)Math.Sqrt(Math.Max(0, (count - 1)) * 20)) / 100f;
+                            float mult = RandomNum.RandInt(100, 100 + (int)Math.Sqrt(Math.Max(0, (count - 1)) * 20)) / 100f;
                             list.ForEach(cr =>
                             {
                                 if (c.Type == cr.Type && c.Stage == cr.Stage)
@@ -448,6 +449,8 @@ namespace FF13Randomizer
 
                     backgroundWorker.ReportProgress(names.ToList().IndexOf(name) * (50 / 6));
                 }
+
+                RandomNum.ClearRand();
             }
 
             foreach (string name in names)
@@ -456,12 +459,14 @@ namespace FF13Randomizer
 
                 if (Flags.CrystariumFlags.ShuffleATBAccessory.FlagEnabled)
                 {
+                    Flags.CrystariumFlags.ShuffleATBAccessory.SetRand();
                     crystarium.Crystarium.ToList()
                                 .Where(c => (c.Type == CrystariumType.Accessory || c.Type == CrystariumType.ATBLevel
                                 || (c.Type == CrystariumType.Ability &&
                                 isTechnique(Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == crystarium.AbilityIDs[(int)c.AbilityPointer]?.Value).FirstOrDefault())))
                                 && c.CPCost > 0).ToList()
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
+                    RandomNum.ClearRand();
                 }
 
                 List<Tiered<Ability>> techniques = TieredAbilities.manager.list.Where(
@@ -473,6 +478,7 @@ namespace FF13Randomizer
 
                     if (Flags.CrystariumFlags.ShuffleNonStat.FlagEnabled)
                     {
+                        Flags.CrystariumFlags.ShuffleNonStat.SetRand();
                         crystarium.Crystarium.ToList()
                                 .Where(c => (c.Type == CrystariumType.Accessory
                                 || c.Type == CrystariumType.Ability
@@ -485,11 +491,12 @@ namespace FF13Randomizer
                                 crystarium.AbilityIDs[(int)c.AbilityPointer]?.Value).FirstOrDefault())))
                                 && ((!primaryRoles[name].Contains(role) && c.Stage > 1) || primaryRoles[name].Contains(role))).ToList()
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
+                        RandomNum.ClearRand();
                     }
 
                     if (Flags.CrystariumFlags.NewAbilities.FlagEnabled)
                     {
-
+                        Flags.CrystariumFlags.NewAbilities.SetRand();
                         List<int> abilityNodes = new List<int>();
                         for (int i = 0; i < crystarium.Crystarium.count; i++)
                         {
@@ -524,7 +531,7 @@ namespace FF13Randomizer
                                 Ability ability;
                                 do
                                 {
-                                    newI = RandomNum.randInt(0, techniques.Count - 1);
+                                    newI = RandomNum.RandInt(0, techniques.Count - 1);
                                     ability = TieredAbilities.Get(techniques[newI], obtained);
                                 } while (ability == null);
                                 DataStoreString dataStr = new DataStoreString() { Value = ability.GetAbility(getCharID(name)) };
@@ -541,7 +548,7 @@ namespace FF13Randomizer
                                 Ability ability;
                                 do
                                 {
-                                    newI = RandomNum.randInt(0, starting.Count - 1);
+                                    newI = RandomNum.RandInt(0, starting.Count - 1);
                                     ability = TieredAbilities.Get(starting[newI], obtained);
                                 } while (ability == null);
                                 DataStoreString dataStr = new DataStoreString() { Value = ability.GetAbility(getCharID(name)) };
@@ -574,7 +581,7 @@ namespace FF13Randomizer
                                 Ability ability;
                                 do
                                 {
-                                    newI = RandomNum.randInt(0, techniques.Count - 1);
+                                    newI = RandomNum.RandInt(0, techniques.Count - 1);
                                     ability = TieredAbilities.Get(techniques[newI], obtained);
                                 } while (ability == null);
                                 DataStoreString dataStr = new DataStoreString() { Value = ability.GetAbility(getCharID(name)) };
@@ -590,7 +597,7 @@ namespace FF13Randomizer
                                 Ability ability;
                                 do
                                 {
-                                    newI = RandomNum.randInt(0, rest.Count - 1);
+                                    newI = RandomNum.RandInt(0, rest.Count - 1);
                                     ability = TieredAbilities.Get(rest[newI], obtained);
                                 } while (ability == null);
                                 DataStoreString dataStr = new DataStoreString() { Value = ability.GetAbility(getCharID(name)) };
@@ -601,10 +608,12 @@ namespace FF13Randomizer
                                 rest.RemoveAt(newI);
                             }
                         }
+                        RandomNum.ClearRand();
                     }
 
                     if (Flags.CrystariumFlags.ShuffleStage.FlagEnabled)
                     {
+                        Flags.CrystariumFlags.ShuffleStage.SetRand();
                         for (int stage = 1; stage <= 10; stage++)
                         {
                             crystarium.Crystarium.ToList()
@@ -612,6 +621,7 @@ namespace FF13Randomizer
                                 && ((!primaryRoles[name].Contains(role) && c.Stage > 1) || primaryRoles[name].Contains(role))).ToList()
                                 .Shuffle((a, b) => a.SwapStatsAbilities(b));
                         }
+                        RandomNum.ClearRand();
                     }
                 }
 
@@ -702,7 +712,7 @@ namespace FF13Randomizer
             Console.WriteLine("\n"+rank.ToString());
             int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
             if (rankAdj > 0)
-                rank = RandomNum.randInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
+                rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
             Console.WriteLine(rank.ToString());
             Tuple<Item, int> item;
             do
@@ -749,8 +759,8 @@ namespace FF13Randomizer
             TreasureDatabase treasures = new TreasureDatabase($"{randoPath}\\original\\db\\resident\\treasurebox.wdb");
             int[] ranks = new int[treasures.Treasures.count];
 
-                List<Item> blacklisted = new List<Item>();
                 int completed = 0, index = -1;
+            Flags.ItemFlags.Treasures.SetRand();
             treasures.Treasures.ToList().ForEach(t =>
             {
                 index++;
@@ -762,16 +772,16 @@ namespace FF13Randomizer
                     if (rank != -1 && Flags.ItemFlags.Treasures.FlagEnabled)
                     {
                         if (rankAdj > 0)
-                            rank = RandomNum.randInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
+                            rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
                         Tuple<Item, int> newItem;
                         rank++;
                         do
                         {
                             rank--;
                             newItem = TieredItems.manager.Get(rank, Int32.MaxValue, tiered => GetTreasureWeight(tiered));
-                        } while (rank >= 0 && (newItem.Item1 == null || blacklisted.Contains(newItem.Item1) || blacklistedWeapons.Contains(newItem.Item1)));
+                        } while (rank >= 0 && (newItem.Item1 == null || blacklistedWeapons.Contains(newItem.Item1)));
                         if (newItem.Item1.ID.StartsWith("wea_"))
-                            blacklisted.Add(newItem.Item1);
+                            blacklistedWeapons.Add(newItem.Item1);
                         DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
                         if (!treasures.ItemIDs.Contains(dataStr))
                             treasures.ItemIDs.Add(dataStr, treasures.ItemIDs.GetTrueSize());
@@ -792,9 +802,11 @@ namespace FF13Randomizer
 
                 backgroundWorker.ReportProgress(completed * 100 / treasures.Treasures.count);
             });
+            RandomNum.ClearRand();
 
             if (Flags.ItemFlags.Shops.FlagEnabled)
             {
+                Flags.ItemFlags.Shops.SetRand();
                 shopsRemaining.Clear();
                 for (int i = 1; i <= 13; i++)
                 {
@@ -811,6 +823,7 @@ namespace FF13Randomizer
                         shopsRemaining.RemoveAt(0);
                     }
                 });
+                RandomNum.ClearRand();
             }
 
             treasures.Save($"db\\resident\\treasurebox.wdb");
@@ -911,39 +924,53 @@ namespace FF13Randomizer
                 byte[] idBytes = bytes.SubArray(completed * 0x20 + 0x90, 0x10);
                 string id = Encoding.UTF8.GetString(idBytes).Replace("\0", "");
 
-                if (id.StartsWith("pc"))
+                if (Flags.EnemyFlags.BoostLevel.FlagEnabled)
                 {
-                    completed++;
-                    return;
+                    int boost = ((FlagValue)Flags.EnemyFlags.BoostLevel.FlagData).Range.Value;
+                    bool lv0 = e.Level == 0;
+                    byte level = (byte)(lv0 ? 10 : e.Level);
+                    e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
+                    if (e.CP > 0)
+                        e.CP = (uint)Math.Max(1, e.CP * Math.Exp(Math.Pow(level + boost, 0.4) - Math.Pow(level, 0.4)));
                 }
-
 
                 if (Flags.EnemyFlags.RandLevel.FlagEnabled)
                 {
+                    Flags.EnemyFlags.RandLevel.SetRand();
                     int variance = ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value;
-                    byte level = e.Level;
-                    if (level <= 50)
-                        e.Level = (byte)RandomNum.randInt(Math.Max(1, level - variance), Math.Min(50, level + variance));
-                    else
-                        e.Level = (byte)RandomNum.randInt(Math.Max(51, level - variance), Math.Min(99, level + variance));
+                    bool lv0 = e.Level == 0;
+                    byte level = (byte)(lv0 ? 10 : e.Level);
+                    if (level < 50)
+                        e.Level = (byte)RandomNum.RandInt(Math.Max(1, level - variance), Math.Min(49, level + variance));
+                    else if (level > 50)
+                        e.Level = (byte)RandomNum.RandInt(Math.Max(51, level - variance), Math.Min(99, level + variance));
                     e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(e.Level, 0.25) - Math.Pow(level, 0.25)));
                     e.Strength = (ushort)Math.Max(1, e.Strength * Math.Exp(Math.Pow(e.Level, 0.25) - Math.Pow(level, 0.25)));
                     e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(e.Level, 0.25) - Math.Pow(level, 0.25)));
-                    e.CP = (uint)Math.Max(1, e.CP * Math.Exp(Math.Pow(e.Level, 0.25) - Math.Pow(level, 0.25)));
+                    if (e.CP > 0)
+                        e.CP = (uint)Math.Max(1, e.CP * Math.Exp(Math.Pow(e.Level, 0.4) - Math.Pow(level, 0.4)));
+                    if (lv0)
+                        e.Level = 0;
+                    RandomNum.ClearRand();
                 }
 
                 if (Flags.ItemFlags.Drops.FlagEnabled)
                 {
+                    Flags.ItemFlags.Drops.SetRand();
                     do
                     {
                         RandomizeDrop(enemies, e, true);
                         RandomizeDrop(enemies, e, false);
                     } while (e.CommonDropPointer == e.RareDropPointer && enemies.ItemIDs[(int)e.CommonDropPointer].Value != "");
+                    RandomNum.ClearRand();
                 }
                 
                 DataStoreEnemy swap;
                 if (Flags.EnemyFlags.Resistances.FlagEnabled)
                 {
+                    Flags.EnemyFlags.Resistances.SetRand();
                     do
                     {
                         swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
@@ -981,10 +1008,12 @@ namespace FF13Randomizer
                             e.MagicRes = ElementalRes.Halved;
                         }
                     }
+                    RandomNum.ClearRand();
                 }
 
                 if (Flags.EnemyFlags.Debuffs.FlagEnabled)
                 {
+                    Flags.EnemyFlags.Debuffs.SetRand();
                     swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
 
                     byte[] swapped = swap.DebuffRes;
@@ -1000,18 +1029,21 @@ namespace FF13Randomizer
 
                     swap.DebuffRes = swapped;
                     e.DebuffRes = enem;
+                    RandomNum.ClearRand();
                 }
 
                 if (Flags.EnemyFlags.RandStats.FlagEnabled)
                 {
+                    Flags.EnemyFlags.RandStats.SetRand();
                     StatValues stats = new StatValues(5);
                     int variance = ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value;
                     stats.Randomize(variance);
                     e.HP = (uint)Math.Max(1, e.HP * stats[0] / 100f);
                     e.Strength = (ushort)Math.Max(1, e.Strength * stats[1] / 100f);
                     e.Magic = (ushort)Math.Max(1, e.Magic * stats[2] / 100f);
-                    e.ChainRes = (uint)Math.Min(100,Math.Max(0, e.ChainRes * stats[3] / 100f));
+                    e.ChainRes = (uint)Math.Min(100, Math.Max(0, Math.Sqrt(Math.Pow(e.ChainRes + 1, 2f) * stats[3] / 100f) - 1));
                     e.StaggerPoint = (ushort)Math.Min(999, Math.Max(101, (e.StaggerPoint -100) * stats[4] / 100f + 100));
+                    RandomNum.ClearRand();
                 }
 
                 completed++;
@@ -1021,6 +1053,7 @@ namespace FF13Randomizer
 
             if (Flags.ItemFlags.Shops.FlagEnabled)
             {
+                Flags.ItemFlags.Shops.SetRand();
                 List<int> list = scene.IndexesOf(Encoding.UTF8.GetBytes("key_shop_"));
 
                 List<string> shops = list.Select(i => Encoding.UTF8.GetString(scene.SubArray(i, 11))).ToList();
@@ -1033,6 +1066,7 @@ namespace FF13Randomizer
                 {
                     scene.SetSubArray(list[i], Encoding.UTF8.GetBytes(shops[i]));
                 }
+                RandomNum.ClearRand();
             }
 
             enemies.Save($"db\\resident\\bt_chara_spec.wdb");
@@ -1054,7 +1088,7 @@ namespace FF13Randomizer
                 if (rank != -1)
                 {
                     if (rankAdj > 0)
-                        rank = Math.Max(0, rank + RandomNum.randInt(-rankAdj, rankAdj));
+                        rank = Math.Max(0, rank + RandomNum.RandInt(-rankAdj, rankAdj));
                     int oldRank = rank + 0;
                     Tuple<Item, int> newItem;
                     do
@@ -1064,6 +1098,8 @@ namespace FF13Randomizer
                     } while ((newItem.Item1 == null || blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
                     if (newItem.Item1 == null)
                         return;
+                    if (newItem.Item1.ID.StartsWith("wea_"))
+                        blacklistedWeapons.Add(newItem.Item1);
                     DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
                     if (!enemies.ItemIDs.Contains(dataStr))
                         enemies.ItemIDs.Add(dataStr, enemies.ItemIDs.GetTrueSize());
@@ -1080,11 +1116,11 @@ namespace FF13Randomizer
             if (t.Items.Where(i => i.ID == "").Count() > 0)
                 return 0;
             float mult;
-            if (enemy.Level >= 50 && !forceNormalDrop)
+            if (enemy.Level > 50 && !forceNormalDrop)
             {
                 mult = 1 + .01f * (float)Math.Pow(enemy.Level - 50, .8f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
-                    return (int)(t.Weight * 3 * mult);
+                    return (int)(t.Weight * 1.5 * mult);
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                     return 0;
                 if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
@@ -1096,6 +1132,8 @@ namespace FF13Randomizer
                 return (int)(t.Weight);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                 return  (int)(t.Weight * 18.2f);
+            if (t.Items.Where(i => i.ID.StartsWith("wea_")).Count() > 0)
+                return 0;
             return  (int)Math.Max(1, t.Weight / 22.5f * mult);
         }
 
@@ -1194,7 +1232,7 @@ namespace FF13Randomizer
         private void SetRandomSeed()
         {
             string seed = DateTime.Now.ToString();
-            textBoxSeed.Text = RandomNum.randSeed().ToString();
+            textBoxSeed.Text = RandomNum.RandSeed().ToString();
         }
 
         private int GetIntSeed(string seed)
@@ -1258,7 +1296,11 @@ namespace FF13Randomizer
 
             new ProgressForm("Extracting files...", bw => ExtractFiles(bw)).ShowDialog();
 
-            RandomNum.SetSeed(GetIntSeed(textBoxSeed.Text));
+            int seed = GetIntSeed(textBoxSeed.Text);
+            foreach (Flag flag in Flags.flags)
+            {
+                flag.ResetRandom(seed);
+            }
 
             new ProgressForm("Randomizing crystarium...", bw => RandomizeCrystarium(bw)).ShowDialog();
             new ProgressForm("Randomizing treasures...", bw => RandomizeTreasures(bw)).ShowDialog();

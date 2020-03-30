@@ -8,7 +8,19 @@ namespace FF13Data
 {
     class RandomNum
     {
-        public static Random rand = new Random();
+        private static Random rand = null;
+
+        public static void SetRand(Random random)
+        {
+            if (rand != null)
+                throw new NullReferenceException("Random has not been cleared yet!");
+            rand = random;
+        }
+
+        public static void ClearRand()
+        {
+            rand = null;
+        }
 
         /// <summary>
         /// Gets a random number from (low, high)
@@ -16,24 +28,29 @@ namespace FF13Data
         /// <param name="low"></param>
         /// <param name="high"></param>
         /// <returns></returns>
-        public static int randInt(int low, int high)
+        public static int RandInt(int low, int high)
         {
-            
+            CheckRand();
             return rand.Next(low, high + 1);
         }
 
-        public static void SetSeed(int seed)
+        private static void CheckRand()
         {
-            rand = new Random(seed);
+            if (rand == null)
+                throw new NullReferenceException("Random has not been set!");
         }
 
-        public static int randSeed()
+        public static int RandSeed()
         {
-            return randInt((int)1e8, (int)1e9 - 1);
+            SetRand(new Random());
+            int val = RandInt((int)1e8, (int)1e9 - 1);
+            ClearRand();
+            return val;
         }
 
-        public static int randIntNorm(double center, double std, int low, int high)
+        public static int RandIntNorm(double center, double std, int low, int high)
         {
+            CheckRand();
             double u1 = 1.0 - rand.NextDouble();
             double u2 = 1.0 - rand.NextDouble();
             double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
@@ -43,6 +60,7 @@ namespace FF13Data
 
         public static T SelectRandomWeighted<T>(List<T> list, Func<T, int> weightFunc)
         {
+            CheckRand();
             List<T> weightedList = list.Where(t => weightFunc.Invoke(t) > 0).ToList();
             if (weightedList.Count == 0)
                 return default(T);
@@ -50,7 +68,7 @@ namespace FF13Data
             if (totalWeight == 0)
                 throw new Exception("Total weight cannot be 0");
             int i = 0;
-            int index = randInt(0, totalWeight - 1);
+            int index = RandInt(0, totalWeight - 1);
             while(index >= weightFunc.Invoke(weightedList[i]))
             {               
                 index -= weightFunc.Invoke(weightedList[i]);

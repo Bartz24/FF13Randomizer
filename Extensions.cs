@@ -62,7 +62,7 @@ namespace FF13Data
             while (n > 1)
             {
                 n--;
-                int k = RandomNum.randInt(0, n);
+                int k = RandomNum.RandInt(0, n);
                 T value = list[k];
                 list[k] = list[n];
                 list[n] = value;
@@ -76,7 +76,7 @@ namespace FF13Data
             while (n > 1)
             {
                 n--;
-                int k = RandomNum.randInt(0, n);
+                int k = RandomNum.RandInt(0, n);
                 swapFunc.Invoke(list[n], list[k]);
             }
         }

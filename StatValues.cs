@@ -22,7 +22,7 @@ namespace FF13Randomizer
             while (Vals.Sum() < randTotal)
             {
                 int val = (int)Math.Max((randTotal - Vals.Sum()) / (randTotal / 20f), 1);
-                int select = RandomNum.randInt(0, Vals.Length-1);
+                int select = RandomNum.RandInt(0, Vals.Length-1);
                 Vals[select] += val;
             }
             for (int i = 0; i < Vals.Length; i++)

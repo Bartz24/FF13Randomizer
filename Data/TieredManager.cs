@@ -29,7 +29,7 @@ namespace FF13Data
             List<Tuple<T, int>> possible = tiered == null ? new List<Tuple<T, int>>() : tiered.Get(rank,meetsReq);
             if (possible.Count == 0)
                 return new Tuple<T, int>(default(T), 0);
-            return possible[RandomNum.randInt(0, possible.Count - 1)];
+            return possible[RandomNum.RandInt(0, possible.Count - 1)];
         }
 
         public int GetRank(T obj, int count=1)

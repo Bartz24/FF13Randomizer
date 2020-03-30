@@ -185,6 +185,15 @@ namespace FF13Randomizer
                 Experimental = true
             }.Register();
 
+            public static Flag BoostLevel = new Flag()
+            {
+                Text = "Boost Enemy Levels",
+                FlagID = "BstLevels",
+                DescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect CP, HP, Strength, and Magic. In-game level is not changed!",
+                FullDescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect CP, HP, Strength, and Magic. In-game level is not changed!",
+                Experimental = true
+            }.Register();
+
             static EnemyFlags()
             {
                 /*FlagBool res = new FlagBool(Resistances);

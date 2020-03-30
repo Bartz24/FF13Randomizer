@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FF13Data;
 
 namespace FF13Randomizer
 {
@@ -109,6 +110,18 @@ namespace FF13Randomizer
                 FlagData.Enabled = checkBoxEnabled.Checked;
             if (OnChanged != null)
                 OnChanged.Invoke(this, null);
+        }
+
+        public FF13Data.Random Random { get; set; }
+
+        public void ResetRandom(int seed)
+        {
+            Random = new FF13Data.Random(seed + FlagID.GetHashCode());
+        }
+
+        public void SetRand()
+        {
+            RandomNum.SetRand(Random);
         }
     }
 }
