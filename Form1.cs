@@ -772,7 +772,7 @@ namespace FF13Randomizer
                     if (rank != -1 && Flags.ItemFlags.Treasures.FlagEnabled)
                     {
                         if (rankAdj > 0)
-                            rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), rank + rankAdj);
+                            rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));
                         Tuple<Item, int> newItem;
                         rank++;
                         do
@@ -831,7 +831,7 @@ namespace FF13Randomizer
             DocsJSONGenerator.CreateTreasureDocs(treasures, ranks);
         }
 
-        private int GetTreasureWeight(Tiered<Item> t)
+        public static int GetTreasureWeight(Tiered<Item> t)
         {
             if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
                 return Math.Max(1, t.Weight * 8);
@@ -1092,7 +1092,7 @@ namespace FF13Randomizer
                     Tuple<Item, int> newItem;
                     do
                     {
-                        newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy, item.ID.StartsWith("it") && enemy.Level > 50));
+                        newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy.Level, item.ID.StartsWith("it") && enemy.Level > 50));
                         rank--;
                     } while ((newItem.Item1 == null || blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
                     if (newItem.Item1 == null)
@@ -1110,14 +1110,14 @@ namespace FF13Randomizer
             }
         }
 
-        private int GetDropWeight(Tiered<Item> t,DataStoreEnemy enemy,bool forceNormalDrop)
+        public static int GetDropWeight(Tiered<Item> t,int enemyLevel,bool forceNormalDrop)
         {
             if (t.Items.Where(i => i.ID == "").Count() > 0)
                 return 0;
             float mult;
-            if (enemy.Level > 50 && !forceNormalDrop)
+            if (enemyLevel > 50 && !forceNormalDrop)
             {
-                mult = 1 + .01f * (float)Math.Pow(enemy.Level - 50, .8f);
+                mult = 1 + .01f * (float)Math.Pow(enemyLevel - 50, .8f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                     return (int)(t.Weight * 1.5 * mult);
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
@@ -1126,7 +1126,7 @@ namespace FF13Randomizer
                     return Math.Max(1, t.Weight / 4);
                 return (int)(t.Weight * 2 * mult);
             }
-            mult = 1 + .01f * (float)Math.Pow(enemy.Level, .8f);
+            mult = 1 + .01f * (float)Math.Pow(enemyLevel, .8f);
             if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
                 return (int)(t.Weight);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
@@ -1385,8 +1385,13 @@ namespace FF13Randomizer
                 if (flag == Flags.EnemyFlags.Debuffs || 
                     flag == Flags.EnemyFlags.Resistances/* || 
                     flag == Flags.Other.Music*/ ||
-                    flag == Flags.EnemyFlags.RandStats)
+                    flag == Flags.EnemyFlags.RandStats ||
+                    flag == Flags.EnemyFlags.RandLevel)
                     flag.FlagEnabled = false;
+                else if (flag == Flags.EnemyFlags.BoostLevel)
+                {
+
+                }
                 else
                     flag.FlagEnabled = true;
             }
@@ -1409,6 +1414,10 @@ namespace FF13Randomizer
                     flag == Flags.CrystariumFlags.LibraStart/* || 
                     flag == Flags.Other.Music*/)
                     flag.FlagEnabled = false;
+                else if (flag == Flags.EnemyFlags.BoostLevel)
+                {
+
+                }
                 else
                     flag.FlagEnabled = true;
             }
@@ -1426,7 +1435,12 @@ namespace FF13Randomizer
         {
             foreach (Flag flag in Flags.flags)
             {
-                flag.FlagEnabled = true;
+                if (flag == Flags.EnemyFlags.BoostLevel)
+                {
+
+                }
+                else
+                    flag.FlagEnabled = true;
             }
             ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 40;
             ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 40;
@@ -1446,6 +1460,10 @@ namespace FF13Randomizer
                     flag == Flags.CrystariumFlags.ScaledCPCost || 
                     flag == Flags.CrystariumFlags.HalfSecondaryCPCost)
                     flag.FlagEnabled = false;
+                else if (flag == Flags.EnemyFlags.BoostLevel)
+                {
+
+                }
                 else
                     flag.FlagEnabled = true;
             }
@@ -1467,6 +1485,10 @@ namespace FF13Randomizer
                     flag == Flags.CrystariumFlags.ScaledCPCost || 
                     flag == Flags.CrystariumFlags.HalfSecondaryCPCost)
                     flag.FlagEnabled = false;
+                else if (flag == Flags.EnemyFlags.BoostLevel)
+                {
+
+                }
                 else
                     flag.FlagEnabled = true;
             }
@@ -1478,6 +1500,16 @@ namespace FF13Randomizer
             //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = true;
 
             MessageBox.Show("Applied!");
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button11_Click_1(object sender, EventArgs e)
+        {
+            new ItemChanceForm().ShowDialog();
         }
 
         private void FullUninstall(BackgroundWorker backgroundWorker)

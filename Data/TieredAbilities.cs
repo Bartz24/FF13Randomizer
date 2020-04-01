@@ -420,7 +420,7 @@ namespace FF13Data
 
         public static Ability Get(Tiered<Ability> tiered, List<Ability> obtained)
         {
-            return manager.Get(0, tiered, a => ((TieredDependent<Ability>)tiered).MeetsRequirement(a, obtained)).Item1;
+            return manager.Get(0, 1, tiered, a => ((TieredDependent<Ability>)tiered).MeetsRequirement(a, obtained)).Item1;
         }
     }
 }

@@ -60,6 +60,7 @@
             this.textBoxSeed = new System.Windows.Forms.TextBox();
             this.tabPageFlags = new System.Windows.Forms.TabPage();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
             this.labelFlagsSelected = new System.Windows.Forms.Label();
             this.buttonRandomize = new System.Windows.Forms.Button();
             this.tabPageUninstall = new System.Windows.Forms.TabPage();
@@ -74,13 +75,16 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
+            this.tabPageTools = new System.Windows.Forms.TabPage();
             this.flagInfo1 = new FF13Randomizer.FlagInfo();
+            this.button11 = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
             this.tabPageUninstall.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
+            this.tabPageTools.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -160,6 +164,7 @@
             this.tabControl1.Controls.Add(this.tabPageFlags);
             this.tabControl1.Controls.Add(this.tabPageFinish);
             this.tabControl1.Controls.Add(this.tabPageUninstall);
+            this.tabControl1.Controls.Add(this.tabPageTools);
             this.tabControl1.Controls.Add(this.tabPageDebug);
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.ItemSize = new System.Drawing.Size(40, 100);
@@ -171,6 +176,7 @@
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 7;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.TabIndexChanged += new System.EventHandler(this.TabControl1_TabIndexChanged);
             // 
             // tabPageBasics
@@ -417,6 +423,17 @@
             this.tabPageFinish.Text = "Finish";
             this.tabPageFinish.UseVisualStyleBackColor = true;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(86, 82);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(278, 52);
+            this.label18.TabIndex = 13;
+            this.label18.Text = "NOTE: Only works with English voices right now!\r\n\r\nNOTE: Logs for crystarium, tre" +
+    "asures, and latestSeed can\r\nbe found in the logs folder where this program is lo" +
+    "cated";
+            // 
             // labelFlagsSelected
             // 
             this.labelFlagsSelected.AutoSize = true;
@@ -575,16 +592,17 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // label18
+            // tabPageTools
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(86, 82);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(278, 52);
-            this.label18.TabIndex = 13;
-            this.label18.Text = "NOTE: Only works with English voices right now!\r\n\r\nNOTE: Logs for crystarium, tre" +
-    "asures, and latestSeed can\r\nbe found in the logs folder where this program is lo" +
-    "cated";
+            this.tabPageTools.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageTools.Controls.Add(this.label19);
+            this.tabPageTools.Controls.Add(this.button11);
+            this.tabPageTools.Location = new System.Drawing.Point(104, 4);
+            this.tabPageTools.Name = "tabPageTools";
+            this.tabPageTools.Size = new System.Drawing.Size(489, 529);
+            this.tabPageTools.TabIndex = 5;
+            this.tabPageTools.Text = "Tools";
+            this.tabPageTools.UseVisualStyleBackColor = true;
             // 
             // flagInfo1
             // 
@@ -595,6 +613,26 @@
             this.flagInfo1.Size = new System.Drawing.Size(317, 537);
             this.flagInfo1.TabIndex = 8;
             this.flagInfo1.Visible = false;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(21, 24);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(130, 23);
+            this.button11.TabIndex = 0;
+            this.button11.Text = "Item Chance Tool";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click_1);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(166, 24);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(248, 26);
+            this.label19.TabIndex = 8;
+            this.label19.Text = "Check the chances of what will appear in treasures\r\nand enemy drops based on the " +
+    "original item\r\n";
             // 
             // Form1
             // 
@@ -615,6 +653,8 @@
             this.tabPageUninstall.PerformLayout();
             this.tabPageDebug.ResumeLayout(false);
             this.tabPageDebug.PerformLayout();
+            this.tabPageTools.ResumeLayout(false);
+            this.tabPageTools.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -668,6 +708,9 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TabPage tabPageTools;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label label19;
     }
 }
 

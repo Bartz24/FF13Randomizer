@@ -21,11 +21,11 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> PhoenixDown = new Tiered<Item>
-            (15, Items.PhoenixDown, 20, 20, 0.65f)
+            (15, Items.PhoenixDown, 15, 20, 0.65f)
             .Register(manager);
 
         public static Tiered<Item> Elixir = new Tiered<Item>
-            (100, Items.Potion, 5)
+            (100, Items.Elixir, 5)
             .Register(manager);
 
         public static Tiered<Item> Antidote = new Tiered<Item>
@@ -564,7 +564,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> AcceleratorReactor = new Tiered<Item>
-            (88, Items.ParticalAccelerator, 10, 25, 0.65f)
+            (95, Items.ParticalAccelerator, 5, 5, 1.2f)
             .Add(110, Items.UltracompactReactor)
             .Register(manager);
 
@@ -592,8 +592,14 @@ namespace FF13Data
             .Add(58, Items.MnarStone)
             .Add(72, Items.Scarletite)
             .Add(84, Items.Adamantite)
-            .Add(92, Items.DarkMatter)
-            .Add(120, Items.Trapezohedron)
+            .Register(manager);
+
+        public static Tiered<Item> DarkMatter = new Tiered<Item>
+            (92, Items.DarkMatter, 5)
+            .Register(manager);
+
+        public static Tiered<Item> Trapezohedron = new Tiered<Item>
+            (120, Items.Trapezohedron, 5)
             .Register(manager);
 
         public static Tiered<Item> GoldPlatinum = new Tiered<Item>

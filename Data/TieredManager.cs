@@ -21,12 +21,12 @@ namespace FF13Data
                 weightFunc = t => t.Weight;
             List<Tiered<T>> items = GetTiered(rank, maxCount);
             Tiered<T> tiered = RandomNum.SelectRandomWeighted(items, weightFunc);
-            return Get(rank,tiered);
+            return Get(rank,maxCount, tiered);
         }
 
-        public Tuple<T, int> Get(int rank, Tiered<T> tiered, Func<T, bool> meetsReq = null)
+        public Tuple<T, int> Get(int rank, int maxCount, Tiered<T> tiered, Func<T, bool> meetsReq = null)
         {
-            List<Tuple<T, int>> possible = tiered == null ? new List<Tuple<T, int>>() : tiered.Get(rank,meetsReq);
+            List<Tuple<T, int>> possible = tiered == null ? new List<Tuple<T, int>>() : tiered.Get(rank,maxCount,meetsReq);
             if (possible.Count == 0)
                 return new Tuple<T, int>(default(T), 0);
             return possible[RandomNum.RandInt(0, possible.Count - 1)];
@@ -65,7 +65,7 @@ namespace FF13Data
             int highest = Int32.MinValue;
             list.ForEach(t => {
                 if (t.HighBound > highest)
-                    highest = t.LowBound;
+                    highest = t.HighBound;
             });
             return highest;
         }

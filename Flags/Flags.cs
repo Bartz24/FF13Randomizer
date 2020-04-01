@@ -191,7 +191,6 @@ namespace FF13Randomizer
                 FlagID = "BstLevels",
                 DescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect HP, Strength, and Magic. In-game level is not changed!",
                 FullDescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect HP, Strength, and Magic. In-game level is not changed!",
-                Experimental = true
             }.Register();
 
             static EnemyFlags()

@@ -140,6 +140,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ItemChanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemChanceForm.Designer.cs">
+      <DependentUpon>ItemChanceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NumericRange.cs" />
     <Compile Include="NumericRangeMinMax.cs" />
     <Compile Include="Program.cs" />
@@ -169,6 +175,9 @@
     <EmbeddedResource Include="Flags\FlagValueMinMax.resx" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemChanceForm.resx">
+      <DependentUpon>ItemChanceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
