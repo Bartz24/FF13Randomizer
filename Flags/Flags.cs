@@ -29,21 +29,13 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "Allows all non starting abilities to appear in any role."
             }.Register();
 
-            public static Flag ShuffleATBAccessory = new Flag()
+            public static Flag ShuffleNodes = new Flag()
             {
-                Text = "Shuffle Special Nodes",
-                FlagID = "ShATBAcc",
-                DescriptionFormat = "Shuffles the ATB Level node, Accessory nodes and techniques across all roles.",
-                FullDescriptionFormat = "Shuffles the ATB Level node, Accessory nodes and techniques across all roles."
-            }.Register();
-
-            public static Flag ShuffleNonStat = new Flag()
-            {
-                Text = "Shuffle Non Stats in Role",
-                FlagID = "ShNonStat",
-                DescriptionFormat = "Shuffles all non-stat nodes inside a role.",
-                FullDescriptionFormat = "Shuffles all non-stat nodes inside a role.\n" +
-                "-This includes Abilities, ATB Levels, Accessories, and Role Levels."
+                Text = "Shuffle Nodes in each Role",
+                FlagID = "ShNodes",
+                DescriptionFormat = "Shuffles all non-starting ability nodes inside a role.",
+                FullDescriptionFormat = "Shuffles all non-starting ability nodes inside a role.\n" +
+                "-This includes Stats, Abilities, ATB Levels, Accessories, and Role Levels."
             }.Register();
 
             public static Flag RandStats = new Flag()
@@ -54,15 +46,6 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "Characters and roles are given random stat affinities. Variance of ${Value}%.\n" +
                 "-Each character and role gets varied multipliers on stats based on the stage. These multipliers stack.\n" +
                 "-The amount of nodes that appear is also related to the stat multiplier. For example: Higher HP multiplier also means more HP nodes will appear."
-            }.Register();
-
-            public static Flag ShuffleStage = new Flag()
-            {
-                Text = "Shuffle Node Order in Stage",
-                FlagID = "ShNodeOrd",
-                DescriptionFormat = "The order nodes appear in on a stage level is randomized.",
-                FullDescriptionFormat = "The order nodes appear in on a stage level is randomized.\n" +
-                "-Does not affect CP Cost.  CP Cost is based on location."
             }.Register();
 
             public static Flag ScaledCPCost = new Flag()
