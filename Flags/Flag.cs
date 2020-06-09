@@ -22,9 +22,10 @@ namespace FF13Randomizer
             Experimental = experimental;
         }
 
-        public Flag Register()
+        public Flag Register(FlagType type)
         { 
             Flags.flags.Add(this);
+            FlagType = type;
             return this;
 
         }
@@ -39,6 +40,8 @@ namespace FF13Randomizer
             }
             return this;
         }
+        public FlagType FlagType { get; set; }
+
         private bool experimental = false;
         public bool Experimental
         {

@@ -166,24 +166,9 @@ namespace FF13Randomizer
 
             tabControl1.SelectedIndexChanged += TabControl1_TabIndexChanged;
 
-            TableLayoutPanel tableLayout = new TableLayoutPanel();
-            tableLayout.Dock = DockStyle.Fill;
-            tableLayout.ColumnCount = 1;
-            tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-            tableLayout.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayout.AutoScroll = true;
-            tabPageFlags.Controls.Add(tableLayout);
-            
-            foreach (Flag flag in Flags.flags)
-            {
-                addFlagEvents(flag);
-                flag.Dock = DockStyle.Fill;
-
-                flag.OnChangedEvent();
-                flag.OnChanged += Flag_OnChanged;
-
-                tableLayout.Controls.Add(flag);
-            }
+            addFlags(tabPageCrystarium, FlagType.Crystarium);
+            addFlags(tabPageEnemies, FlagType.Enemies);
+            addFlags(tabPageItems, FlagType.Items);
 
             presetEvenedOdds_Click(null, null);
 
@@ -194,6 +179,31 @@ namespace FF13Randomizer
 #if !DEBUG
             tabControl1.TabPages.Remove(tabPageDebug);
 #endif
+        }
+
+        private void addFlags(TabPage page, FlagType type)
+        {
+            TableLayoutPanel tableLayout = new TableLayoutPanel();
+            tableLayout.Dock = DockStyle.Fill;
+            tableLayout.ColumnCount = 1;
+            tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            tableLayout.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            tableLayout.AutoScroll = true;
+            page.Controls.Add(tableLayout);            
+
+            foreach (Flag flag in Flags.flags)
+            {
+                if (flag.FlagType == type)
+                {
+                    addFlagEvents(flag);
+                    flag.Dock = DockStyle.Fill;
+
+                    flag.OnChangedEvent();
+                    flag.OnChanged += Flag_OnChanged;
+
+                    tableLayout.Controls.Add(flag);
+                }
+            }
         }
 
 
@@ -1516,6 +1526,11 @@ namespace FF13Randomizer
         private void button11_Click_1(object sender, EventArgs e)
         {
             new ItemChanceForm().ShowDialog();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void FullUninstall(BackgroundWorker backgroundWorker)

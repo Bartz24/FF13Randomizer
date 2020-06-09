@@ -5,7 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FF13Randomizer
-{
+{   
+public enum FlagType
+    {
+        Crystarium,
+        Items,
+        Enemies
+    }
+
     public class Flags
     {
         public static List<Flag> flags = new List<Flag>();
@@ -19,7 +26,7 @@ namespace FF13Randomizer
                 DescriptionFormat = "Randomize what abilities appear in each role for each character.",
                 FullDescriptionFormat = "Randomize what abilities appear in each role for each character.\n" +
                 "-Only abilities compatible with the character (animations) and role will be given."
-            }.Register();
+            }.Register(FlagType.Crystarium);
 
             public static Flag AbilitiesAnyRole = new Flag()
             {
@@ -27,7 +34,7 @@ namespace FF13Randomizer
                 FlagID = "AnyRoleAblty",
                 DescriptionFormat = "Allows all non starting abilities to appear in any role.",
                 FullDescriptionFormat = "Allows all non starting abilities to appear in any role."
-            }.Register();
+            }.Register(FlagType.Crystarium);
 
             public static Flag ShuffleNodes = new Flag()
             {
@@ -36,7 +43,7 @@ namespace FF13Randomizer
                 DescriptionFormat = "Shuffles all non-starting ability nodes inside a role.",
                 FullDescriptionFormat = "Shuffles all non-starting ability nodes inside a role.\n" +
                 "-This includes Stats, Abilities, ATB Levels, Accessories, and Role Levels."
-            }.Register();
+            }.Register(FlagType.Crystarium);
 
             public static Flag RandStats = new Flag()
             {
@@ -46,7 +53,7 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "Characters and roles are given random stat affinities. Variance of ${Value}%.\n" +
                 "-Each character and role gets varied multipliers on stats based on the stage. These multipliers stack.\n" +
                 "-The amount of nodes that appear is also related to the stat multiplier. For example: Higher HP multiplier also means more HP nodes will appear."
-            }.Register();
+            }.Register(FlagType.Crystarium);
 
             public static Flag ScaledCPCost = new Flag()
             {
@@ -57,7 +64,7 @@ namespace FF13Randomizer
                 "-Stage 1 is 1x multiplier\n" +
                 "-Stage 5 is 0.7x multiplier\n" +
                 "-Stage 9 and 10 are 0.5x multiplier"
-            }.Register();
+            }.Register(FlagType.Crystarium);
 
 
             public static Flag HalfSecondaryCPCost = new Flag()
@@ -66,7 +73,7 @@ namespace FF13Randomizer
                 FlagID = "HfSecCP",
                 DescriptionFormat = "CP Cost is halved on secondary roles.",
                 FullDescriptionFormat = "CP Cost is halved on secondary roles. Applies on top of Scaled CP Cost."
-            }.Register();
+            }.Register(FlagType.Crystarium);
 
 
             public static Flag LibraStart = new Flag()
@@ -75,7 +82,7 @@ namespace FF13Randomizer
                 FlagID = "Libra",
                 DescriptionFormat = "Libra is a forced starting ability.",
                 FullDescriptionFormat = "Libra is a forced starting ability."
-            }.Register();
+            }.Register(FlagType.Crystarium);
 
             static CrystariumFlags()
             {
@@ -98,7 +105,7 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "Treasures will be randomized.\n" +
                 "-Based on the 'rank' of each item.  New items will be by items 'rank' +/- ${Value}.\n" +
                 "-Material items (upgrade components) are given LESS weight and will appear less often in treasures."
-            }.Register();
+            }.Register(FlagType.Items);
 
             public static Flag Drops = new Flag()
             {
@@ -109,7 +116,7 @@ namespace FF13Randomizer
                 "-Based on the 'rank' of each item.  New items will be replaced by items 'rank' +/- ${Value}.\n" +
                 "-Material items (upgrade components) are given MORE weight and will appear more often as drops.\n" +
                 "-Bosses will drop accessories and weapons more often"
-            }.Register();
+            }.Register(FlagType.Items);
 
             public static Flag Shops = new Flag()
             {
@@ -119,7 +126,7 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "All shops except Unicorn Mart will shuffle locations.\n" +
                 "-Includes shops from special battle drops and treasures.\n" +
                 "-Does not include Omnikit."
-            }.Register();
+            }.Register(FlagType.Items);
 
             static ItemFlags()
             {
@@ -147,7 +154,7 @@ namespace FF13Randomizer
                 FullDescriptionFormat = "Elemental resistances will be shuffled between enemies.\n" +
                 "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune.",
                 Experimental = true
-            }.Register();
+            }.Register(FlagType.Enemies);
 
             public static Flag Debuffs = new Flag()
             {
@@ -156,7 +163,7 @@ namespace FF13Randomizer
                 DescriptionFormat = "Debuff resistances will be shuffled between enemies.",
                 FullDescriptionFormat = "Debuff resistances will be shuffled between enemies.",
                 Experimental = true
-            }.Register();
+            }.Register(FlagType.Enemies);
 
 
             public static Flag RandStats = new Flag()
@@ -165,7 +172,7 @@ namespace FF13Randomizer
                 FlagID = "RanStat",
                 DescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%",
                 FullDescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%"
-            }.Register();
+            }.Register(FlagType.Enemies);
 
             public static Flag RandLevel = new Flag()
             {
@@ -174,7 +181,7 @@ namespace FF13Randomizer
                 DescriptionFormat = "Enemies' Levels will be shifted by up to +/- ${Value} and affect CP, HP, Strength, and Magic.",
                 FullDescriptionFormat = "Enemies' Levels will be shifted by up to +/- ${Value} and affect CP, HP, Strength, and Magic.",
                 Experimental = true
-            }.Register();
+            }.Register(FlagType.Enemies);
 
             public static Flag BoostLevel = new Flag()
             {
@@ -182,7 +189,7 @@ namespace FF13Randomizer
                 FlagID = "BstLevels",
                 DescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect HP, Strength, and Magic. In-game level is not changed!",
                 FullDescriptionFormat = "[NOT AFFECTED BY PICKING PRESETS] Enemies' Levels will be effectively increased by ${Value} and affect HP, Strength, and Magic. In-game level is not changed!",
-            }.Register();
+            }.Register(FlagType.Enemies);
 
             static EnemyFlags()
             {
