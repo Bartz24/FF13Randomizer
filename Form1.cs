@@ -470,7 +470,7 @@ namespace FF13Randomizer
                 }
 
                 List<Tiered<Ability>> techniques = TieredAbilities.manager.list.Where(
-                    t => t.Items.Where(a => a.Role == Role.None).Count() > 0).ToList();
+                    t => t.Items.Where(a => a.Role == Role.None && (!Flags.CrystariumFlags.LibraStart.FlagEnabled || (Flags.CrystariumFlags.LibraStart.FlagEnabled && a != Abilities.Libra))).Count() > 0).ToList();
 
                 for (int r = 1; r <= 6; r++)
                 {

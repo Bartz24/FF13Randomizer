@@ -116,7 +116,7 @@ namespace FF13Randomizer
 
         public void ResetRandom(int seed)
         {
-            Random = new FF13Data.Random(seed + FlagID.GetHashCode());
+            Random = new FF13Data.Random(seed + FlagID[0] * FlagID.Length * FullDescription.Length - Description.Length);
         }
 
         public void SetRand()
