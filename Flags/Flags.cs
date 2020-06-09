@@ -21,6 +21,14 @@ namespace FF13Randomizer
                 "-Only abilities compatible with the character (animations) and role will be given."
             }.Register();
 
+            public static Flag AbilitiesAnyRole = new Flag()
+            {
+                Text = "Abilities Appear in Any Role",
+                FlagID = "AnyRoleAblty",
+                DescriptionFormat = "Allows all non starting abilities to appear in any role.",
+                FullDescriptionFormat = "Allows all non starting abilities to appear in any role."
+            }.Register();
+
             public static Flag ShuffleATBAccessory = new Flag()
             {
                 Text = "Shuffle Special Nodes",

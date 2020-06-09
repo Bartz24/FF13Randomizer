@@ -422,5 +422,10 @@ namespace FF13Data
         {
             return manager.Get(0, 1, tiered, a => ((TieredDependent<Ability>)tiered).MeetsRequirement(a, obtained)).Item1;
         }
+
+        public static Ability GetNoDep(Tiered<Ability> tiered)
+        {
+            return manager.Get(0, 1, tiered, a => true).Item1;
+        }
     }
 }
