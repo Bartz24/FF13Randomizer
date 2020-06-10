@@ -94,7 +94,50 @@ namespace FF13Randomizer
             map.addMapping("Min", flagValue => ((FlagValue)flagValue).Range.MinRange.Value.ToString());
             map.addMapping("Max", flagValue => ((FlagValue)flagValue).Range.MaxRange.Value.ToString());
             return map;
-        }        
+        }
+
+        public string getFlagString()
+        {
+            switch (Level)
+            {
+                case ValueAdvancedLevel.None:
+                    return "";
+                case ValueAdvancedLevel.Value:
+                    return $"[{Range.Value}]";
+                case ValueAdvancedLevel.MinMax:
+                    return $"[{Range.MinRange.Value}:{Range.Value}:{Range.MaxRange.Value}]";
+            }
+            return "";
+        }
+
+        public string readFlagString(string value)
+        {
+            switch (Level)
+            {
+                case ValueAdvancedLevel.None:
+                    return value;
+                case ValueAdvancedLevel.Value:
+                    if (value.Contains('[') && value.Contains(']'))
+                    {
+                        Range.Value = Int32.Parse(value.Substring(value.IndexOf('[') + 1, value.IndexOf(']') - (value.IndexOf('[') + 1)));
+                        return value.Substring(0, value.IndexOf('['));
+                    }
+                    else
+                        return value;
+                case ValueAdvancedLevel.MinMax:
+                    if (value.Contains('[') && value.Contains(']'))
+                    {
+                        string[] contents = value.Substring(value.IndexOf('[') + 1, value.IndexOf(']') - (value.IndexOf('[') + 1)).Split(':');
+                        Range.MinRange.Value = Int32.Parse(contents[0]);
+                        Range.MaxRange.Value = Int32.Parse(contents[2]);
+                        Range.Value = Int32.Parse(contents[1]);
+                        return value.Substring(0, value.IndexOf('['));
+                    }
+                    else
+                        return value;
+            }
+            return value;
+        }
 
         public NumericRangeMinMax<int> Range { get; set; } = new NumericRangeMinMax<int>();
     }

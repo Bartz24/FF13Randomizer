@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Utilities;
 
 namespace FF13Randomizer
 {
@@ -169,12 +170,18 @@ namespace FF13Randomizer
             addFlags(tabPageCrystarium, FlagType.Crystarium);
             addFlags(tabPageEnemies, FlagType.Enemies);
             addFlags(tabPageItems, FlagType.Items);
+            if (Directory.Exists(randoPath))
+            {
+                addHistory();
+            }
 
-            presetEvenedOdds_Click(null, null);
+            defaultSettings();
 
             SetRandomSeed();
 
             textBox2.Text = GetFF13Directory() == null ? "" : GetFF13Directory();
+
+            tabControl1.SelectedTab = tabPageBasics;
 
 #if !DEBUG
             tabControl1.TabPages.Remove(tabPageDebug);
@@ -206,6 +213,45 @@ namespace FF13Randomizer
             }
         }
 
+        private void addHistory()
+        {
+            List<UserFlagsSeed> imported = UserFlagsSeed.Import(randoPath);
+            tabPageHistory.Controls.Clear();
+            TableLayoutPanel tableLayout = new TableLayoutPanel();
+            tableLayout.Dock = DockStyle.Fill;
+            tableLayout.ColumnCount = 1;
+            tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            tableLayout.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            tableLayout.AutoScroll = true;
+            tabPageHistory.Controls.Add(tableLayout);
+
+            foreach (UserFlagsSeed usf in imported)
+            {
+                HistoryView view = new HistoryView(usf);
+                view.Dock = DockStyle.Fill;
+                view.OnSet += View_OnSet;
+                tableLayout.Controls.Add(view);
+            }
+        }
+
+        private void View_OnSet(object sender, EventArgs e)
+        {
+            HistoryView view = (HistoryView)sender;
+            if (!String.IsNullOrEmpty(view.FlagString))
+            {
+                bool success = Flags.Import(view.FlagString);
+                if (success)
+                {
+                    MessageBox.Show("Successfully imported flag string and seed!");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to import flag string and seed! Resetting flags to default!");
+                    defaultSettings();
+                }
+            }
+            textBoxSeed.Text = view.Seed;
+        }
 
         private void TabControl1_TabIndexChanged(object sender, EventArgs e)
         {
@@ -226,6 +272,7 @@ namespace FF13Randomizer
             }
             if (flagInfo1.Flag == (Flag)control)
                 flagInfo1.Update();
+            textCurrentFlags.Text = Flags.GetFlagString();
         }
 
         private void addFlagEvents(Control control)
@@ -1325,8 +1372,10 @@ namespace FF13Randomizer
 
             new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
 
-            UserFlagsSeed.Export(randoPath + "\\FlagsSeeds", textBoxSeed.Text.Trim(), version);
-            UserFlagsSeed.Export("logs", textBoxSeed.Text.Trim(), version);
+            UserFlagsSeed.Export(randoPath, textBoxSeed.Text.Trim(), version);
+            addHistory();
+            
+            //UserFlagsSeed.Export("logs", textBoxSeed.Text.Trim(), version);
 
             MessageBox.Show("Complete! Ready to play! Whenever you need to uninstall the rando, come back to this program and go to the Uninstall tab!");
         }
@@ -1392,6 +1441,12 @@ namespace FF13Randomizer
         private void button11_Click(object sender, EventArgs e)
         {
             new ProgressForm("Fully reverting to vanilla files...", bw => FullUninstall(bw)).ShowDialog();
+        }
+
+        private void defaultSettings()
+        {
+            presetEvenedOdds_Click(null, null);
+            ((FlagValue)Flags.EnemyFlags.BoostLevel.FlagData).Range.Value = 10;
         }
 
         private void presetEvenedOdds_Click(object sender, EventArgs e)
@@ -1533,6 +1588,31 @@ namespace FF13Randomizer
 
         }
 
+        private void button12_Click(object sender, EventArgs e)
+        {
+            string value = "";
+            value = InputBox.ShowDialog("Input Flag String:", "Import");
+            if (!String.IsNullOrEmpty(value))
+            {
+                bool success = Flags.Import(value);
+                if (success)
+                {
+                    MessageBox.Show("Successfully imported flag string!");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to import flag string!. Resetting flags to default!");
+                    defaultSettings();
+                }
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(Flags.GetFlagString());
+            MessageBox.Show("Copied flag string to clipboard!");
+        }
+
         private void FullUninstall(BackgroundWorker backgroundWorker)
         {
             if (!Directory.Exists(randoPath))
@@ -1572,7 +1652,7 @@ namespace FF13Randomizer
             }
             if (filePath != "")
             {
-                textBoxSeed.Text = UserFlagsSeed.Import(filePath, version);
+                //textBoxSeed.Text = UserFlagsSeed.Import(filePath, version);
             }
         }
     }

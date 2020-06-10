@@ -13,5 +13,7 @@ namespace FF13Randomizer
         string getDescription(string format);
         Flag getParentFlag();
         UserControl getFlagInfo();
+        string getFlagString();
+        string readFlagString(string value);
     }
 }

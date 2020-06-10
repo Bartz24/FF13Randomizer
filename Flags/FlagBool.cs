@@ -49,6 +49,16 @@ namespace FF13Randomizer
             return map;
         }
 
+        public string getFlagString()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string readFlagString(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Value
         {
             get => checkBox1.Checked;

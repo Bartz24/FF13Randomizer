@@ -83,6 +83,11 @@
             this.tabPageCrystarium = new System.Windows.Forms.TabPage();
             this.tabPageEnemies = new System.Windows.Forms.TabPage();
             this.tabPageItems = new System.Windows.Forms.TabPage();
+            this.tabPageHistory = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textCurrentFlags = new System.Windows.Forms.TextBox();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
@@ -166,6 +171,7 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPageHistory);
             this.tabControl1.Controls.Add(this.tabPageBasics);
             this.tabControl1.Controls.Add(this.tabPageFlags);
             this.tabControl1.Controls.Add(this.tabPageFinish);
@@ -188,6 +194,10 @@
             // tabPageBasics
             // 
             this.tabPageBasics.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageBasics.Controls.Add(this.button13);
+            this.tabPageBasics.Controls.Add(this.button12);
+            this.tabPageBasics.Controls.Add(this.label20);
+            this.tabPageBasics.Controls.Add(this.textCurrentFlags);
             this.tabPageBasics.Controls.Add(this.label17);
             this.tabPageBasics.Controls.Add(this.label16);
             this.tabPageBasics.Controls.Add(this.label15);
@@ -211,7 +221,7 @@
             this.tabPageBasics.Location = new System.Drawing.Point(104, 4);
             this.tabPageBasics.Name = "tabPageBasics";
             this.tabPageBasics.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBasics.Size = new System.Drawing.Size(489, 529);
+            this.tabPageBasics.Size = new System.Drawing.Size(507, 529);
             this.tabPageBasics.TabIndex = 0;
             this.tabPageBasics.Text = "Basics";
             this.tabPageBasics.UseVisualStyleBackColor = true;
@@ -474,7 +484,7 @@
             this.tabPageUninstall.Controls.Add(this.buttonUninstall);
             this.tabPageUninstall.Location = new System.Drawing.Point(104, 4);
             this.tabPageUninstall.Name = "tabPageUninstall";
-            this.tabPageUninstall.Size = new System.Drawing.Size(489, 529);
+            this.tabPageUninstall.Size = new System.Drawing.Size(507, 529);
             this.tabPageUninstall.TabIndex = 4;
             this.tabPageUninstall.Text = "Uninstall";
             this.tabPageUninstall.UseVisualStyleBackColor = true;
@@ -514,7 +524,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button9.Location = new System.Drawing.Point(34, 81);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(149, 23);
+            this.button9.Size = new System.Drawing.Size(167, 23);
             this.button9.TabIndex = 10;
             this.button9.Text = "Full Uninstall and Reextract";
             this.button9.UseVisualStyleBackColor = true;
@@ -535,7 +545,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFullUninstall.Location = new System.Drawing.Point(34, 52);
             this.buttonFullUninstall.Name = "buttonFullUninstall";
-            this.buttonFullUninstall.Size = new System.Drawing.Size(149, 23);
+            this.buttonFullUninstall.Size = new System.Drawing.Size(167, 23);
             this.buttonFullUninstall.TabIndex = 8;
             this.buttonFullUninstall.Text = "Full Uninstall";
             this.buttonFullUninstall.Click += new System.EventHandler(this.button11_Click);
@@ -555,7 +565,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUninstall.Location = new System.Drawing.Point(34, 23);
             this.buttonUninstall.Name = "buttonUninstall";
-            this.buttonUninstall.Size = new System.Drawing.Size(149, 23);
+            this.buttonUninstall.Size = new System.Drawing.Size(167, 23);
             this.buttonUninstall.TabIndex = 6;
             this.buttonUninstall.Text = "Uninstall";
             this.buttonUninstall.UseVisualStyleBackColor = true;
@@ -568,7 +578,7 @@
             this.tabPageTools.Controls.Add(this.button11);
             this.tabPageTools.Location = new System.Drawing.Point(104, 4);
             this.tabPageTools.Name = "tabPageTools";
-            this.tabPageTools.Size = new System.Drawing.Size(489, 529);
+            this.tabPageTools.Size = new System.Drawing.Size(507, 529);
             this.tabPageTools.TabIndex = 5;
             this.tabPageTools.Text = "Tools";
             this.tabPageTools.UseVisualStyleBackColor = true;
@@ -607,7 +617,7 @@
             this.tabPageDebug.Controls.Add(this.button4);
             this.tabPageDebug.Location = new System.Drawing.Point(104, 4);
             this.tabPageDebug.Name = "tabPageDebug";
-            this.tabPageDebug.Size = new System.Drawing.Size(489, 529);
+            this.tabPageDebug.Size = new System.Drawing.Size(507, 529);
             this.tabPageDebug.TabIndex = 2;
             this.tabPageDebug.Text = "DEBUG";
             this.tabPageDebug.UseVisualStyleBackColor = true;
@@ -680,6 +690,52 @@
             this.tabPageItems.TabIndex = 2;
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
+            // 
+            // tabPageHistory
+            // 
+            this.tabPageHistory.Location = new System.Drawing.Point(104, 4);
+            this.tabPageHistory.Name = "tabPageHistory";
+            this.tabPageHistory.Size = new System.Drawing.Size(507, 529);
+            this.tabPageHistory.TabIndex = 6;
+            this.tabPageHistory.Text = "History";
+            this.tabPageHistory.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(29, 102);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(69, 13);
+            this.label20.TabIndex = 25;
+            this.label20.Text = "Current Flags";
+            // 
+            // textCurrentFlags
+            // 
+            this.textCurrentFlags.Location = new System.Drawing.Point(104, 99);
+            this.textCurrentFlags.Name = "textCurrentFlags";
+            this.textCurrentFlags.ReadOnly = true;
+            this.textCurrentFlags.Size = new System.Drawing.Size(239, 20);
+            this.textCurrentFlags.TabIndex = 24;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(349, 85);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(134, 23);
+            this.button12.TabIndex = 26;
+            this.button12.Text = "Import Flag String";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(349, 114);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(134, 23);
+            this.button13.TabIndex = 27;
+            this.button13.Text = "Export Flag String";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // Form1
             // 
@@ -767,6 +823,11 @@
         private System.Windows.Forms.TabPage tabPageCrystarium;
         private System.Windows.Forms.TabPage tabPageEnemies;
         private System.Windows.Forms.TabPage tabPageItems;
+        private System.Windows.Forms.TabPage tabPageHistory;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textCurrentFlags;
     }
 }
 

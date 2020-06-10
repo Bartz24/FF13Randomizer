@@ -237,5 +237,30 @@ public enum FlagType
             new EnemyFlags();
             new Other();
         }
+
+        public static bool Import(string flagString)
+        {
+            try
+            {
+                List<string> flags = flagString.Split(' ').ToList();
+                Flags.flags.ForEach(f =>
+                {
+                    f.FlagEnabled = false;
+                    flags.ForEach(fs => f.FlagString = fs);
+                });
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static string GetFlagString()
+        {
+            List<string> flagStrings = Flags.flags.Select(f => f.FlagString).Where(f => !String.IsNullOrEmpty(f)).ToList();
+            flagStrings.Sort();
+            return String.Join(" ", flagStrings);
+        }
     }
 }
