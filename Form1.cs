@@ -1457,7 +1457,8 @@ namespace FF13Randomizer
                     flag == Flags.EnemyFlags.Resistances/* || 
                     flag == Flags.Other.Music*/ ||
                     flag == Flags.EnemyFlags.RandStats ||
-                    flag == Flags.EnemyFlags.RandLevel)
+                    flag == Flags.EnemyFlags.RandLevel ||
+                    flag == Flags.CrystariumFlags.AbilitiesAnyRole)
                     flag.FlagEnabled = false;
                 else if (flag == Flags.EnemyFlags.BoostLevel)
                 {
@@ -1483,7 +1484,8 @@ namespace FF13Randomizer
                 if (flag == Flags.EnemyFlags.Debuffs || 
                     flag == Flags.EnemyFlags.Resistances || 
                     flag == Flags.CrystariumFlags.LibraStart/* || 
-                    flag == Flags.Other.Music*/)
+                    flag == Flags.Other.Music*/ ||
+                    flag == Flags.CrystariumFlags.AbilitiesAnyRole)
                     flag.FlagEnabled = false;
                 else if (flag == Flags.EnemyFlags.BoostLevel)
                 {

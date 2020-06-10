@@ -32,8 +32,8 @@ public enum FlagType
             {
                 Text = "Abilities Appear in Any Role",
                 FlagID = "AnyRoleAblty",
-                DescriptionFormat = "Allows all non starting abilities to appear in any role.",
-                FullDescriptionFormat = "Allows all non starting abilities to appear in any role."
+                DescriptionFormat = "Allows all non starting abilities to appear in any role. Ally AI and Auto-battle may be slightly broken and stupid at times.",
+                FullDescriptionFormat = "Allows all non starting abilities to appear in any role. Ally AI and Auto-battle may be slightly broken and stupid at times."
             }.Register(FlagType.Crystarium);
 
             public static Flag ShuffleNodes = new Flag()
