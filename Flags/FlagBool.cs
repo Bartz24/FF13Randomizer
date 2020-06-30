@@ -54,7 +54,7 @@ namespace FF13Randomizer
             throw new NotImplementedException();
         }
 
-        public string readFlagString(string value)
+        public string readFlagString(string value, bool simulate)
         {
             throw new NotImplementedException();
         }

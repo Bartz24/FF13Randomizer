@@ -23,7 +23,7 @@ namespace FF13Randomizer
             {
                 output = "Version,Time/Date,Seed,Flags\n";
             }
-            List<string> flagStrings = Flags.flags.Select(f => f.FlagString).ToList();
+            List<string> flagStrings = Flags.flags.Select(f => f.getFlagString()).ToList();
             flagStrings.Sort();
             string newRow = $"{version},{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")},{seed},{String.Join(" ", flagStrings)}\n";
             string[] oldRows = output.Substring(output.IndexOf('\n') + 1).Split('\n');
@@ -68,7 +68,7 @@ namespace FF13Randomizer
                         flagsSeed.TimeDate = values[1].Trim();
                         flagsSeed.Seed = values[2].Trim();
                         flagsSeed.FlagString = values[3].Trim();
-                        flagsSeed.Valid = Flags.Import(flagsSeed.FlagString);
+                        flagsSeed.Valid = Flags.Import(flagsSeed.FlagString, true);
                         list.Add(flagsSeed);
                     }
                     catch (Exception e)

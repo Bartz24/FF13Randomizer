@@ -110,7 +110,7 @@ namespace FF13Randomizer
             return "";
         }
 
-        public string readFlagString(string value)
+        public string readFlagString(string value, bool simulate)
         {
             switch (Level)
             {
@@ -119,7 +119,9 @@ namespace FF13Randomizer
                 case ValueAdvancedLevel.Value:
                     if (value.Contains('[') && value.Contains(']'))
                     {
-                        Range.Value = Int32.Parse(value.Substring(value.IndexOf('[') + 1, value.IndexOf(']') - (value.IndexOf('[') + 1)));
+                        int val = Int32.Parse(value.Substring(value.IndexOf('[') + 1, value.IndexOf(']') - (value.IndexOf('[') + 1)));
+                        if (!simulate)
+                            Range.Value = val;
                         return value.Substring(0, value.IndexOf('['));
                     }
                     else
@@ -128,9 +130,13 @@ namespace FF13Randomizer
                     if (value.Contains('[') && value.Contains(']'))
                     {
                         string[] contents = value.Substring(value.IndexOf('[') + 1, value.IndexOf(']') - (value.IndexOf('[') + 1)).Split(':');
-                        Range.MinRange.Value = Int32.Parse(contents[0]);
-                        Range.MaxRange.Value = Int32.Parse(contents[2]);
-                        Range.Value = Int32.Parse(contents[1]);
+                        int[] values = { Int32.Parse(contents[0]), Int32.Parse(contents[2]), Int32.Parse(contents[1]) };
+                        if (!simulate)
+                        {
+                            Range.MinRange.Value = values[0];
+                            Range.MaxRange.Value = values[1];
+                            Range.Value = values[2];
+                        }
                         return value.Substring(0, value.IndexOf('['));
                     }
                     else

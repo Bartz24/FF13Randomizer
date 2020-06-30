@@ -238,15 +238,16 @@ public enum FlagType
             new Other();
         }
 
-        public static bool Import(string flagString)
+        public static bool Import(string flagString, bool simulate)
         {
             try
             {
                 List<string> flags = flagString.Split(' ').ToList();
                 Flags.flags.ForEach(f =>
                 {
-                    f.FlagEnabled = false;
-                    flags.ForEach(fs => f.FlagString = fs);
+                    if (!simulate)
+                        f.FlagEnabled = false;
+                    flags.ForEach(fs => f.setFlagString(fs, simulate));
                 });
             }
             catch (Exception e)
@@ -258,7 +259,7 @@ public enum FlagType
 
         public static string GetFlagString()
         {
-            List<string> flagStrings = Flags.flags.Select(f => f.FlagString).Where(f => !String.IsNullOrEmpty(f)).ToList();
+            List<string> flagStrings = Flags.flags.Select(f => f.getFlagString()).Where(f => !String.IsNullOrEmpty(f)).ToList();
             flagStrings.Sort();
             return String.Join(" ", flagStrings);
         }

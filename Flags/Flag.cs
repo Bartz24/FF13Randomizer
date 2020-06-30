@@ -95,33 +95,32 @@ namespace FF13Randomizer
 
         public string FlagID { get; set; }
 
-        public Control FlagData { get; set; } 
-        
-        public String FlagString 
-        { 
-            get
+        public Control FlagData { get; set; }
+
+        public string getFlagString()
+        {
+            if (!FlagEnabled)
+                return "";
+            string output = "-" + FlagID;
+            if (FlagData != null)
+                output += ((IFlagData)FlagData).getFlagString();
+            return output;
+        }
+
+        public void setFlagString(string value, bool simulate)
+        {
+            string input = value;
+            string name;
+            if (input.Contains("["))
+                name = input.Substring(1, input.IndexOf('[') - 1);
+            else
+                name = input.Substring(1);
+            if (name == FlagID)
             {
-                if (!FlagEnabled)
-                    return "";
-                string output = "-" + FlagID;
                 if (FlagData != null)
-                    output += ((IFlagData)FlagData).getFlagString();
-                return output;
-            }
-            set
-            {
-                string input = value;
-                string name;
-                if (input.Contains("["))
-                    name = input.Substring(1, input.IndexOf('[') - 1);
-                else
-                    name = input.Substring(1);
-                if (name == FlagID)
-                {
-                    if (FlagData != null)
-                        input = ((IFlagData)FlagData).readFlagString(input);
+                    input = ((IFlagData)FlagData).readFlagString(input, simulate);
+                if (!simulate)
                     FlagEnabled = true;
-                }
             }
         }
 

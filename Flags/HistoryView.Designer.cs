@@ -131,7 +131,7 @@
             // 
             this.labelTime.Location = new System.Drawing.Point(5, 54);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(307, 18);
+            this.labelTime.Size = new System.Drawing.Size(240, 18);
             this.labelTime.TabIndex = 35;
             this.labelTime.Text = "Created At: MM/dd/yyyy HH:mm:ss";
             this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

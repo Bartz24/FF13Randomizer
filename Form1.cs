@@ -239,7 +239,7 @@ namespace FF13Randomizer
             HistoryView view = (HistoryView)sender;
             if (!String.IsNullOrEmpty(view.FlagString))
             {
-                bool success = Flags.Import(view.FlagString);
+                bool success = Flags.Import(view.FlagString, false);
                 if (success)
                 {
                     MessageBox.Show("Successfully imported flag string and seed!");
@@ -427,8 +427,8 @@ namespace FF13Randomizer
                         d[k].Add(avg);
                     });
                     int avgStrMag = (d[CrystariumType.Strength][0] + d[CrystariumType.Magic][0]) / 2;
-                    d[CrystariumType.Strength][0] = d[CrystariumType.Magic][0] = (int)Math.Max(1, avgStrMag * 1.04);
-                    d[CrystariumType.HP][0] = (int)Math.Max(1, d[CrystariumType.HP][0] * 1.03);
+                    d[CrystariumType.Strength][0] = d[CrystariumType.Magic][0] = (int)Math.Max(1, avgStrMag * 1.04 * 0.7);
+                    d[CrystariumType.HP][0] = (int)Math.Max(1, d[CrystariumType.HP][0] * 1.03 * 1.85);
                 });
                 RandomNum.ClearRand();
             }
@@ -483,13 +483,15 @@ namespace FF13Randomizer
                                     t == CrystariumType.Strength ? (charMults[name][1] * roleMults[c.Role][1]) :
                                     (charMults[name][2] * roleMults[c.Role][2])), 1 / 1.5d)));
 
-                            int avgValue = statAverages[c.Stage][c.Type][0];
+                            int avgValue = (int)Math.Ceiling(statAverages[c.Stage][c.Type][0] * Math.Pow(1.1, c.Stage * 0.07 + 0.1 + (c.Stage == 10?1.8:0)));
+                            if (c.Stage == 10 && c.Type == CrystariumType.HP)
+                                avgValue = (int)Math.Ceiling(avgValue * 1.8);
                             if (primaryRoles[name].Contains(c.Role))
                             {
                                 //avgValue = (int)Math.Ceiling(avgValue * (5 * Math.Exp(-0.5d * nodeCounts[c.Stage][c.Role]) + 1));
                             }
                             else
-                                avgValue = (int)Math.Ceiling(avgValue / 1.8d);
+                                avgValue = (int)Math.Ceiling(Math.Log(avgValue, 3) * Math.Pow(avgValue, 0.4));
 
                             if (name != "fang" && c.CPCost == 0)
                                 avgValue = (int)Math.Floor(avgValue * 2.8d);
@@ -687,6 +689,16 @@ namespace FF13Randomizer
                         RandomNum.ClearRand();
                     }
                 }
+
+                string stats = "";
+                for (int stage = 10; stage >= 1; stage--)
+                {
+                    stats += "Stage " + stage + "\n";
+                    stats += $"HP: {crystarium.Crystarium.ToList().Where(c => c.Type == CrystariumType.HP && c.Stage <= stage).Sum(c => c.Value)}\n";
+                    stats += $"STR: {crystarium.Crystarium.ToList().Where(c => c.Type == CrystariumType.Strength && c.Stage <= stage).Sum(c => c.Value)}\n";
+                    stats += $"MAG: {crystarium.Crystarium.ToList().Where(c => c.Type == CrystariumType.Magic && c.Stage <= stage).Sum(c => c.Value)}\n\n";                    
+                }
+                File.WriteAllText("logs\\cryst_" + name+".txt", stats);
 
                 crystarium.Save($"db\\crystal\\crystal_{name}.wdb");
 
@@ -1596,7 +1608,7 @@ namespace FF13Randomizer
             value = InputBox.ShowDialog("Input Flag String:", "Import");
             if (!String.IsNullOrEmpty(value))
             {
-                bool success = Flags.Import(value);
+                bool success = Flags.Import(value, false);
                 if (success)
                 {
                     MessageBox.Show("Successfully imported flag string!");
