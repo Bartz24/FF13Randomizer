@@ -138,6 +138,13 @@ namespace FF13Randomizer
 
         public FormMain()
         {
+            if (!File.Exists("ff13tool.exe"))
+            {
+                MessageBox.Show("ff13tool is missing! Chances are it wasn't extracted correctly! Closing program...");
+                this.Close();
+            }
+
+
             if (GetFF13Directory() == null)
                 AutoSearchDir();
 

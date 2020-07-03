@@ -224,8 +224,8 @@ public enum FlagType
             {
                 Text = "Shuffle Music",
                 FlagID = "ShMusic",
-                DescriptionFormat = "Shuffles all music tracks.",
-                FullDescriptionFormat = "Shuffles all music tracks",
+                DescriptionFormat = "Shuffles a decent amount of loopable music tracks.",
+                FullDescriptionFormat = "Shuffles decent amount of loopable music tracks",
                 Experimental = true
             }.Register(FlagType.Other);
         }
