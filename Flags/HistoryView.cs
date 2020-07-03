@@ -45,8 +45,8 @@ namespace FF13Randomizer
 
         public string Version
         {
-            get => labelVersion.Text.Substring("Rando Version: ".Length);
-            set => labelVersion.Text = "Rando Version: " + value;
+            get => labelVersion.Text;
+            set => labelVersion.Text = value;
         }
 
         public string TimeDate

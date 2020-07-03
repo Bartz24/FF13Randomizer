@@ -127,9 +127,9 @@ namespace FF13Randomizer
             if (t.Items.Where(i => i.ID.StartsWith("acc")).Count() > 0)
                 return (int)Math.Max(1, t.Weight * 1.2);
             if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
-                return Math.Max(1, t.Weight / 30);
+                return Math.Max(1, t.Weight / 45);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return Math.Max(1, t.Weight * 4);
+                return (int)Math.Max(1, t.Weight * 1.5);
             return (int)(t.Weight * 2);
         }
     }
