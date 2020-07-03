@@ -37,7 +37,12 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageHistory = new System.Windows.Forms.TabPage();
             this.tabPageBasics = new System.Windows.Forms.TabPage();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textCurrentFlags = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -59,6 +64,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
             this.tabPageFlags = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPageCrystarium = new System.Windows.Forms.TabPage();
+            this.tabPageEnemies = new System.Windows.Forms.TabPage();
+            this.tabPageItems = new System.Windows.Forms.TabPage();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
             this.label18 = new System.Windows.Forms.Label();
             this.labelFlagsSelected = new System.Windows.Forms.Label();
@@ -79,23 +88,15 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
             this.flagInfo1 = new FF13Randomizer.FlagInfo();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPageCrystarium = new System.Windows.Forms.TabPage();
-            this.tabPageEnemies = new System.Windows.Forms.TabPage();
-            this.tabPageItems = new System.Windows.Forms.TabPage();
-            this.tabPageHistory = new System.Windows.Forms.TabPage();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textCurrentFlags = new System.Windows.Forms.TextBox();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.tabPageOther = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
+            this.tabControl2.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
             this.tabPageUninstall.SuspendLayout();
             this.tabPageTools.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
-            this.tabControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -191,6 +192,15 @@
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.TabIndexChanged += new System.EventHandler(this.TabControl1_TabIndexChanged);
             // 
+            // tabPageHistory
+            // 
+            this.tabPageHistory.Location = new System.Drawing.Point(104, 4);
+            this.tabPageHistory.Name = "tabPageHistory";
+            this.tabPageHistory.Size = new System.Drawing.Size(507, 529);
+            this.tabPageHistory.TabIndex = 6;
+            this.tabPageHistory.Text = "History";
+            this.tabPageHistory.UseVisualStyleBackColor = true;
+            // 
             // tabPageBasics
             // 
             this.tabPageBasics.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -225,6 +235,43 @@
             this.tabPageBasics.TabIndex = 0;
             this.tabPageBasics.Text = "Basics";
             this.tabPageBasics.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(349, 114);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(134, 23);
+            this.button13.TabIndex = 27;
+            this.button13.Text = "Export Flag String";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(349, 85);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(134, 23);
+            this.button12.TabIndex = 26;
+            this.button12.Text = "Import Flag String";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(29, 102);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(69, 13);
+            this.label20.TabIndex = 25;
+            this.label20.Text = "Current Flags";
+            // 
+            // textCurrentFlags
+            // 
+            this.textCurrentFlags.Location = new System.Drawing.Point(104, 99);
+            this.textCurrentFlags.Name = "textCurrentFlags";
+            this.textCurrentFlags.ReadOnly = true;
+            this.textCurrentFlags.Size = new System.Drawing.Size(239, 20);
+            this.textCurrentFlags.TabIndex = 24;
             // 
             // label17
             // 
@@ -425,6 +472,48 @@
             this.tabPageFlags.TabIndex = 1;
             this.tabPageFlags.Text = "Flags";
             this.tabPageFlags.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPageCrystarium);
+            this.tabControl2.Controls.Add(this.tabPageEnemies);
+            this.tabControl2.Controls.Add(this.tabPageItems);
+            this.tabControl2.Controls.Add(this.tabPageOther);
+            this.tabControl2.Location = new System.Drawing.Point(-2, 1);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(504, 526);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // tabPageCrystarium
+            // 
+            this.tabPageCrystarium.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCrystarium.Name = "tabPageCrystarium";
+            this.tabPageCrystarium.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPageCrystarium.Size = new System.Drawing.Size(496, 500);
+            this.tabPageCrystarium.TabIndex = 0;
+            this.tabPageCrystarium.Text = "Crystarium";
+            this.tabPageCrystarium.UseVisualStyleBackColor = true;
+            // 
+            // tabPageEnemies
+            // 
+            this.tabPageEnemies.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEnemies.Name = "tabPageEnemies";
+            this.tabPageEnemies.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPageEnemies.Size = new System.Drawing.Size(496, 500);
+            this.tabPageEnemies.TabIndex = 1;
+            this.tabPageEnemies.Text = "Enemies";
+            this.tabPageEnemies.UseVisualStyleBackColor = true;
+            // 
+            // tabPageItems
+            // 
+            this.tabPageItems.Location = new System.Drawing.Point(4, 22);
+            this.tabPageItems.Name = "tabPageItems";
+            this.tabPageItems.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPageItems.Size = new System.Drawing.Size(496, 500);
+            this.tabPageItems.TabIndex = 2;
+            this.tabPageItems.Text = "Items";
+            this.tabPageItems.UseVisualStyleBackColor = true;
             // 
             // tabPageFinish
             // 
@@ -650,94 +739,16 @@
             this.flagInfo1.TabIndex = 8;
             this.flagInfo1.Visible = false;
             // 
-            // tabControl2
+            // tabPageOther
             // 
-            this.tabControl2.Controls.Add(this.tabPageCrystarium);
-            this.tabControl2.Controls.Add(this.tabPageEnemies);
-            this.tabControl2.Controls.Add(this.tabPageItems);
-            this.tabControl2.Location = new System.Drawing.Point(-2, 1);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(504, 526);
-            this.tabControl2.TabIndex = 0;
+            this.tabPageOther.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOther.Name = "tabPageOther";
+            this.tabPageOther.Size = new System.Drawing.Size(496, 500);
+            this.tabPageOther.TabIndex = 3;
+            this.tabPageOther.Text = "Other";
+            this.tabPageOther.UseVisualStyleBackColor = true;
             // 
-            // tabPageCrystarium
-            // 
-            this.tabPageCrystarium.Location = new System.Drawing.Point(4, 22);
-            this.tabPageCrystarium.Name = "tabPageCrystarium";
-            this.tabPageCrystarium.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageCrystarium.Size = new System.Drawing.Size(496, 500);
-            this.tabPageCrystarium.TabIndex = 0;
-            this.tabPageCrystarium.Text = "Crystarium";
-            this.tabPageCrystarium.UseVisualStyleBackColor = true;
-            // 
-            // tabPageEnemies
-            // 
-            this.tabPageEnemies.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEnemies.Name = "tabPageEnemies";
-            this.tabPageEnemies.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageEnemies.Size = new System.Drawing.Size(496, 500);
-            this.tabPageEnemies.TabIndex = 1;
-            this.tabPageEnemies.Text = "Enemies";
-            this.tabPageEnemies.UseVisualStyleBackColor = true;
-            // 
-            // tabPageItems
-            // 
-            this.tabPageItems.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItems.Name = "tabPageItems";
-            this.tabPageItems.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageItems.Size = new System.Drawing.Size(496, 500);
-            this.tabPageItems.TabIndex = 2;
-            this.tabPageItems.Text = "Items";
-            this.tabPageItems.UseVisualStyleBackColor = true;
-            // 
-            // tabPageHistory
-            // 
-            this.tabPageHistory.Location = new System.Drawing.Point(104, 4);
-            this.tabPageHistory.Name = "tabPageHistory";
-            this.tabPageHistory.Size = new System.Drawing.Size(507, 529);
-            this.tabPageHistory.TabIndex = 6;
-            this.tabPageHistory.Text = "History";
-            this.tabPageHistory.UseVisualStyleBackColor = true;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(29, 102);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(69, 13);
-            this.label20.TabIndex = 25;
-            this.label20.Text = "Current Flags";
-            // 
-            // textCurrentFlags
-            // 
-            this.textCurrentFlags.Location = new System.Drawing.Point(104, 99);
-            this.textCurrentFlags.Name = "textCurrentFlags";
-            this.textCurrentFlags.ReadOnly = true;
-            this.textCurrentFlags.Size = new System.Drawing.Size(239, 20);
-            this.textCurrentFlags.TabIndex = 24;
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(349, 85);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(134, 23);
-            this.button12.TabIndex = 26;
-            this.button12.Text = "Import Flag String";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(349, 114);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(134, 23);
-            this.button13.TabIndex = 27;
-            this.button13.Text = "Export Flag String";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // Form1
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -747,13 +758,14 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(960, 600);
             this.MinimumSize = new System.Drawing.Size(960, 600);
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Text = "FF13 Randomizer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPageBasics.ResumeLayout(false);
             this.tabPageBasics.PerformLayout();
             this.tabPageFlags.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
             this.tabPageFinish.ResumeLayout(false);
             this.tabPageFinish.PerformLayout();
             this.tabPageUninstall.ResumeLayout(false);
@@ -762,7 +774,6 @@
             this.tabPageTools.PerformLayout();
             this.tabPageDebug.ResumeLayout(false);
             this.tabPageDebug.PerformLayout();
-            this.tabControl2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -828,6 +839,7 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textCurrentFlags;
+        private System.Windows.Forms.TabPage tabPageOther;
     }
 }
 

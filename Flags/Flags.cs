@@ -10,7 +10,8 @@ public enum FlagType
     {
         Crystarium,
         Items,
-        Enemies
+        Enemies,
+        Other
     }
 
     public class Flags
@@ -219,15 +220,14 @@ public enum FlagType
 
         public class Other
         {
-            /*public static Flag Music = new Flag()
+            public static Flag Music = new Flag()
             {
                 Text = "Shuffle Music",
                 FlagID = "ShMusic",
                 DescriptionFormat = "Shuffles all music tracks.",
-                FullDescriptionFormat = "Shuffles all music tracks.\n" +
-                "-Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune.",
+                FullDescriptionFormat = "Shuffles all music tracks",
                 Experimental = true
-            }.Register();*/
+            }.Register(FlagType.Other);
         }
 
         public Flags()
