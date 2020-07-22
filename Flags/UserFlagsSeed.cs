@@ -23,7 +23,7 @@ namespace FF13Randomizer
             {
                 output = "Version,Time/Date,Seed,Flags\n";
             }
-            List<string> flagStrings = Flags.flags.Select(f => f.getFlagString()).ToList();
+            List<string> flagStrings = Flags.flags.Select(f => f.GetFlagString()).ToList();
             flagStrings.Sort();
             string newRow = $"{version},{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")},{seed},{String.Join(" ", flagStrings)}\n";
             string[] oldRows = output.Substring(output.IndexOf('\n') + 1).Split('\n');

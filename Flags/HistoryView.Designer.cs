@@ -54,13 +54,13 @@
             this.textFlags.Location = new System.Drawing.Point(43, 3);
             this.textFlags.Name = "textFlags";
             this.textFlags.ReadOnly = true;
-            this.textFlags.Size = new System.Drawing.Size(172, 20);
+            this.textFlags.Size = new System.Drawing.Size(386, 20);
             this.textFlags.TabIndex = 26;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 32);
+            this.label1.Location = new System.Drawing.Point(5, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 29;
@@ -68,16 +68,16 @@
             // 
             // textSeed
             // 
-            this.textSeed.Location = new System.Drawing.Point(43, 29);
+            this.textSeed.Location = new System.Drawing.Point(43, 30);
             this.textSeed.Name = "textSeed";
             this.textSeed.ReadOnly = true;
-            this.textSeed.Size = new System.Drawing.Size(172, 20);
+            this.textSeed.Size = new System.Drawing.Size(386, 20);
             this.textSeed.TabIndex = 28;
             // 
             // button12
             // 
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button12.Location = new System.Drawing.Point(441, 49);
+            this.button12.Location = new System.Drawing.Point(808, 49);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(134, 23);
             this.button12.TabIndex = 30;
@@ -87,7 +87,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(221, 1);
+            this.button1.Location = new System.Drawing.Point(435, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(134, 23);
             this.button1.TabIndex = 31;
@@ -97,7 +97,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(221, 27);
+            this.button2.Location = new System.Drawing.Point(435, 28);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(134, 23);
             this.button2.TabIndex = 32;
@@ -109,9 +109,9 @@
             // 
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.Location = new System.Drawing.Point(374, 6);
+            this.labelVersion.Location = new System.Drawing.Point(575, 6);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(201, 23);
+            this.labelVersion.Size = new System.Drawing.Size(367, 23);
             this.labelVersion.TabIndex = 33;
             this.labelVersion.Text = "Rando Version: X.X.X";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -121,7 +121,7 @@
             this.labelInvalid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelInvalid.AutoSize = true;
             this.labelInvalid.ForeColor = System.Drawing.Color.Red;
-            this.labelInvalid.Location = new System.Drawing.Point(341, 54);
+            this.labelInvalid.Location = new System.Drawing.Point(708, 54);
             this.labelInvalid.Name = "labelInvalid";
             this.labelInvalid.Size = new System.Drawing.Size(94, 13);
             this.labelInvalid.TabIndex = 34;
@@ -129,12 +129,14 @@
             // 
             // labelTime
             // 
-            this.labelTime.Location = new System.Drawing.Point(5, 54);
+            this.labelTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTime.Location = new System.Drawing.Point(575, 29);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(240, 18);
+            this.labelTime.Size = new System.Drawing.Size(367, 18);
             this.labelTime.TabIndex = 35;
             this.labelTime.Text = "Created At: MM/dd/yyyy HH:mm:ss";
-            this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // HistoryView
             // 
@@ -153,7 +155,7 @@
             this.MaximumSize = new System.Drawing.Size(99999, 75);
             this.MinimumSize = new System.Drawing.Size(0, 75);
             this.Name = "HistoryView";
-            this.Size = new System.Drawing.Size(578, 75);
+            this.Size = new System.Drawing.Size(945, 75);
             this.ResumeLayout(false);
             this.PerformLayout();
 

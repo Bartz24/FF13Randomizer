@@ -40,15 +40,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar1.AutoSize = false;
             this.trackBar1.BackColor = System.Drawing.Color.White;
-            this.trackBar1.Location = new System.Drawing.Point(3, 3);
+            this.trackBar1.Location = new System.Drawing.Point(6, 40);
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(265, 32);
+            this.trackBar1.Size = new System.Drawing.Size(679, 32);
             this.trackBar1.TabIndex = 0;
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(274, 3);
+            this.numericUpDown1.Location = new System.Drawing.Point(688, 40);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(69, 20);
             this.numericUpDown1.TabIndex = 1;
@@ -59,11 +59,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.trackBar1);
+            this.MaximumSize = new System.Drawing.Size(760, 66);
+            this.MinimumSize = new System.Drawing.Size(760, 66);
             this.Name = "FlagValue";
-            this.Size = new System.Drawing.Size(346, 38);
+            this.Size = new System.Drawing.Size(760, 66);
+            this.Controls.SetChildIndex(this.trackBar1, 0);
+            this.Controls.SetChildIndex(this.numericUpDown1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

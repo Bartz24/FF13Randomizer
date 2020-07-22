@@ -39,6 +39,19 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageHistory = new System.Windows.Forms.TabPage();
             this.tabPageBasics = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.labelVersion = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.presetDevastation = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.presetBully = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.presetPerseverance = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.presetSalvation = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
@@ -47,8 +60,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.presetRuthless = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.presetBully = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.presetDirtyFighting = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -68,31 +79,36 @@
             this.tabPageCrystarium = new System.Windows.Forms.TabPage();
             this.tabPageEnemies = new System.Windows.Forms.TabPage();
             this.tabPageItems = new System.Windows.Forms.TabPage();
+            this.tabPageOther = new System.Windows.Forms.TabPage();
+            this.tabPageTweaks = new System.Windows.Forms.TabPage();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPageBoosts = new System.Windows.Forms.TabPage();
+            this.tabPageChallenges = new System.Windows.Forms.TabPage();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
             this.label18 = new System.Windows.Forms.Label();
             this.labelFlagsSelected = new System.Windows.Forms.Label();
             this.buttonRandomize = new System.Windows.Forms.Button();
             this.tabPageUninstall = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonFullUninstall = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonUninstall = new System.Windows.Forms.Button();
             this.tabPageTools = new System.Windows.Forms.TabPage();
             this.label19 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.flagInfo1 = new FF13Randomizer.FlagInfo();
-            this.tabPageOther = new System.Windows.Forms.TabPage();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPageTweaks.SuspendLayout();
+            this.tabControl3.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
             this.tabPageUninstall.SuspendLayout();
             this.tabPageTools.SuspendLayout();
@@ -175,6 +191,7 @@
             this.tabControl1.Controls.Add(this.tabPageHistory);
             this.tabControl1.Controls.Add(this.tabPageBasics);
             this.tabControl1.Controls.Add(this.tabPageFlags);
+            this.tabControl1.Controls.Add(this.tabPageTweaks);
             this.tabControl1.Controls.Add(this.tabPageFinish);
             this.tabControl1.Controls.Add(this.tabPageUninstall);
             this.tabControl1.Controls.Add(this.tabPageTools);
@@ -185,7 +202,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(615, 537);
+            this.tabControl1.Size = new System.Drawing.Size(920, 637);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 7;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
@@ -196,7 +213,7 @@
             // 
             this.tabPageHistory.Location = new System.Drawing.Point(104, 4);
             this.tabPageHistory.Name = "tabPageHistory";
-            this.tabPageHistory.Size = new System.Drawing.Size(507, 529);
+            this.tabPageHistory.Size = new System.Drawing.Size(812, 629);
             this.tabPageHistory.TabIndex = 6;
             this.tabPageHistory.Text = "History";
             this.tabPageHistory.UseVisualStyleBackColor = true;
@@ -204,6 +221,22 @@
             // tabPageBasics
             // 
             this.tabPageBasics.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageBasics.Controls.Add(this.label28);
+            this.tabPageBasics.Controls.Add(this.label9);
+            this.tabPageBasics.Controls.Add(this.label27);
+            this.tabPageBasics.Controls.Add(this.label14);
+            this.tabPageBasics.Controls.Add(this.labelVersion);
+            this.tabPageBasics.Controls.Add(this.label3);
+            this.tabPageBasics.Controls.Add(this.label21);
+            this.tabPageBasics.Controls.Add(this.label22);
+            this.tabPageBasics.Controls.Add(this.presetDevastation);
+            this.tabPageBasics.Controls.Add(this.label23);
+            this.tabPageBasics.Controls.Add(this.presetBully);
+            this.tabPageBasics.Controls.Add(this.label24);
+            this.tabPageBasics.Controls.Add(this.presetPerseverance);
+            this.tabPageBasics.Controls.Add(this.label25);
+            this.tabPageBasics.Controls.Add(this.label26);
+            this.tabPageBasics.Controls.Add(this.presetSalvation);
             this.tabPageBasics.Controls.Add(this.button13);
             this.tabPageBasics.Controls.Add(this.button12);
             this.tabPageBasics.Controls.Add(this.label20);
@@ -212,8 +245,6 @@
             this.tabPageBasics.Controls.Add(this.label16);
             this.tabPageBasics.Controls.Add(this.label15);
             this.tabPageBasics.Controls.Add(this.presetRuthless);
-            this.tabPageBasics.Controls.Add(this.label14);
-            this.tabPageBasics.Controls.Add(this.presetBully);
             this.tabPageBasics.Controls.Add(this.label13);
             this.tabPageBasics.Controls.Add(this.presetDirtyFighting);
             this.tabPageBasics.Controls.Add(this.label12);
@@ -231,14 +262,139 @@
             this.tabPageBasics.Location = new System.Drawing.Point(104, 4);
             this.tabPageBasics.Name = "tabPageBasics";
             this.tabPageBasics.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBasics.Size = new System.Drawing.Size(507, 529);
+            this.tabPageBasics.Size = new System.Drawing.Size(812, 629);
             this.tabPageBasics.TabIndex = 0;
             this.tabPageBasics.Text = "Basics";
             this.tabPageBasics.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 179);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(238, 13);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "Pick a flag preset for initial randomization options.";
+            // 
+            // labelVersion
+            // 
+            this.labelVersion.Location = new System.Drawing.Point(702, 599);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(100, 23);
+            this.labelVersion.TabIndex = 8;
+            this.labelVersion.Text = "Version";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(393, 483);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(244, 13);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "NOT race recommended (May be extremely unfair)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(9, 483);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(213, 13);
+            this.label21.TabIndex = 37;
+            this.label21.Text = "Race recommended (Quicker and more fair)";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(536, 563);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(130, 26);
+            this.label22.TabIndex = 36;
+            this.label22.Text = "Boost Enemy Levels + 40.\r\nStats One Stage Behind.";
+            // 
+            // presetDevastation
+            // 
+            this.presetDevastation.Location = new System.Drawing.Point(396, 558);
+            this.presetDevastation.Name = "presetDevastation";
+            this.presetDevastation.Size = new System.Drawing.Size(134, 23);
+            this.presetDevastation.TabIndex = 35;
+            this.presetDevastation.Text = "Devastation";
+            this.presetDevastation.UseVisualStyleBackColor = true;
+            this.presetDevastation.Click += new System.EventHandler(this.presetDevastation_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(536, 508);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(204, 39);
+            this.label23.TabIndex = 34;
+            this.label23.Text = "Scaled CP Cost, Half Secondary CP Cost.\r\nBoost Enemy Levels + 25.\r\nRun Speed +25%" +
+    ".";
+            // 
+            // presetBully
+            // 
+            this.presetBully.Location = new System.Drawing.Point(396, 503);
+            this.presetBully.Name = "presetBully";
+            this.presetBully.Size = new System.Drawing.Size(134, 23);
+            this.presetBully.TabIndex = 33;
+            this.presetBully.Text = "Bully";
+            this.presetBully.UseVisualStyleBackColor = true;
+            this.presetBully.Click += new System.EventHandler(this.presetBully_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(152, 558);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(204, 39);
+            this.label24.TabIndex = 32;
+            this.label24.Text = "Scaled CP Cost, Half Secondary CP Cost.\r\nBoost Enemy Levels + 10.\r\nRun Speed +25%" +
+    ".";
+            // 
+            // presetPerseverance
+            // 
+            this.presetPerseverance.Location = new System.Drawing.Point(12, 553);
+            this.presetPerseverance.Name = "presetPerseverance";
+            this.presetPerseverance.Size = new System.Drawing.Size(134, 23);
+            this.presetPerseverance.TabIndex = 31;
+            this.presetPerseverance.Text = "Perseverance";
+            this.presetPerseverance.UseVisualStyleBackColor = true;
+            this.presetPerseverance.Click += new System.EventHandler(this.presetPerseverance_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(152, 508);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(204, 39);
+            this.label25.TabIndex = 30;
+            this.label25.Text = "All boosts on. (Only 3 for now...)\r\nScaled CP Cost, Half Secondary CP Cost,\r\nRun " +
+    "Speed +25%.";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(9, 439);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(238, 13);
+            this.label26.TabIndex = 29;
+            this.label26.Text = "Tweak Presets  (Default: Perserverance)";
+            // 
+            // presetSalvation
+            // 
+            this.presetSalvation.Location = new System.Drawing.Point(12, 503);
+            this.presetSalvation.Name = "presetSalvation";
+            this.presetSalvation.Size = new System.Drawing.Size(134, 23);
+            this.presetSalvation.TabIndex = 28;
+            this.presetSalvation.Text = "Salvation";
+            this.presetSalvation.UseVisualStyleBackColor = true;
+            this.presetSalvation.Click += new System.EventHandler(this.presetSalvation_Click);
+            // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(349, 114);
+            this.button13.Location = new System.Drawing.Point(584, 112);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(134, 23);
             this.button13.TabIndex = 27;
@@ -248,7 +404,7 @@
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(349, 85);
+            this.button12.Location = new System.Drawing.Point(584, 83);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(134, 23);
             this.button12.TabIndex = 26;
@@ -270,39 +426,39 @@
             this.textCurrentFlags.Location = new System.Drawing.Point(104, 99);
             this.textCurrentFlags.Name = "textCurrentFlags";
             this.textCurrentFlags.ReadOnly = true;
-            this.textCurrentFlags.Size = new System.Drawing.Size(239, 20);
+            this.textCurrentFlags.Size = new System.Drawing.Size(474, 20);
             this.textCurrentFlags.TabIndex = 24;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(9, 350);
+            this.label17.Location = new System.Drawing.Point(393, 206);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(247, 13);
+            this.label17.Size = new System.Drawing.Size(304, 13);
             this.label17.TabIndex = 23;
-            this.label17.Text = "NOT race recommended (Some experimental flags)";
+            this.label17.Text = "NOT race recommended (Chaotic with more experimental flags)";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(9, 221);
+            this.label16.Location = new System.Drawing.Point(9, 206);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(234, 13);
+            this.label16.Size = new System.Drawing.Size(282, 13);
             this.label16.TabIndex = 22;
-            this.label16.Text = "Race recommended (Minimal experimental flags)";
+            this.label16.Text = "Race recommended (Most balanced and least error prone)";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(152, 481);
+            this.label15.Location = new System.Drawing.Point(536, 334);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(223, 26);
+            this.label15.Size = new System.Drawing.Size(256, 91);
             this.label15.TabIndex = 21;
-            this.label15.Text = "Stats, treasures and drops are maxed random.\r\nDoes randomize enemy resistances.";
+            this.label15.Text = resources.GetString("label15.Text");
             // 
             // presetRuthless
             // 
-            this.presetRuthless.Location = new System.Drawing.Point(12, 476);
+            this.presetRuthless.Location = new System.Drawing.Point(396, 329);
             this.presetRuthless.Name = "presetRuthless";
             this.presetRuthless.Size = new System.Drawing.Size(134, 23);
             this.presetRuthless.TabIndex = 20;
@@ -310,38 +466,18 @@
             this.presetRuthless.UseVisualStyleBackColor = true;
             this.presetRuthless.Click += new System.EventHandler(this.presetRuthless_Click);
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(152, 431);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(212, 26);
-            this.label14.TabIndex = 19;
-            this.label14.Text = "Stats, treasures and drops are very random.\r\nDoes randomize enemy resistances.";
-            // 
-            // presetBully
-            // 
-            this.presetBully.Location = new System.Drawing.Point(12, 426);
-            this.presetBully.Name = "presetBully";
-            this.presetBully.Size = new System.Drawing.Size(134, 23);
-            this.presetBully.TabIndex = 18;
-            this.presetBully.Text = "Bully";
-            this.presetBully.UseVisualStyleBackColor = true;
-            this.presetBully.Click += new System.EventHandler(this.presetBully_Click);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(152, 381);
+            this.label13.Location = new System.Drawing.Point(536, 231);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(242, 39);
+            this.label13.Size = new System.Drawing.Size(219, 78);
             this.label13.TabIndex = 17;
-            this.label13.Text = "Stats, treasures and drops are even more random.\r\nDoes randomize enemy resistance" +
-    "s.\r\nForced Libra start and lower CP cost are applied.";
+            this.label13.Text = resources.GetString("label13.Text");
             // 
             // presetDirtyFighting
             // 
-            this.presetDirtyFighting.Location = new System.Drawing.Point(12, 376);
+            this.presetDirtyFighting.Location = new System.Drawing.Point(396, 226);
             this.presetDirtyFighting.Name = "presetDirtyFighting";
             this.presetDirtyFighting.Size = new System.Drawing.Size(134, 23);
             this.presetDirtyFighting.TabIndex = 16;
@@ -352,16 +488,15 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(152, 296);
+            this.label12.Location = new System.Drawing.Point(152, 329);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(238, 39);
+            this.label12.Size = new System.Drawing.Size(219, 78);
             this.label12.TabIndex = 15;
-            this.label12.Text = "Stats, treasures and drops are a bit more random.\r\nDoes not randomize enemy resis" +
-    "tances.\r\nLower CP Cost is applied.";
+            this.label12.Text = resources.GetString("label12.Text");
             // 
             // presetDiversity
             // 
-            this.presetDiversity.Location = new System.Drawing.Point(12, 291);
+            this.presetDiversity.Location = new System.Drawing.Point(12, 324);
             this.presetDiversity.Name = "presetDiversity";
             this.presetDiversity.Size = new System.Drawing.Size(134, 23);
             this.presetDiversity.TabIndex = 14;
@@ -372,26 +507,27 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(152, 246);
+            this.label11.Location = new System.Drawing.Point(152, 231);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(236, 39);
+            this.label11.Size = new System.Drawing.Size(219, 78);
             this.label11.TabIndex = 13;
-            this.label11.Text = "The most basic of randomization.\r\nDoes not randomize enemy resistances.\r\nForced L" +
-    "ibra start and lower CP cost are applied.";
+            this.label11.Text = "Low value randomization.\r\nCrystarium shuffled with stats, abilities,\r\nforce libra" +
+    " start.\r\nEnemy stats randomized.\r\nTreasures/drops randomized, shops shuffled.\r\nM" +
+    "usic shuffled.";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(9, 198);
+            this.label10.Location = new System.Drawing.Point(9, 166);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.Size = new System.Drawing.Size(207, 13);
             this.label10.TabIndex = 12;
-            this.label10.Text = "Presets";
+            this.label10.Text = "Flag Presets      (Default: Diversity)";
             // 
             // presetEvenedOdds
             // 
-            this.presetEvenedOdds.Location = new System.Drawing.Point(12, 241);
+            this.presetEvenedOdds.Location = new System.Drawing.Point(12, 226);
             this.presetEvenedOdds.Name = "presetEvenedOdds";
             this.presetEvenedOdds.Size = new System.Drawing.Size(134, 23);
             this.presetEvenedOdds.TabIndex = 11;
@@ -410,7 +546,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(349, 46);
+            this.button8.Location = new System.Drawing.Point(584, 45);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(134, 23);
             this.button8.TabIndex = 5;
@@ -420,7 +556,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(349, 4);
+            this.button7.Location = new System.Drawing.Point(584, 4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(134, 23);
             this.button7.TabIndex = 4;
@@ -442,7 +578,7 @@
             this.textBox2.Location = new System.Drawing.Point(104, 48);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(239, 20);
+            this.textBox2.Size = new System.Drawing.Size(474, 20);
             this.textBox2.TabIndex = 2;
             // 
             // label1
@@ -458,7 +594,7 @@
             // 
             this.textBoxSeed.Location = new System.Drawing.Point(104, 6);
             this.textBoxSeed.Name = "textBoxSeed";
-            this.textBoxSeed.Size = new System.Drawing.Size(239, 20);
+            this.textBoxSeed.Size = new System.Drawing.Size(474, 20);
             this.textBoxSeed.TabIndex = 0;
             // 
             // tabPageFlags
@@ -468,7 +604,7 @@
             this.tabPageFlags.Location = new System.Drawing.Point(104, 4);
             this.tabPageFlags.Name = "tabPageFlags";
             this.tabPageFlags.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFlags.Size = new System.Drawing.Size(507, 529);
+            this.tabPageFlags.Size = new System.Drawing.Size(812, 629);
             this.tabPageFlags.TabIndex = 1;
             this.tabPageFlags.Text = "Flags";
             this.tabPageFlags.UseVisualStyleBackColor = true;
@@ -482,7 +618,7 @@
             this.tabControl2.Location = new System.Drawing.Point(-2, 1);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(504, 526);
+            this.tabControl2.Size = new System.Drawing.Size(804, 623);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPageCrystarium
@@ -490,7 +626,7 @@
             this.tabPageCrystarium.Location = new System.Drawing.Point(4, 22);
             this.tabPageCrystarium.Name = "tabPageCrystarium";
             this.tabPageCrystarium.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageCrystarium.Size = new System.Drawing.Size(496, 500);
+            this.tabPageCrystarium.Size = new System.Drawing.Size(796, 597);
             this.tabPageCrystarium.TabIndex = 0;
             this.tabPageCrystarium.Text = "Crystarium";
             this.tabPageCrystarium.UseVisualStyleBackColor = true;
@@ -500,7 +636,7 @@
             this.tabPageEnemies.Location = new System.Drawing.Point(4, 22);
             this.tabPageEnemies.Name = "tabPageEnemies";
             this.tabPageEnemies.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageEnemies.Size = new System.Drawing.Size(496, 500);
+            this.tabPageEnemies.Size = new System.Drawing.Size(796, 500);
             this.tabPageEnemies.TabIndex = 1;
             this.tabPageEnemies.Text = "Enemies";
             this.tabPageEnemies.UseVisualStyleBackColor = true;
@@ -510,10 +646,60 @@
             this.tabPageItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageItems.Name = "tabPageItems";
             this.tabPageItems.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageItems.Size = new System.Drawing.Size(496, 500);
+            this.tabPageItems.Size = new System.Drawing.Size(796, 500);
             this.tabPageItems.TabIndex = 2;
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
+            // 
+            // tabPageOther
+            // 
+            this.tabPageOther.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOther.Name = "tabPageOther";
+            this.tabPageOther.Size = new System.Drawing.Size(796, 500);
+            this.tabPageOther.TabIndex = 3;
+            this.tabPageOther.Text = "Other";
+            this.tabPageOther.UseVisualStyleBackColor = true;
+            // 
+            // tabPageTweaks
+            // 
+            this.tabPageTweaks.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageTweaks.Controls.Add(this.tabControl3);
+            this.tabPageTweaks.Location = new System.Drawing.Point(104, 4);
+            this.tabPageTweaks.Name = "tabPageTweaks";
+            this.tabPageTweaks.Size = new System.Drawing.Size(812, 629);
+            this.tabPageTweaks.TabIndex = 7;
+            this.tabPageTweaks.Text = "Tweaks";
+            this.tabPageTweaks.UseVisualStyleBackColor = true;
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPageBoosts);
+            this.tabControl3.Controls.Add(this.tabPageChallenges);
+            this.tabControl3.Location = new System.Drawing.Point(-2, 1);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(804, 623);
+            this.tabControl3.TabIndex = 1;
+            // 
+            // tabPageBoosts
+            // 
+            this.tabPageBoosts.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBoosts.Name = "tabPageBoosts";
+            this.tabPageBoosts.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPageBoosts.Size = new System.Drawing.Size(796, 597);
+            this.tabPageBoosts.TabIndex = 0;
+            this.tabPageBoosts.Text = "Boosts";
+            this.tabPageBoosts.UseVisualStyleBackColor = true;
+            // 
+            // tabPageChallenges
+            // 
+            this.tabPageChallenges.Location = new System.Drawing.Point(4, 22);
+            this.tabPageChallenges.Name = "tabPageChallenges";
+            this.tabPageChallenges.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPageChallenges.Size = new System.Drawing.Size(796, 500);
+            this.tabPageChallenges.TabIndex = 1;
+            this.tabPageChallenges.Text = "Challenges";
+            this.tabPageChallenges.UseVisualStyleBackColor = true;
             // 
             // tabPageFinish
             // 
@@ -523,7 +709,7 @@
             this.tabPageFinish.Controls.Add(this.buttonRandomize);
             this.tabPageFinish.Location = new System.Drawing.Point(104, 4);
             this.tabPageFinish.Name = "tabPageFinish";
-            this.tabPageFinish.Size = new System.Drawing.Size(507, 529);
+            this.tabPageFinish.Size = new System.Drawing.Size(812, 629);
             this.tabPageFinish.TabIndex = 3;
             this.tabPageFinish.Text = "Finish";
             this.tabPageFinish.UseVisualStyleBackColor = true;
@@ -533,11 +719,9 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(86, 82);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(278, 52);
+            this.label18.Size = new System.Drawing.Size(362, 91);
             this.label18.TabIndex = 13;
-            this.label18.Text = "NOTE: Only works with English voices right now!\r\n\r\nNOTE: Logs for crystarium, tre" +
-    "asures, and latestSeed can\r\nbe found in the logs folder where this program is lo" +
-    "cated";
+            this.label18.Text = resources.GetString("label18.Text");
             // 
             // labelFlagsSelected
             // 
@@ -563,102 +747,67 @@
             // tabPageUninstall
             // 
             this.tabPageUninstall.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tabPageUninstall.Controls.Add(this.label9);
             this.tabPageUninstall.Controls.Add(this.label8);
             this.tabPageUninstall.Controls.Add(this.label6);
             this.tabPageUninstall.Controls.Add(this.button9);
             this.tabPageUninstall.Controls.Add(this.label4);
             this.tabPageUninstall.Controls.Add(this.buttonFullUninstall);
-            this.tabPageUninstall.Controls.Add(this.label3);
-            this.tabPageUninstall.Controls.Add(this.buttonUninstall);
             this.tabPageUninstall.Location = new System.Drawing.Point(104, 4);
             this.tabPageUninstall.Name = "tabPageUninstall";
-            this.tabPageUninstall.Size = new System.Drawing.Size(507, 529);
+            this.tabPageUninstall.Size = new System.Drawing.Size(812, 629);
             this.tabPageUninstall.TabIndex = 4;
             this.tabPageUninstall.Text = "Uninstall";
             this.tabPageUninstall.UseVisualStyleBackColor = true;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(83, 204);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(295, 65);
-            this.label9.TabIndex = 13;
-            this.label9.Text = resources.GetString("label9.Text");
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(83, 147);
+            this.label8.Location = new System.Drawing.Point(83, 132);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(320, 26);
+            this.label8.Size = new System.Drawing.Size(287, 117);
             this.label8.TabIndex = 12;
-            this.label8.Text = "NOTE: If you are just starting a new seed, just hit randomize again!\r\nNo need to " +
-    "uninstall!";
+            this.label8.Text = resources.GetString("label8.Text");
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(207, 86);
+            this.label6.Location = new System.Drawing.Point(259, 60);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(231, 26);
+            this.label6.Size = new System.Drawing.Size(177, 26);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Replaces with the truly original compressed files\r\nand re-extracts all the files " +
-    "for rando.";
+            this.label6.Text = "Replaces with the vanilla files\r\nand re-extracts all the files for rando.";
             // 
             // button9
             // 
             this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button9.Location = new System.Drawing.Point(34, 81);
+            this.button9.Location = new System.Drawing.Point(86, 55);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(167, 23);
             this.button9.TabIndex = 10;
-            this.button9.Text = "Full Uninstall and Reextract";
+            this.button9.Text = "Uninstall and Reextract";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click_1);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(207, 57);
+            this.label4.Location = new System.Drawing.Point(259, 31);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(234, 13);
+            this.label4.Size = new System.Drawing.Size(149, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Replaces with the truly original compressed files.";
+            this.label4.Text = "Replaces with the vanilla files.";
             // 
             // buttonFullUninstall
             // 
             this.buttonFullUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFullUninstall.Location = new System.Drawing.Point(34, 52);
+            this.buttonFullUninstall.Location = new System.Drawing.Point(86, 26);
             this.buttonFullUninstall.Name = "buttonFullUninstall";
             this.buttonFullUninstall.Size = new System.Drawing.Size(167, 23);
             this.buttonFullUninstall.TabIndex = 8;
-            this.buttonFullUninstall.Text = "Full Uninstall";
+            this.buttonFullUninstall.Text = "Uninstall";
             this.buttonFullUninstall.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(207, 28);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Inserts original files.";
-            // 
-            // buttonUninstall
-            // 
-            this.buttonUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUninstall.Location = new System.Drawing.Point(34, 23);
-            this.buttonUninstall.Name = "buttonUninstall";
-            this.buttonUninstall.Size = new System.Drawing.Size(167, 23);
-            this.buttonUninstall.TabIndex = 6;
-            this.buttonUninstall.Text = "Uninstall";
-            this.buttonUninstall.UseVisualStyleBackColor = true;
-            this.buttonUninstall.Click += new System.EventHandler(this.button10_Click);
             // 
             // tabPageTools
             // 
@@ -667,7 +816,7 @@
             this.tabPageTools.Controls.Add(this.button11);
             this.tabPageTools.Location = new System.Drawing.Point(104, 4);
             this.tabPageTools.Name = "tabPageTools";
-            this.tabPageTools.Size = new System.Drawing.Size(507, 529);
+            this.tabPageTools.Size = new System.Drawing.Size(812, 629);
             this.tabPageTools.TabIndex = 5;
             this.tabPageTools.Text = "Tools";
             this.tabPageTools.UseVisualStyleBackColor = true;
@@ -706,7 +855,7 @@
             this.tabPageDebug.Controls.Add(this.button4);
             this.tabPageDebug.Location = new System.Drawing.Point(104, 4);
             this.tabPageDebug.Name = "tabPageDebug";
-            this.tabPageDebug.Size = new System.Drawing.Size(507, 529);
+            this.tabPageDebug.Size = new System.Drawing.Size(812, 629);
             this.tabPageDebug.TabIndex = 2;
             this.tabPageDebug.Text = "DEBUG";
             this.tabPageDebug.UseVisualStyleBackColor = true;
@@ -729,35 +878,42 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // flagInfo1
+            // label27
             // 
-            this.flagInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flagInfo1.Location = new System.Drawing.Point(633, 12);
-            this.flagInfo1.Name = "flagInfo1";
-            this.flagInfo1.Size = new System.Drawing.Size(299, 537);
-            this.flagInfo1.TabIndex = 8;
-            this.flagInfo1.Visible = false;
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(9, 452);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(262, 13);
+            this.label27.TabIndex = 40;
+            this.label27.Text = "Pick a tweak preset for initial boost/challenge options.";
             // 
-            // tabPageOther
+            // label9
             // 
-            this.tabPageOther.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOther.Name = "tabPageOther";
-            this.tabPageOther.Size = new System.Drawing.Size(496, 500);
-            this.tabPageOther.TabIndex = 3;
-            this.tabPageOther.Text = "Other";
-            this.tabPageOther.UseVisualStyleBackColor = true;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(109, 29);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(315, 13);
+            this.label9.TabIndex = 41;
+            this.label9.Text = "Seed used for randomization. (Letters and other characters work.)";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(109, 122);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(327, 13);
+            this.label28.TabIndex = 42;
+            this.label28.Text = "String used for sharing/tracking currently selected flags and tweaks.";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 561);
-            this.Controls.Add(this.flagInfo1);
+            this.ClientSize = new System.Drawing.Size(944, 661);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(960, 600);
-            this.MinimumSize = new System.Drawing.Size(960, 600);
+            this.MaximumSize = new System.Drawing.Size(960, 700);
+            this.MinimumSize = new System.Drawing.Size(960, 700);
             this.Name = "FormMain";
             this.Text = "FF13 Randomizer";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -766,6 +922,8 @@
             this.tabPageBasics.PerformLayout();
             this.tabPageFlags.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabPageTweaks.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
             this.tabPageFinish.ResumeLayout(false);
             this.tabPageFinish.PerformLayout();
             this.tabPageUninstall.ResumeLayout(false);
@@ -792,7 +950,6 @@
         private System.Windows.Forms.TabPage tabPageFlags;
         private System.Windows.Forms.TabPage tabPageFinish;
         private System.Windows.Forms.TabPage tabPageDebug;
-        private FlagInfo flagInfo1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label1;
@@ -803,20 +960,15 @@
         private System.Windows.Forms.TabPage tabPageUninstall;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonFullUninstall;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button buttonUninstall;
         private System.Windows.Forms.Label labelFlagsSelected;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button presetRuthless;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button presetBully;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button presetDirtyFighting;
         private System.Windows.Forms.Label label12;
@@ -840,6 +992,26 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textCurrentFlags;
         private System.Windows.Forms.TabPage tabPageOther;
+        private System.Windows.Forms.TabPage tabPageTweaks;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage tabPageBoosts;
+        private System.Windows.Forms.TabPage tabPageChallenges;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button presetDevastation;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button presetBully;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Button presetPerseverance;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Button presetSalvation;
+        private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label9;
     }
 }
 

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FF13Randomizer
 {
-    public partial class FlagValue : UserControl, IFlagData
+    public partial class FlagValue : Flag
     {
         // When advanced setting is on...
         public enum ValueAdvancedLevel
@@ -22,20 +22,30 @@ namespace FF13Randomizer
 
         public ValueAdvancedLevel Level { get; set; } = ValueAdvancedLevel.Value;
 
-        public FlagValue(Flag flag)
+        public FlagValue(int min, int value, int max)
         {
             InitializeComponent();
 
-            Range.MinRange.MinRange = 0;
-            Range.MinRange.Value = 0;
-            Range.MaxRange.MaxRange = 100;
-            Range.MaxRange.Value = 100;
-            Range.Value = 20;
+            Range.MinRange.MinRange = min;
+            Range.MinRange.Value = min;
+            Range.MaxRange.MaxRange = max;
+            Range.MaxRange.Value = max;
+            Range.Value = value;
             Range.OnAnyValueChanged += Range_OnValueChanged;
             Range.OnAnyValueChanged(null, null);
 
-            trackBar1.ValueChanged += TrackBar1_ValueChanged + new EventHandler(flag.OnChangedEvent);
-            numericUpDown1.ValueChanged += NumericUpDown1_ValueChanged + new EventHandler(flag.OnChangedEvent);
+            trackBar1.ValueChanged += TrackBar1_ValueChanged + new EventHandler(OnChangedEvent);
+            numericUpDown1.ValueChanged += NumericUpDown1_ValueChanged + new EventHandler(OnChangedEvent);
+            trackBar1.Location = new Point(trackBar1.Location.X, ExtraInfoTop);
+            numericUpDown1.Location = new Point(numericUpDown1.Location.X, ExtraInfoTop);
+
+            trackBar1.MouseWheel += TrackBar1_MouseWheel;
+        }
+
+        private void TrackBar1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
+            ee.Handled = false;
         }
 
         private void Range_OnValueChanged(object sender, EventArgs e)
@@ -50,7 +60,7 @@ namespace FF13Randomizer
 
         private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            trackBar1.Value = (int) numericUpDown1.Value;
+            trackBar1.Value = (int)numericUpDown1.Value;
             Range.Value = (int)numericUpDown1.Value;
         }
 
@@ -60,43 +70,19 @@ namespace FF13Randomizer
             Range.Value = trackBar1.Value;
         }
 
-        public string getDescription(string format)
+        public override FormattingMap DescriptionFormatting
         {
-            return GetFormattingMap().apply(format, this);
-        }
-
-        public Flag getParentFlag()
-        {
-            Control control = this;
-            while (!(control is Flag))
+            get
             {
-                if (control.Parent == null)
-                    return null;
-                control = control.Parent;
+                FormattingMap map = base.DescriptionFormatting;
+                map.addMapping("Value", flagValue => ((FlagValue)flagValue).Range.Value.ToString());
+                map.addMapping("Min", flagValue => ((FlagValue)flagValue).Range.MinRange.Value.ToString());
+                map.addMapping("Max", flagValue => ((FlagValue)flagValue).Range.MaxRange.Value.ToString());
+                return map;
             }
-            return (Flag) control;
         }
 
-        public UserControl getFlagInfo()
-        {
-            FlagInfoValue flagInfo = new FlagInfoValue
-            {
-                FlagValue = this
-            };
-            flagInfo.setEvents();
-            return flagInfo;
-        }
-
-        public FormattingMap GetFormattingMap()
-        {
-            FormattingMap map = new FormattingMap();
-            map.addMapping("Value", flagValue => ((FlagValue)flagValue).Range.Value.ToString());
-            map.addMapping("Min", flagValue => ((FlagValue)flagValue).Range.MinRange.Value.ToString());
-            map.addMapping("Max", flagValue => ((FlagValue)flagValue).Range.MaxRange.Value.ToString());
-            return map;
-        }
-
-        public string getFlagString()
+        public override string GetExtraFlagString()
         {
             switch (Level)
             {
@@ -110,41 +96,37 @@ namespace FF13Randomizer
             return "";
         }
 
-        public string readFlagString(string value, bool simulate)
+        public override void SetExtraFlagString(string value, bool simulate)
         {
             switch (Level)
             {
                 case ValueAdvancedLevel.None:
-                    return value;
+                    return;
                 case ValueAdvancedLevel.Value:
-                    if (value.Contains('[') && value.Contains(']'))
-                    {
-                        int val = Int32.Parse(value.Substring(value.IndexOf('[') + 1, value.IndexOf(']') - (value.IndexOf('[') + 1)));
-                        if (!simulate)
-                            Range.Value = val;
-                        return value.Substring(0, value.IndexOf('['));
-                    }
-                    else
-                        return value;
+                    int val = Int32.Parse(value);
+                    if (!simulate)
+                        Range.Value = val;
+                    return;
                 case ValueAdvancedLevel.MinMax:
-                    if (value.Contains('[') && value.Contains(']'))
+                    string[] contents = value.Split(':');
+                    int[] values = { Int32.Parse(contents[0]), Int32.Parse(contents[2]), Int32.Parse(contents[1]) };
+                    if (!simulate)
                     {
-                        string[] contents = value.Substring(value.IndexOf('[') + 1, value.IndexOf(']') - (value.IndexOf('[') + 1)).Split(':');
-                        int[] values = { Int32.Parse(contents[0]), Int32.Parse(contents[2]), Int32.Parse(contents[1]) };
-                        if (!simulate)
-                        {
-                            Range.MinRange.Value = values[0];
-                            Range.MaxRange.Value = values[1];
-                            Range.Value = values[2];
-                        }
-                        return value.Substring(0, value.IndexOf('['));
+                        Range.MinRange.Value = values[0];
+                        Range.MaxRange.Value = values[1];
+                        Range.Value = values[2];
                     }
-                    else
-                        return value;
+                    return;
             }
-            return value;
         }
 
         public NumericRangeMinMax<int> Range { get; set; } = new NumericRangeMinMax<int>();
+
+        public override int FlagHeight => base.FlagHeight + 35;
+        public override void OnChangedEvent(object sender = null, EventArgs e = null)
+        {
+            base.OnChangedEvent(sender, e);
+            trackBar1.Enabled = numericUpDown1.Enabled = FlagEnabled;
+        }
     }
 }

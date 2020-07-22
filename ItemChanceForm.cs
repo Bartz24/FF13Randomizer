@@ -31,9 +31,9 @@ namespace FF13Randomizer
             dataGridView1.Rows.Clear();
 
             Item item = Items.items.Where(i => i.Name == comboItem.Text).First();
-            int rankAdj = ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value;
+            int rankAdj = Flags.ItemFlags.Treasures.Range.Value;
             if(radioEnemy.Checked)
-                rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
+                rankAdj = Flags.ItemFlags.Drops.Range.Value;
 
             Dictionary<Item, Tuple<int, int, int>> table = new Dictionary<Item, Tuple<int, int, int>>();
             // Low, High, Count

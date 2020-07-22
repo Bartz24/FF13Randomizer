@@ -68,9 +68,9 @@ namespace FF13Randomizer
                 byte[] idBytes = bytes.SubArray(completed * 0x20 + 0x90, 0x10);
                 string id = Encoding.UTF8.GetString(idBytes).Replace("\0", "");
 
-                if (Flags.EnemyFlags.BoostLevel.FlagEnabled)
+                if (Tweaks.Challenges.BoostLevel)
                 {
-                    int boost = ((FlagValue)Flags.EnemyFlags.BoostLevel.FlagData).Range.Value;
+                    int boost = Tweaks.Challenges.BoostLevel.Range.Value;
                     bool lv0 = e.Level == 0;
                     byte level = (byte)(lv0 ? 10 : e.Level);
                     e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
@@ -78,11 +78,11 @@ namespace FF13Randomizer
                     e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
                 }
 
-                if (Flags.EnemyFlags.RandLevel.FlagEnabled)
+                if (Flags.EnemyFlags.RandLevel)
                 {
                     Flags.EnemyFlags.RandLevel.SetRand();
-                    int variance = ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value;
-                    int boost = Flags.EnemyFlags.BoostLevel.FlagEnabled ? ((FlagValue)Flags.EnemyFlags.BoostLevel.FlagData).Range.Value : 0;
+                    int variance = Flags.EnemyFlags.RandLevel.Range.Value;
+                    int boost = Tweaks.Challenges.BoostLevel ? Tweaks.Challenges.BoostLevel.Range.Value : 0;
                     bool lv0 = e.Level == 0;
                     byte level = (byte)(lv0 ? 10 : e.Level);
                     if (level < 50)
@@ -99,7 +99,7 @@ namespace FF13Randomizer
                     RandomNum.ClearRand();
                 }
 
-                if (Flags.ItemFlags.Drops.FlagEnabled)
+                if (Flags.ItemFlags.Drops)
                 {
                     Flags.ItemFlags.Drops.SetRand();
                     do
@@ -111,7 +111,7 @@ namespace FF13Randomizer
                 }
 
                 DataStoreEnemy swap;
-                if (Flags.EnemyFlags.Resistances.FlagEnabled)
+                if (Flags.EnemyFlags.Resistances)
                 {
                     Flags.EnemyFlags.Resistances.SetRand();
                     do
@@ -154,7 +154,7 @@ namespace FF13Randomizer
                     RandomNum.ClearRand();
                 }
 
-                if (Flags.EnemyFlags.Debuffs.FlagEnabled)
+                if (Flags.EnemyFlags.Debuffs)
                 {
                     Flags.EnemyFlags.Debuffs.SetRand();
                     swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
@@ -175,11 +175,11 @@ namespace FF13Randomizer
                     RandomNum.ClearRand();
                 }
 
-                if (Flags.EnemyFlags.RandStats.FlagEnabled)
+                if (Flags.EnemyFlags.RandStats)
                 {
                     Flags.EnemyFlags.RandStats.SetRand();
                     StatValues stats = new StatValues(5);
-                    int variance = ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value;
+                    int variance = Flags.EnemyFlags.RandStats.Range.Value;
                     stats.Randomize(variance);
                     e.HP = (uint)Math.Max(1, e.HP * stats[0] / 100f);
                     e.Strength = (ushort)Math.Max(1, e.Strength * stats[1] / 100f);
@@ -194,7 +194,7 @@ namespace FF13Randomizer
             });
 
 
-            if (Flags.ItemFlags.Shops.FlagEnabled)
+            if (Flags.ItemFlags.Shops)
             {
                 Flags.ItemFlags.Shops.SetRand();
                 List<int> list = scene.IndexesOf(Encoding.UTF8.GetBytes("key_shop_"));
@@ -221,7 +221,7 @@ namespace FF13Randomizer
 
         private void RandomizeDrop(EnemyStatDatabase enemies, DataStoreEnemy enemy, bool common)
         {
-            int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
+            int rankAdj = Flags.ItemFlags.Drops.Range.Value;
             Item item = null;
             if (enemies.ItemIDs[(int)(common ? enemy.CommonDropPointer : enemy.RareDropPointer)].Value != "")
                 item = Items.items.Where(i => i.ID ==

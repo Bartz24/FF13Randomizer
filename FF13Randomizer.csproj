@@ -99,6 +99,19 @@
     <Compile Include="Data\Values\ValueUShort.cs" />
     <Compile Include="Data\WordPack.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Flags\FlagBool.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Flags\FlagBool.Designer.cs">
+      <DependentUpon>FlagBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Flags\FlagBool2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Flags\FlagBool2.Designer.cs">
+      <DependentUpon>FlagBool2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Flags\Tweaks.cs" />
     <Compile Include="Flags\HistoryView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,25 +124,7 @@
     <Compile Include="Flags\Flag.Designer.cs">
       <DependentUpon>Flag.cs</DependentUpon>
     </Compile>
-    <Compile Include="Flags\FlagInfos\FlagInfo.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\FlagInfos\FlagInfo.Designer.cs">
-      <DependentUpon>FlagInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Flags\FlagInfos\FlagInfoValue.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\FlagInfos\FlagInfoValue.Designer.cs">
-      <DependentUpon>FlagInfoValue.cs</DependentUpon>
-    </Compile>
     <Compile Include="Flags\Flags.cs" />
-    <Compile Include="Flags\FlagBool.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\FlagBool.Designer.cs">
-      <DependentUpon>FlagBool.cs</DependentUpon>
-    </Compile>
     <Compile Include="Flags\FlagValue.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,7 +132,6 @@
       <DependentUpon>FlagValue.cs</DependentUpon>
     </Compile>
     <Compile Include="Flags\FormattingMap.cs" />
-    <Compile Include="Flags\IFlagData.cs" />
     <Compile Include="DocsJSONGenerator.cs" />
     <Compile Include="Flags\UserFlagsSeed.cs" />
     <Compile Include="FormMain.cs">
@@ -165,30 +159,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Randomizers\RandomizerManager.cs" />
     <Compile Include="Randomizers\RandoEnemies.cs" />
+    <Compile Include="Randomizers\RandoRunSpeed.cs" />
     <Compile Include="Randomizers\RandoMusic.cs" />
     <Compile Include="Randomizers\RandoTreasure.cs" />
     <Compile Include="Randomizers\RandoCrystarium.cs" />
     <Compile Include="Randomizers\Randomizer.cs" />
     <Compile Include="StatValues.cs" />
+    <EmbeddedResource Include="Flags\FlagBool.resx">
+      <DependentUpon>FlagBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Flags\FlagBool2.resx">
+      <DependentUpon>FlagBool2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Flags\HistoryView.resx">
       <DependentUpon>HistoryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Flags\Flag.resx">
       <DependentUpon>Flag.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Flags\FlagInfos\FlagInfo.resx">
-      <DependentUpon>FlagInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Flags\FlagInfos\FlagInfoValue.resx">
-      <DependentUpon>FlagInfoValue.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Flags\FlagBool.resx">
-      <DependentUpon>FlagBool.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Flags\FlagValue.resx">
       <DependentUpon>FlagValue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Flags\FlagValueMinMax.resx" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

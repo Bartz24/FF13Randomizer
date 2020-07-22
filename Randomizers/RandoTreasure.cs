@@ -36,7 +36,7 @@ namespace FF13Randomizer
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
-            int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
+            int rankAdj = Flags.ItemFlags.Drops.Range.Value;
             Items.items.ForEach(i =>
             {
                 if (i.ID.StartsWith("wea_") && i.ID.EndsWith("_001"))
@@ -53,7 +53,7 @@ namespace FF13Randomizer
                 if (item != null)
                 {
                     rank = TieredItems.manager.GetRank(item, (int)t.Count);
-                    if (rank != -1 && Flags.ItemFlags.Treasures.FlagEnabled)
+                    if (rank != -1 && Flags.ItemFlags.Treasures)
                     {
                         if (rankAdj > 0)
                             rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));
@@ -88,7 +88,7 @@ namespace FF13Randomizer
             });
             RandomNum.ClearRand();
 
-            if (Flags.ItemFlags.Shops.FlagEnabled)
+            if (Flags.ItemFlags.Shops)
             {
                 Flags.ItemFlags.Shops.SetRand();
                 shopsRemaining.Clear();

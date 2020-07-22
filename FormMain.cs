@@ -18,7 +18,7 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string version = "1.5.1";
+        public static string version = "1.6.0";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -30,6 +30,7 @@ namespace FF13Randomizer
             "db/resident/treasurebox.wdb",
             "db/resident/bt_chara_spec.wdb",
             "db/resident/bt_scene.wdb",
+            "db/resident/charafamily.wdb",
             #region Sound
             //"sound/pack/8000/usa/music_100rosh.win32.scd",
             //"sound/pack/8000/usa/music_101ldun_f.win32.scd", silent
@@ -169,6 +170,7 @@ namespace FF13Randomizer
             }
 
             new Flags();
+            new Tweaks();
 
             InitializeComponent();
 
@@ -178,6 +180,8 @@ namespace FF13Randomizer
             addFlags(tabPageEnemies, FlagType.Enemies);
             addFlags(tabPageItems, FlagType.Items);
             addFlags(tabPageOther, FlagType.Other);
+            addFlags(tabPageBoosts, FlagType.Boost);
+            addFlags(tabPageChallenges, FlagType.Challenge);
             if (Directory.Exists(RandoPath))
             {
                 addHistory();
@@ -191,6 +195,8 @@ namespace FF13Randomizer
 
             tabControl1.SelectedTab = tabPageBasics;
 
+            labelVersion.Text = "Version: " + version;
+
 #if !DEBUG
             tabControl1.TabPages.Remove(tabPageDebug);
 #endif
@@ -203,21 +209,32 @@ namespace FF13Randomizer
             tableLayout.ColumnCount = 1;
             tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
             tableLayout.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayout.AutoScroll = true;
-            page.Controls.Add(tableLayout);            
+            tableLayout.AutoScroll = true; 
+            page.Controls.Add(tableLayout);               
+           
 
             foreach (Flag flag in Flags.flags)
             {
-                if (flag.FlagType == type)
-                {
-                    addFlagEvents(flag);
-                    flag.Dock = DockStyle.Fill;
+                addFlag(type, tableLayout, flag);
+            }
+            foreach (Flag flag in Tweaks.tweaks)
+            {
+                addFlag(type, tableLayout, flag);
+            }
+        }
 
-                    flag.OnChangedEvent();
-                    flag.OnChanged += Flag_OnChanged;
+        private void addFlag(FlagType type, TableLayoutPanel tableLayout, Flag flag)
+        {
+            if (flag.FlagType == type)
+            {
+                addFlagEvents(flag);
+                flag.Dock = DockStyle.Fill;
 
-                    tableLayout.Controls.Add(flag);
-                }
+                flag.OnChangedEvent();
+                flag.OnChanged += Flag_OnChanged;
+
+                tableLayout.Controls.Add(flag);
+                tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, flag.FlagHeight + 5));
             }
         }
 
@@ -263,11 +280,9 @@ namespace FF13Randomizer
 
         private void TabControl1_TabIndexChanged(object sender, EventArgs e)
         {
-            flagInfo1.Flag = Flag.Empty;
             labelFlagsSelected.Text = "Flags Selected: " + Flags.flags.Sum(f => f.FlagEnabled ? 1 : 0);
             bool allow = GetFF13Directory() != null;
             buttonRandomize.Enabled = allow;
-            buttonUninstall.Enabled = allow;
             buttonFullUninstall.Enabled = allow;
         }
 
@@ -278,8 +293,6 @@ namespace FF13Randomizer
             {
                 control = control.Parent;
             }
-            if (flagInfo1.Flag == (Flag)control)
-                flagInfo1.Update();
             textCurrentFlags.Text = Flags.GetFlagString();
         }
 
@@ -304,7 +317,6 @@ namespace FF13Randomizer
             {
                 control = control.Parent;
             }
-            flagInfo1.Flag = (Flag)control;
         }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -418,7 +430,7 @@ namespace FF13Randomizer
             //MessageBox.Show(TieredItems.manager.GetRank(Items.Trapezohedron).ToString());
             int rank = TieredItems.manager.GetRank(Items.TetradicCrown);
             Console.WriteLine("\n"+rank.ToString());
-            int rankAdj = ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value;
+            int rankAdj = Flags.ItemFlags.Drops.Range.Value;
             if (rankAdj > 0)
                 rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));            
             Console.WriteLine(rank.ToString());
@@ -665,6 +677,7 @@ namespace FF13Randomizer
             randomizers.Add(new RandoTreasure(this, randomizers));
             randomizers.Add(new RandoEnemies(this, randomizers));
             randomizers.Add(new RandoMusic(this, randomizers));
+            randomizers.Add(new RandoRunSpeed(this, randomizers));
 
             new ProgressForm("Loading data...", bw => LoadRandos(randomizers, bw)).ShowDialog();
 
@@ -674,8 +687,6 @@ namespace FF13Randomizer
             }
 
             new ProgressForm("Saving data...", bw => SaveRandos(randomizers, bw)).ShowDialog();
-
-            //new ProgressForm("Randomizing music...", bw => ShuffleMusic(bw)).ShowDialog();
 
 
             new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
@@ -771,134 +782,183 @@ namespace FF13Randomizer
 
         private void defaultSettings()
         {
-            presetEvenedOdds_Click(null, null);
-            ((FlagValue)Flags.EnemyFlags.BoostLevel.FlagData).Range.Value = 10;
+            presetDiversity_Click(null, null);
+            presetPerseverance_Click(null, null);
+            Tweaks.Challenges.BoostLevel.Range.Value = 10;
         }
 
         private void presetEvenedOdds_Click(object sender, EventArgs e)
         {
-            foreach (Flag flag in Flags.flags)
-            {
-                if (flag == Flags.EnemyFlags.Debuffs || 
-                    flag == Flags.EnemyFlags.Resistances/* || 
-                    flag == Flags.Other.Music*/ ||
-                    flag == Flags.EnemyFlags.RandStats ||
-                    flag == Flags.EnemyFlags.RandLevel ||
-                    flag == Flags.CrystariumFlags.AbilitiesAnyRole)
-                    flag.FlagEnabled = false;
-                else if (flag == Flags.EnemyFlags.BoostLevel)
-                {
+            Flags.CrystariumFlags.NewAbilities.FlagEnabled = true;
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = true;
+            Flags.CrystariumFlags.ShuffleNodes.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.Range.Value = 15;
+            Flags.EnemyFlags.RandStats.FlagEnabled = true;
+            Flags.EnemyFlags.RandStats.Range.Value = 10;
+            Flags.ItemFlags.Treasures.FlagEnabled = true;
+            Flags.ItemFlags.Treasures.Range.Value = 5;
+            Flags.ItemFlags.Drops.FlagEnabled = true;
+            Flags.ItemFlags.Drops.Range.Value = 5;
+            Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.Other.Music.FlagEnabled = true;
 
-                }
-                else
-                    flag.FlagEnabled = true;
-            }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 5;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 5;
-            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 15;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 0;
-            ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value = 0;
-            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = false;
-            if (sender!=null)
-            MessageBox.Show("Applied!");
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected = false;
+            Flags.EnemyFlags.Resistances.FlagEnabled = false;
+            Flags.EnemyFlags.Debuffs.FlagEnabled = false;
+            Flags.EnemyFlags.RandLevel.FlagEnabled = false;
+            Flags.EnemyFlags.RandLevel.Range.Value = 0;
+            Flags.Other.RunSpeed.FlagEnabled = false;
+            Flags.Other.RunSpeed.Range.Value = 0;
+
+            if (sender != null)
+                MessageBox.Show("Applied!");
         }
 
         private void presetDiversity_Click(object sender, EventArgs e)
         {
-            foreach (Flag flag in Flags.flags)
-            {
-                if (flag == Flags.EnemyFlags.Debuffs || 
-                    flag == Flags.EnemyFlags.Resistances || 
-                    flag == Flags.CrystariumFlags.LibraStart/* || 
-                    flag == Flags.Other.Music*/ ||
-                    flag == Flags.CrystariumFlags.AbilitiesAnyRole)
-                    flag.FlagEnabled = false;
-                else if (flag == Flags.EnemyFlags.BoostLevel)
-                {
+            Flags.CrystariumFlags.NewAbilities.FlagEnabled = true;
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected = true;
+            Flags.CrystariumFlags.ShuffleNodes.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.Range.Value = 25;
+            Flags.EnemyFlags.RandStats.FlagEnabled = true;
+            Flags.EnemyFlags.RandStats.Range.Value = 25;
+            Flags.EnemyFlags.RandLevel.FlagEnabled = true;
+            Flags.EnemyFlags.RandLevel.Range.Value = 10;
+            Flags.ItemFlags.Treasures.FlagEnabled = true;
+            Flags.ItemFlags.Treasures.Range.Value = 20;
+            Flags.ItemFlags.Drops.FlagEnabled = true;
+            Flags.ItemFlags.Drops.Range.Value = 20;
+            Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.Other.Music.FlagEnabled = true;
+            Flags.Other.RunSpeed.FlagEnabled = true;
+            Flags.Other.RunSpeed.Range.Value = 10;
 
-                }
-                else
-                    flag.FlagEnabled = true;
-            }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 20;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 20;
-            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 25;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 15;
-            ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value = 5;
-            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = false;
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
+            Flags.EnemyFlags.Resistances.FlagEnabled = false;
+            Flags.EnemyFlags.Debuffs.FlagEnabled = false;
 
-            MessageBox.Show("Applied!");
+            if (sender != null)
+                MessageBox.Show("Applied!");
         }
 
         private void presetDirtyFighting_Click(object sender, EventArgs e)
         {
-            foreach (Flag flag in Flags.flags)
-            {
-                if (flag == Flags.EnemyFlags.BoostLevel)
-                {
+            Flags.CrystariumFlags.NewAbilities.FlagEnabled = true;
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected = true;
+            Flags.CrystariumFlags.ShuffleNodes.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.Range.Value = 50;
+            Flags.EnemyFlags.Debuffs.FlagEnabled = true;
+            Flags.EnemyFlags.RandStats.FlagEnabled = true;
+            Flags.EnemyFlags.RandStats.Range.Value = 50;
+            Flags.EnemyFlags.RandLevel.FlagEnabled = true;
+            Flags.EnemyFlags.RandLevel.Range.Value = 35;
+            Flags.ItemFlags.Treasures.FlagEnabled = true;
+            Flags.ItemFlags.Treasures.Range.Value = 50;
+            Flags.ItemFlags.Drops.FlagEnabled = true;
+            Flags.ItemFlags.Drops.Range.Value = 50;
+            Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.Other.Music.FlagEnabled = true;
+            Flags.Other.RunSpeed.FlagEnabled = true;
+            Flags.Other.RunSpeed.Range.Value = 25;
 
-                }
-                else
-                    flag.FlagEnabled = true;
-            }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 40;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 40;
-            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 40;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 50;
-            ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value = 20;
-            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = true;
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
+            Flags.EnemyFlags.Resistances.FlagEnabled = false;
 
-            MessageBox.Show("Applied!");
-        }
-
-        private void presetBully_Click(object sender, EventArgs e)
-        {
-            foreach (Flag flag in Flags.flags)
-            {
-                if (flag == Flags.CrystariumFlags.LibraStart || 
-                    flag == Flags.CrystariumFlags.ScaledCPCost || 
-                    flag == Flags.CrystariumFlags.HalfSecondaryCPCost)
-                    flag.FlagEnabled = false;
-                else if (flag == Flags.EnemyFlags.BoostLevel)
-                {
-
-                }
-                else
-                    flag.FlagEnabled = true;
-            }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 50;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 50;
-            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 80;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 75;
-            ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value = 35;
-            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = true;
-
-            MessageBox.Show("Applied!");
+            if (sender != null)
+                MessageBox.Show("Applied!");
         }
 
         private void presetRuthless_Click(object sender, EventArgs e)
         {
-            foreach (Flag flag in Flags.flags)
-            {
-                if (flag == Flags.CrystariumFlags.LibraStart || 
-                    flag == Flags.CrystariumFlags.ScaledCPCost || 
-                    flag == Flags.CrystariumFlags.HalfSecondaryCPCost)
-                    flag.FlagEnabled = false;
-                else if (flag == Flags.EnemyFlags.BoostLevel)
-                {
+            Flags.CrystariumFlags.NewAbilities.FlagEnabled = true;
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected = true;
+            Flags.CrystariumFlags.ShuffleNodes.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.FlagEnabled = true;
+            Flags.CrystariumFlags.RandStats.Range.Value = 100;
+            Flags.EnemyFlags.Resistances.FlagEnabled = true;
+            Flags.EnemyFlags.Debuffs.FlagEnabled = true;
+            Flags.EnemyFlags.RandStats.FlagEnabled = true;
+            Flags.EnemyFlags.RandStats.Range.Value = 100;
+            Flags.EnemyFlags.RandLevel.FlagEnabled = true;
+            Flags.EnemyFlags.RandLevel.Range.Value = 50;
+            Flags.ItemFlags.Treasures.FlagEnabled = true;
+            Flags.ItemFlags.Treasures.Range.Value = 100;
+            Flags.ItemFlags.Drops.FlagEnabled = true;
+            Flags.ItemFlags.Drops.Range.Value = 100;
+            Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.Other.Music.FlagEnabled = true;
+            Flags.Other.RunSpeed.FlagEnabled = true;
+            Flags.Other.RunSpeed.Range.Value = 50;
 
-                }
-                else
-                    flag.FlagEnabled = true;
-            }
-            ((FlagValue)Flags.ItemFlags.Drops.FlagData).Range.Value = 100;
-            ((FlagValue)Flags.ItemFlags.Treasures.FlagData).Range.Value = 100;
-            ((FlagValue)Flags.CrystariumFlags.RandStats.FlagData).Range.Value = 100;
-            ((FlagValue)Flags.EnemyFlags.RandStats.FlagData).Range.Value = 100;
-            ((FlagValue)Flags.EnemyFlags.RandLevel.FlagData).Range.Value = 50;
-            //((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value = true;
+            Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
 
-            MessageBox.Show("Applied!");
+            if (sender != null)
+                MessageBox.Show("Applied!");
+        }
+
+        private void presetSalvation_Click(object sender, EventArgs e)
+        {
+            Tweaks.Boosts.HalfSecondaryCPCost.FlagEnabled = true;
+            Tweaks.Boosts.ScaledCPCost.FlagEnabled = true;
+            Tweaks.Boosts.RunSpeedMultiplier.FlagEnabled = true;
+            Tweaks.Boosts.RunSpeedMultiplier.Range.Value = 25;
+
+            Tweaks.Challenges.BoostLevel.FlagEnabled = false;
+            Tweaks.Challenges.BoostLevel.Range.Value = 0;
+            Tweaks.Challenges.Stats1StageBehind.FlagEnabled = false;
+
+            if (sender != null)
+                MessageBox.Show("Applied!");
+        }
+
+        private void presetPerseverance_Click(object sender, EventArgs e)
+        {
+            Tweaks.Boosts.HalfSecondaryCPCost.FlagEnabled = true;
+            Tweaks.Boosts.ScaledCPCost.FlagEnabled = true;
+            Tweaks.Challenges.BoostLevel.FlagEnabled = true;
+            Tweaks.Challenges.BoostLevel.Range.Value = 10;
+            Tweaks.Boosts.RunSpeedMultiplier.FlagEnabled = true;
+            Tweaks.Boosts.RunSpeedMultiplier.Range.Value = 25;
+
+            Tweaks.Challenges.Stats1StageBehind.FlagEnabled = false;
+
+            if (sender != null)
+                MessageBox.Show("Applied!");
+        }
+
+        private void presetBully_Click(object sender, EventArgs e)
+        {
+            Tweaks.Boosts.HalfSecondaryCPCost.FlagEnabled = true;
+            Tweaks.Boosts.ScaledCPCost.FlagEnabled = true;
+            Tweaks.Challenges.BoostLevel.FlagEnabled = true;
+            Tweaks.Challenges.BoostLevel.Range.Value = 25;
+            Tweaks.Boosts.RunSpeedMultiplier.FlagEnabled = true;
+            Tweaks.Boosts.RunSpeedMultiplier.Range.Value = 25;
+
+            Tweaks.Challenges.Stats1StageBehind.FlagEnabled = false;
+
+
+            if (sender != null)
+                MessageBox.Show("Applied!");
+        }
+
+        private void presetDevastation_Click(object sender, EventArgs e)
+        {
+            Tweaks.Challenges.BoostLevel.FlagEnabled = true;
+            Tweaks.Challenges.BoostLevel.Range.Value = 40;
+            Tweaks.Challenges.Stats1StageBehind.FlagEnabled = true;
+
+            Tweaks.Boosts.HalfSecondaryCPCost.FlagEnabled = false;
+            Tweaks.Boosts.ScaledCPCost.FlagEnabled = false;
+            Tweaks.Boosts.RunSpeedMultiplier.FlagEnabled = false;
+            Tweaks.Boosts.RunSpeedMultiplier.Range.Value = 0;
+
+
+            if (sender != null)
+                MessageBox.Show("Applied!");
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)

@@ -22,23 +22,17 @@ namespace FF13Randomizer
             Experimental = experimental;
         }
 
-        public Flag Register(FlagType type)
-        { 
-            Flags.flags.Add(this);
+        //public override Color BackColor => FlagID == null ? Color.White : Color.FromArgb(Math.Abs(FlagID.GetHashCode() % 255), Math.Abs((FlagID.GetHashCode() * 7) % 255), Math.Abs((FlagID.GetHashCode() - 54) % 255));
+
+        public Flag Register(FlagType type, bool isTweak = false)
+        {
+            if (isTweak)
+                Tweaks.tweaks.Add(this);
+            else
+                Flags.flags.Add(this);
             FlagType = type;
             return this;
 
-        }
-
-        public Flag SetFlagData(Control flagData = null)
-        {
-            FlagData = flagData;
-            if (FlagData != null)
-            {
-                FlagData.Dock = DockStyle.Fill;
-                panel1.Controls.Add(FlagData);
-            }
-            return this;
         }
         public FlagType FlagType { get; set; }
 
@@ -50,33 +44,26 @@ namespace FF13Randomizer
             {
                 experimental = value;
                 if (experimental)
-                    BackColor = experimental ? Color.Gold : Color.White;
+                    checkBoxEnabled.BackColor = experimental ? Color.Gold : Color.White;
             }
         }
 
         public string DescriptionFormat { get; set; } = "";
         public string Description
         {
-            get
-            {
-                if (FlagData == null || !(FlagData is IFlagData))
-                    return (experimental ? "[EXPERIMENTAL] " : "") + DescriptionFormat;
-                return (experimental ? "[EXPERIMENTAL] " : "") + ((IFlagData)FlagData).getDescription(DescriptionFormat);
-            }
+            get => (experimental ? "[EXPERIMENTAL]\n" : "") + DescriptionFormatting.apply(CurrentDescriptionFormat, this);
         }
 
-        public string FullDescriptionFormat { get; set; } = "";
-        public string FullDescription
+        public virtual string CurrentDescriptionFormat
         {
-            get
-            {
-                if (FullDescriptionFormat == "")
-                    return (experimental ? "[EXPERIMENTAL] " : "") + Description;
-                if (FlagData == null || !(FlagData is IFlagData))
-                    return (experimental ? "[EXPERIMENTAL] " : "") + FullDescriptionFormat;
-                return (experimental ? "[EXPERIMENTAL] " : "") + ((IFlagData)FlagData).getDescription(FullDescriptionFormat);
-            }
+            get => DescriptionFormat;
         }
+
+        public virtual FormattingMap DescriptionFormatting
+        {
+            get => new FormattingMap();
+        }
+
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -92,22 +79,33 @@ namespace FF13Randomizer
             get => checkBoxEnabled.Checked;
             set => checkBoxEnabled.Checked = value;
         }
-
-        public string FlagID { get; set; }
-
-        public Control FlagData { get; set; }
-
-        public string getFlagString()
+        private string flagID;
+        public string FlagID
         {
-            if (!FlagEnabled)
+            get => flagID; 
+            set
+            {
+                if (Flags.flags.Where(f => f != this && f.FlagID == value).Count() + Tweaks.tweaks.Where(f => f != this && f.FlagID == value).Count() > 0)
+                    throw new Exception("Duplicate name for the " + value + " flag already exists!");
+                flagID = value;
+            }
+        }
+
+        public string GetFlagString()
+        {
+            if (!this)
                 return "";
             string output = "-" + FlagID;
-            if (FlagData != null)
-                output += ((IFlagData)FlagData).getFlagString();
+            output += GetExtraFlagString();
             return output;
         }
 
-        public void setFlagString(string value, bool simulate)
+        public virtual string GetExtraFlagString()
+        {
+            return "";
+        }
+
+        public void SetFlagString(string value, bool simulate)
         {
             string input = value;
             string name;
@@ -117,27 +115,29 @@ namespace FF13Randomizer
                 name = input.Substring(1);
             if (name == FlagID)
             {
-                if (FlagData != null)
-                    input = ((IFlagData)FlagData).readFlagString(input, simulate);
                 if (!simulate)
                     FlagEnabled = true;
+                if (input.Contains("[") && input.Contains("]"))
+                    SetExtraFlagString(input.Substring(input.IndexOf("[") + 1, input.IndexOf("]") - input.IndexOf("[") - 1), simulate);
             }
         }
 
-        public static readonly Flag Empty = emptyFlag();
+        public virtual void SetExtraFlagString(string value, bool simulate)
+        {
+        }
 
-        private static Flag emptyFlag()
+        public static readonly Flag Empty = EmptyFlag();
+
+        private static Flag EmptyFlag()
         {
             Flag flag = new Flag();
             flag.Text = "";
             return flag;
         }
 
-        public void OnChangedEvent(object sender = null, EventArgs e = null)
+        public virtual void OnChangedEvent(object sender = null, EventArgs e = null)
         {
             labelDesc.Text = Description;
-            if (FlagData != null)
-                FlagData.Enabled = checkBoxEnabled.Checked;
             if (OnChanged != null)
                 OnChanged.Invoke(this, null);
         }
@@ -146,12 +146,30 @@ namespace FF13Randomizer
 
         public void ResetRandom(int seed)
         {
-            Random = new FF13Data.Random(seed + FlagID[0] * FlagID.Length * FullDescription.Length - Description.Length);
+            Random = new FF13Data.Random(seed + FlagID[0] * FlagID.Length - Description.Length);
         }
 
         public void SetRand()
         {
             RandomNum.SetRand(Random);
+        }
+
+        protected int ExtraInfoTop
+        {
+            get => Math.Max(55, labelDesc.Height + 35);
+        }
+
+        public virtual int FlagHeight
+        {
+            get => ExtraInfoTop;
+        }
+
+        public override Size MaximumSize { get => new Size(base.MaximumSize.Width, FlagHeight); set => base.MaximumSize = value; }
+        public override Size MinimumSize { get => new Size(base.MinimumSize.Width, FlagHeight); set => base.MinimumSize = value; }
+
+        public static implicit operator bool(Flag f)
+        {
+            return f.FlagEnabled;
         }
     }
 }

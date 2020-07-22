@@ -10,64 +10,54 @@ using System.Windows.Forms;
 
 namespace FF13Randomizer
 {
-    public partial class FlagBool : UserControl, IFlagData
+    public partial class FlagBool : Flag
     {
-
-        public FlagBool(Flag flag)
+        public FlagBool(string extraName)
         {
             InitializeComponent();
+            checkExtra.Location = new Point(checkExtra.Location.X, ExtraInfoTop);
+            labelExtra.Location = new Point(labelExtra.Location.X, ExtraInfoTop);
+            checkExtra.Text = extraName;
 
-            checkBox1.CheckedChanged += new EventHandler(flag.OnChangedEvent);
+            checkExtra.CheckedChanged += new EventHandler(OnChangedEvent);
         }
 
-        public string getDescription(string format)
+        public override int FlagHeight => base.FlagHeight + 50;
+
+        public bool ExtraSelected
         {
-            return GetFormattingMap().apply(format, this);
+            get => checkExtra.Checked;
+            set => checkExtra.Checked = value;
         }
 
-        public Flag getParentFlag()
+        public string ExtraDescriptionFormat { get; set; }
+        public string ExtraDescription
         {
-            Control control = this;
-            while (!(control is Flag))
-            {
-                if (control.Parent == null)
-                    return null;
-                control = control.Parent;
+            get => DescriptionFormatting.apply(ExtraDescriptionFormat, this);
+        }
+        public override void OnChangedEvent(object sender = null, EventArgs e = null)
+        {
+            base.OnChangedEvent(sender, e);
+            labelExtra.Text = ExtraDescription;
+            checkExtra.Enabled = labelExtra.Enabled = FlagEnabled;
+            if (!FlagEnabled)
+                checkExtra.Checked = false;
+        }
+        public override string GetExtraFlagString()
+        {
+            if (ExtraSelected)
+            { 
+                return "[On]";
             }
-            return (Flag) control;
+            return "";
         }
 
-        public UserControl getFlagInfo()
+        public override void SetExtraFlagString(string value, bool simulate)
         {
-            return null;
-        }
-
-        public FormattingMap GetFormattingMap()
-        {
-            FormattingMap map = new FormattingMap();
-            map.addMapping("Value", flagBool => ((FlagBool)flagBool).Value.ToString());
-            return map;
-        }
-
-        public string getFlagString()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string readFlagString(string value, bool simulate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Value
-        {
-            get => checkBox1.Checked;
-            set => checkBox1.Checked = value;
-        }
-
-        public string Name {
-            get => checkBox1.Text;
-            set => checkBox1.Text = value;
+            if(value == "On" && !simulate)
+            {
+                ExtraSelected = true;
+            }
         }
     }
 }
