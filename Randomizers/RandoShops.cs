@@ -87,6 +87,11 @@ namespace FF13Randomizer
                     if (Flags.ItemFlags.Shops.ExtraSelected2)
                     {
                         list = list.OrderBy(item => randoItems.items[item].BuyPrice).ToList();
+                        if (list.Contains(Items.PhoenixDown))
+                        {
+                            list.Remove(Items.PhoenixDown);
+                            list.Insert(1, Items.PhoenixDown);
+                        }
                     }
 
                     List<int> splits = new List<int>();
