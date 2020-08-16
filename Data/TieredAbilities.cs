@@ -368,10 +368,12 @@ namespace FF13Data
 
         public static TieredDependent<Ability> Esuna = new TieredDependent<Ability>
             (0, Abilities.Esuna, Abilities.Cure, true)
+            .AddDep(Abilities.Esuna, Abilities.Curasa)
             .Register(manager);
 
         public static TieredDependent<Ability> Raise = new TieredDependent<Ability>
             (0, Abilities.Raise, Abilities.Cure, true)
+            .AddDep(Abilities.Raise, Abilities.Curasa)
             .Register(manager);
 
 

@@ -73,9 +73,9 @@ namespace FF13Randomizer
                 if (Tweaks.Challenges.BoostLevel)
                 {
                     int boost = Tweaks.Challenges.BoostLevel.Range.Value;
-                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(1.4, Extensions.CubeRoot(boost)));
-                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(1.2, Extensions.CubeRoot(boost)));
-                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(1.2, Extensions.CubeRoot(boost)));
+                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(1.15, Extensions.CubeRoot(boost)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(1.05, Extensions.CubeRoot(boost)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(1.05, Extensions.CubeRoot(boost)));
                 }
 
                 if (Flags.EnemyFlags.RandLevel)
@@ -90,12 +90,12 @@ namespace FF13Randomizer
                         e.Level = (byte)RandomNum.RandInt(Math.Max(51, e.Level - variance), Math.Min(99, e.Level + variance));
                     int levelDiff = e.Level - level;
 
-                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(1.4, Extensions.CubeRoot(levelDiff)));
-                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(1.2, Extensions.CubeRoot(levelDiff)));
-                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(1.2, Extensions.CubeRoot(levelDiff)));
+                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(1.15, Extensions.CubeRoot(levelDiff)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(1.05, Extensions.CubeRoot(levelDiff)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(1.05, Extensions.CubeRoot(levelDiff)));
 
                     if (e.CP > 0)
-                        e.CP = (uint)Math.Max(1, e.CP * Math.Pow(1.6, Extensions.CubeRoot(levelDiff)));
+                        e.CP = (uint)Math.Max(1, e.CP * Math.Pow(1.3, Extensions.CubeRoot(levelDiff)));
                     if (lv0)
                         e.Level = 0;
                     RandomNum.ClearRand();

@@ -100,6 +100,7 @@ namespace FF13Randomizer
             newBuyPrices.Add(Items.RazorCarbine, 150000);
             newBuyPrices.Add(Items.BattleStandard, 150000);
             newBuyPrices.Add(Items.Glaive, 150000);
+            newBuyPrices.Add(Items.Ethersol, 200000);
             newBuyPrices.Add(Items.TetradicTiara, 200000);
             newBuyPrices.Add(Items.Skycutter, 210000);
             newBuyPrices.Add(Items.Rhomphaia, 220000);

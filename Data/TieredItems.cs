@@ -11,21 +11,21 @@ namespace FF13Data
         public static TieredManager<Item> manager = new TieredManager<Item>();
 
         public static Tiered<Item> Gil = new Tiered<Item>
-            (0, Items.Gil, 60, 1000000, 2.5f)
+            (0, Items.Gil, 20, 1000000, 2.5f)
             .Register(manager);
 
         #region Consumables
 
         public static Tiered<Item> Potion = new Tiered<Item>
-            (8, Items.Potion, 16, 20)
+            (8, Items.Potion, 8, 20)
             .Register(manager);
 
         public static Tiered<Item> PhoenixDown = new Tiered<Item>
-            (15, Items.PhoenixDown, 6, 20)
+            (15, Items.PhoenixDown, 3, 20)
             .Register(manager);
 
         public static Tiered<Item> Elixir = new Tiered<Item>
-            (120, Items.Elixir, 5)
+            (120, Items.Elixir, 2)
             .Register(manager);
 
         public static Tiered<Item> Antidote = new Tiered<Item>

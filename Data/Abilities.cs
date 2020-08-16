@@ -160,7 +160,7 @@ namespace FF13Data
         // Medic
         public static Ability Cure = new Ability("Cure", Role.Medic, "mw000_00").SetStarting();
         public static Ability Cura = new Ability("Cura", Role.Medic, "mw010_00");
-        public static Ability Curasa = new Ability("Curasa", Role.Medic, "mw020_00");
+        public static Ability Curasa = new Ability("Curasa", Role.Medic, "mw020_00").SetStarting();
         public static Ability Curaja = new Ability("Curaja", Role.Medic, "mw030_00");
 
         public static Ability Esuna = new Ability("Esuna", Role.Medic, "mw200_00");
