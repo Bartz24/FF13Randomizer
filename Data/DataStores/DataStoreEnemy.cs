@@ -30,12 +30,15 @@ namespace FF13Data
             get { return Data.ReadByte(0xFE); }
             set { Data.SetByte(0xFE, value); }
         }
-        public uint CommonDropPointer
+        public string CommonDropID { get; set; }
+        public string RareDropID { get; set; }
+
+        protected uint CommonDropPointer
         {
             get { return Data.ReadUInt(0xF0); }
             set { Data.SetUInt(0xF0, value); }
         }
-        public uint RareDropPointer
+        protected uint RareDropPointer
         {
             get { return Data.ReadUInt(0xF4); }
             set { Data.SetUInt(0xF4, value); }
@@ -107,13 +110,34 @@ namespace FF13Data
         }
         public byte[] DebuffRes
         {
-            get { return Data.SubArray(0x130, 16).Data; }
+            get { return Data.SubArray(0x130, 16); }
             set { Data.SetSubArray(0x130, value); }
         }
 
-        public override int GetSize()
+        public override int GetDefaultLength()
         {
             return 0x168;
+        }
+
+        public override void UpdateStringPointers(DataStorePointerList<DataStoreString> list)
+        {
+            if (CommonDropID != null)
+            {
+                DataStoreString value = new DataStoreString() { Value = CommonDropID };
+                if (!list.Contains(value))
+                    list.Add(value, list.Length);
+                CommonDropPointer = (uint)list.IndexOf(value);
+            }
+            CommonDropID = list[(int)CommonDropPointer].Value;
+
+            if (RareDropID != null)
+            {
+                DataStoreString value = new DataStoreString() { Value = RareDropID };
+                if (!list.Contains(value))
+                    list.Add(value, list.Length);
+                RareDropPointer = (uint)list.IndexOf(value);
+            }
+            RareDropID = list[(int)RareDropPointer].Value;
         }
     }
 }

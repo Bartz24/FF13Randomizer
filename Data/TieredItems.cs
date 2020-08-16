@@ -11,17 +11,17 @@ namespace FF13Data
         public static TieredManager<Item> manager = new TieredManager<Item>();
 
         public static Tiered<Item> Gil = new Tiered<Item>
-            (0, Items.Gil, 100, 100000, 2.1f)
+            (0, Items.Gil, 60, 1000000, 2.5f)
             .Register(manager);
 
         #region Consumables
 
         public static Tiered<Item> Potion = new Tiered<Item>
-            (8, Items.Potion, 20, 20, 0.85f)
+            (8, Items.Potion, 16, 20)
             .Register(manager);
 
         public static Tiered<Item> PhoenixDown = new Tiered<Item>
-            (15, Items.PhoenixDown, 8, 20)
+            (15, Items.PhoenixDown, 6, 20)
             .Register(manager);
 
         public static Tiered<Item> Elixir = new Tiered<Item>
@@ -53,24 +53,24 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> Ethersol = new Tiered<Item>
-            (60, Items.Ethersol, 10, 5, 0.5f)
+            (60, Items.Ethersol, 8, 5, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Fortisol = new Tiered<Item>
-            (50, Items.Fortisol, 14, 5, 0.5f)
+            (50, Items.Fortisol, 11, 5, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Aegisol = new Tiered<Item>
-            (50, Items.Aegisol, 14, 5, 0.5f)
+            (50, Items.Aegisol, 11, 5, 0.5f)
             .Register(manager);
 
         public static Tiered<Item> Deceptisol = new Tiered<Item>
-            (30, Items.Deceptisol, 14, 5, 0.5f)
+            (30, Items.Deceptisol, 11, 5, 0.5f)
             .Register(manager);
 
 
         public static Tiered<Item> Librascope = new Tiered<Item>
-            (25, Items.Librascope, 16, 5, 0.6f)
+            (25, Items.Librascope, 13, 5, 0.6f)
             .Register(manager);
         #endregion
 
@@ -305,7 +305,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> DoctorsCode = new Tiered<Item>
-            (40, Items.DoctorsCode, 60)
+            (40, Items.DoctorsCode, 80)
             .Register(manager);
 
         public static Tiered<Item> WatchBadge = new Tiered<Item>
@@ -898,6 +898,30 @@ namespace FF13Data
             (24, Items.GaeBolg, 12)
             .Add(72, Items.Gungnir)
             .Add(108, Items.KainsLance8)
+            .Register(manager);
+
+        public static Tiered<Item> Godslayer = new Tiered<Item>
+            (154, Items.Godslayer, 1)
+            .Register(manager);
+
+        public static Tiered<Item> DeathPenalties = new Tiered<Item>
+            (154, Items.DeathPenalties, 1)
+            .Register(manager);
+
+        public static Tiered<Item> Omnipotence = new Tiered<Item>
+            (154, Items.Omnipotence, 1)
+            .Register(manager);
+
+        public static Tiered<Item> RisingSun = new Tiered<Item>
+            (154, Items.RisingSun, 1)
+            .Register(manager);
+
+        public static Tiered<Item> FaerieTail = new Tiered<Item>
+            (154, Items.FaerieTail, 1)
+            .Register(manager);
+
+        public static Tiered<Item> Longinus = new Tiered<Item>
+            (154, Items.Longinus, 1)
             .Register(manager);
 
         #endregion

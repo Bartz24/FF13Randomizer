@@ -39,6 +39,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageHistory = new System.Windows.Forms.TabPage();
             this.tabPageBasics = new System.Windows.Forms.TabPage();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -78,6 +81,7 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPageCrystarium = new System.Windows.Forms.TabPage();
             this.tabPageEnemies = new System.Windows.Forms.TabPage();
+            this.tabPageAbilities = new System.Windows.Forms.TabPage();
             this.tabPageItems = new System.Windows.Forms.TabPage();
             this.tabPageOther = new System.Windows.Forms.TabPage();
             this.tabPageTweaks = new System.Windows.Forms.TabPage();
@@ -100,9 +104,6 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
@@ -267,14 +268,41 @@
             this.tabPageBasics.Text = "Basics";
             this.tabPageBasics.UseVisualStyleBackColor = true;
             // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(109, 122);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(327, 13);
+            this.label28.TabIndex = 42;
+            this.label28.Text = "String used for sharing/tracking currently selected flags and tweaks.";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(109, 29);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(315, 13);
+            this.label9.TabIndex = 41;
+            this.label9.Text = "Seed used for randomization. (Letters and other characters work.)";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(9, 452);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(348, 13);
+            this.label27.TabIndex = 40;
+            this.label27.Text = "Tweaks control the difficulty of the game, making things easier or harder.";
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(9, 179);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(238, 13);
+            this.label14.Size = new System.Drawing.Size(277, 13);
             this.label14.TabIndex = 39;
-            this.label14.Text = "Pick a flag preset for initial randomization options.";
+            this.label14.Text = "Flags control the randomness of the game. NOT difficulty.";
             // 
             // labelVersion
             // 
@@ -452,7 +480,7 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(536, 334);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(256, 91);
+            this.label15.Size = new System.Drawing.Size(257, 104);
             this.label15.TabIndex = 21;
             this.label15.Text = resources.GetString("label15.Text");
             // 
@@ -471,7 +499,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(536, 231);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(219, 78);
+            this.label13.Size = new System.Drawing.Size(257, 91);
             this.label13.TabIndex = 17;
             this.label13.Text = resources.GetString("label13.Text");
             // 
@@ -490,7 +518,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(152, 329);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(219, 78);
+            this.label12.Size = new System.Drawing.Size(219, 91);
             this.label12.TabIndex = 15;
             this.label12.Text = resources.GetString("label12.Text");
             // 
@@ -613,6 +641,7 @@
             // 
             this.tabControl2.Controls.Add(this.tabPageCrystarium);
             this.tabControl2.Controls.Add(this.tabPageEnemies);
+            this.tabControl2.Controls.Add(this.tabPageAbilities);
             this.tabControl2.Controls.Add(this.tabPageItems);
             this.tabControl2.Controls.Add(this.tabPageOther);
             this.tabControl2.Location = new System.Drawing.Point(-2, 1);
@@ -636,17 +665,26 @@
             this.tabPageEnemies.Location = new System.Drawing.Point(4, 22);
             this.tabPageEnemies.Name = "tabPageEnemies";
             this.tabPageEnemies.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageEnemies.Size = new System.Drawing.Size(796, 500);
+            this.tabPageEnemies.Size = new System.Drawing.Size(796, 597);
             this.tabPageEnemies.TabIndex = 1;
             this.tabPageEnemies.Text = "Enemies";
             this.tabPageEnemies.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAbilities
+            // 
+            this.tabPageAbilities.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAbilities.Name = "tabPageAbilities";
+            this.tabPageAbilities.Size = new System.Drawing.Size(796, 597);
+            this.tabPageAbilities.TabIndex = 4;
+            this.tabPageAbilities.Text = "Abilities";
+            this.tabPageAbilities.UseVisualStyleBackColor = true;
             // 
             // tabPageItems
             // 
             this.tabPageItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageItems.Name = "tabPageItems";
             this.tabPageItems.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageItems.Size = new System.Drawing.Size(796, 500);
+            this.tabPageItems.Size = new System.Drawing.Size(796, 597);
             this.tabPageItems.TabIndex = 2;
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
@@ -655,7 +693,7 @@
             // 
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
-            this.tabPageOther.Size = new System.Drawing.Size(796, 500);
+            this.tabPageOther.Size = new System.Drawing.Size(796, 597);
             this.tabPageOther.TabIndex = 3;
             this.tabPageOther.Text = "Other";
             this.tabPageOther.UseVisualStyleBackColor = true;
@@ -696,7 +734,7 @@
             this.tabPageChallenges.Location = new System.Drawing.Point(4, 22);
             this.tabPageChallenges.Name = "tabPageChallenges";
             this.tabPageChallenges.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPageChallenges.Size = new System.Drawing.Size(796, 500);
+            this.tabPageChallenges.Size = new System.Drawing.Size(796, 597);
             this.tabPageChallenges.TabIndex = 1;
             this.tabPageChallenges.Text = "Challenges";
             this.tabPageChallenges.UseVisualStyleBackColor = true;
@@ -878,33 +916,6 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(9, 452);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(262, 13);
-            this.label27.TabIndex = 40;
-            this.label27.Text = "Pick a tweak preset for initial boost/challenge options.";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(109, 29);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(315, 13);
-            this.label9.TabIndex = 41;
-            this.label9.Text = "Seed used for randomization. (Letters and other characters work.)";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(109, 122);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(327, 13);
-            this.label28.TabIndex = 42;
-            this.label28.Text = "String used for sharing/tracking currently selected flags and tweaks.";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1012,6 +1023,7 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TabPage tabPageAbilities;
     }
 }
 

@@ -8,12 +8,12 @@ namespace FF13Randomizer
 {
     public class RandomizerManager : List<Randomizer>
     {
-        public Randomizer Get(string id)
+        public T Get<T>(string id) where T : Randomizer
         {
             foreach(Randomizer randomizer in this)
             {
                 if (randomizer.GetID() == id)
-                    return randomizer;
+                    return (T)randomizer;
             }
             return null;
         }

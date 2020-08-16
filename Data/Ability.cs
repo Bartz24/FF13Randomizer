@@ -12,9 +12,8 @@ namespace FF13Data
         public Role Role { get; set; }
         public bool Starting { get; set; } = false;
         public string Name { get; set; }
-        public class AbilityData
+        public class AbilityData : Identifier
         {
-            public string ID { get; set; }
             public string Characters { get; set; }
 
             public bool HasCharacter(string character)
@@ -74,6 +73,11 @@ namespace FF13Data
         {
             Starting = true;
             return this;
+        }
+
+        public string[] GetIDs()
+        {
+            return list.Select(d => d.ID).ToArray();
         }
     }
 }

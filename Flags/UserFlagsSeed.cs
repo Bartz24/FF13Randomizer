@@ -71,7 +71,7 @@ namespace FF13Randomizer
                         flagsSeed.Valid = Flags.Import(flagsSeed.FlagString, true);
                         list.Add(flagsSeed);
                     }
-                    catch (Exception e)
+                    catch
                     {
 
                     }

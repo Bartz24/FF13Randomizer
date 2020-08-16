@@ -6,24 +6,23 @@ using System.Threading.Tasks;
 
 namespace FF13Data
 {
-    public class DataStore
+    public abstract class DataStore
     {
-        public virtual ByteArray Data { get; set; }
+        public virtual byte[] Data { get; set; }
 
-        public virtual int GetSize()
+        public virtual void LoadData(byte[] data, int offset = 0)
         {
-            return Data.Data.Length;
+            if (GetDefaultLength() > 0)
+                Data = data.SubArray(offset, GetDefaultLength());
         }
 
-        public virtual DataStore LoadData(ByteArray data, int offset = 0)
+        public virtual int Length
         {
-            Data = new ByteArrayRef(data, offset, GetSize());
-            return this;
+            get => Data.Length;
         }
 
-        public virtual void SetData(ByteArray data, int offset = 0)
-        {
-            data.SetSubArray(offset, Data.Data);
-        }
+        public abstract int GetDefaultLength();
+
+        public virtual void UpdateStringPointers(DataStorePointerList<DataStoreString> list) { }
     }
 }

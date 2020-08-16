@@ -90,9 +90,18 @@ namespace FF13Randomizer
         private int GetWeight(Tiered<Item> tiered, Item item)
         {
             if (radioTreasure.Checked)
-                return RandoTreasure.GetTreasureWeight(tiered);
+                return RandoTreasure.GetTreasureWeight(tiered, false, false);
             else
-                return RandoEnemies.GetDropWeight(tiered, (int)numericLevel.Value, item.ID.StartsWith("it") && numericLevel.Value > 50);
+                return RandoEnemies.GetDropWeight(tiered, (int)numericLevel.Value, SelectedType(), item.ID.StartsWith("it") && numericLevel.Value > 50);
+        }
+
+        private EnemyType SelectedType()
+        {
+            if (comboBox1.Text == "Boss")
+                return EnemyType.Boss;
+            if (comboBox1.Text == "Rare")
+                return EnemyType.Rare;
+            return EnemyType.Normal;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ namespace FF13Randomizer
         public List<string> shopsRemaining = new List<string>();
         public List<Item> blacklistedWeapons = new List<Item>();
 
-        public TreasureDatabase oldTreasures;
-        public TreasureDatabase treasures;
+        public DataStoreWDB<DataStoreTreasure> oldTreasures;
+        public DataStoreWDB<DataStoreTreasure> treasures;
         int[] ranks;
 
         public RandoTreasure(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
@@ -30,9 +31,11 @@ namespace FF13Randomizer
 
         public override void Load()
         {
-            oldTreasures = new TreasureDatabase($"{main.RandoPath}\\original\\db\\resident\\treasurebox.wdb");
-            treasures = new TreasureDatabase($"{main.RandoPath}\\original\\db\\resident\\treasurebox.wdb");
-            ranks = new int[treasures.Treasures.count];
+            oldTreasures = new DataStoreWDB<DataStoreTreasure>();
+            oldTreasures.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\treasurebox.wdb"));
+            treasures = new DataStoreWDB<DataStoreTreasure>();
+            treasures.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\treasurebox.wdb"));
+            ranks = new int[treasures.DataList.Length];
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
@@ -45,10 +48,11 @@ namespace FF13Randomizer
 
             int completed = 0, index = -1;
             Flags.ItemFlags.Treasures.SetRand();
-            treasures.Treasures.ToList().ForEach(t =>
+            treasures.IdList.Where(id=>!id.ID.StartsWith("!")).ToList().ForEach(tID =>
             {
+                DataStoreTreasure t = treasures[tID.ID];
                 index++;
-                Item item = Items.items.Where(i => i.ID == oldTreasures.ItemIDs[(int)t.StartingPointer]?.Value).FirstOrDefault();
+                Item item = Items.items.Where(i => i.ID == t.ItemID).FirstOrDefault();
                 int rank = -1;
                 if (item != null)
                 {
@@ -62,21 +66,15 @@ namespace FF13Randomizer
                         do
                         {
                             rank--;
-                            newItem = TieredItems.manager.Get(rank, Int32.MaxValue, tiered => GetTreasureWeight(tiered));
+                            newItem = TieredItems.manager.Get(rank, Int32.MaxValue, tiered => 
+                                GetTreasureWeight(tiered, tID.ID.StartsWith("tre_ms"), 
+                                    (tID.ID.StartsWith("tre_ms") && tID.ID.EndsWith("02")) || 
+                                    (tID.ID.StartsWith("tre_vpek") && Int32.Parse(tID.ID.Substring(tID.ID.Length - 3)) >= 26)));
                         } while (rank >= 0 && (newItem.Item1 == null || blacklistedWeapons.Contains(newItem.Item1)));
                         if (newItem.Item1.ID.StartsWith("wea_"))
                             blacklistedWeapons.Add(newItem.Item1);
-                        DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
-                        if (!treasures.ItemIDs.Contains(dataStr))
-                            treasures.ItemIDs.Add(dataStr, treasures.ItemIDs.GetTrueSize());
-                        t.StartingPointer = (uint)treasures.ItemIDs.IndexOf(dataStr);
-                        if (t.StartingPointer == 0xFFFFFFFF)
-                            treasures.ItemIDs.IndexOf(dataStr);
-                        t.EndingPointer = (uint)(t.StartingPointer + dataStr.Value.Length);
+                        t.ItemID = newItem.Item1.ID;
                         t.Count = (uint)newItem.Item2;
-
-                        if (t.StartingPointer > 0xAAAA || t.EndingPointer > 0xAAAA)
-                            throw new Exception("Too large");
                     }
                 }
 
@@ -84,7 +82,7 @@ namespace FF13Randomizer
 
                 completed++;
 
-                backgroundWorker.ReportProgress(completed * 100 / treasures.Treasures.count);
+                backgroundWorker.ReportProgress(completed * 100 / treasures.DataList.Count);
             });
             RandomNum.ClearRand();
 
@@ -99,7 +97,7 @@ namespace FF13Randomizer
                     shopsRemaining.Add("key_shop_" + i.ToString("00"));
                 }
                 shopsRemaining.Shuffle();
-                treasures.ItemIDs.ToList().ForEach(str =>
+                treasures.StringList.ToList().ForEach(str =>
                 {
                     if (str.Value.StartsWith("key_shop_"))
                     {
@@ -113,21 +111,28 @@ namespace FF13Randomizer
 
         public override void Save()
         {
-
-            treasures.Save($"db\\resident\\treasurebox.wdb");
+            File.WriteAllBytes($"db\\resident\\treasurebox.wdb", treasures.Data);
 
             DocsJSONGenerator.CreateTreasureDocs(treasures, ranks);
 
         }
 
-        public static int GetTreasureWeight(Tiered<Item> t)
+        public static int GetTreasureWeight(Tiered<Item> t, bool mission, bool missableOrRepeatable)
         {
+            if (mission && t == TieredItems.Gil)
+                return 0;
+            if (missableOrRepeatable && t.Items.Where(i => i.ID.StartsWith("wea_")).Count() > 0)
+                return 0;
+            if (missableOrRepeatable && t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
+                return (int)Math.Max(1, t.Weight * 4);
+            if (missableOrRepeatable && t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
+                return (int)Math.Max(1, t.Weight * 8);
             if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
-                return Math.Max(1, t.Weight * 8);
+                return Math.Max(1, t.Weight * 7);
             if (t.Items.Where(i => i.ID.StartsWith("acc")).Count() > 0)
                 return (int)Math.Max(1, t.Weight * 1.2);
             if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
-                return Math.Max(1, t.Weight / 45);
+                return Math.Max(1, t.Weight);
             if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                 return (int)Math.Max(1, t.Weight * 1.5);
             return (int)(t.Weight * 2);

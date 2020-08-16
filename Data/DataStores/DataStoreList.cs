@@ -10,34 +10,33 @@ namespace FF13Data
     public class DataStoreList<T> : DataStore, IEnumerable<T> where T : DataStore, new()
     {
         protected List<T> list = new List<T>();
-        protected int minSizeFactor = 1;
 
-        public DataStoreList(int minSizeFactor)
+        public override byte[] Data
         {
-            this.minSizeFactor = minSizeFactor;
-        }
-
-        public override void SetData(ByteArray data, int offset = 0)
-        {
-            int i = 0;
-            list.ForEach(obj =>
+            get
             {
-                obj.SetData(data, offset + i);
-                i += obj.GetSize();
-            });
+                List<byte[]> data = list.Select(t => t.Data).ToList();
+                byte[] allData = new byte[data.Sum(a => a.Length)];
+                int offset = 0;
+                foreach(byte[] array in data)
+                {
+                    allData.SetSubArray(offset, array);
+                    offset += array.Length;
+                }
+                return allData;
+            }
         }
 
-        public override DataStore LoadData(ByteArray data, int offset = 0)
+        public override void LoadData(byte[] data, int offset = 0)
         {
             list.Clear();
-            while (offset < data.Data.Length)
+            while (offset < data.Length)
             {
                 T val = new T();
                 val.LoadData(data, offset);
-                offset += val.GetSize();
+                offset += val.Length;
                 Add(val,list.Count);
             }
-            return this;
         }
 
         public T this[int i]
@@ -46,20 +45,7 @@ namespace FF13Data
             set { list[i] = value; }
         }
 
-        public virtual int GetTrueSize()
-        {
-            int count = 0;
-            list.ForEach(obj => count += obj.GetSize());
-            return count;
-        }
-
-        public override int GetSize()
-        {
-            int count = GetTrueSize();
-            if (count % minSizeFactor == 0)
-                return count;
-            return count + (minSizeFactor - count % minSizeFactor);
-        }
+        public int Count => list.Count;
 
         public virtual void Clear()
         {
@@ -89,6 +75,11 @@ namespace FF13Data
         public virtual bool Contains(T obj)
         {
             return list.Contains(obj);
+        }
+
+        public override int GetDefaultLength()
+        {
+            return -1;
         }
     }
 }

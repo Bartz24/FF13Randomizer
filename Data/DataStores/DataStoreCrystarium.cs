@@ -8,7 +8,6 @@ namespace FF13Data
 {
     public class DataStoreCrystarium : DataStore
     {
-        public DataStoreList<DataStoreString> AbilityIDs { get; set; }
 
         public uint CPCost
         {
@@ -16,7 +15,9 @@ namespace FF13Data
             set { Data.SetUInt(0x0, value); }
         }
 
-        public uint AbilityPointer
+        public string AbilityName { get; set; }
+
+        protected uint AbilityPointer
         {
             get { return Data.ReadUInt(0x4); }
             set { Data.SetUInt(0x4, value); }
@@ -46,7 +47,7 @@ namespace FF13Data
             set { Data.SetByte(0xB, (byte)(Stage * 0x10 + (byte)value)); }
         }
 
-        public override int GetSize()
+        public override int GetDefaultLength()
         {
             return 0xC;
         }
@@ -67,6 +68,25 @@ namespace FF13Data
             uint pointer = other.AbilityPointer;
             other.AbilityPointer = this.AbilityPointer;
             this.AbilityPointer = pointer;
+
+            string abilityName = other.AbilityName;
+            other.AbilityName = this.AbilityName;
+            this.AbilityName = abilityName;
+        }
+
+        public override void UpdateStringPointers(DataStorePointerList<DataStoreString> list)
+        {
+            if (Type == CrystariumType.Ability)
+            {
+                if (AbilityName != null)
+                {
+                    DataStoreString value = new DataStoreString() { Value = AbilityName };
+                    if (!list.Contains(value))
+                        list.Add(value, list.Length);
+                    AbilityPointer = (uint)list.IndexOf(value);
+                }
+                AbilityName = list[(int)AbilityPointer].Value;
+            }
         }
     }
 }

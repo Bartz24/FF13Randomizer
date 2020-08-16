@@ -36,7 +36,7 @@
             // 
             this.checkBoxEnabled.Location = new System.Drawing.Point(6, 3);
             this.checkBoxEnabled.Name = "checkBoxEnabled";
-            this.checkBoxEnabled.Size = new System.Drawing.Size(117, 41);
+            this.checkBoxEnabled.Size = new System.Drawing.Size(117, 57);
             this.checkBoxEnabled.TabIndex = 0;
             this.checkBoxEnabled.Text = "Flag Name";
             this.checkBoxEnabled.UseVisualStyleBackColor = true;

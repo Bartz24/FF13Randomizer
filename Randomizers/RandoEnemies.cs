@@ -13,7 +13,7 @@ namespace FF13Randomizer
     {
         Dictionary<byte, ElementalRes> physValues = new Dictionary<byte, ElementalRes>();
         byte[] scene;
-        EnemyStatDatabase enemies;
+        DataStoreWDB<DataStoreEnemy> enemies;
         byte[] bytes;
 
         public RandoEnemies(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
@@ -55,16 +55,18 @@ namespace FF13Randomizer
             physValues.Add(0x25, ElementalRes.Immune);
             #endregion
             scene = File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_scene.wdb");
-            enemies = new EnemyStatDatabase($"{main.RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
+            enemies = new DataStoreWDB<DataStoreEnemy>();
+            enemies.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb"));
             bytes = File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
             int completed = 0;
-            List<DataStoreEnemy> enemyList = enemies.Enemies.ToList();
             bool noImmune = false; // ((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value;
-            enemyList.ForEach(e =>
+            List<DataStoreEnemy> enemyList = Enemies.enemies.Select(eID => enemies[eID.ID]).ToList();
+            Enemies.enemies.ForEach(eID =>
             {
+                DataStoreEnemy e = enemies[eID];
                 byte[] idBytes = bytes.SubArray(completed * 0x20 + 0x90, 0x10);
                 string id = Encoding.UTF8.GetString(idBytes).Replace("\0", "");
 
@@ -101,13 +103,21 @@ namespace FF13Randomizer
 
                 if (Flags.ItemFlags.Drops)
                 {
-                    Flags.ItemFlags.Drops.SetRand();
-                    do
+                    if (eID.ConnectedDrops != null)
                     {
-                        RandomizeDrop(enemies, e, true);
-                        RandomizeDrop(enemies, e, false);
-                    } while (e.CommonDropPointer == e.RareDropPointer && enemies.ItemIDs[(int)e.CommonDropPointer].Value != "");
-                    RandomNum.ClearRand();
+                        e.CommonDropID = enemies[eID.ConnectedDrops].CommonDropID;
+                        e.RareDropID = enemies[eID.ConnectedDrops].RareDropID;
+                    }
+                    else
+                    {
+                        Flags.ItemFlags.Drops.SetRand();
+                        do
+                        {
+                            RandomizeDrop(enemies, e, eID, true);
+                            RandomizeDrop(enemies, e, eID, false);
+                        } while (e.CommonDropID == e.RareDropID && !string.IsNullOrEmpty(e.CommonDropID));
+                        RandomNum.ClearRand();
+                    }
                 }
 
                 DataStoreEnemy swap;
@@ -190,7 +200,7 @@ namespace FF13Randomizer
                 }
 
                 completed++;
-                backgroundWorker.ReportProgress(completed * 100 / enemies.Enemies.count);
+                backgroundWorker.ReportProgress(completed * 100 / enemies.DataList.Count);
             });
 
 
@@ -202,7 +212,7 @@ namespace FF13Randomizer
                 List<string> shops = list.Select(i => Encoding.UTF8.GetString(scene.SubArray(i, 11))).ToList();
                 for (int i = 0; i < shops.Count; i++)
                 {
-                    shops[i] = ((RandoTreasure)randomizers.Get("Treasures")).shopsRemaining[i];
+                    shops[i] = randomizers.Get<RandoTreasure>("Treasures").shopsRemaining[i];
                 }
 
                 for (int i = 0; i < list.Count; i++)
@@ -215,17 +225,17 @@ namespace FF13Randomizer
 
         public override void Save()
         {
-            enemies.Save($"db\\resident\\bt_chara_spec.wdb");
+            File.WriteAllBytes($"db\\resident\\bt_chara_spec.wdb", enemies.Data);
             File.WriteAllBytes($"db\\resident\\bt_scene.wdb", scene);
         }
 
-        private void RandomizeDrop(EnemyStatDatabase enemies, DataStoreEnemy enemy, bool common)
+        private void RandomizeDrop(DataStoreWDB<DataStoreEnemy> enemies, DataStoreEnemy enemy, Enemy enemyID, bool common)
         {
             int rankAdj = Flags.ItemFlags.Drops.Range.Value;
             Item item = null;
-            if (enemies.ItemIDs[(int)(common ? enemy.CommonDropPointer : enemy.RareDropPointer)].Value != "")
+            if (!string.IsNullOrEmpty(common ? enemy.CommonDropID : enemy.RareDropID))
                 item = Items.items.Where(i => i.ID ==
-                    enemies.ItemIDs[(int)(common ? enemy.CommonDropPointer : enemy.RareDropPointer)].Value).FirstOrDefault();
+                   (common ? enemy.CommonDropID : enemy.RareDropID)).FirstOrDefault();
             if (item != null)
             {
                 if (item.ID == "")
@@ -239,48 +249,63 @@ namespace FF13Randomizer
                     Tuple<Item, int> newItem;
                     do
                     {
-                        newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy.Level, item.ID.StartsWith("it") && enemy.Level > 50));
+                        newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy.Level, enemyID.Type, item.ID.StartsWith("it") && enemy.Level > 50));
                         rank--;
-                    } while ((newItem.Item1 == null || ((RandoTreasure)randomizers.Get("Treasures")).blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
+                    } while ((newItem.Item1 == null || randomizers.Get<RandoTreasure>("Treasures").blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
                     if (newItem.Item1 == null)
                         return;
                     if (newItem.Item1.ID.StartsWith("wea_"))
-                        ((RandoTreasure)randomizers.Get("Treasures")).blacklistedWeapons.Add(newItem.Item1);
-                    DataStoreString dataStr = new DataStoreString() { Value = newItem.Item1.ID };
-                    if (!enemies.ItemIDs.Contains(dataStr))
-                        enemies.ItemIDs.Add(dataStr, enemies.ItemIDs.GetTrueSize());
+                        randomizers.Get<RandoTreasure>("Treasures").blacklistedWeapons.Add(newItem.Item1);
                     if (common)
-                        enemy.CommonDropPointer = (uint)enemies.ItemIDs.IndexOf(dataStr);
+                        enemy.CommonDropID = newItem.Item1.ID;
                     else
-                        enemy.RareDropPointer = (uint)enemies.ItemIDs.IndexOf(dataStr);
+                        enemy.RareDropID = newItem.Item1.ID;
                 }
             }
         }
 
-        public static int GetDropWeight(Tiered<Item> t, int enemyLevel, bool forceNormalDrop)
+        public static int GetDropWeight(Tiered<Item> t, int enemyLevel, EnemyType type, bool forceNormalDrop)
         {
             if (t.Items.Where(i => i.ID == "").Count() > 0)
                 return 0;
             float mult;
-            if (enemyLevel > 50 && !forceNormalDrop)
+            if (type == EnemyType.Boss && !forceNormalDrop)
             {
                 mult = 1 + .01f * (float)Math.Pow(enemyLevel - 50, .8f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
-                    return (int)(t.Weight * 1.5 * mult);
+                    return (int)(t.Weight * 1.8 * mult);
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                     return 0;
                 if (t.Items.Where(i => i.ID.StartsWith("it")).Count() > 0)
                     return Math.Max(1, t.Weight / 4);
                 return (int)(t.Weight * 2 * mult);
             }
-            mult = 1 + .01f * (float)Math.Pow(enemyLevel, .8f);
-            if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
-                return (int)(t.Weight);
-            if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
-                return (int)(t.Weight * 18.2f);
-            if (t.Items.Where(i => i.ID.StartsWith("wea_")).Count() > 0)
-                return 0;
-            return (int)Math.Max(1, t.Weight / 22.5f * mult);
+            else if (type == EnemyType.Rare)
+            {
+                mult = 1 + .01f * (float)Math.Pow(enemyLevel, .8f);
+                if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
+                    return (int)(t.Weight * 1.5 * mult);
+                if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
+                    return (int)Math.Max(1, t.Weight / 1.5);
+                if (t.Items.Where(i => i.ID.StartsWith("wea_")).Count() > 0)
+                    return 0;
+                return (int)(t.Weight * mult);
+            }
+            else
+            {
+                mult = 1 + .01f * (float)Math.Pow(enemyLevel, .8f);
+                if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
+                    return (int)(t.Weight);
+                if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
+                    return (int)(t.Weight * 18.2f);
+                if (t.Items.Where(i => i.ID.StartsWith("wea_")).Count() > 0)
+                    return 0;
+                if (t.Items.Contains(Items.Potion) || t.Items.Contains(Items.PhoenixDown) || t.Items.Contains(Items.Antidote) ||
+                    t.Items.Contains(Items.HolyWater) || t.Items.Contains(Items.Painkiller) || t.Items.Contains(Items.FoulLiquid) ||
+                    t.Items.Contains(Items.Wax) || t.Items.Contains(Items.Mallet))
+                    return (int)(t.Weight * 3.4f);
+                return (int)Math.Max(1, t.Weight / 22.5f * mult);
+            }
         }
     }
 }

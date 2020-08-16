@@ -64,27 +64,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataStores\DataExtensions.cs" />
+    <Compile Include="Data\DataStores\DataStoreItem.cs" />
+    <Compile Include="Data\DataStores\DataStoreEquip.cs" />
+    <Compile Include="Data\DataStores\DataStoreID.cs" />
+    <Compile Include="Data\DataStores\DataStoreIDList.cs" />
+    <Compile Include="Data\DataStores\DataStoreShop.cs" />
+    <Compile Include="Data\DataStores\DataStoreAbility.cs" />
+    <Compile Include="Data\DataStores\DataStoreWDB.cs" />
+    <Compile Include="Data\Enemy.cs" />
+    <Compile Include="Data\Enemies.cs" />
+    <Compile Include="Data\Identifier.cs" />
+    <Compile Include="Data\Shops.cs" />
+    <Compile Include="Data\Shop.cs" />
     <Compile Include="Data\TieredAbilities.cs" />
     <Compile Include="Data\DataStores\DataStoreEnemy.cs" />
     <Compile Include="Data\DataStores\DataStoreTreasure.cs" />
-    <Compile Include="Data\EnemyStatDatabase.cs" />
     <Compile Include="Data\Random.cs" />
     <Compile Include="Data\TieredDependent.cs" />
-    <Compile Include="Data\TreasureDatabase.cs" />
     <Compile Include="Data\Items.cs" />
     <Compile Include="Data\Abilities.cs" />
     <Compile Include="Data\Item.cs" />
     <Compile Include="Data\Ability.cs" />
-    <Compile Include="Data\CrystariumDatabase.cs" />
-    <Compile Include="Data\ByteArray.cs" />
-    <Compile Include="Data\ByteArrayRef.cs" />
     <Compile Include="Data\DataStores\DataStore.cs" />
     <Compile Include="Data\DataStores\DataStorePointerList.cs" />
     <Compile Include="Data\DataStores\DataStoreString.cs" />
     <Compile Include="Data\DataStores\DataStoreList.cs" />
-    <Compile Include="Data\DataStores\DataStoreArray.cs" />
     <Compile Include="Data\DataStores\DataStoreCrystarium.cs" />
-    <Compile Include="Data\DataStores\DataStoreEquip.cs" />
     <Compile Include="Data\EquipID.cs" />
     <Compile Include="Data\RandomNum.cs" />
     <Compile Include="Data\Text\TextDialog.cs" />
@@ -97,7 +103,6 @@
     <Compile Include="Data\Values\ValueStatus.cs" />
     <Compile Include="Data\Values\ValueUInt.cs" />
     <Compile Include="Data\Values\ValueUShort.cs" />
-    <Compile Include="Data\WordPack.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Flags\FlagBool.cs">
       <SubType>UserControl</SubType>
@@ -157,8 +162,12 @@
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Randomizers\RandoItems.cs" />
+    <Compile Include="Randomizers\RandoEquip.cs" />
     <Compile Include="Randomizers\RandomizerManager.cs" />
     <Compile Include="Randomizers\RandoEnemies.cs" />
+    <Compile Include="Randomizers\RandoAbilities.cs" />
+    <Compile Include="Randomizers\RandoShops.cs" />
     <Compile Include="Randomizers\RandoRunSpeed.cs" />
     <Compile Include="Randomizers\RandoMusic.cs" />
     <Compile Include="Randomizers\RandoTreasure.cs" />

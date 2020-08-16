@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace FF13Data
 {
-
-    public class Item : Identifier
+    public class Shop : Identifier
     {
         public string Name { get; set; }
-        public Shop PreferredShop { get; set; }
+        public int Tiers { get; set; }
 
-        public Item(string name, string id, Shop shop)
+        public Shop(string name, string id, int tiers)
         {
             this.Name = name;
             this.ID = id;
-            this.PreferredShop = shop;
-            Items.items.Add(this);
+            this.Tiers = tiers;
+            Shops.shops.Add(this);
         }
     }
 }

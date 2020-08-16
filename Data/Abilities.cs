@@ -174,6 +174,7 @@ namespace FF13Data
         public static Ability Quake = new Ability("Quake", Role.None, "tp400_00");
         public static Ability Renew = new Ability("Renew", Role.None, "tp000_00");
         public static Ability Stopga = new Ability("Stopga", Role.None, "tp200_00");
+        public static Ability Summon = new Ability("Summon", Role.None, "sm000", "");
 
 
 

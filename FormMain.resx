@@ -123,7 +123,8 @@ Crystarium shuffled with stats, abilities,
 abilities in any role.
 Enemy stats/levels/debuff,elemental res randomized.
 Treasures/drops randomized, shops shuffled.
-Music shuffled, run speed randomized.
+Shop contents randomized.
+Music shuffled, ATB/TP cost, run speed randomized.
 
 </value>
   </data>
@@ -133,7 +134,8 @@ Crystarium shuffled with stats, abilities,
 abilities in any role.
 Enemy stats/levels/debuff res randomized.
 Treasures/drops randomized, shops shuffled.
-Music shuffled, run speed randomized.
+Shop contents randomized.
+Music shuffled, ATB/TP cost, run speed randomized.
 </value>
   </data>
   <data name="label12.Text" xml:space="preserve">
@@ -142,6 +144,7 @@ Crystarium shuffled with stats, abilities,
 abilities in any role.
 Enemy stats/level randomized.
 Treasures/drops randomized, shops shuffled.
+Shop contents randomized.
 Music shuffled, run speed randomized.
 </value>
   </data>

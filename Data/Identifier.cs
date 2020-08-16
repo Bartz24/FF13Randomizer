@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace FF13Data
 {
-    public static class Extensions
+    public class Identifier
     {
+        public string ID { get; set; }
+
+        public override string ToString()
+        {
+            return ID;
+        }
     }
 }

@@ -11,22 +11,20 @@ namespace FF13Data
         public readonly T NULL;
         private Dictionary<int, int> pointerToIndexDictionary = new Dictionary<int, int>();
 
-        public DataStorePointerList(int minSizeFactor, T nullVal) : base(minSizeFactor)
+        public DataStorePointerList(T nullVal)
         {
             NULL = nullVal;
         }
-
-        public override DataStore LoadData(ByteArray data, int offset = 0)
+        public override void LoadData(byte[] data, int offset = 0)
         {
             list.Clear();
-            while (offset < data.Data.Length)
+            while (offset < data.Length)
             {
                 T val = new T();
                 val.LoadData(data, offset);
-                Add(val,offset);
-                offset += val.GetSize();
+                Add(val, offset);
+                offset += val.Length;
             }
-            return this;
         }
 
         public Dictionary<int, int> GetNewPointers()
@@ -36,7 +34,7 @@ namespace FF13Data
             pointerToIndexDictionary.Keys.ToList().ForEach(key =>
             {
                 newDict.Add(key, offset);
-                offset += this[key].GetSize();
+                offset += this[key].Length;
             });
             return newDict;
         }
@@ -56,7 +54,7 @@ namespace FF13Data
         {
             get
             {
-                if (pointerToIndexDictionary.ContainsKey(i + 1))
+                if (!pointerToIndexDictionary.ContainsKey(i))
                     return NULL;
                 return list[pointerToIndexDictionary[i]];
             }

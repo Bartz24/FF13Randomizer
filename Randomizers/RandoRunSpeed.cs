@@ -12,7 +12,7 @@ namespace FF13Randomizer
 {
     public class RandoRunSpeed : Randomizer
     {
-        public ByteArray charaFamily;
+        public byte[] charaFamily;
 
         public RandoRunSpeed(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
 
@@ -27,7 +27,7 @@ namespace FF13Randomizer
 
         public override void Load()
         {
-            charaFamily = new ByteArray(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\charafamily.wdb"));
+            charaFamily = File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\charafamily.wdb");
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
@@ -46,14 +46,14 @@ namespace FF13Randomizer
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    charaFamily.SetByte(0x9A34 + 0x17 + 0x58 * i, (byte)Math.Round(charaFamily.ReadByte(0x9A34 + 0x17 + 0x58 * i) * (1 + Tweaks.Boosts.RunSpeedMultiplier.Range.Value) / 100f));
+                    charaFamily.SetByte(0x9A34 + 0x17 + 0x58 * i, (byte)Math.Round(charaFamily.ReadByte(0x9A34 + 0x17 + 0x58 * i) * (100 + Tweaks.Boosts.RunSpeedMultiplier.Range.Value) / 100f));
                 }
             }
         }
 
         public override void Save()
         {
-            File.WriteAllBytes("db\\resident\\charafamily.wdb", charaFamily.Data);
+            File.WriteAllBytes("db\\resident\\charafamily.wdb", charaFamily);
         }
     }
 }

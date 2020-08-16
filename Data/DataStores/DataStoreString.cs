@@ -8,46 +8,38 @@ namespace FF13Data
 {
     public class DataStoreString : DataStore
     {
-        private string value;
-        public string Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public string Value { get; set; }
 
-        public override ByteArray Data
+        public override byte[] Data
         {
             get
             {
-                if (GetSize() == 1)
-                    return new ByteArray(new byte[] { 0 });
-                return new ByteArray(Encoding.UTF8.GetBytes(value).Concat(new byte[] { 0 }));
+                return Encoding.UTF8.GetBytes(Value).Concat(new byte[] { 0 });
             }
             set
             {
-                if (value.Data.Length == 1 && value.Data[0] == 0)
-                    this.value = "";
+                if (value.Length == 1 && value[0] == 0)
+                    this.Value = "";
                 else
-                    this.value = Encoding.UTF8.GetString(value.Data.SubArray(0, value.Data.Length - 1));
+                    this.Value = Encoding.UTF8.GetString(value.SubArray(0, value.Length - 1));
             }
         }
 
-        public override DataStore LoadData(ByteArray data, int offset = 0)
+        public override void LoadData(byte[] data, int offset = 0)
         {
             int size = data.FindIndexNextByte(offset, 0) - offset;
-            Data = new ByteArrayRef(data, offset, size +1);
-            return this;
+            Data = data.SubArray(offset, size + 1);
         }
 
-        public override int GetSize()
+        public override int GetDefaultLength()
         {
-            return value.Length + 1;
+            return -1;
         }
 
         public override bool Equals(object obj)
         {
             if (obj is DataStoreString)
-                return this.value == ((DataStoreString)obj).value;
+                return this.Value == ((DataStoreString)obj).Value;
             return base.Equals(obj);
         }
 
@@ -62,7 +54,7 @@ namespace FF13Data
         }
         public override int GetHashCode()
         {
-            return value.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

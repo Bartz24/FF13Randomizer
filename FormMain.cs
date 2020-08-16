@@ -18,7 +18,7 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string version = "1.6.0";
+        public static string version = "1.7.0";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -31,6 +31,10 @@ namespace FF13Randomizer
             "db/resident/bt_chara_spec.wdb",
             "db/resident/bt_scene.wdb",
             "db/resident/charafamily.wdb",
+            "db/resident/shop.wdb",
+            "db/resident/bt_ability.wdb",
+            "db/resident/item_weapon.wdb",
+            "db/resident/item.wdb",
             #region Sound
             //"sound/pack/8000/usa/music_100rosh.win32.scd",
             //"sound/pack/8000/usa/music_101ldun_f.win32.scd", silent
@@ -178,6 +182,7 @@ namespace FF13Randomizer
 
             addFlags(tabPageCrystarium, FlagType.Crystarium);
             addFlags(tabPageEnemies, FlagType.Enemies);
+            addFlags(tabPageAbilities, FlagType.Abilities);
             addFlags(tabPageItems, FlagType.Items);
             addFlags(tabPageOther, FlagType.Other);
             addFlags(tabPageBoosts, FlagType.Boost);
@@ -477,7 +482,7 @@ namespace FF13Randomizer
 
         private void button5_Click(object sender, EventArgs evt)
         {
-            EnemyStatDatabase enemies = new EnemyStatDatabase($"{RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
+            /*EnemyStatDatabase enemies = new EnemyStatDatabase($"{RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
             byte[] bytes = File.ReadAllBytes($"{RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
             List<string> lines = new List<string>();
 
@@ -499,6 +504,7 @@ namespace FF13Randomizer
             File.WriteAllText("foundNew.csv", String.Join(",\n", lines));
 
             MessageBox.Show("Done.");
+            */
         }
 
         private void ShuffleMusic(BackgroundWorker backgroundWorker)
@@ -673,9 +679,13 @@ namespace FF13Randomizer
             }
 
             RandomizerManager randomizers = new RandomizerManager();
+            randomizers.Add(new RandoItems(this, randomizers));
             randomizers.Add(new RandoCrystarium(this, randomizers));
             randomizers.Add(new RandoTreasure(this, randomizers));
+            randomizers.Add(new RandoShops(this, randomizers));
             randomizers.Add(new RandoEnemies(this, randomizers));
+            randomizers.Add(new RandoAbilities(this, randomizers));
+            randomizers.Add(new RandoEquip(this, randomizers));
             randomizers.Add(new RandoMusic(this, randomizers));
             randomizers.Add(new RandoRunSpeed(this, randomizers));
 
@@ -800,7 +810,7 @@ namespace FF13Randomizer
             Flags.ItemFlags.Treasures.Range.Value = 5;
             Flags.ItemFlags.Drops.FlagEnabled = true;
             Flags.ItemFlags.Drops.Range.Value = 5;
-            Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.ItemFlags.ShopLocations.FlagEnabled = true;
             Flags.Other.Music.FlagEnabled = true;
 
             Flags.CrystariumFlags.NewAbilities.ExtraSelected = false;
@@ -808,6 +818,13 @@ namespace FF13Randomizer
             Flags.EnemyFlags.Debuffs.FlagEnabled = false;
             Flags.EnemyFlags.RandLevel.FlagEnabled = false;
             Flags.EnemyFlags.RandLevel.Range.Value = 0;
+            Flags.AbilityFlags.ATBCost.FlagEnabled = false;
+            Flags.AbilityFlags.ATBCost.Range.Value = 0;
+            Flags.AbilityFlags.TPCost.FlagEnabled = false;
+            Flags.AbilityFlags.TPCost.Range.Value = 0;
+            Flags.ItemFlags.Shops.FlagEnabled = false;
+            Flags.ItemFlags.Shops.ExtraSelected = false;
+            Flags.ItemFlags.Shops.ExtraSelected2 = false;
             Flags.Other.RunSpeed.FlagEnabled = false;
             Flags.Other.RunSpeed.Range.Value = 0;
 
@@ -830,7 +847,10 @@ namespace FF13Randomizer
             Flags.ItemFlags.Treasures.Range.Value = 20;
             Flags.ItemFlags.Drops.FlagEnabled = true;
             Flags.ItemFlags.Drops.Range.Value = 20;
+            Flags.ItemFlags.ShopLocations.FlagEnabled = true;
             Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.ItemFlags.Shops.ExtraSelected = true;
+            Flags.ItemFlags.Shops.ExtraSelected2 = true;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 10;
@@ -838,6 +858,10 @@ namespace FF13Randomizer
             Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
             Flags.EnemyFlags.Resistances.FlagEnabled = false;
             Flags.EnemyFlags.Debuffs.FlagEnabled = false;
+            Flags.AbilityFlags.ATBCost.FlagEnabled = false;
+            Flags.AbilityFlags.ATBCost.Range.Value = 0;
+            Flags.AbilityFlags.TPCost.FlagEnabled = false;
+            Flags.AbilityFlags.TPCost.Range.Value = 0;
 
             if (sender != null)
                 MessageBox.Show("Applied!");
@@ -855,10 +879,15 @@ namespace FF13Randomizer
             Flags.EnemyFlags.RandStats.Range.Value = 50;
             Flags.EnemyFlags.RandLevel.FlagEnabled = true;
             Flags.EnemyFlags.RandLevel.Range.Value = 35;
+            Flags.AbilityFlags.ATBCost.FlagEnabled = true;
+            Flags.AbilityFlags.ATBCost.Range.Value = 2;
+            Flags.AbilityFlags.TPCost.FlagEnabled = true;
+            Flags.AbilityFlags.TPCost.Range.Value = 2;
             Flags.ItemFlags.Treasures.FlagEnabled = true;
             Flags.ItemFlags.Treasures.Range.Value = 50;
             Flags.ItemFlags.Drops.FlagEnabled = true;
             Flags.ItemFlags.Drops.Range.Value = 50;
+            Flags.ItemFlags.ShopLocations.FlagEnabled = true;
             Flags.ItemFlags.Shops.FlagEnabled = true;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
@@ -866,6 +895,8 @@ namespace FF13Randomizer
 
             Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
             Flags.EnemyFlags.Resistances.FlagEnabled = false;
+            Flags.ItemFlags.Shops.ExtraSelected = false;
+            Flags.ItemFlags.Shops.ExtraSelected2 = false;
 
             if (sender != null)
                 MessageBox.Show("Applied!");
@@ -884,16 +915,23 @@ namespace FF13Randomizer
             Flags.EnemyFlags.RandStats.Range.Value = 100;
             Flags.EnemyFlags.RandLevel.FlagEnabled = true;
             Flags.EnemyFlags.RandLevel.Range.Value = 50;
+            Flags.AbilityFlags.ATBCost.FlagEnabled = true;
+            Flags.AbilityFlags.ATBCost.Range.Value = 5;
+            Flags.AbilityFlags.TPCost.FlagEnabled = true;
+            Flags.AbilityFlags.TPCost.Range.Value = 4;
             Flags.ItemFlags.Treasures.FlagEnabled = true;
             Flags.ItemFlags.Treasures.Range.Value = 100;
             Flags.ItemFlags.Drops.FlagEnabled = true;
             Flags.ItemFlags.Drops.Range.Value = 100;
+            Flags.ItemFlags.ShopLocations.FlagEnabled = true;
             Flags.ItemFlags.Shops.FlagEnabled = true;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 50;
 
             Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
+            Flags.ItemFlags.Shops.ExtraSelected = false;
+            Flags.ItemFlags.Shops.ExtraSelected2 = false;
 
             if (sender != null)
                 MessageBox.Show("Applied!");

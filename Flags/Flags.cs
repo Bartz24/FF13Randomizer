@@ -9,6 +9,7 @@ namespace FF13Randomizer
     public enum FlagType
     {
         Crystarium,
+        Abilities,
         Items,
         Enemies,
         Other,
@@ -49,15 +50,34 @@ namespace FF13Randomizer
                 "The amount of nodes that appear is also related to the stat multiplier. For example: Higher HP multiplier also means more HP nodes will appear."
             }.Register(FlagType.Crystarium);
         }
+        public class AbilityFlags
+        {
+            public static FlagValue ATBCost = (FlagValue)new FlagValue(0, 0, 5)
+            {
+                Text = "Randomize ATB Costs",
+                FlagID = "RandATBC",
+                DescriptionFormat = "ATB costs will be randomized for usable abilities.\n" +
+                "ATB Cost will be +/- ${Value}.\n" +
+                "An ATB costs of 6 will be treated as a full ATB ability.\n" +
+                "Abilities originally full ATB cost will not be randomized as the game does not like that."
+            }.Register(FlagType.Abilities);
 
+            public static FlagValue TPCost = (FlagValue)new FlagValue(0, 0, 4)
+            {
+                Text = "Randomize TP Costs",
+                FlagID = "RandTPC",
+                DescriptionFormat = "TP costs will be randomized for techniques.\n" +
+                "TP Cost will be +/- ${Value}."
+            }.Register(FlagType.Abilities);
+        }
 
         public class ItemFlags
         {
             public static FlagValue Treasures = (FlagValue)new FlagValue(0, 0, 100)
             {
-                Text = "Randomize Treasures",
+                Text = "Randomize Treasures and Rewards",
                 FlagID = "RandTreas",
-                DescriptionFormat = "Treasures will be randomized.\n" +
+                DescriptionFormat = "Treasures and mission rewards will be randomized.\n" +
                 "Based on the 'rank' of each item.  New items will be by items 'rank' +/- ${Value}.\n" +
                 "Material items (upgrade components) are given LESS weight and will appear less often in treasures."
             }.Register(FlagType.Items);
@@ -72,13 +92,25 @@ namespace FF13Randomizer
                 "Bosses will drop accessories and weapons more often"
             }.Register(FlagType.Items);
 
-            public static Flag Shops = new Flag()
+            public static Flag ShopLocations = new Flag()
             {
-                Text = "Shuffle Shops",
+                Text = "Shuffle Shop Location",
                 FlagID = "ShShop",
                 DescriptionFormat = "All shops except Unicorn Mart will shuffle locations.\n" +
                 "Includes shops from special battle drops and treasures.\n" +
                 "Does not include Omnikit."
+            }.Register(FlagType.Items);
+
+            public static FlagBool2 Shops = (FlagBool2)new FlagBool2("Items Appear in Correct Shops", "Progressive Shops")
+            {
+                Text = "Randomize Shop Contents",
+                FlagID = "RandShop",
+                DescriptionFormat = "Shop contents will be randomized.\n" +
+                "Certain weapons, accessories, and potions and phoenix downs are guarenteed to appear in a shop.",
+                ExtraDescriptionFormat = "Forces items to appear in their expected shops. New items not normally\n" +
+                "in shops will be considered. (These are not currently documented)",
+                ExtraDescriptionFormat2 = "Shops that have unlocks throughout the story will be sorted such that\n" +
+                "cheaper items appear earlier."
             }.Register(FlagType.Items);
         }
 
@@ -137,6 +169,7 @@ namespace FF13Randomizer
         public Flags()
         {
             new CrystariumFlags();
+            new AbilityFlags();
             new ItemFlags();
             new EnemyFlags();
             new Other();
@@ -160,7 +193,7 @@ namespace FF13Randomizer
                     flags.ForEach(fs => f.SetFlagString(fs, simulate));
                 });
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
