@@ -32,12 +32,28 @@ namespace FF13Randomizer
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
+            RandomizeShops();
+            NoShops();
+        }
+
+        private void NoShops()
+        {
+            if (Tweaks.Challenges.NoShops)
+            {
+                shops.DataList.ToList().ForEach(shop => {
+                    Enumerable.Range(0, 32).ToList().ForEach(i => shop.SetItemID(i, ""));
+                });
+            }
+        }
+
+        private void RandomizeShops()
+        {
             if (Flags.ItemFlags.Shops)
             {
                 Flags.ItemFlags.Shops.SetRand();
                 RandoEquip randoEquip = randomizers.Get<RandoEquip>("Equip");
-                List<Item> guarenteed = Items.items.Where(item => item.PreferredShop != null && 
-                                                            randoEquip.equip.IdList.Where(id=>id.ID == item.ID).Count() > 0 && 
+                List<Item> guarenteed = Items.items.Where(item => item.PreferredShop != null &&
+                                                            randoEquip.equip.IdList.Where(id => id.ID == item.ID).Count() > 0 &&
                                                             randoEquip.equip.DataList.ToList().Where(e => e.UpgradeInto == item.ID).Count() == 0).ToList();
                 guarenteed.Add(Items.Potion);
                 guarenteed.Add(Items.PhoenixDown);
@@ -46,7 +62,7 @@ namespace FF13Randomizer
                 int initalGuarenteedCount = guarenteed.Count;
                 int totalCount = Shops.shops.Sum(id => shops[$"{id.ID}{id.Tiers - 1}"].ItemCount);
 
-                List <Item> shuffled = Items.items.Where(i => !guarenteed.Contains(i) && i.PreferredShop != null).ToList();
+                List<Item> shuffled = Items.items.Where(i => !guarenteed.Contains(i) && i.PreferredShop != null).ToList();
                 shuffled.Shuffle();
 
                 Shops.shops.ForEach(shopID =>

@@ -947,6 +947,7 @@ namespace FF13Randomizer
             Tweaks.Challenges.BoostLevel.FlagEnabled = false;
             Tweaks.Challenges.BoostLevel.Range.Value = 0;
             Tweaks.Challenges.Stats1StageBehind.FlagEnabled = false;
+            Tweaks.Challenges.NoShops.FlagEnabled = false;
 
             if (sender != null)
                 MessageBox.Show("Applied!");
@@ -962,6 +963,7 @@ namespace FF13Randomizer
             Tweaks.Boosts.RunSpeedMultiplier.Range.Value = 25;
 
             Tweaks.Challenges.Stats1StageBehind.FlagEnabled = false;
+            Tweaks.Challenges.NoShops.FlagEnabled = false;
 
             if (sender != null)
                 MessageBox.Show("Applied!");
@@ -977,6 +979,7 @@ namespace FF13Randomizer
             Tweaks.Boosts.RunSpeedMultiplier.Range.Value = 25;
 
             Tweaks.Challenges.Stats1StageBehind.FlagEnabled = false;
+            Tweaks.Challenges.NoShops.FlagEnabled = false;
 
 
             if (sender != null)
@@ -988,6 +991,7 @@ namespace FF13Randomizer
             Tweaks.Challenges.BoostLevel.FlagEnabled = true;
             Tweaks.Challenges.BoostLevel.Range.Value = 40;
             Tweaks.Challenges.Stats1StageBehind.FlagEnabled = true;
+            Tweaks.Challenges.NoShops.FlagEnabled = true;
 
             Tweaks.Boosts.HalfSecondaryCPCost.FlagEnabled = false;
             Tweaks.Boosts.ScaledCPCost.FlagEnabled = false;

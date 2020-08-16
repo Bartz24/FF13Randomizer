@@ -336,9 +336,9 @@
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(536, 563);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(130, 26);
+            this.label22.Size = new System.Drawing.Size(130, 39);
             this.label22.TabIndex = 36;
-            this.label22.Text = "Boost Enemy Levels + 40.\r\nStats One Stage Behind.";
+            this.label22.Text = "Boost Enemy Levels + 40.\r\nStats One Stage Behind.\r\nNo Shops.";
             // 
             // presetDevastation
             // 

@@ -55,6 +55,13 @@ namespace FF13Randomizer
                 "Stage 1 stat nodes are 0.\n" +
                 "Stage 10 stat nodes are based on stage 9. So stage 10 stats are impossible."
             }.Register(FlagType.Challenge, true);
+
+            public static Flag NoShops = new Flag()
+            {
+                Text = "No Shops",
+                FlagID = "NoShop",
+                DescriptionFormat = "All shops are empty."
+            }.Register(FlagType.Challenge, true);
         }
 
         public Tweaks()
