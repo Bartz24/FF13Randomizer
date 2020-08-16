@@ -287,23 +287,16 @@ namespace FF13Randomizer
         {
             if (Flags.CrystariumFlags.NewAbilities)
             {
+                List<string> techniqueIDs = Abilities.abilities.Where(a => a.Role == Role.None).SelectMany(a => a.GetIDs()).ToList();
+
                 Flags.CrystariumFlags.NewAbilities.SetRand();
                 crystarium.DataList.ToList()
-                .Where(c => c.Role == Role.None
-                && c.Type == CrystariumType.Ability
+                .Where(c => c.Type == CrystariumType.Ability
+                && techniqueIDs.Contains(c.AbilityName)                
                 && (!Flags.CrystariumFlags.NewAbilities.ExtraSelected2 || (Flags.CrystariumFlags.NewAbilities.ExtraSelected2 && GetAbility(name, crystarium, c) != Abilities.Libra)))
                 .ToList().Shuffle((a, b) => a.SwapStatsAbilities(b));
                 RandomNum.ClearRand();
             }
-        }
-
-        public void Randomize0CPNodes(string name, DataStoreWDB<DataStoreCrystarium> crystarium)
-        {
-            crystarium.DataList.ToList()
-                .Where(c => c.Role == Role.None
-                && c.Type == CrystariumType.Ability
-                && (!Flags.CrystariumFlags.NewAbilities.ExtraSelected2 || (Flags.CrystariumFlags.NewAbilities.ExtraSelected2 && GetAbility(name, crystarium, c) != Abilities.Libra)))
-                .ToList().Shuffle((a, b) => a.SwapStatsAbilities(b));
         }
 
         public void RandomizeAbilities()
