@@ -73,29 +73,29 @@ namespace FF13Randomizer
                 if (Tweaks.Challenges.BoostLevel)
                 {
                     int boost = Tweaks.Challenges.BoostLevel.Range.Value;
-                    bool lv0 = e.Level == 0;
-                    byte level = (byte)(lv0 ? 10 : e.Level);
-                    e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
-                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
-                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(level + boost, 0.25) - Math.Pow(level, 0.25)));
+                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(1.4, Extensions.CubeRoot(boost)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(1.2, Extensions.CubeRoot(boost)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(1.2, Extensions.CubeRoot(boost)));
                 }
 
                 if (Flags.EnemyFlags.RandLevel)
                 {
                     Flags.EnemyFlags.RandLevel.SetRand();
                     int variance = Flags.EnemyFlags.RandLevel.Range.Value;
-                    int boost = Tweaks.Challenges.BoostLevel ? Tweaks.Challenges.BoostLevel.Range.Value : 0;
                     bool lv0 = e.Level == 0;
-                    byte level = (byte)(lv0 ? 10 : e.Level);
-                    if (level < 50)
-                        e.Level = (byte)RandomNum.RandInt(Math.Max(1, level - variance), Math.Min(49, level + variance));
-                    else if (level > 50)
-                        e.Level = (byte)RandomNum.RandInt(Math.Max(51, level - variance), Math.Min(99, level + variance));
-                    e.HP = (uint)Math.Max(1, e.HP * Math.Exp(Math.Pow(e.Level + boost, 0.25) - Math.Pow(level + boost, 0.25)));
-                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Exp(Math.Pow(e.Level + boost, 0.25) - Math.Pow(level + boost, 0.25)));
-                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Exp(Math.Pow(e.Level + boost, 0.25) - Math.Pow(level + boost, 0.25)));
+                    int level = lv0 ? 10 : e.Level;
+                    if (e.Level < 50)
+                        e.Level = (byte)RandomNum.RandInt(Math.Max(1, e.Level - variance), Math.Min(49, e.Level + variance));
+                    else if (e.Level > 50)
+                        e.Level = (byte)RandomNum.RandInt(Math.Max(51, e.Level - variance), Math.Min(99, e.Level + variance));
+                    int levelDiff = e.Level - level;
+
+                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(1.4, Extensions.CubeRoot(levelDiff)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(1.2, Extensions.CubeRoot(levelDiff)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(1.2, Extensions.CubeRoot(levelDiff)));
+
                     if (e.CP > 0)
-                        e.CP = (uint)Math.Max(1, e.CP * Math.Exp(Math.Pow(e.Level, 0.4) - Math.Pow(level, 0.4)));
+                        e.CP = (uint)Math.Max(1, e.CP * Math.Pow(1.6, Extensions.CubeRoot(levelDiff)));
                     if (lv0)
                         e.Level = 0;
                     RandomNum.ClearRand();
@@ -284,7 +284,7 @@ namespace FF13Randomizer
             {
                 mult = 1 + .01f * (float)Math.Pow(enemyLevel, .8f);
                 if (t.Items.Where(i => i.ID.StartsWith("material_o")).Count() > 0)
-                    return (int)(t.Weight * 1.5 * mult);
+                    return (int)(t.Weight * 4.5 * mult);
                 if (t.Items.Where(i => i.ID.StartsWith("material")).Count() > 0)
                     return (int)Math.Max(1, t.Weight / 1.5);
                 if (t.Items.Where(i => i.ID.StartsWith("wea_")).Count() > 0)
