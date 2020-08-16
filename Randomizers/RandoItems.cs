@@ -134,10 +134,10 @@ namespace FF13Randomizer
             newBuyPrices.Add(Items.BanescissorSpear, 660000);
             newBuyPrices.Add(Items.MalboroWand, 670000);
             newBuyPrices.Add(Items.Solaris, 700000);
-            newBuyPrices.Add(Items.Elixir, 1000000);
             newBuyPrices.Add(Items.GrowthEgg, 1100000);
             newBuyPrices.Add(Items.SuperRibbon, 1200000);
             newBuyPrices.Add(Items.DoctorsCode, 1400000);
+            newBuyPrices.Add(Items.Elixir, 2000000);
             newBuyPrices.Add(Items.OmegaWeapon6, 2200000);
             newBuyPrices.Add(Items.TotalEclipses5, 2200000);
             newBuyPrices.Add(Items.SaveTheQueen6, 2200000);
