@@ -103,7 +103,22 @@ namespace FF13Randomizer
                     if (Flags.ItemFlags.Shops.ExtraSelected2)
                     {
                         list = list.OrderBy(item => randoItems.items[item].BuyPrice).ToList();
-                        if (list.Contains(Items.PhoenixDown) && list.Count > 1)
+
+                        if (list.Count > 1)
+                        {
+                            for (int i = 0; i < Math.Max(2,list.Count / 3); i++)
+                            {
+                                int start = RandomNum.RandInt(0, list.Count - 2);
+                                list.Swap(start, start + 1);
+                            }
+                        }
+
+                        if (list.Contains(Items.Potion) && list.Count > 1 && list.IndexOf(Items.Potion) > 0)
+                        {
+                            list.Remove(Items.Potion);
+                            list.Insert(0, Items.Potion);
+                        }
+                        if (list.Contains(Items.PhoenixDown) && list.Count > 1 && list.IndexOf(Items.PhoenixDown) > 1)
                         {
                             list.Remove(Items.PhoenixDown);
                             list.Insert(1, Items.PhoenixDown);
@@ -141,6 +156,13 @@ namespace FF13Randomizer
         public override void Save()
         {
             File.WriteAllBytes("db\\resident\\shop.wdb", shops.Data);
+
+            List<string> text = new List<string>();
+            shops.IdList.Where(id => !id.ID.StartsWith("!")).ToList().ForEach(id => {
+            text.Add(id.ID);
+            text.AddRange(Enumerable.Range(0, shops[id.ID].ItemCount).Select(i => $"{Items.items.Find(item => item.ID == shops[id.ID].GetItemID(i)).Name}"));
+            });
+            File.WriteAllLines("shops.txt", text);
         }
     }
 }

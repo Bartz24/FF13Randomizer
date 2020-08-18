@@ -56,11 +56,9 @@ namespace FF13Randomizer
             {
                 Text = "Randomize ATB Costs",
                 FlagID = "RandATBC",
-                DescriptionFormat = "ATB costs will be randomized for usable abilities.\n" +
-                "ATB Cost will be +/- ${Value}.\n" +
-                "An ATB costs of 6 will be treated as a full ATB ability.\n" +
+                DescriptionFormat = "ATB costs will be randomized for usable abilities by +/- ${Value}. An ATB costs of 6 will be treated as a full ATB ability.\n" +
                 "Abilities originally full ATB cost will not be randomized as the game does not like that.\n" +
-                "Note: Chapter 1 and 2 Attack may be inaccurate across characters.",
+                "Note: Chapter 1 and 2 Attack may be inaccurate across characters, and expect AI to be confused.",
                 Experimental = true
             }.Register(FlagType.Abilities);
 
@@ -112,7 +110,7 @@ namespace FF13Randomizer
                 ExtraDescriptionFormat = "Forces items to appear in their expected shops. New items not normally\n" +
                 "in shops will be considered. (These are not currently documented)",
                 ExtraDescriptionFormat2 = "Shops that have unlocks throughout the story will be sorted such that\n" +
-                "cheaper items appear earlier."
+                "cheaper items tend to appear earlier."
             }.Register(FlagType.Items);
         }
 
