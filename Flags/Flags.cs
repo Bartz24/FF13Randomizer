@@ -52,17 +52,19 @@ namespace FF13Randomizer
         }
         public class AbilityFlags
         {
-            public static FlagValue ATBCost = (FlagValue)new FlagValue(0, 0, 5)
+            public static FlagValue ATBCost = (FlagValue)new FlagValue(1, 1, 5)
             {
                 Text = "Randomize ATB Costs",
                 FlagID = "RandATBC",
                 DescriptionFormat = "ATB costs will be randomized for usable abilities.\n" +
                 "ATB Cost will be +/- ${Value}.\n" +
                 "An ATB costs of 6 will be treated as a full ATB ability.\n" +
-                "Abilities originally full ATB cost will not be randomized as the game does not like that."
+                "Abilities originally full ATB cost will not be randomized as the game does not like that.\n" +
+                "Note: Chapter 1 and 2 Attack may be inaccurate across characters.",
+                Experimental = true
             }.Register(FlagType.Abilities);
 
-            public static FlagValue TPCost = (FlagValue)new FlagValue(0, 0, 4)
+            public static FlagValue TPCost = (FlagValue)new FlagValue(1, 1, 4)
             {
                 Text = "Randomize TP Costs",
                 FlagID = "RandTPC",

@@ -25,12 +25,11 @@ namespace FF13Randomizer
         public FlagValue(int min, int value, int max)
         {
             InitializeComponent();
-
-            Range.MinRange.MinRange = min;
-            Range.MinRange.Value = min;
             Range.MaxRange.MaxRange = max;
             Range.MaxRange.Value = max;
             Range.Value = value;
+            Range.MinRange.MinRange = min;
+            Range.MinRange.Value = min;
             Range.OnAnyValueChanged += Range_OnValueChanged;
             Range.OnAnyValueChanged(null, null);
 

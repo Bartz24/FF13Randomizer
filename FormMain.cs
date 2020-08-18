@@ -819,9 +819,9 @@ namespace FF13Randomizer
             Flags.EnemyFlags.RandLevel.FlagEnabled = false;
             Flags.EnemyFlags.RandLevel.Range.Value = 0;
             Flags.AbilityFlags.ATBCost.FlagEnabled = false;
-            Flags.AbilityFlags.ATBCost.Range.Value = 0;
+            Flags.AbilityFlags.ATBCost.Range.Value = 1;
             Flags.AbilityFlags.TPCost.FlagEnabled = false;
-            Flags.AbilityFlags.TPCost.Range.Value = 0;
+            Flags.AbilityFlags.TPCost.Range.Value = 1;
             Flags.ItemFlags.Shops.FlagEnabled = false;
             Flags.ItemFlags.Shops.ExtraSelected = false;
             Flags.ItemFlags.Shops.ExtraSelected2 = false;
@@ -859,9 +859,9 @@ namespace FF13Randomizer
             Flags.EnemyFlags.Resistances.FlagEnabled = false;
             Flags.EnemyFlags.Debuffs.FlagEnabled = false;
             Flags.AbilityFlags.ATBCost.FlagEnabled = false;
-            Flags.AbilityFlags.ATBCost.Range.Value = 0;
+            Flags.AbilityFlags.ATBCost.Range.Value = 1;
             Flags.AbilityFlags.TPCost.FlagEnabled = false;
-            Flags.AbilityFlags.TPCost.Range.Value = 0;
+            Flags.AbilityFlags.TPCost.Range.Value = 1;
 
             if (sender != null)
                 MessageBox.Show("Applied!");

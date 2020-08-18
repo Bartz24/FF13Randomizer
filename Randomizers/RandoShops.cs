@@ -103,7 +103,7 @@ namespace FF13Randomizer
                     if (Flags.ItemFlags.Shops.ExtraSelected2)
                     {
                         list = list.OrderBy(item => randoItems.items[item].BuyPrice).ToList();
-                        if (list.Contains(Items.PhoenixDown))
+                        if (list.Contains(Items.PhoenixDown) && list.Count > 1)
                         {
                             list.Remove(Items.PhoenixDown);
                             list.Insert(1, Items.PhoenixDown);
