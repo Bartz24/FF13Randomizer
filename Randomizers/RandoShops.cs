@@ -166,13 +166,6 @@ namespace FF13Randomizer
         public override void Save()
         {
             File.WriteAllBytes("db\\resident\\shop.wdb", shops.Data);
-
-            List<string> text = new List<string>();
-            shops.IdList.Where(id => !id.ID.StartsWith("!")).ToList().ForEach(id => {
-            text.Add(id.ID);
-            text.AddRange(Enumerable.Range(0, shops[id.ID].ItemCount).Select(i => $"{Items.items.Find(item => item.ID == shops[id.ID].GetItemID(i)).Name}"));
-            });
-            File.WriteAllLines("shops.txt", text);
         }
     }
 }
