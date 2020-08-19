@@ -307,7 +307,7 @@ namespace FF13Randomizer
                 if (t.Items.Contains(Items.Potion) || t.Items.Contains(Items.PhoenixDown) || t.Items.Contains(Items.Antidote) ||
                     t.Items.Contains(Items.HolyWater) || t.Items.Contains(Items.Painkiller) || t.Items.Contains(Items.FoulLiquid) ||
                     t.Items.Contains(Items.Wax) || t.Items.Contains(Items.Mallet))
-                    return (int)(t.Weight * 3.4f);
+                    return (int)(t.Weight * 4.2f);
                 return (int)Math.Max(1, t.Weight / 22.5f * mult);
             }
         }

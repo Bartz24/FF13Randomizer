@@ -57,6 +57,16 @@ namespace FF13Randomizer
                                                             randoEquip.equip.DataList.ToList().Where(e => e.UpgradeInto == item.ID).Count() == 0).ToList();
                 guarenteed.Add(Items.Potion);
                 guarenteed.Add(Items.PhoenixDown);
+                guarenteed.Add(Items.Millerite);
+                guarenteed.Add(Items.Rhodochrosite);
+                guarenteed.Add(Items.Cobaltite);
+                guarenteed.Add(Items.Perovskite);
+                guarenteed.Add(Items.Uraninite);
+                guarenteed.Add(Items.MnarStone);
+                guarenteed.Add(Items.Scarletite);
+                guarenteed.Add(Items.Adamantite);
+                guarenteed.Add(Items.DarkMatter);
+                guarenteed.Add(Items.Trapezohedron);
                 guarenteed.Shuffle();
 
                 int initalGuarenteedCount = guarenteed.Count;
