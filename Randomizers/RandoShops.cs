@@ -52,27 +52,27 @@ namespace FF13Randomizer
             {
                 Flags.ItemFlags.Shops.SetRand();
                 RandoEquip randoEquip = randomizers.Get<RandoEquip>("Equip");
-                List<Item> guarenteed = Items.items.Where(item => item.PreferredShop != null &&
+                List<Item> guaranteed = Items.items.Where(item => item.PreferredShop != null &&
                                                             randoEquip.equip.IdList.Where(id => id.ID == item.ID).Count() > 0 &&
                                                             randoEquip.equip.DataList.ToList().Where(e => e.UpgradeInto == item.ID).Count() == 0).ToList();
-                guarenteed.Add(Items.Potion);
-                guarenteed.Add(Items.PhoenixDown);
-                guarenteed.Add(Items.Millerite);
-                guarenteed.Add(Items.Rhodochrosite);
-                guarenteed.Add(Items.Cobaltite);
-                guarenteed.Add(Items.Perovskite);
-                guarenteed.Add(Items.Uraninite);
-                guarenteed.Add(Items.MnarStone);
-                guarenteed.Add(Items.Scarletite);
-                guarenteed.Add(Items.Adamantite);
-                guarenteed.Add(Items.DarkMatter);
-                guarenteed.Add(Items.Trapezohedron);
-                guarenteed.Shuffle();
+                guaranteed.Add(Items.Potion);
+                guaranteed.Add(Items.PhoenixDown);
+                guaranteed.Add(Items.Millerite);
+                guaranteed.Add(Items.Rhodochrosite);
+                guaranteed.Add(Items.Cobaltite);
+                guaranteed.Add(Items.Perovskite);
+                guaranteed.Add(Items.Uraninite);
+                guaranteed.Add(Items.MnarStone);
+                guaranteed.Add(Items.Scarletite);
+                guaranteed.Add(Items.Adamantite);
+                guaranteed.Add(Items.DarkMatter);
+                guaranteed.Add(Items.Trapezohedron);
+                guaranteed.Shuffle();
 
-                int initalGuarenteedCount = guarenteed.Count;
+                int initalGuaranteedCount = guaranteed.Count;
                 int totalCount = Shops.shops.Sum(id => shops[$"{id.ID}{id.Tiers - 1}"].ItemCount);
 
-                List<Item> shuffled = Items.items.Where(i => !guarenteed.Contains(i) && i.PreferredShop != null).ToList();
+                List<Item> shuffled = Items.items.Where(i => !guaranteed.Contains(i) && i.PreferredShop != null).ToList();
                 shuffled.Shuffle();
 
                 Shops.shops.ForEach(shopID =>
@@ -83,18 +83,18 @@ namespace FF13Randomizer
 
                     if (Flags.ItemFlags.Shops.ExtraSelected)
                     {
-                        list.AddRange(guarenteed.Where(item => item.PreferredShop == shopID));
-                        guarenteed.RemoveAll(item => item.PreferredShop == shopID);
+                        list.AddRange(guaranteed.Where(item => item.PreferredShop == shopID));
+                        guaranteed.RemoveAll(item => item.PreferredShop == shopID);
                     }
                     else
                     {
-                        int count = (int)Math.Ceiling((float)minSize / totalCount * initalGuarenteedCount);
+                        int count = (int)Math.Ceiling((float)minSize / totalCount * initalGuaranteedCount);
                         for (int i = 0; i < count; i++)
                         {
-                            if (guarenteed.Count == 0)
+                            if (guaranteed.Count == 0)
                                 break;
-                            list.Add(guarenteed[0]);
-                            guarenteed.RemoveAt(0);
+                            list.Add(guaranteed[0]);
+                            guaranteed.RemoveAt(0);
                         }
                     }
 

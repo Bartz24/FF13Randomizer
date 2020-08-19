@@ -106,7 +106,7 @@ namespace FF13Randomizer
                 Text = "Randomize Shop Contents",
                 FlagID = "RandShop",
                 DescriptionFormat = "Shop contents will be randomized.\n" +
-                "Certain weapons, accessories, and potions and phoenix downs are guarenteed to appear in a shop.",
+                "Certain weapons, accessories, and potions and phoenix downs are guaranteed to appear in a shop.",
                 ExtraDescriptionFormat = "Forces items to appear in their expected shops. New items not normally\n" +
                 "in shops will be considered. (These are not currently documented)",
                 ExtraDescriptionFormat2 = "Shops that have unlocks throughout the story will be sorted such that\n" +
