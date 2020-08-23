@@ -27,10 +27,31 @@ namespace FF13Data
         public static Ability Smite = new Ability("Smite", Role.Commando, "aat560_00", "lsf");
 
         public static Ability Attack = new Ability("Attack", Role.Commando, "at010_00", "sf")
+            .Add("at020_00", "") // mid Attacks Fang/Snow
+            .Add("at200_00", "") // some Attack? Fang/Snow
+            .Add("at200_rv", "") // some Attack? Fang/Snow
+            .Add("at020_99", "") // Ch1/2 Snow
             .Add("c000_at010_00","l")
+            .Add("c000_at020_00", "") // mid Attacks Lightning
+            .Add("c000_at200_00", "") // some Attack? Lightning
             .Add("c002_at010_00", "z")
+            .Add("c002_at010_99", "") // Ch1/2 Sazh
+            .Add("c002_at020_00", "") // mid Attacks Sazh
+            .Add("c002_at030_00", "") // mid Attacks Sazh
+            .Add("c002_at040_00", "") // mid Attacks Sazh
+            .Add("c002_at050_00", "") // mid Attacks Sazh
+            .Add("c002_at200_00", "") // some Attack? Sazh
+            .Add("c002_at200_rv", "") // some Attack? Sazh
             .Add("c003_at010_00", "h")
-            .Add("c004_at010_00", "v").SetStarting();
+            .Add("c003_at010_99", "") // Ch1/2 Hope
+            .Add("c004_at010_00", "v")
+            .Add("c004_at010_99", "") // Ch1/2 Vanille
+            .Add("c004_at020_00", "") // mid Attacks Vanille
+            //.Add("c004_at540_00", "")
+            //.Add("c004_at550_00", "")
+            //.Add("c004_at570_00", "")
+            //.Add("c004_at570_10", "")
+            .SetStarting();
         public static Ability Blitz = new Ability("Blitz", Role.Commando, "at520_00", "lsf")
             .Add("c002_at520_00", "z")
             .Add("c003_at520_00", "h");
@@ -64,12 +85,24 @@ namespace FF13Data
         public static Ability Watera = new Ability("Watera", Role.Ravager, "mb310_00").SetStarting();
         public static Ability Waterga = new Ability("Waterga", Role.Ravager, "mb320_00").SetStarting();
 
-        public static Ability Aquastrike = new Ability("Aquastrike", Role.Ravager, "at010_40", "lsf").SetStarting();
+        public static Ability Aquastrike = new Ability("Aquastrike", Role.Ravager, "at010_40", "lsf")
+            .Add("at020_40", "") // mid Attacks Light/Fang/Snow
+            .SetStarting();
         public static Ability Flamestrike = new Ability("Flamestrike", Role.Ravager, "at010_10", "lf")
-            .Add("c002_at010_10", "z").SetStarting();
-        public static Ability Froststrike = new Ability("Froststrike", Role.Ravager, "at010_20", "lsf").SetStarting();
+            .Add("at020_10", "") // mid Attacks Light/Fang
+            .Add("c002_at010_10", "z")
+            .Add("c002_at020_10", "") // mid Attacks Sazh
+            .Add("c002_at030_10", "") // mid Attacks Sazh
+            .SetStarting();
+        public static Ability Froststrike = new Ability("Froststrike", Role.Ravager, "at010_20", "lsf")
+            .Add("at020_20", "") // mid Attacks Light/Fang/Snow
+            .SetStarting();
         public static Ability Sparkstrike = new Ability("Sparkstrike", Role.Ravager, "at010_30", "lf")
-            .Add("c002_at010_30", "z").SetStarting();
+            .Add("at020_30", "") // mid Attacks Light/Fang
+            .Add("c002_at010_30", "z")
+            .Add("c002_at020_30", "") // mid Attacks Sazh
+            .Add("c002_at030_30", "") // mid Attacks Sazh
+            .SetStarting();
 
 
         // Sentinel

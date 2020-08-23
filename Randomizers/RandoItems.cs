@@ -44,7 +44,6 @@ namespace FF13Randomizer
             newBuyPrices.Add(Items.ZephyrRing, 4000);
             newBuyPrices.Add(Items.ClayRing, 4000);
             newBuyPrices.Add(Items.AuroraScarf, 9000);
-            newBuyPrices.Add(Items.HuntersFriend, 9000);
             newBuyPrices.Add(Items.WarlocksGlove, 11000);
             newBuyPrices.Add(Items.TektiteBuckle, 11000);
             newBuyPrices.Add(Items.CeramicArmband, 11000);
@@ -91,15 +90,19 @@ namespace FF13Randomizer
             newBuyPrices.Add(Items.Altairs, 66000);
             newBuyPrices.Add(Items.BrightwingStaff, 75000);
             newBuyPrices.Add(Items.HuntersRod, 82000);
+            newBuyPrices.Add(Items.SurvivalistCatalog, 90000);
             newBuyPrices.Add(Items.Jatayu, 91000);
             newBuyPrices.Add(Items.OrochiRod, 98000);
             newBuyPrices.Add(Items.KaiserKnuckles, 113000);
             newBuyPrices.Add(Items.MagistralCrest, 113000);
+            newBuyPrices.Add(Items.HuntersFriend, 120000);
             newBuyPrices.Add(Items.CanopusAMPs, 130000);
             newBuyPrices.Add(Items.Eagletalon, 140000);
             newBuyPrices.Add(Items.RazorCarbine, 150000);
             newBuyPrices.Add(Items.BattleStandard, 150000);
             newBuyPrices.Add(Items.Glaive, 150000);
+            newBuyPrices.Add(Items.EnergySash, 180000);
+            newBuyPrices.Add(Items.ChampionsBadge, 190000);
             newBuyPrices.Add(Items.Ethersol, 200000);
             newBuyPrices.Add(Items.TetradicTiara, 200000);
             newBuyPrices.Add(Items.Skycutter, 210000);

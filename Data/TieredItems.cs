@@ -314,7 +314,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> GenjiGlove = new Tiered<Item>
-            (110, Items.GenjiGlove, 40)
+            (120, Items.GenjiGlove, 40)
             .Register(manager);
 
         public static Tiered<Item> GrowthEgg = new Tiered<Item>

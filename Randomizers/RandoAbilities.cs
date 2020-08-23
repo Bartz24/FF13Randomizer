@@ -50,6 +50,7 @@ namespace FF13Randomizer
 
                 Abilities.abilities.Where(a => a.Role != Role.None).ToList().ForEach(aID =>
                 {
+
                     if (abilities.IdList.IndexOf(aID.GetIDs()[0]) > -1)
                     {
                         int max = aID.GetIDs().Where(id => startingAbilityNodes.Contains(id)).Count() > 0 ? 3 : 6;

@@ -16,17 +16,17 @@ namespace FF13Data
 
         public static Item Potion = new Item("Potion", "it_potion", Shops.unicornMart);
         public static Item PhoenixDown = new Item("Phoenix Down", "it_phenxtal", Shops.unicornMart);
-        public static Item Elixir = new Item("Elixir", "it_elixir", Shops.unicornMart);
+        public static Item Librascope = new Item("Librascope", "it_libra", Shops.edenPharmaceuticals);
         public static Item Antidote = new Item("Antidote", "it_antidote", Shops.unicornMart);
         public static Item HolyWater = new Item("Holy Water", "it_holywater", Shops.unicornMart);
         public static Item Painkiller = new Item("Painkiller", "it_sedative", Shops.unicornMart);
+        public static Item Mallet = new Item("Mallet", "it_tonkati", Shops.unicornMart);
         public static Item FoulLiquid = new Item("Foul Liquid", "it_stinkwater", Shops.unicornMart);
         public static Item Wax = new Item("Wax", "it_wax", Shops.unicornMart);
-        public static Item Mallet = new Item("Mallet", "it_tonkati", Shops.unicornMart);
+        public static Item Elixir = new Item("Elixir", "it_elixir", Shops.unicornMart);
 
-        public static Item Librascope = new Item("Librascope", "it_libra", Shops.edenPharmaceuticals);
-        public static Item Aegisol = new Item("Aegisol", "it_barsmoke", Shops.edenPharmaceuticals);
         public static Item Fortisol = new Item("Fortisol", "it_powersmoke", Shops.edenPharmaceuticals);
+        public static Item Aegisol = new Item("Aegisol", "it_barsmoke", Shops.edenPharmaceuticals);
         public static Item Deceptisol = new Item("Deceptisol", "it_sneaksmoke", Shops.edenPharmaceuticals);
         public static Item Ethersol = new Item("Ethersol", "it_tpsmoke", Shops.edenPharmaceuticals);
 
@@ -252,8 +252,6 @@ namespace FF13Data
         public static Item StilstoneRing = new Item("Stilstone Ring", "acc_006_001", Shops.magicalMoments);
         public static Item GaianRing = new Item("Gaian Ring", "acc_006_002", Shops.moogleworks);
 
-        public static Item EntiteRing = new Item("Entite Ring", "acc_007_000", Shops.rdDepot);
-
         public static Item GiantsGlove = new Item("Giants Glove", "acc_009_000", Shops.bwOutfitter);
         public static Item WarlocksGlove = new Item("Warlocks Glove", "acc_009_001", Shops.bwOutfitter);
 
@@ -289,9 +287,6 @@ namespace FF13Data
 
         public static Item CherubsCrown = new Item("Cherubs Crown", "acc_020_000", Shops.bwOutfitter);
         public static Item SeraphsCrown = new Item("Seraphs Crown", "acc_020_001", Shops.bwOutfitter);
-
-        public static Item Ribbon = new Item("Ribbon", "acc_023_000", Shops.sanctumLabs);
-        public static Item SuperRibbon = new Item("Super Ribbon", "acc_023_001", Shops.rdDepot);
 
         public static Item GuardianAmulet = new Item("Guardian Amulet", "acc_025_000", Shops.magicalMoments);
         public static Item ShieldTalisman = new Item("Shield Talisman", "acc_025_001", Shops.magicalMoments);
@@ -334,22 +329,29 @@ namespace FF13Data
 
         public static Item NimbletoeBoots = new Item("Nimbletoe Boots", "acc_038_000", Shops.moogleworks);
 
-        public static Item CollectorCatalog = new Item("Collector Catalog", "acc_039_000", Shops.moogleworks);
-        public static Item ConnoisseurCatalog = new Item("Connoisseur Catalog", "acc_039_001", Shops.sanctumLabs);
-
         public static Item GoldWatch = new Item("Gold Watch", "acc_040_000", Shops.moogleworks);
         public static Item ChampionsBadge = new Item("Champions Badge", "acc_040_001", Shops.sanctumLabs);
         public static Item SurvivalistCatalog = new Item("Survivalist Catalog", "acc_040_002", Shops.rdDepot);
+
+        public static Item CollectorCatalog = new Item("Collector Catalog", "acc_039_000", Shops.moogleworks);
+        public static Item ConnoisseurCatalog = new Item("Connoisseur Catalog", "acc_039_001", Shops.sanctumLabs);
 
         public static Item HuntersFriend = new Item("Hunters Friend", "acc_041_000", Shops.moogleworks);
         public static Item SpeedSash = new Item("Speed Sash", "acc_041_001", Shops.moogleworks);
         public static Item EnergySash = new Item("Energy Sash", "acc_041_002", Shops.sanctumLabs);
 
-        public static Item GenjiGlove = new Item("Genji Glove", "acc_042_001", Shops.sanctumLabs);
+        public static Item DoctorsCode = new Item("Doctors Code", "acc_053_000", Shops.rdDepot);
 
         public static Item GrowthEgg = new Item("Growth Egg", "acc_045_000", Shops.sanctumLabs);
 
-        public static Item TwentySidedDie = new Item("Twenty Sided Die", "acc_046_000", Shops.moogleworks);
+        public static Item EntiteRing = new Item("Entite Ring", "acc_007_000", Shops.rdDepot);
+
+        public static Item GoddesssFavor = new Item("Goddesss Favor", "acc_054_000", Shops.rdDepot);
+
+        public static Item Ribbon = new Item("Ribbon", "acc_023_000", Shops.sanctumLabs);
+        public static Item SuperRibbon = new Item("Super Ribbon", "acc_023_001", Shops.rdDepot);
+
+        public static Item GenjiGlove = new Item("Genji Glove", "acc_042_001", Shops.sanctumLabs);
 
         public static Item FireCharm = new Item("Fire Charm", "acc_047_000", Shops.magicalMoments);
         public static Item IceCharm = new Item("Ice Charm", "acc_048_000", Shops.magicalMoments);
@@ -358,65 +360,11 @@ namespace FF13Data
         public static Item WindCharm = new Item("Wind Charm", "acc_051_000", Shops.magicalMoments);
         public static Item EarthCharm = new Item("Earth Charm", "acc_052_000", Shops.magicalMoments);
 
-        public static Item DoctorsCode = new Item("Doctors Code", "acc_053_000", Shops.rdDepot);
-        public static Item GoddesssFavor = new Item("Goddesss Favor", "acc_054_000", Shops.rdDepot);
+        public static Item TwentySidedDie = new Item("Twenty Sided Die", "acc_046_000", Shops.moogleworks);
 
         #endregion
 
         #region Components
-
-        public static Item InsulatedCabling = new Item("Insulated Cabling", "material_j000", Shops.lenorasGarage);
-        public static Item FibreOpticCable = new Item("Fibre Optic Cable", "material_j001", Shops.lenorasGarage);
-        public static Item LiquidCrystalLens = new Item("Liquid Crystal Lens", "material_j002", Shops.lenorasGarage);
-        public static Item RingJoint = new Item("Ring Joint", "material_j003", Shops.lenorasGarage);
-        public static Item EpicyclicGear = new Item("Epicyclic Gear", "material_j004", Shops.lenorasGarage);
-        public static Item Crankshaft = new Item("Crankshaft", "material_j005", Shops.lenorasGarage);
-        public static Item ElectrolyticCapacitor = new Item("Electrolytic Capacitor", "material_j006", Shops.lenorasGarage);
-        public static Item Flywheel = new Item("Flywheel", "material_j007", Shops.lenorasGarage);
-        public static Item Sprocket = new Item("Sprocket", "material_j008", Shops.lenorasGarage);
-        public static Item Actuator = new Item("Actuator", "material_j009", Shops.lenorasGarage);
-        public static Item SparkPlug = new Item("Spark Plug", "material_j010", Shops.lenorasGarage);
-        public static Item IridiumPlug = new Item("Iridium Plug", "material_j011", Shops.lenorasGarage);
-        public static Item NeedleValve = new Item("Needle Valve", "material_j012", Shops.lenorasGarage);
-        public static Item ButterflyValve = new Item("Butterfly Valve", "material_j013", Shops.lenorasGarage);
-        public static Item AnalogCircuit = new Item("Analog Circuit", "material_j014", Shops.lenorasGarage);
-        public static Item DigitalCircuit = new Item("Digital Circuit", "material_j015", Shops.lenorasGarage);
-        public static Item Gyroscope = new Item("Gyroscope", "material_j016", Shops.lenorasGarage);
-        public static Item Electrode = new Item("Electrode", "material_j017", Shops.lenorasGarage);
-        public static Item CeramicArmor = new Item("Ceramic Armor", "material_j018", Shops.lenorasGarage);
-        public static Item ChobhamArmor = new Item("Chobham Armor", "material_j019", Shops.lenorasGarage);
-        public static Item RadialBearing = new Item("Radial Bearing", "material_j020", Shops.lenorasGarage);
-        public static Item ThrustBearing = new Item("Thrust Bearing", "material_j021", Shops.lenorasGarage);
-        public static Item Solenoid = new Item("Solenoid", "material_j022", Shops.lenorasGarage);
-        public static Item MobiusCoil = new Item("Mobius Coil", "material_j023", Shops.lenorasGarage);
-        public static Item TungstenTube = new Item("Tungsten Tube", "material_j024", Shops.lenorasGarage);
-        public static Item TitaniumTube = new Item("Titanium Tube", "material_j025", Shops.lenorasGarage);
-        public static Item PassiveDetector = new Item("Passive Detector", "material_j026", Shops.lenorasGarage);
-        public static Item ActiveDetector = new Item("Active Detector", "material_j027", Shops.lenorasGarage);
-        public static Item Transformer = new Item("Transformer", "material_j028", Shops.lenorasGarage);
-        public static Item Amplifier = new Item("Amplifier", "material_j029", Shops.lenorasGarage);
-        public static Item Carburetor = new Item("Carburetor", "material_j030", Shops.lenorasGarage);
-        public static Item Supercharger = new Item("Supercharger", "material_j031", Shops.lenorasGarage);
-        public static Item PiezoelectricElement = new Item("Piezoelectric Element", "material_j032", Shops.lenorasGarage);
-        public static Item CrystalOscillator = new Item("Crystal Oscillator", "material_j033", Shops.lenorasGarage);
-        public static Item ParaffinOil = new Item("Paraffin Oil", "material_j034", Shops.lenorasGarage);
-        public static Item SiliconeOil = new Item("Silicone Oil", "material_j035", Shops.lenorasGarage);
-        public static Item SyntheticMuscle = new Item("Synthetic Muscle", "material_j036", Shops.lenorasGarage);
-        public static Item Turboprop = new Item("Turboprop", "material_j037", Shops.lenorasGarage);
-        public static Item Turbojet = new Item("Turbojet", "material_j038", Shops.lenorasGarage);
-        public static Item TeslaTurbine = new Item("Tesla Turbine", "material_j039", Shops.lenorasGarage);
-        public static Item PolymerEmulsion = new Item("Polymer Emulsion", "material_j040", Shops.lenorasGarage);
-        public static Item FerroelectricFilm = new Item("Ferroelectric Film", "material_j041", Shops.lenorasGarage);
-        public static Item Superconductor = new Item("Superconductor", "material_j042", Shops.lenorasGarage);
-        public static Item PerfectConductor = new Item("Perfect Conductor", "material_j043", Shops.lenorasGarage);
-        public static Item ParticalAccelerator = new Item("Partical Accelerator", "material_j044", Shops.rdDepot);
-        public static Item UltracompactReactor = new Item("Ultracompact Reactor", "material_j045", Shops.rdDepot);
-        public static Item CreditChip = new Item("Credit Chip", "material_j046", null);
-        public static Item IncentiveChip = new Item("Incentive Chip", "material_j047", null);
-        public static Item CactuarDoll = new Item("Cactuar Doll", "material_j048", null);
-        public static Item MooglePuppet = new Item("Moogle Puppet", "material_j049", null);
-        public static Item TonberryFigurine = new Item("Tonberry Figurine", "material_j050", null);
-        public static Item PlushChocobo = new Item("Plush Chocobo", "material_j051", null);
 
         public static Item BegrimedClaw = new Item("Begrimed Claw", "material_m000", Shops.creatureComforts);
         public static Item BestialClaw = new Item("Bestial Claw", "material_m001", Shops.creatureComforts);
@@ -458,10 +406,6 @@ namespace FF13Data
         public static Item RoughWool = new Item("Rough Wool", "material_m038", Shops.creatureComforts);
         public static Item ThickWool = new Item("Thick Wool", "material_m039", Shops.creatureComforts);
         public static Item FluffyWool = new Item("Fluffy Wool", "material_m040", Shops.creatureComforts);
-        public static Item BombAshes = new Item("Bomb Ashes", "material_m041", Shops.lenorasGarage);
-        public static Item BombFragment = new Item("Bomb Fragment", "material_m042", Shops.lenorasGarage);
-        public static Item BombShell = new Item("Bomb Shell", "material_m043", Shops.lenorasGarage);
-        public static Item BombCore = new Item("Bomb Core", "material_m044", Shops.lenorasGarage);
         public static Item MurkyOoze = new Item("Murky Ooze", "material_m045", Shops.creatureComforts);
         public static Item VibrantOoze = new Item("Vibrant Ooze", "material_m046", Shops.creatureComforts);
         public static Item TransparentOoze = new Item("Transparent Ooze", "material_m047", Shops.creatureComforts);
@@ -478,22 +422,83 @@ namespace FF13Data
         public static Item TearOfFrustration = new Item("Tear Of Frustration", "material_m058", Shops.creatureComforts);
         public static Item TearOfRemorse = new Item("Tear Of Remorse", "material_m059", Shops.creatureComforts);
         public static Item TearOfWoe = new Item("Tear Of Woe", "material_m060", Shops.creatureComforts);
-        public static Item ChocoboPlume = new Item("Chocobo Plume", "material_m061", Shops.creatureComforts);
-        public static Item ChocoboTailFeather = new Item("Chocobo Tail Feather", "material_m062", Shops.creatureComforts);
-        public static Item GreenNeedle = new Item("Green Needle", "material_m063", Shops.rdDepot);
-        public static Item DawnlightDew = new Item("Dawnlight Dew", "material_m064", Shops.creatureComforts);
-        public static Item DusklightDew = new Item("Dusklight Dew", "material_m065", Shops.creatureComforts);
-        public static Item Gloomstalk = new Item("Gloomstalk", "material_m066", Shops.creatureComforts);
-        public static Item Sunpetal = new Item("Sunpetal", "material_m067", Shops.creatureComforts);
         public static Item RedMycelium = new Item("Red Mycelium", "material_m068", Shops.creatureComforts);
         public static Item BlueMycelium = new Item("Blue Mycelium", "material_m069", Shops.creatureComforts);
         public static Item WhiteMycelium = new Item("White Mycelium", "material_m070", Shops.creatureComforts);
         public static Item BlackMycelium = new Item("Black Mycelium", "material_m071", Shops.creatureComforts);
-        public static Item SucculentFruit = new Item("Succulent Fruit", "material_m072", Shops.creatureComforts);
-        public static Item MalodorousFruit = new Item("Malodorous Fruit", "material_m073", Shops.creatureComforts);
+        public static Item DawnlightDew = new Item("Dawnlight Dew", "material_m064", Shops.creatureComforts);
+        public static Item DusklightDew = new Item("Dusklight Dew", "material_m065", Shops.creatureComforts);
+        public static Item Gloomstalk = new Item("Gloomstalk", "material_m066", Shops.creatureComforts);
+        public static Item Sunpetal = new Item("Sunpetal", "material_m067", Shops.creatureComforts);
         public static Item MoonblossomSeed = new Item("Moonblossom Seed", "material_m074", Shops.creatureComforts);
         public static Item StarblossomSeed = new Item("Starblossom Seed", "material_m075", Shops.creatureComforts);
+        public static Item ChocoboPlume = new Item("Chocobo Plume", "material_m061", Shops.creatureComforts);
+        public static Item ChocoboTailFeather = new Item("Chocobo Tail Feather", "material_m062", Shops.creatureComforts);
+        public static Item SucculentFruit = new Item("Succulent Fruit", "material_m072", Shops.creatureComforts);
+        public static Item MalodorousFruit = new Item("Malodorous Fruit", "material_m073", Shops.creatureComforts);
+        public static Item GreenNeedle = new Item("Green Needle", "material_m063", Shops.rdDepot);
         public static Item Perfume = new Item("Perfume", "material_m076", Shops.creatureComforts);
+
+        public static Item InsulatedCabling = new Item("Insulated Cabling", "material_j000", Shops.lenorasGarage);
+        public static Item FibreOpticCable = new Item("Fibre Optic Cable", "material_j001", Shops.lenorasGarage);
+        public static Item LiquidCrystalLens = new Item("Liquid Crystal Lens", "material_j002", Shops.lenorasGarage);
+        public static Item RingJoint = new Item("Ring Joint", "material_j003", Shops.lenorasGarage);
+        public static Item EpicyclicGear = new Item("Epicyclic Gear", "material_j004", Shops.lenorasGarage);
+        public static Item Crankshaft = new Item("Crankshaft", "material_j005", Shops.lenorasGarage);
+        public static Item ElectrolyticCapacitor = new Item("Electrolytic Capacitor", "material_j006", Shops.lenorasGarage);
+        public static Item Flywheel = new Item("Flywheel", "material_j007", Shops.lenorasGarage);
+        public static Item Sprocket = new Item("Sprocket", "material_j008", Shops.lenorasGarage);
+        public static Item Actuator = new Item("Actuator", "material_j009", Shops.lenorasGarage);
+        public static Item SparkPlug = new Item("Spark Plug", "material_j010", Shops.lenorasGarage);
+        public static Item IridiumPlug = new Item("Iridium Plug", "material_j011", Shops.lenorasGarage);
+        public static Item NeedleValve = new Item("Needle Valve", "material_j012", Shops.lenorasGarage);
+        public static Item ButterflyValve = new Item("Butterfly Valve", "material_j013", Shops.lenorasGarage);
+        public static Item BombAshes = new Item("Bomb Ashes", "material_m041", Shops.lenorasGarage);
+        public static Item BombFragment = new Item("Bomb Fragment", "material_m042", Shops.lenorasGarage);
+        public static Item BombShell = new Item("Bomb Shell", "material_m043", Shops.lenorasGarage);
+        public static Item BombCore = new Item("Bomb Core", "material_m044", Shops.lenorasGarage);
+        public static Item AnalogCircuit = new Item("Analog Circuit", "material_j014", Shops.lenorasGarage);
+        public static Item DigitalCircuit = new Item("Digital Circuit", "material_j015", Shops.lenorasGarage);
+        public static Item Gyroscope = new Item("Gyroscope", "material_j016", Shops.lenorasGarage);
+        public static Item Electrode = new Item("Electrode", "material_j017", Shops.lenorasGarage);
+        public static Item CeramicArmor = new Item("Ceramic Armor", "material_j018", Shops.lenorasGarage);
+        public static Item ChobhamArmor = new Item("Chobham Armor", "material_j019", Shops.lenorasGarage);
+        public static Item RadialBearing = new Item("Radial Bearing", "material_j020", Shops.lenorasGarage);
+        public static Item ThrustBearing = new Item("Thrust Bearing", "material_j021", Shops.lenorasGarage);
+        public static Item Solenoid = new Item("Solenoid", "material_j022", Shops.lenorasGarage);
+        public static Item MobiusCoil = new Item("Mobius Coil", "material_j023", Shops.lenorasGarage);
+        public static Item TungstenTube = new Item("Tungsten Tube", "material_j024", Shops.lenorasGarage);
+        public static Item TitaniumTube = new Item("Titanium Tube", "material_j025", Shops.lenorasGarage);
+        public static Item PassiveDetector = new Item("Passive Detector", "material_j026", Shops.lenorasGarage);
+        public static Item ActiveDetector = new Item("Active Detector", "material_j027", Shops.lenorasGarage);
+        public static Item Transformer = new Item("Transformer", "material_j028", Shops.lenorasGarage);
+        public static Item Amplifier = new Item("Amplifier", "material_j029", Shops.lenorasGarage);
+        public static Item Carburetor = new Item("Carburetor", "material_j030", Shops.lenorasGarage);
+        public static Item Supercharger = new Item("Supercharger", "material_j031", Shops.lenorasGarage);
+        public static Item PiezoelectricElement = new Item("Piezoelectric Element", "material_j032", Shops.lenorasGarage);
+        public static Item CrystalOscillator = new Item("Crystal Oscillator", "material_j033", Shops.lenorasGarage);
+        public static Item ParaffinOil = new Item("Paraffin Oil", "material_j034", Shops.lenorasGarage);
+        public static Item SiliconeOil = new Item("Silicone Oil", "material_j035", Shops.lenorasGarage);
+        public static Item SyntheticMuscle = new Item("Synthetic Muscle", "material_j036", Shops.lenorasGarage);
+        public static Item Turboprop = new Item("Turboprop", "material_j037", Shops.lenorasGarage);
+        public static Item Turbojet = new Item("Turbojet", "material_j038", Shops.lenorasGarage);
+        public static Item TeslaTurbine = new Item("Tesla Turbine", "material_j039", Shops.lenorasGarage);
+        public static Item PolymerEmulsion = new Item("Polymer Emulsion", "material_j040", Shops.lenorasGarage);
+        public static Item FerroelectricFilm = new Item("Ferroelectric Film", "material_j041", Shops.lenorasGarage);
+        public static Item Superconductor = new Item("Superconductor", "material_j042", Shops.lenorasGarage);
+        public static Item PerfectConductor = new Item("Perfect Conductor", "material_j043", Shops.lenorasGarage);
+        public static Item ParticalAccelerator = new Item("Partical Accelerator", "material_j044", Shops.rdDepot);
+        public static Item UltracompactReactor = new Item("Ultracompact Reactor", "material_j045", Shops.rdDepot);
+
+        public static Item CreditChip = new Item("Credit Chip", "material_j046", null);
+        public static Item IncentiveChip = new Item("Incentive Chip", "material_j047", null);
+        public static Item CactuarDoll = new Item("Cactuar Doll", "material_j048", null);
+        public static Item MooglePuppet = new Item("Moogle Puppet", "material_j049", null);
+        public static Item TonberryFigurine = new Item("Tonberry Figurine", "material_j050", null);
+        public static Item PlushChocobo = new Item("Plush Chocobo", "material_j051", null);
+        public static Item GoldDust = new Item("Gold Dust", "material_o010", null);
+        public static Item GoldNugget = new Item("Gold Nugget", "material_o011", null);
+        public static Item PlatinumIngot = new Item("Platinum Ingot", "material_o012", null);
 
 
         public static Item Millerite = new Item("Millerite", "material_o000", Shops.theMotherlode);
@@ -506,9 +511,6 @@ namespace FF13Data
         public static Item Adamantite = new Item("Adamantite", "material_o007", Shops.rdDepot);
         public static Item DarkMatter = new Item("Dark Matter", "material_o008", Shops.rdDepot);
         public static Item Trapezohedron = new Item("Trapezohedron", "material_o009", Shops.rdDepot);
-        public static Item GoldDust = new Item("Gold Dust", "material_o010", null);
-        public static Item GoldNugget = new Item("Gold Nugget", "material_o011", null);
-        public static Item PlatinumIngot = new Item("Platinum Ingot", "material_o012", null);
 
         #endregion
 
