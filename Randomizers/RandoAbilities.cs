@@ -54,13 +54,12 @@ namespace FF13Randomizer
                     if (abilities.IdList.IndexOf(aID.GetIDs()[0]) > -1)
                     {
                         int max = aID.GetIDs().Where(id => startingAbilityNodes.Contains(id)).Count() > 0 ? 3 : 6;
-                        if (aID == Abilities.Attack)
+                        if (aID == Abilities.Attack || aID == Abilities.HandGrenade)
                             max = 2;
                         int cost = abilities[aID.GetIDs()[0]].ATBCost;
                         if (cost > 0 && cost < 0xFFFF)
                         {
                             cost = RandomNum.RandInt(Math.Max(1, cost / 10 - variance), Math.Min(max, cost / 10 + variance)) * 10;
-
                             if (cost == 60)
                                 cost = 0xFFFF;
                             aID.GetIDs().ToList().ForEach(id =>
@@ -74,6 +73,7 @@ namespace FF13Randomizer
                     }
 
                 });
+
                 RandomNum.ClearRand();
             }
         }

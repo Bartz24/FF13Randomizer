@@ -30,6 +30,7 @@ namespace FF13Data
             .Add("at020_00", "") // mid Attacks Fang/Snow
             .Add("at200_00", "") // some Attack? Fang/Snow
             .Add("at200_rv", "") // some Attack? Fang/Snow
+            .Add("at010_99", "") // Ch1/2 Snow
             .Add("at020_99", "") // Ch1/2 Snow
             .Add("c000_at010_00","l")
             .Add("c000_at020_00", "") // mid Attacks Lightning
@@ -218,5 +219,7 @@ namespace FF13Data
         public static Ability Highwind = new Ability("Highwind", Role.Commando, "c005_at900_00", "f");
         public static Ability LastResort = new Ability("LastResort", Role.Ravager, "ms200_00", "h");
         public static Ability SovereignFist = new Ability("SovereignFist", Role.Commando, "c001_at900_00", "s");
+
+        public static Ability HandGrenade = new Ability("Hand Grenade", Role.Commando, "def100_00", "");
     }
 }

@@ -18,7 +18,7 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string version = "1.7.0";
+        public static string version = "1.7.1";
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",

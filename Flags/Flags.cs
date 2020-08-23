@@ -58,8 +58,7 @@ namespace FF13Randomizer
                 FlagID = "RandATBC",
                 DescriptionFormat = "ATB costs will be randomized for usable abilities by +/- ${Value}. An ATB costs of 6 will be treated as a full ATB ability.\n" +
                 "Abilities originally full ATB cost will not be randomized as the game does not like that.\n" +
-                "Note: Chapter 1 and 2 Attack may be inaccurate across characters, and expect AI to be confused.",
-                Experimental = true
+                "Note: Expect AI to be confused sometimes."
             }.Register(FlagType.Abilities);
 
             public static FlagValue TPCost = (FlagValue)new FlagValue(1, 1, 4)

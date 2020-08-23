@@ -73,7 +73,6 @@ namespace FF13Randomizer
             newBuyPrices.Add(Items.BlessedTalisman, 17000);
             newBuyPrices.Add(Items.BattleTalisman, 17000);
             newBuyPrices.Add(Items.SprintShoes, 17000);
-            newBuyPrices.Add(Items.SurvivalistCatalog, 26000);
             newBuyPrices.Add(Items.PowerGlove, 38000);
             newBuyPrices.Add(Items.WeirdingGlyph, 38000);
             newBuyPrices.Add(Items.SalamandrineRing, 40000);
