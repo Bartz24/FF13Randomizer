@@ -35,9 +35,10 @@ namespace FF13Data
         /// <param name="role"></param>
         /// <param name="id"></param>
         /// <param name="characters"></param>
-        public Ability(String name, Role role, string id, string characters = "lsvzhf")
+        public Ability(String name, Role role, string id, string characters = "lsvzhf", bool special = false)
         {
             this.Name = name;
+            this.Special = special;
             Role = role;
             Add(id, characters);
             Abilities.abilities.Add(this);
@@ -48,6 +49,8 @@ namespace FF13Data
             list.Add(new AbilityData() {ID = id, Characters = characters });
             return this;
         }
+
+        public bool Special { get; set; }
 
         public bool HasCharacter(string character)
         {

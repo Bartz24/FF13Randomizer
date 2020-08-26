@@ -24,9 +24,9 @@ namespace FF13Data
             return Get(rank,maxCount, tiered);
         }
 
-        public Tuple<T, int> Get(int rank, int maxCount, Tiered<T> tiered, Func<T, bool> meetsReq = null)
+        public Tuple<T, int> Get(int rank, int maxCount, Tiered<T> tiered, Func<T, bool> meetsReq = null, bool anyRandom = false)
         {
-            List<Tuple<T, int>> possible = tiered == null ? new List<Tuple<T, int>>() : tiered.Get(rank,maxCount,meetsReq);
+            List<Tuple<T, int>> possible = tiered == null ? new List<Tuple<T, int>>() : tiered.Get(rank, maxCount, meetsReq, anyRandom);
             if (possible.Count == 0)
                 return new Tuple<T, int>(default(T), 0);
             return possible[RandomNum.RandInt(0, possible.Count - 1)];

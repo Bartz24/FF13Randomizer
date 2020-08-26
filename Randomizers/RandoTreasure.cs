@@ -86,9 +86,9 @@ namespace FF13Randomizer
             });
             RandomNum.ClearRand();
 
-            if (Flags.ItemFlags.Shops)
+            if (Flags.ItemFlags.ShopLocations)
             {
-                Flags.ItemFlags.Shops.SetRand();
+                Flags.ItemFlags.ShopLocations.SetRand();
                 shopsRemaining.Clear();
                 for (int i = 1; i <= 13; i++)
                 {
@@ -97,11 +97,11 @@ namespace FF13Randomizer
                     shopsRemaining.Add("key_shop_" + i.ToString("00"));
                 }
                 shopsRemaining.Shuffle();
-                treasures.StringList.ToList().ForEach(str =>
+                treasures.DataList.ToList().ForEach(treasure =>
                 {
-                    if (str.Value.StartsWith("key_shop_"))
+                    if (treasure.ItemID.StartsWith("key_shop_"))
                     {
-                        str.Value = shopsRemaining[0];
+                        treasure.ItemID = shopsRemaining[0];
                         shopsRemaining.RemoveAt(0);
                     }
                 });

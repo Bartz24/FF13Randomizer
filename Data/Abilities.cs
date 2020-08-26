@@ -16,7 +16,7 @@ namespace FF13Data
         public static Ability Deathblow = new Ability("Deathblow", Role.Commando, "ade710_00");
         public static Ability Faultsiphon = new Ability("Faultsiphon", Role.Commando, "ade730_00");
         public static Ability Jeopardize = new Ability("Jeopardize", Role.Commando, "ade700_00");
-        public static Ability Launch = new Ability("Launch", Role.Commando, "aat500_00","lsf");
+        public static Ability Launch = new Ability("Launch", Role.Commando, "aat500_00", "lsf");
         public static Ability Lifesiphon = new Ability("Lifesiphon", Role.Commando, "ade720_00");
         public static Ability Powerchain = new Ability("Powerchain", Role.Commando, "aat550_00", "lszf");
         public static Ability Ravage = new Ability("Ravage", Role.Commando, "aat530_00", "lsf")
@@ -32,7 +32,7 @@ namespace FF13Data
             .Add("at200_rv", "") // some Attack? Fang/Snow
             .Add("at010_99", "") // Ch1/2 Snow
             .Add("at020_99", "") // Ch1/2 Snow
-            .Add("c000_at010_00","l")
+            .Add("c000_at010_00", "l")
             .Add("c000_at020_00", "") // mid Attacks Lightning
             .Add("c000_at200_00", "") // some Attack? Lightning
             .Add("c002_at010_00", "z")
@@ -48,10 +48,6 @@ namespace FF13Data
             .Add("c004_at010_00", "v")
             .Add("c004_at010_99", "") // Ch1/2 Vanille
             .Add("c004_at020_00", "") // mid Attacks Vanille
-            //.Add("c004_at540_00", "")
-            //.Add("c004_at550_00", "")
-            //.Add("c004_at570_00", "")
-            //.Add("c004_at570_10", "")
             .SetStarting();
         public static Ability Blitz = new Ability("Blitz", Role.Commando, "at520_00", "lsf")
             .Add("c002_at520_00", "z")
@@ -144,7 +140,7 @@ namespace FF13Data
 
         public static Ability Faith = new Ability("Faith", Role.Synergist, "me010_00").SetStarting();
         public static Ability Faithra = new Ability("Faithra", Role.Synergist, "me210_00").SetStarting();
-        
+
         public static Ability Protect = new Ability("Protect", Role.Synergist, "me500_00").SetStarting();
         public static Ability Protectra = new Ability("Protectra", Role.Synergist, "me700_00").SetStarting();
 
@@ -203,22 +199,22 @@ namespace FF13Data
 
 
         // Techniques
-        public static Ability Dispelga = new Ability("Dispelga", Role.None, "tp300_00");
-        public static Ability Libra = new Ability("Libra", Role.None, "tp100_00");
-        public static Ability Quake = new Ability("Quake", Role.None, "tp400_00");
-        public static Ability Renew = new Ability("Renew", Role.None, "tp000_00");
-        public static Ability Stopga = new Ability("Stopga", Role.None, "tp200_00");
+        public static Ability Dispelga = new Ability("Dispelga", Role.None, "tp300_00", "lsvzhf", true);
+        public static Ability Libra = new Ability("Libra", Role.None, "tp100_00", "lsvzhf", true);
+        public static Ability Quake = new Ability("Quake", Role.None, "tp400_00", "lsvzhf", true);
+        public static Ability Renew = new Ability("Renew", Role.None, "tp000_00", "lsvzhf", true);
+        public static Ability Stopga = new Ability("Stopga", Role.None, "tp200_00", "lsvzhf", true);
         public static Ability Summon = new Ability("Summon", Role.None, "sm000", "");
 
 
 
         // Special
-        public static Ability ArmyOfOne = new Ability("ArmyOfOne", Role.Ravager, "c000_at900_00", "l");
-        public static Ability ColdBlood = new Ability("ColdBlood", Role.Ravager, "c002_at900_00", "z");
-        public static Ability Death = new Ability("Death", Role.Saboteur, "ms400_00", "v");
-        public static Ability Highwind = new Ability("Highwind", Role.Commando, "c005_at900_00", "f");
-        public static Ability LastResort = new Ability("LastResort", Role.Ravager, "ms200_00", "h");
-        public static Ability SovereignFist = new Ability("SovereignFist", Role.Commando, "c001_at900_00", "s");
+        public static Ability ArmyOfOne = new Ability("ArmyOfOne", Role.Ravager, "c000_at900_00", "l", true);
+        public static Ability ColdBlood = new Ability("ColdBlood", Role.Ravager, "c002_at900_00", "z", true);
+        public static Ability Death = new Ability("Death", Role.Saboteur, "ms400_00", "v", true);
+        public static Ability Highwind = new Ability("Highwind", Role.Commando, "c005_at900_00", "f", true);
+        public static Ability LastResort = new Ability("LastResort", Role.Ravager, "ms200_00", "h", true);
+        public static Ability SovereignFist = new Ability("SovereignFist", Role.Commando, "c001_at900_00", "s", true);
 
         public static Ability HandGrenade = new Ability("Hand Grenade", Role.Commando, "def100_00", "");
     }

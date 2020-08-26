@@ -208,9 +208,9 @@ namespace FF13Randomizer
             });
 
 
-            if (Flags.ItemFlags.Shops)
+            if (Flags.ItemFlags.ShopLocations)
             {
-                Flags.ItemFlags.Shops.SetRand();
+                Flags.ItemFlags.ShopLocations.SetRand();
                 List<int> list = scene.IndexesOf(Encoding.UTF8.GetBytes("key_shop_"));
 
                 List<string> shops = list.Select(i => Encoding.UTF8.GetString(scene.SubArray(i, 11))).ToList();

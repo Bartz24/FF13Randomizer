@@ -232,32 +232,24 @@ namespace FF13Data
             (0, Abilities.Enwater)
             .Register(manager);
 
-        public static TieredDependent<Ability> Bravery = new TieredDependent<Ability>
+        public static TieredDependent<Ability> Bravery = (TieredDependent<Ability>)new TieredDependent<Ability>
             (0, Abilities.Bravery)
-            .Register(manager);
-        public static TieredDependent<Ability> Bravera = new TieredDependent<Ability>
-            (0, Abilities.Bravera)
+            .Add(1,Abilities.Bravera)
             .Register(manager);
 
-        public static TieredDependent<Ability> Faith = new TieredDependent<Ability>
+        public static TieredDependent<Ability> Faith = (TieredDependent<Ability>)new TieredDependent<Ability>
             (0, Abilities.Faith)
-            .Register(manager);
-        public static TieredDependent<Ability> Faithra = new TieredDependent<Ability>
-            (0, Abilities.Faithra)
+            .Add(1, Abilities.Faithra)
             .Register(manager);
         
-        public static TieredDependent<Ability> Protect = new TieredDependent<Ability>
+        public static TieredDependent<Ability> Protect = (TieredDependent<Ability>)new TieredDependent<Ability>
             (0, Abilities.Protect)
-            .Register(manager);
-        public static TieredDependent<Ability> Protectra = new TieredDependent<Ability>
-            (0, Abilities.Protectra)
+            .Add(1, Abilities.Protectra)
             .Register(manager);
 
-        public static TieredDependent<Ability> Shell = new TieredDependent<Ability>
+        public static TieredDependent<Ability> Shell = (TieredDependent<Ability>)new TieredDependent<Ability>
             (0, Abilities.Shell)
-            .Register(manager);
-        public static TieredDependent<Ability> Shellra = new TieredDependent<Ability>
-            (0, Abilities.Shellra)
+            .Add(1, Abilities.Shellra)
             .Register(manager);
 
         public static TieredDependent<Ability> Haste = new TieredDependent<Ability>
@@ -422,12 +414,12 @@ namespace FF13Data
 
         public static Ability Get(Tiered<Ability> tiered, List<Ability> obtained)
         {
-            return manager.Get(0, 1, tiered, a => ((TieredDependent<Ability>)tiered).MeetsRequirement(a, obtained)).Item1;
+            return manager.Get(0, 1, tiered, a => ((TieredDependent<Ability>)tiered).MeetsRequirement(a, obtained), true).Item1;
         }
 
         public static Ability GetNoDep(Tiered<Ability> tiered)
         {
-            return manager.Get(0, 1, tiered, a => true).Item1;
+            return manager.Get(0, 1, tiered, a => true, true).Item1;
         }
     }
 }

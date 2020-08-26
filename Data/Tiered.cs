@@ -106,10 +106,14 @@ namespace FF13Data
             return lower >= upper ? lower : RandomNum.RandInt(lower, upper - 1);
         }
 
-        public List<Tuple<T, int>> Get(int rank, int count, Func<T, bool> meetsReq = null)
+        public List<Tuple<T, int>> Get(int rank, int count, Func<T, bool> meetsReq = null, bool anyRandom = false)
         {
             if (meetsReq == null)
                 meetsReq = t => true;
+            if (anyRandom)
+            {
+                return new List<Tuple<T, int>>() { new Tuple<T, int>(list[RandomNum.RandInt(0, list.Count - 1)].Item2, count) };
+            }
             if (rank < LowBound || rank > HighBound)
                 return new List<Tuple<T, int>>();
             List<int> validIndexes = new List<int>();
@@ -117,7 +121,7 @@ namespace FF13Data
             {
                 int upperBound = i == list.Count - 1 ? HighBound : list[i + 1].Item1;
                 upperBound = Math.Max(upperBound, list[i].Item1 + GetCountBoost(maxCount));
-                if (rank >= list[i].Item1 && rank <= upperBound && meetsReq.Invoke(list[i].Item2))
+                if (anyRandom || (rank >= list[i].Item1 && rank <= upperBound && meetsReq.Invoke(list[i].Item2)))
                     validIndexes.Add(i);
             }
             return validIndexes.Select(i => new Tuple<T, int>(list[i].Item2, GetRandomCount(rank - list[i].Item1,count))).ToList();
