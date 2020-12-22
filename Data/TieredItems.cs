@@ -564,7 +564,7 @@ namespace FF13Data
             .Register(manager);
 
         public static Tiered<Item> AcceleratorReactor = new Tiered<Item>
-            (95, Items.ParticalAccelerator, 5, 5, 1.2f)
+            (95, Items.ParticleAccelerator, 5, 5, 1.2f)
             .Add(110, Items.UltracompactReactor)
             .Register(manager);
 

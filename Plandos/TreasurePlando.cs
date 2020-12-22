@@ -1,0 +1,152 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using FF13Data;
+using System.IO;
+using System.Text.RegularExpressions;
+
+namespace FF13Randomizer
+{
+    public partial class TreasurePlando : UserControl
+    {
+        private bool loaded = false;
+        public DataTable dataTable = new DataTable();
+        public TreasurePlando()
+        {
+            InitializeComponent();
+            SetupCombobox();
+            AddEntries();
+        }
+
+        private void SetupCombobox()
+        {
+            comboBox1.Items.AddRange(Enum.GetValues(typeof(TreasureArea)).Cast<TreasureArea>().Select(v => Regex.Replace(v.ToString(), "([a-z])([A-Z])", "$1 $2")).ToArray());
+        }
+        private void AddEntries()
+        {
+            dataTable.Columns.Add("id", typeof(string));
+            dataTable.Columns.Add("Treasure", typeof(string));
+            dataTable.Columns.Add("Original Item", typeof(string));
+            dataTable.Columns.Add("New Item", typeof(string));
+            dataTable.Columns.Add("Amount", typeof(int));
+
+            dataGridView1.AutoGenerateColumns = false;
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[0].HeaderText = "Treasure";
+            dataGridView1.Columns[0].DataPropertyName = "Treasure";
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[1].HeaderText = "Original Item";
+            dataGridView1.Columns[1].DataPropertyName = "Original Item";
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
+            column.Items.AddRange(new string[] { "???" }.Concat(Items.items.Select(i => i.Name)).ToArray());
+            column.HeaderText = "New Item";
+            column.DisplayMember = "New Item";
+            column.ValueMember = "New Item";
+            column.DataPropertyName = "New Item";
+            column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridView1.Columns.Add(column);
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[3].HeaderText = "Amount";
+            dataGridView1.Columns[3].DataPropertyName = "Amount";
+            dataGridView1.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+
+            foreach (Treasure treasure in Treasures.treasures)
+            {
+                AddEntry(treasure.ID);
+            }           
+
+            dataGridView1.DataSource = dataTable;
+        }
+
+        private void AddEntry(string treasureID)
+        {
+            Treasure first = Treasures.treasures.Find(t => t.ID == treasureID);
+            if(first!=null)
+                dataTable.Rows.Add(treasureID, first.Name, "Unknown", "???", 0);
+            else
+                dataTable.Rows.Add(treasureID, treasureID, "Unknown", "???", 0);
+
+        }
+
+        public void ReloadData(FormMain main)
+        {
+            if (loaded)
+                return;
+
+            DataStoreWDB<DataStoreTreasure, DataStoreID> treasures = new DataStoreWDB<DataStoreTreasure, DataStoreID>();
+
+            treasures.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\treasurebox.wdb"));
+
+            treasures.IdList.Where(t => !t.ID.StartsWith("!") && Treasures.treasures.Where(tr=>tr.ID == t.ID).Count() == 0).ToList().ForEach(t => AddEntry(t.ID));
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Item item = Items.items.Find(i => i.ID == treasures[row.Field<string>(0)].ItemID);
+                row.SetField<string>(2, $"{(item == null ? treasures[row.Field<string>(0)].ItemID : item.Name)} x {treasures[row.Field<string>(0)].Count}");
+            }
+
+            loaded = true;
+        }
+
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                int i = -1;
+
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || i < 0 || i > 9999999)
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("Must enter a number from 0-9999999");
+                }
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.DataSource != null)
+            {
+                dataGridView1.Visible = true;
+                CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[dataGridView1.DataSource];
+                currencyManager1.SuspendBinding();
+                TreasureArea area = Enum.GetValues(typeof(TreasureArea)).Cast<TreasureArea>().ToArray()[comboBox1.SelectedIndex];
+                for (int row = 0; row < dataGridView1.Rows.Count; row++)
+                {
+                    Treasure first = Treasures.treasures.Find(t => t.ID == dataTable.Rows[row].Field<string>(0));
+                    dataGridView1.Rows[row].Visible = first == null && area == TreasureArea.UnknownOrUnused || first != null && first.Area == area;
+                }
+                currencyManager1.ResumeBinding();
+                dataGridView1.Refresh();
+            }
+        }
+
+        public Dictionary<Treasure, Tuple<Item, int>> GetTreasures()
+        {
+            Dictionary<Treasure, Tuple<Item, int>> dict = new Dictionary<Treasure, Tuple<Item, int>>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Treasure first = Treasures.treasures.Find(t => t.ID == row.Field<string>(0));
+                Item item = Items.items.Find(i => i.Name == row.Field<string>(3));
+                int amount = row.Field<int>(4);
+                if(first!=null && item!= null)
+                {
+                    dict.Add(first, new Tuple<Item, int>(item, amount));
+                }
+            }
+            return dict;
+        }
+    }
+}

@@ -289,6 +289,28 @@ namespace FF13Randomizer
             bool allow = GetFF13Directory() != null;
             buttonRandomize.Enabled = allow;
             buttonFullUninstall.Enabled = allow;
+
+            if(tabControl1.SelectedTab == tabPagePlando)
+            {
+                if (NeedsExtracting())
+                {
+                    if(MessageBox.Show("Extraction Required", "Plando requires extraction of files first, if you do not plan to use Plando press Cancel.", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        new ProgressForm("Extracting files...", bw => ExtractFiles(bw, true)).ShowDialog();
+
+                        MessageBox.Show("Finished extracting and loading data!");
+                    }
+                    else
+                    {
+                        tabControl1.SelectedTab = tabPageBasics;
+                        return;
+                    }
+                }
+
+                treasurePlando1.ReloadData(this);
+                shopPlando1.ReloadData(this);
+                crystariumPlando1.ReloadData(this);
+            }
         }
 
         private void Flag_OnChanged(object sender, EventArgs e)
@@ -1041,6 +1063,10 @@ namespace FF13Randomizer
         {
             Clipboard.SetText(Flags.GetFlagString());
             MessageBox.Show("Copied flag string to clipboard!");
+        }
+
+        private void tabControl4_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
 
         private void FullUninstall(BackgroundWorker backgroundWorker)

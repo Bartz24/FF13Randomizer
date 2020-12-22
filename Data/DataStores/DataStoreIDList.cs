@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FF13Data
 {
-    public class DataStoreIDList : DataStoreList<DataStoreID>
+    public class DataStoreIDList<T> : DataStoreList<T> where T : DataStoreID, new()
     {
-        public DataStoreID this[string s]
+        public T this[string s]
         {
             get => list.Find(id => id.ID == s);
         }

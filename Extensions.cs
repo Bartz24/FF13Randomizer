@@ -16,6 +16,13 @@ namespace FF13Data
                 return Math.Pow(x, 1d / 3d);
         }
 
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T temp = a;
+            a = b;
+            b = temp;
+        }
+
         public static void Swap<T>(this List<T> list, int i1, int i2)
         {
             T temp = list[i1];
@@ -23,6 +30,16 @@ namespace FF13Data
             list.RemoveAt(i1 + 1);
             list.Insert(i2, temp);
             list.RemoveAt(i2 + 1);
+        }
+
+        public static List<T> Replace<T>(this List<T> list, T origValue, T newValue)
+        {
+            int index = list.IndexOf(origValue);
+            if (index > -1)
+            {
+                list[index] = newValue;
+            }
+            return list;
         }
     }
 }

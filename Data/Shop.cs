@@ -18,5 +18,10 @@ namespace FF13Data
             this.Tiers = tiers;
             Shops.shops.Add(this);
         }
+
+        public List<string> GetAllIds()
+        {
+            return Enumerable.Range(0, Tiers).Select(i => ID + i.ToString()).ToList();
+        }
     }
 }

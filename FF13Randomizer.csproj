@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataStores\DataExtensions.cs" />
+    <Compile Include="Data\DataStores\DataStoreIDCrystarium.cs" />
     <Compile Include="Data\DataStores\DataStoreItem.cs" />
     <Compile Include="Data\DataStores\DataStoreEquip.cs" />
     <Compile Include="Data\DataStores\DataStoreID.cs" />
@@ -75,6 +76,9 @@
     <Compile Include="Data\Enemy.cs" />
     <Compile Include="Data\Enemies.cs" />
     <Compile Include="Data\Identifier.cs" />
+    <Compile Include="Data\Crystarium.cs" />
+    <Compile Include="Data\Treasure.cs" />
+    <Compile Include="Data\Treasures.cs" />
     <Compile Include="Data\Shops.cs" />
     <Compile Include="Data\Shop.cs" />
     <Compile Include="Data\TieredAbilities.cs" />
@@ -98,7 +102,7 @@
     <Compile Include="Data\Tiered.cs" />
     <Compile Include="Data\TieredItems.cs" />
     <Compile Include="Data\Values\ValueByte.cs" />
-    <Compile Include="Data\Values\ValueElement.cs" />
+    <Compile Include="Data\Enums\Enums.cs" />
     <Compile Include="Data\Values\ValueStatus.cs" />
     <Compile Include="Data\Values\ValueUInt.cs" />
     <Compile Include="Data\Values\ValueUShort.cs" />
@@ -153,6 +157,24 @@
     </Compile>
     <Compile Include="NumericRange.cs" />
     <Compile Include="NumericRangeMinMax.cs" />
+    <Compile Include="Plandos\CrystariumPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\CrystariumPlando.Designer.cs">
+      <DependentUpon>CrystariumPlando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plandos\ShopPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\ShopPlando.Designer.cs">
+      <DependentUpon>ShopPlando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plandos\TreasurePlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\TreasurePlando.Designer.cs">
+      <DependentUpon>TreasurePlando.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
@@ -194,6 +216,15 @@
     <EmbeddedResource Include="ItemChanceForm.resx">
       <DependentUpon>ItemChanceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\CrystariumPlando.resx">
+      <DependentUpon>CrystariumPlando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\ShopPlando.resx">
+      <DependentUpon>ShopPlando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\TreasurePlando.resx">
+      <DependentUpon>TreasurePlando.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,5 +263,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

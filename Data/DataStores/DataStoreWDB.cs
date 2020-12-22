@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FF13Data
 {
-    public class DataStoreWDB<T> : DataStore where T : DataStore, new()
+    public class DataStoreWDB<T, I> : DataStore where T : DataStore, new() where I : DataStoreID, new()
     {
         protected byte[] header;
 
-        public DataStoreIDList IdList { get; set; }
+        public DataStoreIDList<I> IdList { get; set; }
 
         public DataStorePointerList<DataStoreString> StringList { get; set; }
 
@@ -27,13 +27,17 @@ namespace FF13Data
         {
             get { return this[id.ID]; }
         }
+        public T this[int index]
+        {
+            get { return DataList[index]; }
+        }
 
 
         public override void LoadData(byte[] data, int offset = 0)
         {
             header = data.SubArray(0, 0x10);
             int stringStart = (int)data.ReadUInt(0x20);
-            IdList = new DataStoreIDList();
+            IdList = new DataStoreIDList<I>();
             IdList.LoadData(data.SubArray(0x10, stringStart - 0x10));
 
             StringList = new DataStorePointerList<DataStoreString>(new DataStoreString() { Value = "" });

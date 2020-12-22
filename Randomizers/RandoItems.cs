@@ -12,7 +12,7 @@ namespace FF13Randomizer
 {
     public class RandoItems : Randomizer
     {
-        public DataStoreWDB<DataStoreItem> items;
+        public DataStoreWDB<DataStoreItem, DataStoreID> items;
 
         public RandoItems(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
 
@@ -27,7 +27,7 @@ namespace FF13Randomizer
 
         public override void Load()
         {
-            items = new DataStoreWDB<DataStoreItem>();
+            items = new DataStoreWDB<DataStoreItem, DataStoreID>();
             items.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\item.wdb"));
 
             ApplyModifications();

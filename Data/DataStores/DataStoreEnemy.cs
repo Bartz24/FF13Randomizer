@@ -74,44 +74,294 @@ namespace FF13Data
             set { Data.SetUShort(0x162, value); }
         }
 
-        public byte PhysicalRes
+        public ElementalRes PhysicalRes
         {
-            get { return Data.ReadByte(0x100); }
-            set { Data.SetByte(0x100, value); }
+            get { return Enemy.PhysMapping[Data.ReadByte(0x100)]; }
+            set { Data.SetByte(0x100, Enemy.PhysMapping.Where(p => p.Value == value).First().Key); }
         }
 
-        public ElementalRes ElemRes1
+        public ElementalRes FireRes
         {
             get { return (ElementalRes)(Data.ReadByte(0x128) / 0x10); }
             set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) % 0x10 + (byte)value * 0x10)); }
-            //get { return Data.ReadByte(0x128); }
-            //set { Data.SetByte(0x128, value); }
         }
         public ElementalRes MagicRes
         {
             get { return (ElementalRes)(Data.ReadByte(0x128) % 0x10); }
-            set { Data.SetByte(0x128, (byte)((Data.ReadByte(0x128) / 0x10) * 0x10 + (byte)value)); }
+            set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) / 0x10 * 0x10 + (byte)value)); }
+        }
+        public ElementalRes EarthRes
+        {
+            get { return (ElementalRes)(Data.ReadByte(0x12D) % 0x10); }
+            set { Data.SetByte(0x12D, (byte)(Data.ReadByte(0x12D) / 0x10 * 0x10 + (byte)value)); }
+        }
+        public ElementalRes WindRes
+        {
+            get { return (ElementalRes)(Data.ReadByte(0x12E) / 0x10); }
+            set { Data.SetByte(0x12E, (byte)(Data.ReadByte(0x12E) % 0x10 + (byte)value * 0x10)); }
+        }
+        public ElementalRes WaterRes
+        {
+            get { return (ElementalRes)(Data.ReadByte(0x12E) % 0x10); }
+            set { Data.SetByte(0x12E, (byte)(Data.ReadByte(0x12E) / 0x10 * 0x10 + (byte)value)); }
+        }
+        public ElementalRes ThunderRes
+        {
+            get { return (ElementalRes)(Data.ReadByte(0x12F) / 0x10); }
+            set { Data.SetByte(0x12F, (byte)(Data.ReadByte(0x12F) % 0x10 + (byte)value * 0x10)); }
+        }
+        public ElementalRes IceRes
+        {
+            get { return (ElementalRes)(Data.ReadByte(0x12F) % 0x10); }
+            set { Data.SetByte(0x12F, (byte)(Data.ReadByte(0x12F) / 0x10 * 0x10 + (byte)value)); }
+        }
+        public byte FogRes
+        {
+            get { return (byte)(Data.ReadByte(0x12D) / 0x10 + Data.ReadByte(0x12C) % 0x10 * 0x10); }
+            set
+            {
+                Data.SetByte(0x12C, (byte)(Data.ReadByte(0x12C) / 0x10 * 0x10 + (byte)value / 0x10));
+                Data.SetByte(0x12D, (byte)(Data.ReadByte(0x12D) % 0x10 + (byte)value % 0x10 * 0x10));
+            }
+        }
+        public byte CurseRes
+        {
+            get { return Data.ReadByte(0x130); }
+            set { Data.SetByte(0x130, value); }
+        }
+        public byte PainRes
+        {
+            get { return Data.ReadByte(0x131); }
+            set { Data.SetByte(0x131, value); }
+        }
+        public byte ImperilRes
+        {
+            get { return Data.ReadByte(0x132); }
+            set { Data.SetByte(0x132, value); }
+        }
+        public byte SlowRes
+        {
+            get { return Data.ReadByte(0x133); }
+            set { Data.SetByte(0x133, value); }
+        }
+        public byte DeprotectRes
+        {
+            get { return Data.ReadByte(0x134); }
+            set { Data.SetByte(0x134, value); }
+        }
+        public byte PoisonRes
+        {
+            get { return Data.ReadByte(0x136); }
+            set { Data.SetByte(0x136, value); }
+        }
+        public byte DazeRes
+        {
+            get { return Data.ReadByte(0x137); }
+            set { Data.SetByte(0x137, value); }
+        }
+        public byte ProvokeRes
+        {
+            get { return Data.ReadByte(0x138); }
+            set { Data.SetByte(0x138, value); }
+        }
+        public byte DeshellRes
+        {
+            get { return Data.ReadByte(0x13B); }
+            set { Data.SetByte(0x13B, value); }
+        }
+        public byte DeathRes
+        {
+            get { return Data.ReadByte(0x13C); }
+            set { Data.SetByte(0x13C, value); }
+        }
+        public byte DefaithRes
+        {
+            get { return Data.ReadByte(0x13E); }
+            set { Data.SetByte(0x13E, value); }
+        }
+        public byte DebraveRes
+        {
+            get { return Data.ReadByte(0x13F); }
+            set { Data.SetByte(0x13F, value); }
+        }
+        public byte DispelRes
+        {
+            get { return Data.ReadByte(0x140); }
+            set { Data.SetByte(0x140, value); }
+        }
+        #region Unknown/Unused?
+        /*
+        public byte DebuffRes6
+        {
+            get { return Data.ReadByte(0x135); }
+            set { Data.SetByte(0x135, value); }
+        }
+        public byte DebuffRes10
+        {
+            get { return Data.ReadByte(0x139); }
+            set { Data.SetByte(0x139, value); }
+        }
+        public byte DebuffRes11
+        {
+            get { return Data.ReadByte(0x13A); }
+            set { Data.SetByte(0x13A, value); }
+        }
+        public byte DebuffRes14
+        {
+            get { return Data.ReadByte(0x13D); }
+            set { Data.SetByte(0x13D, value); }
+        }
+        public byte DebuffRes18
+        {
+            get { return Data.ReadByte(0x141); }
+            set { Data.SetByte(0x141, value); }
+        }
+        public byte DebuffRes19
+        {
+            get { return Data.ReadByte(0x142); }
+            set { Data.SetByte(0x142, value); }
+        }
+        public byte DebuffRes20
+        {
+            get { return Data.ReadByte(0x143); }
+            set { Data.SetByte(0x143, value); }
+        }
+        */
+        #endregion
+        public ElementalRes this[Element e]
+        {
+            get
+            {
+                switch (e)
+                {
+                    case Element.Fire:
+                        return FireRes;
+                    case Element.Ice:
+                        return IceRes;
+                    case Element.Thunder:
+                        return ThunderRes;
+                    case Element.Water:
+                        return WaterRes;
+                    case Element.Wind:
+                        return WindRes;
+                    case Element.Earth:
+                        return EarthRes;
+                    case Element.Physical:
+                        return PhysicalRes;
+                    case Element.Magic:
+                        return MagicRes;
+                    default:
+                        return ElementalRes.Normal;
+                }
+            }
+            set
+            {
+                switch (e)
+                {
+                    case Element.Fire:
+                        FireRes = value;
+                        break;
+                    case Element.Ice:
+                        IceRes = value;
+                        break;
+                    case Element.Thunder:
+                        ThunderRes = value;
+                        break;
+                    case Element.Water:
+                        WaterRes = value;
+                        break;
+                    case Element.Wind:
+                        WindRes = value;
+                        break;
+                    case Element.Earth:
+                        EarthRes = value;
+                        break;
+                    case Element.Physical:
+                        PhysicalRes = value;
+                        break;
+                    case Element.Magic:
+                        MagicRes = value;
+                        break;
+                }
+            }
         }
 
-        public byte ElemRes2
+        public byte this[Debuff d]
         {
-            get { return (byte)(Data.ReadByte(0x12D) % 0x10); }
-            set { Data.SetByte(0x12D, (byte)((Data.ReadByte(0x12D) / 0x10) * 0x10 + value)); }
-        }
-        public byte ElemRes3
-        {
-            get { return Data.ReadByte(0x12E); }
-            set { Data.SetByte(0x12E, value); }
-        }
-        public byte ElemRes4
-        {
-            get { return Data.ReadByte(0x12F); }
-            set { Data.SetByte(0x12F, value); }
-        }
-        public byte[] DebuffRes
-        {
-            get { return Data.SubArray(0x130, 16); }
-            set { Data.SetSubArray(0x130, value); }
+            get
+            {
+                switch (d)
+                {
+                    case Debuff.Deprotect:
+                        return DeprotectRes;
+                    case Debuff.Deshell:
+                        return DeshellRes;
+                    case Debuff.Poison:
+                        return PoisonRes;
+                    case Debuff.Imperil:
+                        return ImperilRes;
+                    case Debuff.Slow:
+                        return SlowRes;
+                    case Debuff.Fog:
+                        return FogRes;
+                    case Debuff.Pain:
+                        return PainRes;
+                    case Debuff.Curse:
+                        return CurseRes;
+                    case Debuff.Daze:
+                        return DazeRes;
+                    case Debuff.Provoke:
+                        return ProvokeRes;
+                    case Debuff.Death:
+                        return DeathRes;
+                    case Debuff.Dispel:
+                        return DispelRes;
+                    default:
+                        return 0;
+                }
+            }
+            set
+            {
+                switch (d)
+                {
+                    case Debuff.Deprotect:
+                        DeprotectRes = value;
+                        break;
+                    case Debuff.Deshell:
+                        DeshellRes = value;
+                        break;
+                    case Debuff.Poison:
+                        PoisonRes = value;
+                        break;
+                    case Debuff.Imperil:
+                        ImperilRes = value;
+                        break;
+                    case Debuff.Slow:
+                        SlowRes = value;
+                        break;
+                    case Debuff.Fog:
+                        FogRes = value;
+                        break;
+                    case Debuff.Pain:
+                        PainRes = value;
+                        break;
+                    case Debuff.Curse:
+                        CurseRes = value;
+                        break;
+                    case Debuff.Daze:
+                        DazeRes = value;
+                        break;
+                    case Debuff.Provoke:
+                        ProvokeRes = value;
+                        break;
+                    case Debuff.Death:
+                        DeathRes = value;
+                        break;
+                    case Debuff.Dispel:
+                        DispelRes = value;
+                        break;
+                }
+            }
         }
 
         public override int GetDefaultLength()

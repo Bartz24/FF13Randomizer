@@ -209,12 +209,12 @@ namespace FF13Data
 
 
         // Special
-        public static Ability ArmyOfOne = new Ability("ArmyOfOne", Role.Ravager, "c000_at900_00", "l", true);
-        public static Ability ColdBlood = new Ability("ColdBlood", Role.Ravager, "c002_at900_00", "z", true);
+        public static Ability ArmyOfOne = new Ability("Army Of One", Role.Ravager, "c000_at900_00", "l", true);
+        public static Ability ColdBlood = new Ability("Cold Blood", Role.Ravager, "c002_at900_00", "z", true);
         public static Ability Death = new Ability("Death", Role.Saboteur, "ms400_00", "v", true);
         public static Ability Highwind = new Ability("Highwind", Role.Commando, "c005_at900_00", "f", true);
-        public static Ability LastResort = new Ability("LastResort", Role.Ravager, "ms200_00", "h", true);
-        public static Ability SovereignFist = new Ability("SovereignFist", Role.Commando, "c001_at900_00", "s", true);
+        public static Ability LastResort = new Ability("Last Resort", Role.Ravager, "ms200_00", "h", true);
+        public static Ability SovereignFist = new Ability("Sovereign Fist", Role.Commando, "c001_at900_00", "s", true);
 
         public static Ability HandGrenade = new Ability("Hand Grenade", Role.Commando, "def100_00", "");
     }

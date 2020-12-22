@@ -88,6 +88,12 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPageBoosts = new System.Windows.Forms.TabPage();
             this.tabPageChallenges = new System.Windows.Forms.TabPage();
+            this.tabPagePlando = new System.Windows.Forms.TabPage();
+            this.tabControl4 = new System.Windows.Forms.TabControl();
+            this.tabPagePlandoAbout = new System.Windows.Forms.TabPage();
+            this.label29 = new System.Windows.Forms.Label();
+            this.tabPagePlandoTreasure = new System.Windows.Forms.TabPage();
+            this.tabPagePlandoShop = new System.Windows.Forms.TabPage();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
             this.label18 = new System.Windows.Forms.Label();
             this.labelFlagsSelected = new System.Windows.Forms.Label();
@@ -104,16 +110,26 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
+            this.treasurePlando1 = new FF13Randomizer.TreasurePlando();
+            this.shopPlando1 = new FF13Randomizer.ShopPlando();
+            this.tabPagePlandoCrystarium = new System.Windows.Forms.TabPage();
+            this.crystariumPlando1 = new FF13Randomizer.CrystariumPlando();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPageTweaks.SuspendLayout();
             this.tabControl3.SuspendLayout();
+            this.tabPagePlando.SuspendLayout();
+            this.tabControl4.SuspendLayout();
+            this.tabPagePlandoAbout.SuspendLayout();
+            this.tabPagePlandoTreasure.SuspendLayout();
+            this.tabPagePlandoShop.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
             this.tabPageUninstall.SuspendLayout();
             this.tabPageTools.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
+            this.tabPagePlandoCrystarium.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -193,6 +209,7 @@
             this.tabControl1.Controls.Add(this.tabPageBasics);
             this.tabControl1.Controls.Add(this.tabPageFlags);
             this.tabControl1.Controls.Add(this.tabPageTweaks);
+            this.tabControl1.Controls.Add(this.tabPagePlando);
             this.tabControl1.Controls.Add(this.tabPageFinish);
             this.tabControl1.Controls.Add(this.tabPageUninstall);
             this.tabControl1.Controls.Add(this.tabPageTools);
@@ -739,6 +756,68 @@
             this.tabPageChallenges.Text = "Challenges";
             this.tabPageChallenges.UseVisualStyleBackColor = true;
             // 
+            // tabPagePlando
+            // 
+            this.tabPagePlando.Controls.Add(this.tabControl4);
+            this.tabPagePlando.Location = new System.Drawing.Point(104, 4);
+            this.tabPagePlando.Name = "tabPagePlando";
+            this.tabPagePlando.Size = new System.Drawing.Size(812, 629);
+            this.tabPagePlando.TabIndex = 8;
+            this.tabPagePlando.Text = "Plando";
+            this.tabPagePlando.UseVisualStyleBackColor = true;
+            // 
+            // tabControl4
+            // 
+            this.tabControl4.Controls.Add(this.tabPagePlandoAbout);
+            this.tabControl4.Controls.Add(this.tabPagePlandoTreasure);
+            this.tabControl4.Controls.Add(this.tabPagePlandoShop);
+            this.tabControl4.Controls.Add(this.tabPagePlandoCrystarium);
+            this.tabControl4.Location = new System.Drawing.Point(4, 3);
+            this.tabControl4.Name = "tabControl4";
+            this.tabControl4.SelectedIndex = 0;
+            this.tabControl4.Size = new System.Drawing.Size(804, 623);
+            this.tabControl4.TabIndex = 2;
+            this.tabControl4.SelectedIndexChanged += new System.EventHandler(this.tabControl4_SelectedIndexChanged);
+            // 
+            // tabPagePlandoAbout
+            // 
+            this.tabPagePlandoAbout.Controls.Add(this.label29);
+            this.tabPagePlandoAbout.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoAbout.Name = "tabPagePlandoAbout";
+            this.tabPagePlandoAbout.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoAbout.TabIndex = 2;
+            this.tabPagePlandoAbout.Text = "About";
+            this.tabPagePlandoAbout.UseVisualStyleBackColor = true;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(247, 73);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(291, 13);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "Plando requires extraction first to get the original/vanilla data";
+            // 
+            // tabPagePlandoTreasure
+            // 
+            this.tabPagePlandoTreasure.Controls.Add(this.treasurePlando1);
+            this.tabPagePlandoTreasure.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoTreasure.Name = "tabPagePlandoTreasure";
+            this.tabPagePlandoTreasure.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoTreasure.TabIndex = 1;
+            this.tabPagePlandoTreasure.Text = "Treasures";
+            this.tabPagePlandoTreasure.UseVisualStyleBackColor = true;
+            // 
+            // tabPagePlandoShop
+            // 
+            this.tabPagePlandoShop.Controls.Add(this.shopPlando1);
+            this.tabPagePlandoShop.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoShop.Name = "tabPagePlandoShop";
+            this.tabPagePlandoShop.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoShop.TabIndex = 3;
+            this.tabPagePlandoShop.Text = "Shops";
+            this.tabPagePlandoShop.UseVisualStyleBackColor = true;
+            // 
             // tabPageFinish
             // 
             this.tabPageFinish.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -916,6 +995,43 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
+            // treasurePlando1
+            // 
+            this.treasurePlando1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treasurePlando1.Location = new System.Drawing.Point(3, 3);
+            this.treasurePlando1.Name = "treasurePlando1";
+            this.treasurePlando1.Size = new System.Drawing.Size(790, 591);
+            this.treasurePlando1.TabIndex = 0;
+            // 
+            // shopPlando1
+            // 
+            this.shopPlando1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.shopPlando1.Location = new System.Drawing.Point(3, 3);
+            this.shopPlando1.Name = "shopPlando1";
+            this.shopPlando1.Size = new System.Drawing.Size(790, 594);
+            this.shopPlando1.TabIndex = 0;
+            // 
+            // tabPagePlandoCrystarium
+            // 
+            this.tabPagePlandoCrystarium.Controls.Add(this.crystariumPlando1);
+            this.tabPagePlandoCrystarium.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoCrystarium.Name = "tabPagePlandoCrystarium";
+            this.tabPagePlandoCrystarium.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoCrystarium.TabIndex = 4;
+            this.tabPagePlandoCrystarium.Text = "Crystarium";
+            this.tabPagePlandoCrystarium.UseVisualStyleBackColor = true;
+            // 
+            // crystariumPlando1
+            // 
+            this.crystariumPlando1.Location = new System.Drawing.Point(3, 3);
+            this.crystariumPlando1.Name = "crystariumPlando1";
+            this.crystariumPlando1.Size = new System.Drawing.Size(790, 591);
+            this.crystariumPlando1.TabIndex = 0;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -935,6 +1051,12 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPageTweaks.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
+            this.tabPagePlando.ResumeLayout(false);
+            this.tabControl4.ResumeLayout(false);
+            this.tabPagePlandoAbout.ResumeLayout(false);
+            this.tabPagePlandoAbout.PerformLayout();
+            this.tabPagePlandoTreasure.ResumeLayout(false);
+            this.tabPagePlandoShop.ResumeLayout(false);
             this.tabPageFinish.ResumeLayout(false);
             this.tabPageFinish.PerformLayout();
             this.tabPageUninstall.ResumeLayout(false);
@@ -943,6 +1065,7 @@
             this.tabPageTools.PerformLayout();
             this.tabPageDebug.ResumeLayout(false);
             this.tabPageDebug.PerformLayout();
+            this.tabPagePlandoCrystarium.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1024,6 +1147,16 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TabPage tabPageAbilities;
+        private System.Windows.Forms.TabPage tabPagePlando;
+        private System.Windows.Forms.TabControl tabControl4;
+        private System.Windows.Forms.TabPage tabPagePlandoTreasure;
+        public TreasurePlando treasurePlando1;
+        private System.Windows.Forms.TabPage tabPagePlandoAbout;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TabPage tabPagePlandoShop;
+        private ShopPlando shopPlando1;
+        private System.Windows.Forms.TabPage tabPagePlandoCrystarium;
+        private CrystariumPlando crystariumPlando1;
     }
 }
 

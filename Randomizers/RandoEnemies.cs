@@ -11,9 +11,8 @@ namespace FF13Randomizer
 {
     public class RandoEnemies : Randomizer
     {
-        Dictionary<byte, ElementalRes> physValues = new Dictionary<byte, ElementalRes>();
         byte[] scene;
-        DataStoreWDB<DataStoreEnemy> enemies;
+        DataStoreWDB<DataStoreEnemy, DataStoreID> enemies;
         byte[] bytes;
 
         public RandoEnemies(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
@@ -29,33 +28,8 @@ namespace FF13Randomizer
 
         public override void Load()
         {
-            #region Set Physical Resistances
-            physValues.Add(0x00, ElementalRes.Normal);
-            physValues.Add(0x01, ElementalRes.Normal);
-            physValues.Add(0x04, ElementalRes.Normal);
-            physValues.Add(0x05, ElementalRes.Normal);
-            physValues.Add(0x81, ElementalRes.Normal);
-
-            physValues.Add(0x0D, ElementalRes.Halved);
-            physValues.Add(0x10, ElementalRes.Halved);
-            physValues.Add(0x11, ElementalRes.Halved);
-            physValues.Add(0x14, ElementalRes.Halved);
-            physValues.Add(0x15, ElementalRes.Halved);
-            physValues.Add(0x91, ElementalRes.Halved);
-
-            physValues.Add(0x18, ElementalRes.Resistant);
-            physValues.Add(0x19, ElementalRes.Resistant);
-            physValues.Add(0x1C, ElementalRes.Resistant);
-            physValues.Add(0x1D, ElementalRes.Resistant);
-            physValues.Add(0x98, ElementalRes.Resistant);
-
-            physValues.Add(0x20, ElementalRes.Immune);
-            physValues.Add(0x21, ElementalRes.Immune);
-            physValues.Add(0x24, ElementalRes.Immune);
-            physValues.Add(0x25, ElementalRes.Immune);
-            #endregion
             scene = File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_scene.wdb");
-            enemies = new DataStoreWDB<DataStoreEnemy>();
+            enemies = new DataStoreWDB<DataStoreEnemy, DataStoreID>();
             enemies.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb"));
             bytes = File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
         }
@@ -64,6 +38,22 @@ namespace FF13Randomizer
             int completed = 0;
             bool noImmune = false; // ((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value;
             List<DataStoreEnemy> enemyList = Enemies.enemies.Select(eID => enemies[eID.ID]).ToList();
+            /*enemies.DataList.ToList().ForEach(e => {
+                e.FogRes = 100;
+                e.CurseRes = 100;
+                e.PainRes = 100;
+                e.ImperilRes = 100;
+                e.SlowRes = 100;
+                e.DeprotectRes = 100; 
+                e.PoisonRes = 100;
+                e.DazeRes = 100;
+                e.ProvokeRes = 100;
+                e.DeshellRes = 100;
+                e.DeathRes = 100;
+                e.DefaithRes = 100;
+                e.DebraveRes = 100;
+                e.DispelRes = 100;
+            });*/
             Enemies.enemies.ForEach(eID =>
             {
                 DataStoreEnemy e = enemies[eID];
@@ -131,34 +121,23 @@ namespace FF13Randomizer
                     do
                     {
                         swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
-                    } while (!(physValues[swap.PhysicalRes] >= ElementalRes.Resistant && swap.MagicRes >= ElementalRes.Resistant)
-                    != !(physValues[e.PhysicalRes] >= ElementalRes.Resistant && e.MagicRes >= ElementalRes.Resistant));
+                    } while (!(swap.PhysicalRes >= ElementalRes.Resistant && swap.MagicRes >= ElementalRes.Resistant)
+                    != !(e.PhysicalRes >= ElementalRes.Resistant && e.MagicRes >= ElementalRes.Resistant));
 
-                    ElementalRes o = e.ElemRes1;
-                    e.ElemRes1 = swap.ElemRes1;
-                    swap.ElemRes1 = o;
+                    ElementalRes temp;
 
-                    byte o2 = e.ElemRes2;
-                    e.ElemRes2 = swap.ElemRes2;
-                    swap.ElemRes2 = o2;
+                    ((Element[])Enum.GetValues(typeof(Element))).Where(elem => elem != Element.Physical && elem != Element.Magic).ToList().ForEach(elem =>
+                    {
+                        temp = e[elem];
+                        e[elem] = swap[elem];
+                        swap[elem] = temp;
+                    });
 
-                    o2 = e.ElemRes3;
-                    e.ElemRes3 = swap.ElemRes3;
-                    swap.ElemRes3 = o2;
-
-                    o2 = e.ElemRes4;
-                    e.ElemRes4 = swap.ElemRes4;
-                    swap.ElemRes4 = o2;
-                    /*
-                    o = e.PhysicalRes;
-                    e.PhysicalRes = swap.PhysicalRes;
-                    swap.PhysicalRes = o;
-                    */
                     if (noImmune)
                     {
-                        if (physValues[e.PhysicalRes] == ElementalRes.Immune)
+                        if (e.PhysicalRes == ElementalRes.Immune)
                         {
-                            e.PhysicalRes = physValues.Keys.Where(k => physValues[k] == ElementalRes.Halved).First();
+                            e.PhysicalRes = ElementalRes.Halved;
                         }
                         if (e.MagicRes == ElementalRes.Immune)
                         {
@@ -173,19 +152,15 @@ namespace FF13Randomizer
                     Flags.EnemyFlags.Debuffs.SetRand();
                     swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
 
-                    byte[] swapped = swap.DebuffRes;
-                    byte[] enem = e.DebuffRes;
+                    byte temp;
 
-
-                    for (int i = 0; i < 16; i++)
+                    ((Debuff[])Enum.GetValues(typeof(Debuff))).ToList().ForEach(d =>
                     {
-                        byte o = enem[i];
-                        enem[i] = swapped[i];
-                        swapped[i] = o;
-                    }
+                        temp = e[d];
+                        e[d] = swap[d];
+                        swap[d] = temp;
+                    });
 
-                    swap.DebuffRes = swapped;
-                    e.DebuffRes = enem;
                     RandomNum.ClearRand();
                 }
 
@@ -233,7 +208,7 @@ namespace FF13Randomizer
             File.WriteAllBytes($"db\\resident\\bt_scene.wdb", scene);
         }
 
-        private void RandomizeDrop(DataStoreWDB<DataStoreEnemy> enemies, DataStoreEnemy enemy, Enemy enemyID, bool common)
+        private void RandomizeDrop(DataStoreWDB<DataStoreEnemy, DataStoreID> enemies, DataStoreEnemy enemy, Enemy enemyID, bool common)
         {
             int rankAdj = Flags.ItemFlags.Drops.Range.Value;
             Item item = null;

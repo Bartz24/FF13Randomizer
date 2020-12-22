@@ -35,13 +35,13 @@ namespace FF13Randomizer
 
     public class DocsJSONGenerator
     {
-        public static void CreateCrystariumDocs(Dictionary<string, DataStoreWDB<DataStoreCrystarium>> crystariums, Dictionary<string, Role[]> primaryRoles)
+        public static void CreateCrystariumDocs(Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>> crystariums, Dictionary<string, Role[]> primaryRoles)
         {
             Dictionary<string, Dictionary<string, JSONCrystariumRole>> jsons = new Dictionary<string, Dictionary<string, JSONCrystariumRole>>();
             crystariums.Keys.ToList().ForEach(name =>
             {
                 Dictionary<string, JSONCrystariumRole> jsonRoles = new Dictionary<string, JSONCrystariumRole>();
-                DataStoreWDB<DataStoreCrystarium> crystarium = crystariums[name];
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
                 foreach (Role role in Enum.GetValues(typeof(Role)))
                 {
                     if (role == Role.None)
@@ -83,7 +83,7 @@ namespace FF13Randomizer
             return character.Substring(0, 1);
         }
 
-        public static void CreateTreasureDocs(DataStoreWDB<DataStoreTreasure> treasures, int[] ranks)
+        public static void CreateTreasureDocs(DataStoreWDB<DataStoreTreasure, DataStoreID> treasures, int[] ranks)
         {
             JSONTreasure[] jsons = new JSONTreasure[treasures.DataList.Count];
             for (int i = 0; i < treasures.DataList.Count; i++)

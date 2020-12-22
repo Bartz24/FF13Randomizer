@@ -11,10 +11,11 @@ namespace FF13Randomizer
 {
     public class RandoCrystarium : Randomizer
     {
-        public string[] names = new string[] { "lightning", "fang", "snow", "sazh", "hope", "vanille" };
+        public static string[] CharNames = new string[] { "lightning", "fang", "snow", "sazh", "hope", "vanille" };
+
         public Dictionary<Role, StatValues> roleMults = new Dictionary<Role, StatValues>();
         public Dictionary<string, StatValues> charMults = new Dictionary<string, StatValues>();
-        public Dictionary<string, DataStoreWDB<DataStoreCrystarium>> crystariums = new Dictionary<string, DataStoreWDB<DataStoreCrystarium>>();
+        public Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>> crystariums = new Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>>();
         public Dictionary<string, Role[]> primaryRoles = new Dictionary<string, Role[]>();
 
         public RandoCrystarium(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
@@ -40,9 +41,9 @@ namespace FF13Randomizer
             primaryRoles.Add("hope", new Role[] { Role.Ravager, Role.Synergist, Role.Medic });
             primaryRoles.Add("vanille", new Role[] { Role.Ravager, Role.Saboteur, Role.Medic });
 
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
-                DataStoreWDB<DataStoreCrystarium> cryst = new DataStoreWDB<DataStoreCrystarium>();
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> cryst = new DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>();
                 cryst.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\crystal\\crystal_{name}.wdb"));
                 crystariums.Add(name, cryst);
             }
@@ -73,7 +74,7 @@ namespace FF13Randomizer
 
         public void ApplyScaledCPCosts()
         {
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
                 foreach (DataStoreCrystarium c in crystariums[name].DataList)
                 {
@@ -84,7 +85,7 @@ namespace FF13Randomizer
         }
         public void ApplyHalfCPCosts()
         {
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
                 foreach (DataStoreCrystarium c in crystariums[name].DataList)
                 {
@@ -108,7 +109,7 @@ namespace FF13Randomizer
                 roleMults.Add(role, stats);
             }
 
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
                 StatValues stats = new StatValues(3);
                 int variance = Flags.CrystariumFlags.RandStats.Range.Value;
@@ -171,9 +172,9 @@ namespace FF13Randomizer
         public void RandomizeStats(Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages)
         {
             Flags.CrystariumFlags.RandStats.SetRand();
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
-                DataStoreWDB<DataStoreCrystarium> crystarium = crystariums[name];
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
 
                 Dictionary<int, Dictionary<Role, int>> nodeCounts = new Dictionary<int, Dictionary<Role, int>>();
                 for (int stage = 1; stage <= 10; stage++)
@@ -263,9 +264,9 @@ namespace FF13Randomizer
         public void ShuffleNodes()
         {
             Flags.CrystariumFlags.ShuffleNodes.SetRand();
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
-                DataStoreWDB<DataStoreCrystarium> crystarium = crystariums[name];
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
 
                 for (int r = 1; r <= 6; r++)
                 {
@@ -285,7 +286,7 @@ namespace FF13Randomizer
             RandomNum.ClearRand();
         }
 
-        public void ShuffleTechniques(string name, DataStoreWDB<DataStoreCrystarium> crystarium)
+        public void ShuffleTechniques(string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium)
         {
             if (Flags.CrystariumFlags.NewAbilities)
             {
@@ -301,7 +302,7 @@ namespace FF13Randomizer
             }
         }
 
-        public void ShuffleAnyRole(string name, DataStoreWDB<DataStoreCrystarium> crystarium)
+        public void ShuffleAnyRole(string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium)
         {
             if (Flags.CrystariumFlags.NewAbilities && Flags.CrystariumFlags.NewAbilities.ExtraSelected)
             {
@@ -316,9 +317,9 @@ namespace FF13Randomizer
 
         public void RandomizeAbilities()
         {
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
-                DataStoreWDB<DataStoreCrystarium> crystarium = crystariums[name];
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
 
                 ShuffleTechniques(name, crystarium);
 
@@ -472,7 +473,7 @@ namespace FF13Randomizer
             }
         }
 
-        private Ability GetAbility(string name, DataStoreWDB<DataStoreCrystarium> crystarium, DataStoreCrystarium cryst)
+        private Ability GetAbility(string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium, DataStoreCrystarium cryst)
         {
             return Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == cryst.AbilityName).FirstOrDefault();
         }
@@ -481,9 +482,32 @@ namespace FF13Randomizer
         {
             base.Save();
 
-            foreach (string name in names)
+            foreach (string name in CharNames)
             {
-                DataStoreWDB<DataStoreCrystarium> crystarium = crystariums[name];
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
+                List<string> rows = new List<string>();
+                rows.Add("Display Name,Name,Value");
+
+                List<DataStoreIDCrystarium> ids = crystarium.IdList.Skip(4).ToList();
+                ids.Sort((a, b) => a.CompareTo(b));
+
+                Dictionary<DataStoreIDCrystarium, string> displayNames = Crystarium.GetDisplayNames(crystarium);
+
+                for (int i = 0; i < crystarium.DataList.Count; i++)
+                {
+                    DataStoreCrystarium cryst = crystarium[ids[i].ID];
+                    cryst.Type = CrystariumType.HP;
+                    int val = ids.Where(id => id.Stage == ids[i].Stage && id.Prefix == ids[i].Prefix).ToList().IndexOf(ids[i]) + 1;
+                    cryst.Value = (ushort)val;
+                    rows.Add($"{displayNames[ids[i]]},{ids[i].ID},{val}");
+                }
+
+                File.WriteAllLines($"crystarium_{name}.csv", rows);
+            }
+
+            foreach (string name in CharNames)
+            {
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
 
                 File.WriteAllBytes($"db\\crystal\\crystal_{name}.wdb", crystarium.Data);
             }

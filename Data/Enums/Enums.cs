@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FF13Data
 {
-    public enum CrystariumType:byte
+    public enum CrystariumType : byte
     {
         HP = 1,
         Strength = 2,
@@ -17,7 +17,7 @@ namespace FF13Data
         RoleLevel = 7
     }
 
-    public enum Role:byte
+    public enum Role : byte
     {
         None = 0,
         Commando = 2,
@@ -36,5 +36,33 @@ namespace FF13Data
         Resistant = 3,
         Immune = 4,
         Absorb = 5
+    }
+
+    public enum Element
+    {
+        Fire,
+        Ice,
+        Thunder,
+        Water,
+        Wind,
+        Earth,
+        Physical,
+        Magic
+    }
+
+    public enum Debuff
+    {
+        Deprotect,
+        Deshell,
+        Poison,
+        Imperil,
+        Slow,
+        Fog,
+        Pain,
+        Curse,
+        Daze,
+        Provoke,
+        Death,
+        Dispel
     }
 }

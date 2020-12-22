@@ -487,7 +487,7 @@ namespace FF13Data
         public static Item FerroelectricFilm = new Item("Ferroelectric Film", "material_j041", Shops.lenorasGarage);
         public static Item Superconductor = new Item("Superconductor", "material_j042", Shops.lenorasGarage);
         public static Item PerfectConductor = new Item("Perfect Conductor", "material_j043", Shops.lenorasGarage);
-        public static Item ParticalAccelerator = new Item("Partical Accelerator", "material_j044", Shops.rdDepot);
+        public static Item ParticleAccelerator = new Item("Particle Accelerator", "material_j044", Shops.rdDepot);
         public static Item UltracompactReactor = new Item("Ultracompact Reactor", "material_j045", Shops.rdDepot);
 
         public static Item CreditChip = new Item("Credit Chip", "material_j046", null);

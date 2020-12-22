@@ -12,7 +12,7 @@ namespace FF13Randomizer
 {
     public class RandoEquip : Randomizer
     {
-        public DataStoreWDB<DataStoreEquip> equip;
+        public DataStoreWDB<DataStoreEquip, DataStoreID> equip;
 
         public RandoEquip(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
 
@@ -27,7 +27,7 @@ namespace FF13Randomizer
 
         public override void Load()
         {
-            equip = new DataStoreWDB<DataStoreEquip>();
+            equip = new DataStoreWDB<DataStoreEquip, DataStoreID>();
             equip.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\item_weapon.wdb"));
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
