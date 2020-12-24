@@ -32,28 +32,16 @@ namespace FF13Randomizer
             enemies = new DataStoreWDB<DataStoreEnemy, DataStoreID>();
             enemies.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb"));
             bytes = File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_chara_spec.wdb");
+
+            if (Enemies.enemies.Where(e => e.Parties.Length == 0 && e.ParentData == null || e.ParentData != null && e.ParentData.Parties.Length == 0).Count() > 0)
+                throw new Exception("HELLO: " + string.Join(",", Enemies.enemies.Where(e => e.Parties.Length == 0 && e.ParentData == null || e.ParentData != null && e.ParentData.Parties.Length == 0).Select(e => e.Name).ToArray()));
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
+            Dictionary<Enemy, Tuple<Item, Item>> plando = main.enemyDropPlando1.GetDrops();
+
             int completed = 0;
-            bool noImmune = false; // ((FlagBool)Flags.EnemyFlags.Resistances.FlagData).Value;
             List<DataStoreEnemy> enemyList = Enemies.enemies.Select(eID => enemies[eID.ID]).ToList();
-            /*enemies.DataList.ToList().ForEach(e => {
-                e.FogRes = 100;
-                e.CurseRes = 100;
-                e.PainRes = 100;
-                e.ImperilRes = 100;
-                e.SlowRes = 100;
-                e.DeprotectRes = 100; 
-                e.PoisonRes = 100;
-                e.DazeRes = 100;
-                e.ProvokeRes = 100;
-                e.DeshellRes = 100;
-                e.DeathRes = 100;
-                e.DefaithRes = 100;
-                e.DebraveRes = 100;
-                e.DispelRes = 100;
-            });*/
             Enemies.enemies.ForEach(eID =>
             {
                 DataStoreEnemy e = enemies[eID];
@@ -97,77 +85,28 @@ namespace FF13Randomizer
 
                 if (Flags.ItemFlags.Drops)
                 {
-                    if (eID.ConnectedDrops != null)
+                    if (eID.ParentData != null)
                     {
-                        e.CommonDropID = enemies[eID.ConnectedDrops].CommonDropID;
-                        e.RareDropID = enemies[eID.ConnectedDrops].RareDropID;
+                        e.CommonDropID = enemies[eID.ParentData].CommonDropID;
+                        e.RareDropID = enemies[eID.ParentData].RareDropID;
                     }
                     else
                     {
                         Flags.ItemFlags.Drops.SetRand();
                         do
                         {
-                            RandomizeDrop(enemies, e, eID, true);
-                            RandomizeDrop(enemies, e, eID, false);
+                            RandomizeDrop(e, eID, true, plando);
+                            RandomizeDrop(e, eID, false, plando);
                         } while (e.CommonDropID == e.RareDropID && !string.IsNullOrEmpty(e.CommonDropID));
                         RandomNum.ClearRand();
                     }
                 }
 
-                DataStoreEnemy swap;
-                if (Flags.EnemyFlags.Resistances)
-                {
-                    Flags.EnemyFlags.Resistances.SetRand();
-                    do
-                    {
-                        swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
-                    } while (!(swap.PhysicalRes >= ElementalRes.Resistant && swap.MagicRes >= ElementalRes.Resistant)
-                    != !(e.PhysicalRes >= ElementalRes.Resistant && e.MagicRes >= ElementalRes.Resistant));
-
-                    ElementalRes temp;
-
-                    ((Element[])Enum.GetValues(typeof(Element))).Where(elem => elem != Element.Physical && elem != Element.Magic).ToList().ForEach(elem =>
-                    {
-                        temp = e[elem];
-                        e[elem] = swap[elem];
-                        swap[elem] = temp;
-                    });
-
-                    if (noImmune)
-                    {
-                        if (e.PhysicalRes == ElementalRes.Immune)
-                        {
-                            e.PhysicalRes = ElementalRes.Halved;
-                        }
-                        if (e.MagicRes == ElementalRes.Immune)
-                        {
-                            e.MagicRes = ElementalRes.Halved;
-                        }
-                    }
-                    RandomNum.ClearRand();
-                }
-
-                if (Flags.EnemyFlags.Debuffs)
-                {
-                    Flags.EnemyFlags.Debuffs.SetRand();
-                    swap = RandomNum.SelectRandomWeighted(enemyList, eS => eS == e ? 0 : 1);
-
-                    byte temp;
-
-                    ((Debuff[])Enum.GetValues(typeof(Debuff))).ToList().ForEach(d =>
-                    {
-                        temp = e[d];
-                        e[d] = swap[d];
-                        swap[d] = temp;
-                    });
-
-                    RandomNum.ClearRand();
-                }
-
+                int resistanceModifier = 100, debuffModifier = 100;
                 if (Flags.EnemyFlags.RandStats)
                 {
                     Flags.EnemyFlags.RandStats.SetRand();
-                    StatValues stats = new StatValues(5);
+                    StatValues stats = new StatValues(5 + (Flags.EnemyFlags.Resistances ? 1 : 0) + (Flags.EnemyFlags.Debuffs ? 1 : 0));
                     int variance = Flags.EnemyFlags.RandStats.Range.Value;
                     stats.Randomize(variance);
                     e.HP = (uint)Math.Max(1, e.HP * stats[0] / 100f);
@@ -175,6 +114,24 @@ namespace FF13Randomizer
                     e.Magic = (ushort)Math.Max(1, e.Magic * stats[2] / 100f);
                     e.ChainRes = (uint)Math.Min(100, Math.Max(0, Math.Sqrt(Math.Pow(e.ChainRes + 1, 2f) * stats[3] / 100f) - 1));
                     e.StaggerPoint = (ushort)Math.Min(999, Math.Max(101, (e.StaggerPoint - 100) * stats[4] / 100f + 100));
+                    RandomNum.ClearRand();
+                    if (Flags.EnemyFlags.Resistances)
+                        resistanceModifier = stats[5];
+                    if (Flags.EnemyFlags.Debuffs)
+                        debuffModifier = stats[5 + (Flags.EnemyFlags.Resistances ? 1 : 0)];
+                }
+
+                if (Flags.EnemyFlags.Resistances)
+                {
+                    Flags.EnemyFlags.Resistances.SetRand();
+                    RandomizeElements(e, eID, resistanceModifier);
+                    RandomNum.ClearRand();
+                }
+
+                if (Flags.EnemyFlags.Debuffs)
+                {
+                    Flags.EnemyFlags.Debuffs.SetRand();
+                    RandomizeDebuffs(e, eID, debuffModifier);
                     RandomNum.ClearRand();
                 }
 
@@ -191,7 +148,7 @@ namespace FF13Randomizer
                 List<string> shops = list.Select(i => Encoding.UTF8.GetString(scene.SubArray(i, 11))).ToList();
                 for (int i = 0; i < shops.Count; i++)
                 {
-                    shops[i] = randomizers.Get<RandoTreasure>("Treasures").shopsRemaining[i];
+                    shops[i] = randomizers.Get<RandoTreasure>("Treasures").ShopMappings[shops[i]];
                 }
 
                 for (int i = 0; i < list.Count; i++)
@@ -206,9 +163,291 @@ namespace FF13Randomizer
         {
             File.WriteAllBytes($"db\\resident\\bt_chara_spec.wdb", enemies.Data);
             File.WriteAllBytes($"db\\resident\\bt_scene.wdb", scene);
+
+            int higherPhysRes = Enemies.enemies.Where(eID =>
+            {
+                DataStoreEnemy e = enemies[eID];
+                return e.PhysicalRes > e.MagicRes;
+            }).Count();
+            int higherMagRes = Enemies.enemies.Where(eID =>
+            {
+                DataStoreEnemy e = enemies[eID];
+                return e.PhysicalRes < e.MagicRes;
+            }).Count();
         }
 
-        private void RandomizeDrop(DataStoreWDB<DataStoreEnemy, DataStoreID> enemies, DataStoreEnemy enemy, Enemy enemyID, bool common)
+        private void RandomizeElements(DataStoreEnemy enemy, Enemy enemyID, int modifier)
+        {
+            RandoCrystarium crystarium = randomizers.Get<RandoCrystarium>("Crystarium");
+
+            float leaderBias = 0.75f, aiBias = 0.90f;
+
+            Dictionary<Element, ElementalRes[]> bounds = new Dictionary<Element, ElementalRes[]>();
+            bounds.Add(Element.Fire, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Absorb });
+            bounds.Add(Element.Ice, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Absorb });
+            bounds.Add(Element.Thunder, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Absorb });
+            bounds.Add(Element.Water, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Absorb });
+            bounds.Add(Element.Wind, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Absorb });
+            bounds.Add(Element.Earth, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Absorb });
+            bounds.Add(Element.Physical, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Immune });
+            bounds.Add(Element.Magic, new ElementalRes[] { ElementalRes.Weak, ElementalRes.Immune });
+
+            if(enemyID.ElementProperty == ElementProperty.Bomb)
+            {
+                ((Element[])Enum.GetValues(typeof(Element))).Where(e => enemy[e] == ElementalRes.Absorb).ForEach(e => bounds[e] = new ElementalRes[] { ElementalRes.Absorb, ElementalRes.Absorb });
+            }
+
+            bool isArmored = enemy.PhysicalRes >= ElementalRes.Resistant && enemy.MagicRes >= ElementalRes.Resistant;
+            ElementalRes possibleMax = isArmored ? ElementalRes.Resistant : ElementalRes.Halved;
+
+            List<Party> partiesUsed = enemyID.Parties.Select(p => GetParty(p)).ToList();
+            if (enemyID.ParentData != null && enemyID.ParentData.Parties.Length > 0)
+                partiesUsed.AddRange(enemyID.ParentData.Parties.Select(p => GetParty(p)).ToList());
+
+            Dictionary<Element, int> typeWeights = Enumerable.Range((int)Element.Physical, 2).ToDictionary(i => (Element)i, i => 10000);
+            Dictionary<Element, int> elementWeights = Enumerable.Range((int)Element.Fire, 6).ToDictionary(i => (Element)i, i => 10000);
+
+            foreach (Party p in partiesUsed)
+            {
+                Dictionary<Member, List<Ability>> partyAbilities = new Dictionary<Member, List<Ability>>();
+                for (int i = 0; i < p.Members.Length; i++)
+                {
+                    List<Ability> abilities = p.Members[i].GetAbilitiesAvailable(p.MaxStage, crystarium.crystariums[p.Members[i].Character.ToString().ToLower()], i == 0 || p.LeaderSwap, enemyID.ElementProperty == ElementProperty.Skytank).Where(a => a.Elements.Length > 0).SkipWhile(a => (enemyID.ElementProperty == ElementProperty.Bomb ? (a.Elements.Where(e => bounds[e][0] == ElementalRes.Absorb && bounds[e][1] == ElementalRes.Absorb).Count() > 0) : false)).ToList();
+                    partyAbilities.Add(p.Members[i], abilities);
+                }
+
+                if (enemyID.ElementProperty == ElementProperty.Bomb && partyAbilities.Values.SelectMany(l=>l).Count() == 0)
+                {
+                    ((Element[])Enum.GetValues(typeof(Element))).Where(e => enemy[e] == ElementalRes.Absorb).ForEach(e => bounds[e] = new ElementalRes[] { ElementalRes.Halved, ElementalRes.Halved });
+                }
+
+                    List<Ability> physical, magic;
+                physical = partyAbilities.Values.SelectMany(l => l).Where(a => a.Elements.Contains(Element.Physical)).ToList();
+                magic = partyAbilities.Values.SelectMany(l => l).Where(a => a.Elements.Contains(Element.Magic)).ToList();
+
+                if (physical.Count > 0 && magic.Count == 0 && bounds[Element.Physical][1] > possibleMax)
+                    bounds[Element.Physical][1] = possibleMax;
+                else if (physical.Count == 0 && magic.Count > 0 && bounds[Element.Magic][1] > possibleMax)
+                    bounds[Element.Magic][1] = possibleMax;
+
+                int randomRequiredVulnerable = RandomNum.RandInt(0, p.Members.Length);
+
+                for (int i = 0; i < p.Members.Length; i++)
+                {
+                    if (partyAbilities[p.Members[i]].Count == 0)
+                        continue;
+
+                    float bias = (i == 0 ? leaderBias : aiBias) / (float)partiesUsed.Count;
+
+                    Ability ability;
+                    int elementCount = partyAbilities[p.Members[i]].SelectMany(a => GetElementsOnAbility(a, partyAbilities.Values.SelectMany(l => l).ToList())).Distinct().Count();
+
+                    if (elementCount == 0)
+                        ability = partyAbilities[p.Members[i]][RandomNum.RandInt(0, partyAbilities[p.Members[i]].Count - 1)];
+                    else
+                    {
+                        List<Element> validElements;
+                        do
+                        {
+                            ability = partyAbilities[p.Members[i]][RandomNum.RandInt(0, partyAbilities[p.Members[i]].Count - 1)];
+                            validElements = GetElementsOnAbility(ability, partyAbilities.Values.SelectMany(l => l).ToList()).ToList();
+                        } while (validElements.Count == 0);
+
+                        elementWeights.Keys.Where(e => validElements.Contains(e)).ForEach(e =>
+                        {
+                            if (RandomNum.RandInt(0, 99) < 40)
+                                elementWeights[e] = (int)(elementWeights[e] / bias);
+                            else
+                                elementWeights[e] = (int)(elementWeights[e] * bias);
+                            if (i == randomRequiredVulnerable && bounds[e][1] > possibleMax)
+                                bounds[e][1] = possibleMax;
+                        });
+                    }
+
+                    typeWeights.Keys.Where(e => ability.Elements.Contains(e)).ForEach(e =>
+                    {
+                        float typeBias = bias * (e == Element.Physical ? 0.45f : 1);
+                        if (RandomNum.RandInt(0, 99) < 40)
+                            typeWeights[e] = (int)(typeWeights[e] / Math.Pow(typeBias, 0.1));
+                        else
+                            typeWeights[e] = (int)(typeWeights[e] * Math.Pow(typeBias, 0.1));
+                        if (i == randomRequiredVulnerable && bounds[e][1] > possibleMax)
+                            bounds[e][1] = possibleMax;
+                    });
+                }
+            }
+
+            StatValuesWeighted types = new StatValuesWeighted(typeWeights.Values.ToArray());
+            StatValuesWeighted elements = new StatValuesWeighted(elementWeights.Values.ToArray());
+
+            types.Randomize(typeWeights.Keys.Select(e => GetElemBounds(bounds[e])).ToArray(), (int)(typeWeights.Keys.Select(e => (GetBoundValue(enemy[e]) + GetBoundValue(enemy[e], true)) / 2 - GetBoundValue(bounds[e][0])).Sum() * modifier / 100f));
+            elements.Randomize(elementWeights.Keys.Select(e => GetElemBounds(bounds[e])).ToArray(), (int)(elementWeights.Keys.Select(e => (GetBoundValue(enemy[e]) + GetBoundValue(enemy[e], true)) / 2 - GetBoundValue(bounds[e][0])).Sum() * modifier / 100f));
+
+            typeWeights.Keys.ToList().ForEach(e => enemy[e] = GetBoundRes(types[typeWeights.Keys.ToList().IndexOf(e)]));
+            elementWeights.Keys.ToList().ForEach(e => enemy[e] = GetBoundRes(elements[elementWeights.Keys.ToList().IndexOf(e)]));
+        }
+
+        private void RandomizeDebuffs(DataStoreEnemy enemy, Enemy enemyID, int modifier)
+        {
+            RandoCrystarium crystarium = randomizers.Get<RandoCrystarium>("Crystarium");
+
+            float leaderBias = 0.75f, aiBias = 0.90f;
+
+            Dictionary<Debuff, int[]> bounds = ((Debuff[])Enum.GetValues(typeof(Debuff))).ToDictionary(d => d, d => new int[] { 0, 100 });
+
+            int immunities = (int)(((Debuff[])Enum.GetValues(typeof(Debuff))).Where(d => enemy[d] >= 100).Count() + Math.Sign(modifier - 100) * RandomNum.RandInt(0, (int)Math.Round(Math.Sqrt(1.2 * Math.Abs(modifier - 100)))));
+
+            if (enemyID.Type == EnemyType.Eidolon)
+            {
+                bounds[Debuff.Poison] = new int[] { 100, 100 };
+                immunities--;
+            }
+            immunities = Math.Max(0, Math.Min(11, immunities));
+
+            for (int i = 0; i < immunities; i++)
+            {
+                Debuff d;
+                do
+                {
+                    d = (Debuff)RandomNum.RandInt(0, 10);
+                } while (bounds[d][0] == 100 && bounds[d][1] == 100);
+                bounds[d] = new int[] { 100, 100 };
+            }
+
+            List<Party> partiesUsed = enemyID.Parties.Select(p => GetParty(p)).ToList();
+            if (enemyID.ParentData != null && enemyID.ParentData.Parties.Length > 0)
+                partiesUsed.AddRange(enemyID.ParentData.Parties);
+
+            Dictionary<Debuff, int> weights = Enumerable.Range((int)Debuff.Deprotect, 11).ToDictionary(i => (Debuff)i, i => 10000);
+
+            foreach (Party p in partiesUsed)
+            {
+                Dictionary<Member, List<Ability>> partyAbilities = new Dictionary<Member, List<Ability>>();
+                for (int i = 0; i < p.Members.Length; i++)
+                {
+                    List<Ability> abilities = p.Members[i].GetAbilitiesAvailable(p.MaxStage, crystarium.crystariums[p.Members[i].Character.ToString().ToLower()], i == 0 || p.LeaderSwap, enemyID.ElementProperty == ElementProperty.Skytank).Where(a => a.Elements.Length > 0).ToList();
+                    partyAbilities.Add(p.Members[i], abilities);
+                }
+
+                int randomRequiredVulnerable = RandomNum.RandInt(0, p.Members.Length);
+
+                for (int i = 0; i < p.Members.Length; i++)
+                {
+                    float bias = (i == 0 ? leaderBias : aiBias) / (float)partiesUsed.Count;
+
+                    Ability ability;
+                    int debuffCount = partyAbilities[p.Members[i]].SelectMany(a => a.Debuffs).Distinct().Count();
+
+                    if (debuffCount == 0)
+                        ability = partyAbilities[p.Members[i]][RandomNum.RandInt(0, partyAbilities[p.Members[i]].Count - 1)];
+                    else
+                    {
+                        List<Debuff> validDebuffs;
+                        do
+                        {
+                            ability = partyAbilities[p.Members[i]][RandomNum.RandInt(0, partyAbilities[p.Members[i]].Count - 1)];
+                            validDebuffs = ability.Debuffs.ToList();
+                        } while (validDebuffs.Count == 0);
+
+                        weights.Keys.Where(e => validDebuffs.Contains(e)).ForEach(e =>
+                        {
+                            if (RandomNum.RandInt(0, 99) < 40)
+                                weights[e] = (int)(weights[e] / bias);
+                            else
+                                weights[e] = (int)(weights[e] * bias);
+                            if (i == randomRequiredVulnerable && bounds[e][1] > 99)
+                                bounds[e][1] = 99;
+                        });
+                    }
+                }
+            }
+
+            StatValuesWeighted debuffs = new StatValuesWeighted(weights.Values.ToArray());
+
+            debuffs.Randomize(weights.Keys.Select(d => new Tuple<int, int>(bounds[d][0], bounds[d][1])).ToArray(), (int)(weights.Keys.Select(d => enemy[d] - bounds[d][0]).Sum() * modifier / 100f));
+
+            weights.Keys.ToList().ForEach(d => enemy[d] = (byte)Math.Min(100, debuffs[weights.Keys.ToList().IndexOf(d)]));
+        }
+
+        private Element[] GetElementsOnAbility(Ability a, List<Ability> all)
+        {
+            if (a.Elements.Contains(Element.Physical) || a.Elements.Contains(Element.Magic))
+            {
+                if (a.Elements.Length == 1)
+                    return all.Where(aOther => !aOther.Elements.Contains(Element.Physical) && !aOther.Elements.Contains(Element.Magic)).SelectMany(aOther => aOther.Elements).ToArray();
+                else
+                    return a.Elements.Where(e => e != Element.Physical && e != Element.Magic).ToArray();
+            }
+            else
+                return new Element[0];
+        }
+
+        private Party GetParty(Party party)
+        {
+            if (party.Members.Length <= 3)
+                return party;
+            Member[] random = new Member[3];
+            for(int i = 0; i < 3; i++)
+            {
+                if(!party.LeaderSwap && i == 0)
+                {
+                    random[i] = party.Members[i];
+                    continue;
+                }
+                    
+                Member m;
+                do
+                {
+                    m = party.Members[RandomNum.RandInt(0, party.Members.Length - 1)];
+                } while (random.Contains(m));
+                random[i] = m;
+            }
+
+            return new Party(party.MaxStage, party.LeaderSwap, random);
+        }
+
+        private ElementalRes GetBoundRes(int value)
+        {
+            for(ElementalRes res = ElementalRes.Weak; res <= ElementalRes.Absorb; res++)
+            {
+                if (value >= GetBoundValue(res) && value <= GetBoundValue(res, true))
+                    return res;
+            }
+            return ElementalRes.Normal;
+        }
+
+        private int GetBoundValue(ElementalRes res, bool nextHighest = false)
+        {
+            if (nextHighest)
+            {
+                return (res == ElementalRes.Absorb ? GetBoundValue(res) + 100 : GetBoundValue(res + 1)) - 1;
+            }
+            switch (res)
+            {
+                case ElementalRes.Weak:
+                    return 0;
+                case ElementalRes.Normal:
+                default:
+                    return 300;
+                case ElementalRes.Halved:
+                    return 525;
+                case ElementalRes.Resistant:
+                    return 600;
+                case ElementalRes.Immune:
+                    return 650;
+                case ElementalRes.Absorb:
+                    return 700;
+            }
+        }
+
+        private Tuple<int, int> GetElemBounds(ElementalRes[] bounds)
+        {
+            if(bounds[0] == bounds[1])
+                return new Tuple<int, int>(GetBoundValue(bounds[0]), GetBoundValue(bounds[1]));
+            return new Tuple<int, int>(GetBoundValue(bounds[0]), GetBoundValue(bounds[1], true));
+        }
+
+        private void RandomizeDrop(DataStoreEnemy enemy, Enemy enemyID, bool common, Dictionary<Enemy, Tuple<Item, Item>> plando)
         {
             int rankAdj = Flags.ItemFlags.Drops.Range.Value;
             Item item = null;
@@ -222,15 +461,21 @@ namespace FF13Randomizer
                 int rank = TieredItems.manager.GetRank(item, 1);
                 if (rank != -1)
                 {
-                    if (rankAdj > 0)
-                        rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));
-                    int oldRank = rank + 0;
                     Tuple<Item, int> newItem;
-                    do
+                    if (plando.ContainsKey(enemyID) && (common ? plando[enemyID].Item1 : plando[enemyID].Item2) != null)
                     {
-                        newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy.Level, enemyID.Type, item.ID.StartsWith("it") && enemy.Level > 50));
-                        rank--;
-                    } while ((newItem.Item1 == null || randomizers.Get<RandoTreasure>("Treasures").blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
+                        newItem = new Tuple<Item, int>(common ? plando[enemyID].Item1 : plando[enemyID].Item2, 1);
+                    }
+                    else
+                    {
+                        if (rankAdj > 0)
+                            rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));
+                        do
+                        {
+                            newItem = TieredItems.manager.Get(rank, 1, tiered => GetDropWeight(tiered, enemy.Level, enemyID.Type, item.ID.StartsWith("it") && enemy.Level > 50));
+                            rank--;
+                        } while ((newItem.Item1 == null || randomizers.Get<RandoTreasure>("Treasures").blacklistedWeapons.Contains(newItem.Item1)) && rank >= 0);
+                    }
                     if (newItem.Item1 == null)
                         return;
                     if (newItem.Item1.ID.StartsWith("wea_"))

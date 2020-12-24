@@ -47,14 +47,14 @@ namespace FF13Data
 
             DataList = new DataStoreList<T>();
             DataList.LoadData(data.SubArray(IdList[4].Offset, data.Length - IdList[4].Offset));
-            DataList.ToList().ForEach(d => d.UpdateStringPointers(StringList));
+            DataList.ForEach(d => d.UpdateStringPointers(StringList));
         }
 
         public override byte[] Data
         {
             get
             {
-                DataList.ToList().ForEach(d => d.UpdateStringPointers(StringList));
+                DataList.ForEach(d => d.UpdateStringPointers(StringList));
                 IdList["!!string"].DataSize = StringList.Length;                
                 IdList.UpdateOffsets();
                 return header.Concat(IdList.Data).Concat(StringList.Data).Concat(section).Concat(DataList.Data);

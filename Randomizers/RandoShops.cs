@@ -40,8 +40,8 @@ namespace FF13Randomizer
         {
             if (Tweaks.Challenges.NoShops)
             {
-                shops.DataList.ToList().ForEach(shop => {
-                    Enumerable.Range(0, 32).ToList().ForEach(i => shop.SetItemID(i, ""));
+                shops.DataList.ForEach(shop => {
+                    Enumerable.Range(0, 32).ForEach(i => shop.SetItemID(i, ""));
                 });
             }
         }
@@ -52,9 +52,13 @@ namespace FF13Randomizer
             {
                 Flags.ItemFlags.Shops.SetRand();
                 RandoEquip randoEquip = randomizers.Get<RandoEquip>("Equip");
+
+                Dictionary<Shop, List<Item>> plando = main.shopPlando1.GetShops();
+
                 List<Item> guaranteed = Items.items.Where(item => item.PreferredShop != null &&
                                                             randoEquip.equip.IdList.Where(id => id.ID == item.ID).Count() > 0 &&
-                                                            randoEquip.equip.DataList.ToList().Where(e => e.UpgradeInto == item.ID).Count() == 0).ToList();
+                                                            randoEquip.equip.DataList.ToList().Where(e => e.UpgradeInto == item.ID).Count() == 0 &&
+                                                            !plando.Values.SelectMany(l => l).Contains(item)).ToList();
                 guaranteed.Add(Items.Potion);
                 guaranteed.Add(Items.PhoenixDown);
                 guaranteed.Add(Items.Millerite);
@@ -72,7 +76,7 @@ namespace FF13Randomizer
                 int initalGuaranteedCount = guaranteed.Count;
                 int totalCount = Shops.shops.Sum(id => shops[$"{id.ID}{id.Tiers - 1}"].ItemCount);
 
-                List<Item> shuffled = Items.items.Where(i => !guaranteed.Contains(i) && i.PreferredShop != null).ToList();
+                List<Item> shuffled = Items.items.Where(i => !guaranteed.Contains(i) && i.PreferredShop != null && !plando.Values.SelectMany(l => l).Contains(i)).ToList();
                 shuffled.Shuffle();
 
                 Shops.shops.ForEach(shopID =>
@@ -80,6 +84,8 @@ namespace FF13Randomizer
                     int minSize = shops[$"{shopID.ID}{shopID.Tiers - 1}"].ItemCount;
 
                     List<Item> list = new List<Item>();
+
+                    list.AddRange(plando[shopID]);
 
                     if (Flags.ItemFlags.Shops.ExtraSelected)
                     {

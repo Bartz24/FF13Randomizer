@@ -516,19 +516,19 @@ namespace FF13Data
 
 
 
-        public static Item shop0 = new Item("shop0", "key_shop_00", null);
-        public static Item shop1 = new Item("shop1", "key_shop_01", null);
-        public static Item shop2 = new Item("shop2", "key_shop_02", null);
-        public static Item shop3 = new Item("shop3", "key_shop_03", null);
-        public static Item shop5 = new Item("shop5", "key_shop_05", null);
-        public static Item shop6 = new Item("shop6", "key_shop_06", null);
-        public static Item shop7 = new Item("shop7", "key_shop_07", null);
-        public static Item shop8 = new Item("shop8", "key_shop_08", null);
-        public static Item shop9 = new Item("shop9", "key_shop_09", null);
-        public static Item shop10 = new Item("shop10", "key_shop_10", null);
-        public static Item shop11 = new Item("shop11", "key_shop_11", null);
-        public static Item shop12 = new Item("shop12", "key_shop_12", null);
-        public static Item shop13 = new Item("shop13", "key_shop_13", null);
+        public static Item UnicornMart = new Item("Unicorn Mart", "key_shop_00", null);
+        public static Item EdenPharmaceuticals = new Item("Eden Pharmaceuticals", "key_shop_01", null);
+        public static Item UpInArms = new Item("Up In Arms", "key_shop_02", null);
+        public static Item PlautusWorkshop = new Item("Plautus's Workshop", "key_shop_03", null);
+        public static Item GilgameshInc = new Item("Gilgamesh, Inc.", "key_shop_05", null);
+        public static Item BWOutfitters = new Item("B&W Outfitters", "key_shop_06", null);
+        public static Item MagicalMoments = new Item("Magical Moments", "key_shop_07", null);
+        public static Item Moogleworks = new Item("Moogleworks", "key_shop_08", null);
+        public static Item SanctumLabs = new Item("Sanctum Labs", "key_shop_09", null);
+        public static Item CreatureComforts = new Item("Creature Comforts", "key_shop_10", null);
+        public static Item TheMotherlode = new Item("The Motherlode", "key_shop_11", null);
+        public static Item LenorasGarage = new Item("Lenora's Garage", "key_shop_12", null);
+        public static Item RDDepot = new Item("R&D Depot", "key_shop_13", null);
 
         public static Item ctool = new Item("ctool", "key_ctool", null);
     }

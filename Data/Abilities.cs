@@ -48,11 +48,12 @@ namespace FF13Data
             .Add("c004_at010_00", "v")
             .Add("c004_at010_99", "") // Ch1/2 Vanille
             .Add("c004_at020_00", "") // mid Attacks Vanille
+            .SetElements(Element.Physical)
             .SetStarting();
         public static Ability Blitz = new Ability("Blitz", Role.Commando, "at520_00", "lsf")
             .Add("c002_at520_00", "z")
             .Add("c003_at520_00", "h");
-        public static Ability Ruin = new Ability("Ruin", Role.Commando, "ma000_00").SetStarting();
+        public static Ability Ruin = new Ability("Ruin", Role.Commando, "ma000_00").SetElements(Element.Magic).SetStarting();
         public static Ability Ruinga = new Ability("Ruinga", Role.Commando, "ma020_00");
 
 
@@ -62,43 +63,47 @@ namespace FF13Data
         public static Ability Overwhelm = new Ability("Overwhelm", Role.Ravager, "ade810_00");
         public static Ability Vigor = new Ability("Vigor", Role.Ravager, "ade820_00");
 
-        public static Ability Aero = new Ability("Aero", Role.Ravager, "mb400_00").SetStarting();
-        public static Ability Aerora = new Ability("Aerora", Role.Ravager, "mb410_00").SetStarting();
-        public static Ability Aeroga = new Ability("Aeroga", Role.Ravager, "mb420_00");
+        public static Ability Aero = new Ability("Aero", Role.Ravager, "mb400_00").SetElements(Element.Magic, Element.Wind).SetStarting();
+        public static Ability Aerora = new Ability("Aerora", Role.Ravager, "mb410_00").SetElements(Element.Magic, Element.Wind).SetStarting();
+        public static Ability Aeroga = new Ability("Aeroga", Role.Ravager, "mb420_00").SetElements(Element.Magic, Element.Wind);
 
-        public static Ability Blizzard = new Ability("Blizzard", Role.Ravager, "mb100_00").SetStarting();
-        public static Ability Blizzara = new Ability("Blizzara", Role.Ravager, "mb110_00").SetStarting();
-        public static Ability Blizzaga = new Ability("Blizzaga", Role.Ravager, "mb120_00").SetStarting();
+        public static Ability Blizzard = new Ability("Blizzard", Role.Ravager, "mb100_00").SetElements(Element.Magic, Element.Ice).SetStarting();
+        public static Ability Blizzara = new Ability("Blizzara", Role.Ravager, "mb110_00").SetElements(Element.Magic, Element.Ice).SetStarting();
+        public static Ability Blizzaga = new Ability("Blizzaga", Role.Ravager, "mb120_00").SetElements(Element.Magic, Element.Ice).SetStarting();
 
-        public static Ability Fire = new Ability("Fire", Role.Ravager, "mb000_00").SetStarting();
-        public static Ability Fira = new Ability("Fira", Role.Ravager, "mb010_00").SetStarting();
-        public static Ability Firaga = new Ability("Firaga", Role.Ravager, "mb020_00").SetStarting();
+        public static Ability Fire = new Ability("Fire", Role.Ravager, "mb000_00").SetElements(Element.Magic, Element.Fire).SetStarting();
+        public static Ability Fira = new Ability("Fira", Role.Ravager, "mb010_00").SetElements(Element.Magic, Element.Fire).SetStarting();
+        public static Ability Firaga = new Ability("Firaga", Role.Ravager, "mb020_00").SetElements(Element.Magic, Element.Fire).SetStarting();
 
-        public static Ability Thunder = new Ability("Thunder", Role.Ravager, "mb200_00").SetStarting();
-        public static Ability Thundara = new Ability("Thundara", Role.Ravager, "mb210_00").SetStarting();
-        public static Ability Thundaga = new Ability("Thundaga", Role.Ravager, "mb220_00").SetStarting();
+        public static Ability Thunder = new Ability("Thunder", Role.Ravager, "mb200_00").SetElements(Element.Magic, Element.Thunder).SetStarting();
+        public static Ability Thundara = new Ability("Thundara", Role.Ravager, "mb210_00").SetElements(Element.Magic, Element.Thunder).SetStarting();
+        public static Ability Thundaga = new Ability("Thundaga", Role.Ravager, "mb220_00").SetElements(Element.Magic, Element.Thunder).SetStarting();
 
-        public static Ability Water = new Ability("Water", Role.Ravager, "mb300_00").SetStarting();
-        public static Ability Watera = new Ability("Watera", Role.Ravager, "mb310_00").SetStarting();
-        public static Ability Waterga = new Ability("Waterga", Role.Ravager, "mb320_00").SetStarting();
+        public static Ability Water = new Ability("Water", Role.Ravager, "mb300_00").SetElements(Element.Magic, Element.Water).SetStarting();
+        public static Ability Watera = new Ability("Watera", Role.Ravager, "mb310_00").SetElements(Element.Magic, Element.Water).SetStarting();
+        public static Ability Waterga = new Ability("Waterga", Role.Ravager, "mb320_00").SetElements(Element.Magic, Element.Water).SetStarting();
 
         public static Ability Aquastrike = new Ability("Aquastrike", Role.Ravager, "at010_40", "lsf")
             .Add("at020_40", "") // mid Attacks Light/Fang/Snow
+            .SetElements(Element.Physical, Element.Water)
             .SetStarting();
         public static Ability Flamestrike = new Ability("Flamestrike", Role.Ravager, "at010_10", "lf")
             .Add("at020_10", "") // mid Attacks Light/Fang
             .Add("c002_at010_10", "z")
             .Add("c002_at020_10", "") // mid Attacks Sazh
             .Add("c002_at030_10", "") // mid Attacks Sazh
+            .SetElements(Element.Physical, Element.Fire)
             .SetStarting();
         public static Ability Froststrike = new Ability("Froststrike", Role.Ravager, "at010_20", "lsf")
             .Add("at020_20", "") // mid Attacks Light/Fang/Snow
+            .SetElements(Element.Physical, Element.Ice)
             .SetStarting();
         public static Ability Sparkstrike = new Ability("Sparkstrike", Role.Ravager, "at010_30", "lf")
             .Add("at020_30", "") // mid Attacks Light/Fang
             .Add("c002_at010_30", "z")
             .Add("c002_at020_30", "") // mid Attacks Sazh
             .Add("c002_at030_30", "") // mid Attacks Sazh
+            .SetElements(Element.Physical, Element.Thunder)
             .SetStarting();
 
 
@@ -130,10 +135,10 @@ namespace FF13Data
         public static Ability Barthunder = new Ability("Barthunder", Role.Synergist, "me550_00").SetStarting();
         public static Ability Barwater = new Ability("Barwater", Role.Synergist, "me560_00").SetStarting();
 
-        public static Ability Enfire = new Ability("Enfire", Role.Synergist, "me030_00").SetStarting();
-        public static Ability Enfrost = new Ability("Enfrost", Role.Synergist, "me040_00").SetStarting();
-        public static Ability Enthunder = new Ability("Enthunder", Role.Synergist, "me050_00").SetStarting();
-        public static Ability Enwater = new Ability("Enwater", Role.Synergist, "me060_00").SetStarting();
+        public static Ability Enfire = new Ability("Enfire", Role.Synergist, "me030_00").SetElements(Element.Fire).SetStarting();
+        public static Ability Enfrost = new Ability("Enfrost", Role.Synergist, "me040_00").SetElements(Element.Ice).SetStarting();
+        public static Ability Enthunder = new Ability("Enthunder", Role.Synergist, "me050_00").SetElements(Element.Thunder).SetStarting();
+        public static Ability Enwater = new Ability("Enwater", Role.Synergist, "me060_00").SetElements(Element.Water).SetStarting();
 
         public static Ability Bravery = new Ability("Bravery", Role.Synergist, "me000_00").SetStarting();
         public static Ability Bravera = new Ability("Bravera", Role.Synergist, "me200_00").SetStarting();
@@ -157,34 +162,34 @@ namespace FF13Data
         // Saboteur
         public static Ability Jinx = new Ability("Jinx", Role.Saboteur, "ade900_00");
 
-        public static Ability Curse = new Ability("Curse", Role.Saboteur, "mg530_00").SetStarting();
-        public static Ability Cursega = new Ability("Cursega", Role.Saboteur, "mg730_00").SetStarting();
+        public static Ability Curse = new Ability("Curse", Role.Saboteur, "mg530_00").SetDebuffs(Debuff.Curse).SetStarting();
+        public static Ability Cursega = new Ability("Cursega", Role.Saboteur, "mg730_00").SetDebuffs(Debuff.Curse).SetStarting();
 
-        public static Ability Daze = new Ability("Daze", Role.Saboteur, "mg540_00").SetStarting();
-        public static Ability Dazega = new Ability("Dazega", Role.Saboteur, "mg740_00").SetStarting();
+        public static Ability Daze = new Ability("Daze", Role.Saboteur, "mg540_00").SetDebuffs(Debuff.Daze).SetStarting();
+        public static Ability Dazega = new Ability("Dazega", Role.Saboteur, "mg740_00").SetDebuffs(Debuff.Daze).SetStarting();
 
-        public static Ability Deprotect = new Ability("Deprotect", Role.Saboteur, "mg000_00").SetStarting();
-        public static Ability Deprotega = new Ability("Deprotega", Role.Saboteur, "mg200_00").SetStarting();
+        public static Ability Deprotect = new Ability("Deprotect", Role.Saboteur, "mg000_00").SetDebuffs(Debuff.Deprotect).SetStarting();
+        public static Ability Deprotega = new Ability("Deprotega", Role.Saboteur, "mg200_00").SetDebuffs(Debuff.Deprotect).SetStarting();
 
-        public static Ability Deshell = new Ability("Deshell", Role.Saboteur, "mg010_00").SetStarting();
-        public static Ability Deshellga = new Ability("Deshellga", Role.Saboteur, "mg210_00").SetStarting();
+        public static Ability Deshell = new Ability("Deshell", Role.Saboteur, "mg010_00").SetDebuffs(Debuff.Deshell).SetStarting();
+        public static Ability Deshellga = new Ability("Deshellga", Role.Saboteur, "mg210_00").SetDebuffs(Debuff.Deshell).SetStarting();
 
-        public static Ability Fog = new Ability("Fog", Role.Saboteur, "mg510_00").SetStarting();
-        public static Ability Fogga = new Ability("Fogga", Role.Saboteur, "mg710_00").SetStarting();
+        public static Ability Fog = new Ability("Fog", Role.Saboteur, "mg510_00").SetDebuffs(Debuff.Fog).SetStarting();
+        public static Ability Fogga = new Ability("Fogga", Role.Saboteur, "mg710_00").SetDebuffs(Debuff.Fog).SetStarting();
 
-        public static Ability Imperil = new Ability("Imperil", Role.Saboteur, "mg030_00").SetStarting();
-        public static Ability Imperilga = new Ability("Imperilga", Role.Saboteur, "mg230_00").SetStarting();
+        public static Ability Imperil = new Ability("Imperil", Role.Saboteur, "mg030_00").SetDebuffs(Debuff.Imperil).SetStarting();
+        public static Ability Imperilga = new Ability("Imperilga", Role.Saboteur, "mg230_00").SetDebuffs(Debuff.Imperil).SetStarting();
 
-        public static Ability Pain = new Ability("Pain", Role.Saboteur, "mg520_00").SetStarting();
-        public static Ability Painga = new Ability("Painga", Role.Saboteur, "mg720_00").SetStarting();
+        public static Ability Pain = new Ability("Pain", Role.Saboteur, "mg520_00").SetDebuffs(Debuff.Pain).SetStarting();
+        public static Ability Painga = new Ability("Painga", Role.Saboteur, "mg720_00").SetDebuffs(Debuff.Pain).SetStarting();
 
-        public static Ability Poison = new Ability("Poison", Role.Saboteur, "mg020_00").SetStarting();
-        public static Ability Poisonga = new Ability("Poisonga", Role.Saboteur, "mg220_00").SetStarting();
+        public static Ability Poison = new Ability("Poison", Role.Saboteur, "mg020_00").SetDebuffs(Debuff.Poison).SetStarting();
+        public static Ability Poisonga = new Ability("Poisonga", Role.Saboteur, "mg220_00").SetDebuffs(Debuff.Poison).SetStarting();
 
-        public static Ability Slow = new Ability("Slow", Role.Saboteur, "mg500_00").SetStarting();
-        public static Ability Slowga = new Ability("Slowga", Role.Saboteur, "mg700_00").SetStarting();
+        public static Ability Slow = new Ability("Slow", Role.Saboteur, "mg500_00").SetDebuffs(Debuff.Slow).SetStarting();
+        public static Ability Slowga = new Ability("Slowga", Role.Saboteur, "mg700_00").SetDebuffs(Debuff.Slow).SetStarting();
 
-        public static Ability Dispel = new Ability("Dispel", Role.Saboteur, "mg240_00").SetStarting();
+        public static Ability Dispel = new Ability("Dispel", Role.Saboteur, "mg240_00").SetDebuffs(Debuff.Dispel).SetStarting();
 
 
         // Medic
@@ -201,7 +206,7 @@ namespace FF13Data
         // Techniques
         public static Ability Dispelga = new Ability("Dispelga", Role.None, "tp300_00", "lsvzhf", true);
         public static Ability Libra = new Ability("Libra", Role.None, "tp100_00", "lsvzhf", true);
-        public static Ability Quake = new Ability("Quake", Role.None, "tp400_00", "lsvzhf", true);
+        public static Ability Quake = new Ability("Quake", Role.None, "tp400_00", "lsvzhf", true).SetElements(Element.Earth);
         public static Ability Renew = new Ability("Renew", Role.None, "tp000_00", "lsvzhf", true);
         public static Ability Stopga = new Ability("Stopga", Role.None, "tp200_00", "lsvzhf", true);
         public static Ability Summon = new Ability("Summon", Role.None, "sm000", "");
@@ -216,6 +221,17 @@ namespace FF13Data
         public static Ability LastResort = new Ability("Last Resort", Role.Ravager, "ms200_00", "h", true);
         public static Ability SovereignFist = new Ability("Sovereign Fist", Role.Commando, "c001_at900_00", "s", true);
 
-        public static Ability HandGrenade = new Ability("Hand Grenade", Role.Commando, "def100_00", "");
+        public static Ability HandGrenade = new Ability("Hand Grenade", Role.Commando, "def100_00", "").SetElements(Element.Physical, Element.Fire);
+
+        public static Ability GetAbility(string name, DataStoreCrystarium cryst)
+        {
+            return Abilities.abilities.Where(a => a.HasCharacter(GetCharID(name)) && a.GetAbility(GetCharID(name)) == cryst.AbilityName).FirstOrDefault();
+        }
+        public static string GetCharID(string character)
+        {
+            if (character == "sazh")
+                return "z";
+            return character.Substring(0, 1);
+        }
     }
 }

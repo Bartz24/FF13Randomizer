@@ -77,6 +77,9 @@
     <Compile Include="Data\Enemies.cs" />
     <Compile Include="Data\Identifier.cs" />
     <Compile Include="Data\Crystarium.cs" />
+    <Compile Include="Data\Party\Member.cs" />
+    <Compile Include="Data\Party\Parties.cs" />
+    <Compile Include="Data\Party\Party.cs" />
     <Compile Include="Data\Treasure.cs" />
     <Compile Include="Data\Treasures.cs" />
     <Compile Include="Data\Shops.cs" />
@@ -163,11 +166,30 @@
     <Compile Include="Plandos\CrystariumPlando.Designer.cs">
       <DependentUpon>CrystariumPlando.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plandos\PlandoFile.cs" />
+    <Compile Include="Plandos\ShopOrderPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\ShopOrderPlando.Designer.cs">
+      <DependentUpon>ShopOrderPlando.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plandos\ShopPlando.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Plandos\ShopPlando.Designer.cs">
       <DependentUpon>ShopPlando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plandos\AbilityPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\AbilityPlando.Designer.cs">
+      <DependentUpon>AbilityPlando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plandos\EnemyDropPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\EnemyDropPlando.Designer.cs">
+      <DependentUpon>EnemyDropPlando.cs</DependentUpon>
     </Compile>
     <Compile Include="Plandos\TreasurePlando.cs">
       <SubType>UserControl</SubType>
@@ -194,6 +216,7 @@
     <Compile Include="Randomizers\RandoTreasure.cs" />
     <Compile Include="Randomizers\RandoCrystarium.cs" />
     <Compile Include="Randomizers\Randomizer.cs" />
+    <Compile Include="StatValuesWeighted.cs" />
     <Compile Include="StatValues.cs" />
     <EmbeddedResource Include="Flags\FlagBool.resx">
       <DependentUpon>FlagBool.cs</DependentUpon>
@@ -219,8 +242,17 @@
     <EmbeddedResource Include="Plandos\CrystariumPlando.resx">
       <DependentUpon>CrystariumPlando.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\ShopOrderPlando.resx">
+      <DependentUpon>ShopOrderPlando.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Plandos\ShopPlando.resx">
       <DependentUpon>ShopPlando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\AbilityPlando.resx">
+      <DependentUpon>AbilityPlando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\EnemyDropPlando.resx">
+      <DependentUpon>EnemyDropPlando.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Plandos\TreasurePlando.resx">
       <DependentUpon>TreasurePlando.cs</DependentUpon>

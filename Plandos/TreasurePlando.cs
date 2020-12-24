@@ -91,7 +91,7 @@ namespace FF13Randomizer
 
             treasures.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\treasurebox.wdb"));
 
-            treasures.IdList.Where(t => !t.ID.StartsWith("!") && Treasures.treasures.Where(tr=>tr.ID == t.ID).Count() == 0).ToList().ForEach(t => AddEntry(t.ID));
+            treasures.IdList.Where(t => !t.ID.StartsWith("!") && Treasures.treasures.Where(tr=>tr.ID == t.ID).Count() == 0).ForEach(t => AddEntry(t.ID));
             foreach (DataRow row in dataTable.Rows)
             {
                 Item item = Items.items.Find(i => i.ID == treasures[row.Field<string>(0)].ItemID);
@@ -113,6 +113,7 @@ namespace FF13Randomizer
                     MessageBox.Show("Must enter a number from 0-9999999");
                 }
             }
+            FormMain.PlandoModified = true;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,7 +140,7 @@ namespace FF13Randomizer
             foreach (DataRow row in dataTable.Rows)
             {
                 Treasure first = Treasures.treasures.Find(t => t.ID == row.Field<string>(0));
-                Item item = Items.items.Find(i => i.Name == row.Field<string>(3));
+                Item item = Items.items.Find(i => i.Name == row.Field<string>(3) || i.ID == row.Field<string>(3));
                 int amount = row.Field<int>(4);
                 if(first!=null && item!= null)
                 {
@@ -147,6 +148,39 @@ namespace FF13Randomizer
                 }
             }
             return dict;
+        }
+
+        public class JSONPlandoTreasure
+        {
+            public string ID { get; set; }
+            public string Item { get; set; }
+            public int Amount { get; set; }
+        }
+
+        public List<JSONPlandoTreasure> GetJSONPlando()
+        {
+            List<JSONPlandoTreasure> list = new List<JSONPlandoTreasure>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                list.Add(new JSONPlandoTreasure()
+                {
+                    ID = row.Field<string>(0),
+                    Item = row.Field<string>(3),
+                    Amount = row.Field<int>(4)
+                });
+            }
+            return list;
+        }
+
+        public void LoadJSONPlando(List<JSONPlandoTreasure> list)
+        {
+            foreach (DataRow row in dataTable.Rows)
+            {
+                JSONPlandoTreasure json = list.Find(j => j.ID == row.Field<string>(0));
+                row.SetField<string>(3, json.Item);
+                row.SetField<int>(4, json.Amount);
+            }
         }
     }
 }

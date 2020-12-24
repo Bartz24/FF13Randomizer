@@ -50,14 +50,19 @@ namespace FF13Randomizer
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
+            Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando = main.crystariumPlando1.GetNodes();
+
             Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages = new Dictionary<int, Dictionary<CrystariumType, List<int>>>();
             if (Flags.CrystariumFlags.RandStats)
                 statAverages = GetStatAverages();
+
+            Dictionary<string, Dictionary<Role, List<Ability>>> nodes = GetNodeAbilities();
+
             if (Flags.CrystariumFlags.ShuffleNodes)
-                ShuffleNodes();
+                PlaceNodes(plando, nodes);
             backgroundWorker.ReportProgress(10);
             if (Flags.CrystariumFlags.RandStats)
-                RandomizeStats(statAverages);
+                RandomizeStats(plando, statAverages);
             backgroundWorker.ReportProgress(20);
 
             if (Tweaks.Boosts.ScaledCPCost)
@@ -68,7 +73,7 @@ namespace FF13Randomizer
 
             backgroundWorker.ReportProgress(40);
 
-            RandomizeAbilities();
+            RandomizeAbilities(plando);
             backgroundWorker.ReportProgress(100);
         }
 
@@ -95,6 +100,21 @@ namespace FF13Randomizer
                     }
                 }
             }
+        }
+
+        public Dictionary<string, Dictionary<Role, List<Ability>>> GetNodeAbilities()
+        {
+            Dictionary<string, Dictionary<Role, List<Ability>>> dict = new Dictionary<string, Dictionary<Role, List<Ability>>>();
+            foreach (string name in CharNames)
+            {
+                Dictionary<Role, List<Ability>> abilities = new Dictionary<Role, List<Ability>>();
+                foreach (Role role in Enum.GetValues(typeof(Role)))
+                {
+                    abilities.Add(role, crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.Ability).Select(c => Abilities.GetAbility(name, c)).ToList());
+                }
+                dict.Add(name, abilities);
+            }
+            return dict;
         }
 
         public Dictionary<int, Dictionary<CrystariumType, List<int>>> GetStatAverages()
@@ -153,7 +173,7 @@ namespace FF13Randomizer
                 statAverages[1] = dict;
             }
 
-            statAverages.Values.ToList().ForEach(d =>
+            statAverages.Values.ForEach(d =>
             {
                 d.Keys.ToList().ForEach(k =>
                 {
@@ -169,7 +189,7 @@ namespace FF13Randomizer
             return statAverages;
         }
 
-        public void RandomizeStats(Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages)
+        public void RandomizeStats(Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando, Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages)
         {
             Flags.CrystariumFlags.RandStats.SetRand();
             foreach (string name in CharNames)
@@ -192,7 +212,8 @@ namespace FF13Randomizer
 
                 foreach (DataStoreCrystarium c in crystarium.DataList)
                 {
-                    if (c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic)
+                    if ((c.Type == CrystariumType.Unknown || c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic) &&
+                        !plando[name].Keys.Select(k => crystarium[k]).Contains(c))
                     {
                         c.Type = RandomNum.SelectRandomWeighted(
                             new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.ToList(),
@@ -241,7 +262,7 @@ namespace FF13Randomizer
                     List<DataStoreCrystarium> list = crystarium.DataList.Where(
                     c => (c.Type == CrystariumType.HP ||
                 c.Type == CrystariumType.Strength ||
-                c.Type == CrystariumType.Magic) && c.Role == role).ToList();
+                c.Type == CrystariumType.Magic) && c.Role == role && !plando[name].Keys.Select(k => crystarium[k]).Contains(c)).ToList();
 
                     for (int i = 0; i < list.Count() / 2; i++)
                     {
@@ -261,67 +282,124 @@ namespace FF13Randomizer
             RandomNum.ClearRand();
         }
 
-        public void ShuffleNodes()
+        public void PlaceNodes(Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando, Dictionary<string, Dictionary<Role, List<Ability>>> nodes)
         {
             Flags.CrystariumFlags.ShuffleNodes.SetRand();
+
             foreach (string name in CharNames)
             {
-                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
+                crystariums[name].DataList.Where(c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role))).ForEach(c => c.Type = CrystariumType.Unknown);
 
-                for (int r = 1; r <= 6; r++)
+                foreach (string id in plando[name].Keys)
                 {
-                    Role role = (Role)r;
+                    DataStoreCrystarium cryst = crystariums[name][id];
 
-                    crystarium.DataList.ToList()
-                            .Where(c => c.Role == role
-                            && c.CPCost > 0
-                            && ((!primaryRoles[name].Contains(role) && c.Stage > 1) || primaryRoles[name].Contains(role))).ToList()
-                            .Shuffle((a, b) => a.SwapStatsAbilities(b));
+                    if (plando[name][id].Item1 == CrystariumType.Ability)
+                    {
+                        cryst.Type = CrystariumType.Ability;
+                        if (plando[name][id].Item2 != null)
+                        {
+                            cryst.AbilityName = plando[name][id].Item2.GetAbility(Abilities.GetCharID(name));
+                            nodes.Values.ForEach(d => d.Values.ForEach(l => l.RemoveAll(a => a == plando[name][id].Item2)));
+                        }
+                        else
+                            cryst.AbilityName = "";
+                    }
+                    else
+                    {
+                        cryst.Type = plando[name][id].Item1;
+                        cryst.Value = (ushort)plando[name][id].Item3;
+                    }
+                }
 
-                    crystarium.DataList.ToList()
-                            .Where(c => c.Type == CrystariumType.Accessory || c.Type == CrystariumType.ATBLevel).ToList()
-                            .Shuffle((a, b) => a.SwapStatsAbilities(b));
+                List<DataStoreCrystarium> possible;
+
+                for (Role role = (Role)1; role <= (Role)6; role++)
+                {
+                    possible = crystariums[name].IdList.Where(
+                        id => !id.ID.StartsWith("!") && !plando[name].Keys.Contains(id.ID)).Select(id => crystariums[name][id.ID]).Where(
+                        c => c.Role == role &&
+                        c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(role))
+                        && c.Type == CrystariumType.Unknown).ToList();
+                    for (int i = 0; i < nodes[name][role].Count; i++)
+                    {
+                        int select = RandomNum.RandInt(0, possible.Count - 1);
+                        possible[select].Type = CrystariumType.Ability;
+                        possible[select].AbilityName = nodes[name][role][i].GetAbility(Abilities.GetCharID(name));
+                        possible.RemoveAt(select);
+                    }
+
+                    int roleLevelCount = crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.RoleLevel).Count();
+                    for (int i = 0; i < 4 - roleLevelCount; i++)
+                    {
+                        int select = RandomNum.RandInt(0, possible.Count - 1);
+                        possible[select].Type = CrystariumType.RoleLevel;
+                        possible.RemoveAt(select);
+                    }
+                }
+
+                possible = crystariums[name].IdList.Where(
+                    id => !id.ID.StartsWith("!") && !plando[name].Keys.Contains(id.ID)).Select(id => crystariums[name][id.ID]).Where(
+                    c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role)) && c.Type == CrystariumType.Unknown).ToList();
+
+                int atbLevelCount = crystariums[name].DataList.Where(c => c.Type == CrystariumType.ATBLevel).Count();
+                if (atbLevelCount == 0)
+                {
+                    int select = RandomNum.RandInt(0, possible.Count - 1);
+                    possible[select].Type = CrystariumType.ATBLevel;
+                    possible.RemoveAt(select);
+                }
+
+                int accessoryCount = crystariums[name].DataList.Where(c => c.Type == CrystariumType.Accessory).Count();
+                for (int i = 0; i < 3 - accessoryCount; i++)
+                {
+                    int select = RandomNum.RandInt(0, possible.Count - 1);
+                    possible[select].Type = CrystariumType.Accessory;
+                    possible.RemoveAt(select);
                 }
             }
+
             RandomNum.ClearRand();
         }
 
-        public void ShuffleTechniques(string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium)
+        public void ShuffleTechniques(Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando, string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium)
         {
             if (Flags.CrystariumFlags.NewAbilities)
             {
                 List<string> techniqueIDs = Abilities.abilities.Where(a => a.Role == Role.None).SelectMany(a => a.GetIDs()).ToList();
 
                 Flags.CrystariumFlags.NewAbilities.SetRand();
-                crystarium.DataList.ToList()
+                crystarium.DataList
                 .Where(c => c.Type == CrystariumType.Ability
-                && techniqueIDs.Contains(c.AbilityName)                
-                && (!Flags.CrystariumFlags.NewAbilities.ExtraSelected2 || (Flags.CrystariumFlags.NewAbilities.ExtraSelected2 && GetAbility(name, crystarium, c) != Abilities.Libra)))
+                && techniqueIDs.Contains(c.AbilityName)
+                && (!Flags.CrystariumFlags.NewAbilities.ExtraSelected2 || (Flags.CrystariumFlags.NewAbilities.ExtraSelected2 && Abilities.GetAbility(name, c) != Abilities.Libra))
+                && !plando[name].Keys.Select(k => crystarium[k]).Contains(c))
                 .ToList().Shuffle((a, b) => a.SwapStatsAbilities(b));
                 RandomNum.ClearRand();
             }
         }
 
-        public void ShuffleAnyRole(string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium)
+        public void ShuffleAnyRole(Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando, string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium)
         {
             if (Flags.CrystariumFlags.NewAbilities && Flags.CrystariumFlags.NewAbilities.ExtraSelected)
             {
                 Flags.CrystariumFlags.NewAbilities.SetRand();
-                crystarium.DataList.ToList()
+                crystarium.DataList
                 .Where(c => c.Type == CrystariumType.Ability
-                && c.CPCost > 0 && (primaryRoles[name].Contains(c.Role) || c.Stage > 1))
+                && c.CPCost > 0 && (primaryRoles[name].Contains(c.Role) || c.Stage > 1)
+                && !plando[name].Keys.Select(k => crystarium[k]).Contains(c))
                 .ToList().Shuffle((a, b) => a.SwapStatsAbilities(b));
                 RandomNum.ClearRand();
             }
         }
 
-        public void RandomizeAbilities()
+        public void RandomizeAbilities(Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando)
         {
             foreach (string name in CharNames)
             {
                 DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
 
-                ShuffleTechniques(name, crystarium);
+                ShuffleTechniques(plando, name, crystarium);
 
                 List<Tiered<Ability>> added = new List<Tiered<Ability>>();
                 List<Ability> obtained = new List<Ability>();
@@ -337,13 +415,14 @@ namespace FF13Randomizer
                         List<int> abilityNodes = new List<int>();
                         for (int i = 0; i < crystarium.DataList.Count; i++)
                         {
-                            if (crystarium.DataList[i].Role == role && crystarium.DataList[i].Type == CrystariumType.Ability)
+                            DataStoreCrystarium c = crystarium.DataList[i];
+                            if (c.Role == role && c.Type == CrystariumType.Ability && (!plando[name].Keys.Select(k => crystarium[k]).Contains(c) || string.IsNullOrEmpty(c.AbilityName)))
                                 abilityNodes.Add(i);
                         }
                         abilityNodes.Sort((a, b) => crystarium.DataList[a].Stage.CompareTo(crystarium.DataList[b].Stage));
 
                         List<Tiered<Ability>> starting = TieredAbilities.manager.list.Where(
-                    t => t.Items.Where(a => a.Role == role && !a.Special && a.Starting && a.HasCharacter(getCharID(name))).Count() > 0 && !added.Contains(t)).ToList();
+                    t => t.Items.Where(a => a.Role == role && !a.Special && a.Starting && a.HasCharacter(Abilities.GetCharID(name))).Count() > 0 && !added.Contains(t)).ToList();
 
                         int maxStage = 1;
                         for (int i = 0; i < abilityNodes.Count; i++)
@@ -352,9 +431,9 @@ namespace FF13Randomizer
                             if (cryst.Stage < maxStage)
                                 throw new Exception("Went down in stage!");
                             maxStage = cryst.Stage;
-                            Ability orig = GetAbility(name, crystarium, cryst);
+                            Ability orig = Abilities.GetAbility(name, cryst);
 
-                            if (orig.Special)
+                            if (orig != null && orig.Special)
                                 continue;
 
                             if (cryst.CPCost == 0 || (!primaryRoles[name].Contains(role) && cryst.Stage == 1))
@@ -366,7 +445,7 @@ namespace FF13Randomizer
                                     newI = RandomNum.RandInt(0, starting.Count - 1);
                                     ability = Flags.CrystariumFlags.NewAbilities.ExtraSelected ? TieredAbilities.GetNoDep(starting[newI]) : TieredAbilities.Get(starting[newI], obtained);
                                 } while (ability == null);
-                                cryst.AbilityName = ability.GetAbility(getCharID(name));
+                                cryst.AbilityName = ability.GetAbility(Abilities.GetCharID(name));
                                 obtained.Add(ability);
                                 added.Add(starting[newI]);
                                 starting.RemoveAt(newI);
@@ -390,13 +469,14 @@ namespace FF13Randomizer
                         List<int> abilityNodes = new List<int>();
                         for (int i = 0; i < crystarium.DataList.Count; i++)
                         {
-                            if (crystarium.DataList[i].Role == role && crystarium.DataList[i].Type == CrystariumType.Ability && !startingNodes[role].Contains(i) && crystarium.DataList[i].CPCost == 0)
+                            DataStoreCrystarium c = crystarium.DataList[i];
+                            if (c.Role == role && c.Type == CrystariumType.Ability && !startingNodes[role].Contains(i) && c.CPCost == 0 && (!plando[name].Keys.Select(k => crystarium[k]).Contains(c) || string.IsNullOrEmpty(c.AbilityName)))
                                 abilityNodes.Add(i);
                         }
                         abilityNodes.Sort((a, b) => crystarium.DataList[a].Stage.CompareTo(crystarium.DataList[b].Stage));
 
                         List<Tiered<Ability>> rest = TieredAbilities.manager.list.Where(
-                    t => t.Items.Where(a => a.Role == role && !a.Special && a.HasCharacter(getCharID(name))).Count() > 0 && !added.Contains(t)).ToList();
+                    t => t.Items.Where(a => a.Role == role && !a.Special && a.HasCharacter(Abilities.GetCharID(name))).Count() > 0 && !added.Contains(t)).ToList();
                         for (int i = 0; i < abilityNodes.Count; i++)
                         {
                             DataStoreCrystarium cryst = crystarium.DataList[abilityNodes[i]];
@@ -404,9 +484,9 @@ namespace FF13Randomizer
                                 throw new Exception("Went down in stage!");
                             maxStage = cryst.Stage;
 
-                            Ability orig = GetAbility(name, crystarium, cryst);
+                            Ability orig = Abilities.GetAbility(name, cryst);
 
-                            if (orig.Special)
+                            if (orig != null && orig.Special)
                                 continue;
 
                             int newI;
@@ -416,7 +496,7 @@ namespace FF13Randomizer
                                 newI = RandomNum.RandInt(0, rest.Count - 1);
                                 ability = Flags.CrystariumFlags.NewAbilities.ExtraSelected ? TieredAbilities.GetNoDep(rest[newI]) : TieredAbilities.Get(rest[newI], obtained);
                             } while (ability == null);
-                            cryst.AbilityName = ability.GetAbility(getCharID(name));
+                            cryst.AbilityName = ability.GetAbility(Abilities.GetCharID(name));
                             obtained.Add(ability);
                             added.Add(rest[newI]);
                             rest.RemoveAt(newI);
@@ -435,13 +515,14 @@ namespace FF13Randomizer
                         List<int> abilityNodes = new List<int>();
                         for (int i = 0; i < crystarium.DataList.Count; i++)
                         {
-                            if (crystarium.DataList[i].Role == role && crystarium.DataList[i].Type == CrystariumType.Ability && !startingNodes[role].Contains(i) && crystarium.DataList[i].CPCost > 0)
+                            DataStoreCrystarium c = crystarium.DataList[i];
+                            if (c.Role == role && c.Type == CrystariumType.Ability && !startingNodes[role].Contains(i) && c.CPCost > 0 && (!plando[name].Keys.Select(k => crystarium[k]).Contains(c) || string.IsNullOrEmpty(c.AbilityName)))
                                 abilityNodes.Add(i);
                         }
                         abilityNodes.Sort((a, b) => crystarium.DataList[a].Stage.CompareTo(crystarium.DataList[b].Stage));
 
                         List<Tiered<Ability>> rest = TieredAbilities.manager.list.Where(
-                    t => t.Items.Where(a => (a.Role == role || Flags.CrystariumFlags.NewAbilities.ExtraSelected) && !a.Special && a.HasCharacter(getCharID(name))).Count() > 0 && !added.Contains(t)).ToList();
+                    t => t.Items.Where(a => (a.Role == role || Flags.CrystariumFlags.NewAbilities.ExtraSelected) && !a.Special && a.HasCharacter(Abilities.GetCharID(name))).Count() > 0 && !added.Contains(t)).ToList();
                         for (int i = 0; i < abilityNodes.Count; i++)
                         {
                             DataStoreCrystarium cryst = crystarium.DataList[abilityNodes[i]];
@@ -449,9 +530,9 @@ namespace FF13Randomizer
                                 throw new Exception("Went down in stage!");
                             maxStage = cryst.Stage;
 
-                            Ability orig = GetAbility(name, crystarium, cryst);
+                            Ability orig = Abilities.GetAbility(name, cryst);
 
-                            if (orig.Special)
+                            if (orig != null && orig.Special)
                                 continue;
 
                             int newI;
@@ -461,7 +542,7 @@ namespace FF13Randomizer
                                 newI = RandomNum.RandInt(0, rest.Count - 1);
                                 ability = Flags.CrystariumFlags.NewAbilities.ExtraSelected ? TieredAbilities.GetNoDep(rest[newI]) : TieredAbilities.Get(rest[newI], obtained);
                             } while (ability == null);
-                            cryst.AbilityName = ability.GetAbility(getCharID(name));
+                            cryst.AbilityName = ability.GetAbility(Abilities.GetCharID(name));
                             obtained.Add(ability);
                             added.Add(rest[newI]);
                             rest.RemoveAt(newI);
@@ -469,13 +550,8 @@ namespace FF13Randomizer
                         RandomNum.ClearRand();
                     }
                 }
-                ShuffleAnyRole(name, crystarium);
+                ShuffleAnyRole(plando, name, crystarium);
             }
-        }
-
-        private Ability GetAbility(string name, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium, DataStoreCrystarium cryst)
-        {
-            return Abilities.abilities.Where(a => a.HasCharacter(getCharID(name)) && a.GetAbility(getCharID(name)) == cryst.AbilityName).FirstOrDefault();
         }
 
         public override void Save()
@@ -485,48 +561,11 @@ namespace FF13Randomizer
             foreach (string name in CharNames)
             {
                 DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
-                List<string> rows = new List<string>();
-                rows.Add("Display Name,Name,Value");
-
-                List<DataStoreIDCrystarium> ids = crystarium.IdList.Skip(4).ToList();
-                ids.Sort((a, b) => a.CompareTo(b));
-
-                Dictionary<DataStoreIDCrystarium, string> displayNames = Crystarium.GetDisplayNames(crystarium);
-
-                for (int i = 0; i < crystarium.DataList.Count; i++)
-                {
-                    DataStoreCrystarium cryst = crystarium[ids[i].ID];
-                    cryst.Type = CrystariumType.HP;
-                    int val = ids.Where(id => id.Stage == ids[i].Stage && id.Prefix == ids[i].Prefix).ToList().IndexOf(ids[i]) + 1;
-                    cryst.Value = (ushort)val;
-                    rows.Add($"{displayNames[ids[i]]},{ids[i].ID},{val}");
-                }
-
-                File.WriteAllLines($"crystarium_{name}.csv", rows);
-            }
-
-            foreach (string name in CharNames)
-            {
-                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
 
                 File.WriteAllBytes($"db\\crystal\\crystal_{name}.wdb", crystarium.Data);
             }
 
             DocsJSONGenerator.CreateCrystariumDocs(crystariums, primaryRoles);
-        }
-
-        /*public static bool isTechnique(Ability orig)
-        {
-            if (Flags.CrystariumFlags.LibraStart && orig == Abilities.Libra)
-                return false;
-            return orig == Abilities.Libra || orig == Abilities.Renew || orig == Abilities.Stopga || orig == Abilities.Quake || orig == Abilities.Dispelga;
-        }*/
-
-        private string getCharID(string character)
-        {
-            if (character == "sazh")
-                return "z";
-            return character.Substring(0, 1);
         }
     }
 }

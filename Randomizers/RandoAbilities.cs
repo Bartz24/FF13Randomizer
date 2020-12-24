@@ -32,13 +32,14 @@ namespace FF13Randomizer
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
-            RandomizeATBCosts();
+            Dictionary<Ability, int> plando = main.abilityPlando1.GetAbilities();
+            RandomizeATBCosts(plando);
             backgroundWorker.ReportProgress(90);
-            RandomizeTPCosts();
+            RandomizeTPCosts(plando);
             backgroundWorker.ReportProgress(100);
         }
 
-        private void RandomizeATBCosts()
+        private void RandomizeATBCosts(Dictionary<Ability, int> plando)
         {
             if (Flags.AbilityFlags.ATBCost)
             {
@@ -48,7 +49,7 @@ namespace FF13Randomizer
                 RandoCrystarium crystarium = randomizers.Get<RandoCrystarium>("Crystarium");
                 List<string> startingAbilityNodes = crystarium.crystariums.Values.SelectMany(c => c.DataList).Where(node => node.CPCost == 0 && node.Type == CrystariumType.Ability).Select(node => node.AbilityName).ToList();
 
-                Abilities.abilities.Where(a => a.Role != Role.None).ToList().ForEach(aID =>
+                Abilities.abilities.Where(a => a.Role != Role.None).ForEach(aID =>
                 {
 
                     if (abilities.IdList.IndexOf(aID.GetIDs()[0]) > -1)
@@ -56,13 +57,14 @@ namespace FF13Randomizer
                         int max = aID.GetIDs().Where(id => startingAbilityNodes.Contains(id)).Count() > 0 ? 3 : 6;
                         if (aID == Abilities.Attack || aID == Abilities.HandGrenade)
                             max = 2;
-                        int cost = abilities[aID.GetIDs()[0]].ATBCost;
+                        int cost = plando.ContainsKey(aID) ? (plando[aID] * 10) : abilities[aID.GetIDs()[0]].ATBCost;
                         if (cost > 0 && cost < 0xFFFF)
                         {
-                            cost = RandomNum.RandInt(Math.Max(1, cost / 10 - variance), Math.Min(max, cost / 10 + variance)) * 10;
+                            if (!plando.ContainsKey(aID))
+                                cost = RandomNum.RandInt(Math.Max(1, cost / 10 - variance), Math.Min(max, cost / 10 + variance)) * 10;
                             if (cost == 60)
                                 cost = 0xFFFF;
-                            aID.GetIDs().ToList().ForEach(id =>
+                            aID.GetIDs().ForEach(id =>
                             {
                                 if (abilities.IdList.IndexOf(id) > -1)
                                 {
@@ -77,22 +79,23 @@ namespace FF13Randomizer
                 RandomNum.ClearRand();
             }
         }
-        private void RandomizeTPCosts()
+        private void RandomizeTPCosts(Dictionary<Ability, int> plando)
         {
             if (Flags.AbilityFlags.TPCost)
             {
                 int variance = Flags.AbilityFlags.TPCost.Range.Value;
                 Flags.AbilityFlags.TPCost.SetRand();
 
-                Abilities.abilities.Where(a => a.Role == Role.None).ToList().ForEach(aID =>
+                Abilities.abilities.Where(a => a.Role == Role.None).ForEach(aID =>
                 {
                     if (abilities.IdList.IndexOf(aID.GetIDs()[0]) > -1)
                     {
                         int max = 5;
-                        int cost = abilities[aID.GetIDs()[0]].ATBCost;
-                        cost = RandomNum.RandInt(Math.Max(1, cost / 10 - variance), Math.Min(max, cost / 10 + variance)) * 10;
+                        int cost = plando.ContainsKey(aID) ? (plando[aID] * 10) : abilities[aID.GetIDs()[0]].ATBCost;
+                        if (!plando.ContainsKey(aID))
+                            cost = RandomNum.RandInt(Math.Max(1, cost / 10 - variance), Math.Min(max, cost / 10 + variance)) * 10;
 
-                        aID.GetIDs().ToList().ForEach(id =>
+                        aID.GetIDs().ForEach(id =>
                         {
                             if (abilities.IdList.IndexOf(id) > -1)
                             {

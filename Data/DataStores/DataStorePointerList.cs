@@ -31,7 +31,7 @@ namespace FF13Data
         {
             Dictionary<int, int> newDict = new Dictionary<int, int>();
             int offset = 0;
-            pointerToIndexDictionary.Keys.ToList().ForEach(key =>
+            pointerToIndexDictionary.Keys.ForEach(key =>
             {
                 newDict.Add(key, offset);
                 offset += this[key].Length;
@@ -43,7 +43,7 @@ namespace FF13Data
         {
             Dictionary<int, int> newPointers = GetNewPointers();
             Dictionary<int, int> newDict = new Dictionary<int, int>();
-            pointerToIndexDictionary.Keys.ToList().ForEach(key =>
+            pointerToIndexDictionary.Keys.ForEach(key =>
             {
                 newDict.Add(newPointers[key], pointerToIndexDictionary[key]);
             });

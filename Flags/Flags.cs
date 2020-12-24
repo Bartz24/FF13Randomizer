@@ -35,10 +35,9 @@ namespace FF13Randomizer
 
             public static Flag ShuffleNodes = new Flag()
             {
-                Text = "Shuffle Nodes in each Role",
+                Text = "Shuffle Nodes",
                 FlagID = "ShNodes",
-                DescriptionFormat = "Shuffles all non-starting ability nodes inside a role.\n" +
-                "This includes Stats, Abilities, ATB Levels, Accessories, and Role Levels."
+                DescriptionFormat = "Shuffles all nodes inside a role with accessory and ATB levels being shuffled across roles."
             }.Register(FlagType.Crystarium);
 
             public static FlagValue RandStats = (FlagValue)new FlagValue(0, 0, 100)
@@ -117,18 +116,19 @@ namespace FF13Randomizer
         {
             public static Flag Resistances = new Flag()
             {
-                Text = "Shuffle Elemental Resistances",
+                Text = "Randomize Elemental Resistances",
                 FlagID = "ShElemRes",
-                DescriptionFormat = "Elemental resistances will be shuffled between enemies.\n" +
-                "Enemies resistant or immune to both physical and magical will only swap with those also resistant or immune.",
+                DescriptionFormat = "Elemental resistances will be randomized on each enemy.\n" +
+                "Resistances will be more likely to be weaknesses to elements the party has.",
                 Experimental = true
             }.Register(FlagType.Enemies);
 
             public static Flag Debuffs = new Flag()
             {
-                Text = "Shuffle Debuff Resistances",
+                Text = "Randomize Debuff Resistances",
                 FlagID = "ShDebffRes",
-                DescriptionFormat = "Debuff resistances will be shuffled between enemies.",
+                DescriptionFormat = "Debuff resistances will be randomized on each enemy (Provoke not included).\n" +
+                "Resistances will be more likely to be weaknesses to debuffs the party has.",
                 Experimental = true
             }.Register(FlagType.Enemies);
 
@@ -137,7 +137,8 @@ namespace FF13Randomizer
             {
                 Text = "Randomize Stats",
                 FlagID = "RanEStat",
-                DescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%"
+                DescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}\n" +
+                "Also affects Elemental and Debuff Resistances if those flags are on.%"
             }.Register(FlagType.Enemies);
 
             public static FlagValue RandLevel = (FlagValue)new FlagValue(0, 0, 50)

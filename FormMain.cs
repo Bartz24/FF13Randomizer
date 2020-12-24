@@ -18,7 +18,10 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string version = "1.7.2";
+        public static string Version { get; set; } = "1.8.0.Pre";
+
+        public static bool PlandoModified { get; set; } = false;
+
         public string[] fileNamesModified = new string[]
         {
             "db/crystal/crystal_lightning.wdb",
@@ -200,7 +203,7 @@ namespace FF13Randomizer
 
             tabControl1.SelectedTab = tabPageBasics;
 
-            labelVersion.Text = "Version: " + version;
+            labelVersion.Text = "Version: " + Version;
 
 #if !DEBUG
             tabControl1.TabPages.Remove(tabPageDebug);
@@ -283,6 +286,8 @@ namespace FF13Randomizer
             textBoxSeed.Text = view.Seed;
         }
 
+        private bool plandoLoaded = false;
+
         private void TabControl1_TabIndexChanged(object sender, EventArgs e)
         {
             labelFlagsSelected.Text = "Flags Selected: " + Flags.flags.Sum(f => f.FlagEnabled ? 1 : 0);
@@ -290,27 +295,43 @@ namespace FF13Randomizer
             buttonRandomize.Enabled = allow;
             buttonFullUninstall.Enabled = allow;
 
-            if(tabControl1.SelectedTab == tabPagePlando)
+            if(tabControl1.SelectedTab == tabPagePlando && !plandoLoaded)
             {
-                if (NeedsExtracting())
+                if (MessageBox.Show("Plando requires loading of game files first which can take 20+ seconds, so if you do not plan to play or create a Plando, press Cancel.", "Loading Required", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    if(MessageBox.Show("Extraction Required", "Plando requires extraction of files first, if you do not plan to use Plando press Cancel.", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    if (NeedsExtracting())
                     {
                         new ProgressForm("Extracting files...", bw => ExtractFiles(bw, true)).ShowDialog();
+                    }
 
-                        MessageBox.Show("Finished extracting and loading data!");
-                    }
-                    else
-                    {
-                        tabControl1.SelectedTab = tabPageBasics;
-                        return;
-                    }
+                    new ProgressForm("Loading data...", bw => LoadPlandos(bw)).ShowDialog();
+
+                    MessageBox.Show("Finished loading data!");
+                }
+                else
+                {
+                    tabControl1.SelectedTab = tabPageBasics;
+                    return;
                 }
 
-                treasurePlando1.ReloadData(this);
-                shopPlando1.ReloadData(this);
-                crystariumPlando1.ReloadData(this);
+                plandoLoaded = true;
             }
+        }
+        public void LoadPlandos(BackgroundWorker worker)
+        {
+            int inc = 100 / 6;
+            treasurePlando1.ReloadData(this);
+            worker.ReportProgress(inc * 1);
+            shopPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 2);
+            shopOrderPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 3);
+            enemyDropPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 4);
+            crystariumPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 5);
+            abilityPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 6);
         }
 
         private void Flag_OnChanged(object sender, EventArgs e)
@@ -599,7 +620,7 @@ namespace FF13Randomizer
                 if (directoryCheck != null && Directory.Exists(directoryCheck))
                 {
                     string[] paths = Directory.GetFiles(directoryCheck, "FFXiiiSteam.dll", SearchOption.AllDirectories);
-                    paths.ToList().ForEach(p =>
+                    paths.ForEach(p =>
                     {
                         p = p.Replace("/", "\\").Replace("\\\\", "\\");
                         string path = p.Substring(0, p.LastIndexOf("\\")) + "\\white_data\\prog\\win\\bin\\ffxiiiimg.exe";
@@ -723,7 +744,7 @@ namespace FF13Randomizer
 
             new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
 
-            UserFlagsSeed.Export(RandoPath, textBoxSeed.Text.Trim(), version);
+            UserFlagsSeed.Export(RandoPath, textBoxSeed.Text.Trim(), Version);
             addHistory();
             
             //UserFlagsSeed.Export("logs", textBoxSeed.Text.Trim(), version);
@@ -773,7 +794,7 @@ namespace FF13Randomizer
             
             if (Directory.Exists(RandoPath))
             {
-                Directory.GetDirectories(RandoPath).Where(d=>!d.EndsWith("FlagsSeeds")).ToList().ForEach(d => Directory.Delete(d, true));
+                Directory.GetDirectories(RandoPath).Where(d=>!d.EndsWith("FlagsSeeds")).ForEach(d => Directory.Delete(d, true));
             }
             backgroundWorker.ReportProgress(10);
             Directory.CreateDirectory(RandoPath);
@@ -1067,6 +1088,56 @@ namespace FF13Randomizer
 
         private void tabControl4_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.InitialDirectory = RandoPath;
+            dialog.FileName = "FF13Plando.json";
+            dialog.DefaultExt = "json";
+            dialog.Filter = "FF13 plando json files (*.json)|*.json|All files (*.*)|*.*";
+
+            if(dialog.ShowDialog() == DialogResult.OK)
+            {
+                PlandoFile.Write(dialog.FileName, this);
+                Process.Start(Path.GetDirectoryName(dialog.FileName));
+            }
+            PlandoModified = false;
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (PlandoModified)
+            {
+                if (MessageBox.Show("Plando has unsaved changes. Are you sure you want to import?", "Plando Unsaved", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.InitialDirectory = RandoPath;
+            dialog.FileName = "FF13Plando.json";
+            dialog.DefaultExt = "json";
+            dialog.Filter = "FF13 plando json files (*.json)|*.json|All files (*.*)|*.*";
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                PlandoFile.Read(dialog.FileName, this);
+            }
+            PlandoModified = false;
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (PlandoModified)
+            {
+                if (MessageBox.Show("Plando has unsaved changes. Are you sure you want to close?", "Plando Unsaved", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         private void FullUninstall(BackgroundWorker backgroundWorker)

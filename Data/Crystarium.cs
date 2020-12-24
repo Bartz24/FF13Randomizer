@@ -33,9 +33,9 @@ namespace FF13Data
                 if (ids[i].SubNode > 0)
                 {
                     int highestSub = ids.Where(id => id.Prefix == ids[i].Prefix && id.Stage == ids[i].Stage && id.Node == ids[i].Node).Select(id => id.SubNode).Max();
-                    if (highestSub > 1)
-                        dispName += $"-{ids[i].SubNode}";
                     int highestSubSub = ids.Where(id => id.Prefix == ids[i].Prefix && id.Stage == ids[i].Stage && id.Node == ids[i].Node).Select(id => id.SubSubNode).Max();
+                    if (highestSub > 1 || highestSubSub <= 1)
+                        dispName += $"-{ids[i].SubNode}";
                     if (highestSubSub > 1)
                         dispName += $"-{ids[i].SubSubNode}";
                 }

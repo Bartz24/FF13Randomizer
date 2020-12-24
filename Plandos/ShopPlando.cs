@@ -72,7 +72,7 @@ namespace FF13Randomizer
 
             shops.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\shop.wdb"));
 
-            shops.IdList.Where(s => !s.ID.StartsWith("!")).ToList().ForEach(s => AddEntries(s.ID));
+            shops.IdList.Where(s => !s.ID.StartsWith("!")).ForEach(s => AddEntries(s.ID));
             foreach (DataRow row in dataTable.Rows)
             {
                 Item item = Items.items.Find(i => i.ID == shops[row.Field<string>(0)].GetItemID(row.Field<int>(1)));
@@ -109,20 +109,59 @@ namespace FF13Randomizer
             }
         }
 
-        public Dictionary<Treasure, Tuple<Item, int>> GetTreasures()
+        public Dictionary<Shop, List<Item>> GetShops()
         {
-            Dictionary<Treasure, Tuple<Item, int>> dict = new Dictionary<Treasure, Tuple<Item, int>>();
+            Dictionary<Shop, List<Item>> dict = new Dictionary<Shop, List<Item>>();
+            Shops.shops.ForEach(s => dict.Add(s, new List<Item>()));
             foreach (DataRow row in dataTable.Rows)
             {
-                Treasure first = Treasures.treasures.Find(t => t.ID == row.Field<string>(0));
-                Item item = Items.items.Find(i => i.Name == row.Field<string>(3));
-                int amount = row.Field<int>(4);
-                if(first!=null && item!= null)
+                Shop shop = Shops.shops.Find(s => s.GetAllIds().Contains(row.Field<string>(0)));
+                Item item = Items.items.Find(i => i.Name == row.Field<string>(3) || i.ID == row.Field<string>(3));
+                if (row.Field<string>(3) == "None")
+                    item = Items.Gil;
+                if (item != null)
                 {
-                    dict.Add(first, new Tuple<Item, int>(item, amount));
+                    dict[shop].Add(item);
                 }
             }
             return dict;
+        }
+
+        public class JSONPlandoShop
+        {
+            public string ShopID { get; set; }
+            public int Index { get; set; }
+            public string Item { get; set; }
+        }
+
+        public List<JSONPlandoShop> GetJSONPlando()
+        {
+            List<JSONPlandoShop> list = new List<JSONPlandoShop>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                list.Add(new JSONPlandoShop()
+                {
+                    ShopID = row.Field<string>(0),
+                    Index = row.Field<int>(1),
+                    Item = row.Field<string>(3)
+                });
+            }
+            return list;
+        }
+
+        public void LoadJSONPlando(List<JSONPlandoShop> list)
+        {
+            foreach (DataRow row in dataTable.Rows)
+            {
+                JSONPlandoShop json = list.Find(j => j.ShopID == row.Field<string>(0) && j.Index == row.Field<int>(1));
+                row.SetField<string>(3, json.Item);
+            }
+        }
+
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            FormMain.PlandoModified = true;
         }
     }
 }

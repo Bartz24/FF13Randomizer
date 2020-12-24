@@ -14,7 +14,8 @@ namespace FF13Data
         Accessory = 4,
         ATBLevel = 5,
         Ability = 6,
-        RoleLevel = 7
+        RoleLevel = 7,
+        Unknown = 0
     }
 
     public enum Role : byte
@@ -30,8 +31,8 @@ namespace FF13Data
 
     public enum ElementalRes : byte
     {
-        Normal = 0,
-        Weak = 1,
+        Weak = 0,
+        Normal = 1,
         Halved = 2,
         Resistant = 3,
         Immune = 4,
@@ -61,8 +62,25 @@ namespace FF13Data
         Pain,
         Curse,
         Daze,
-        Provoke,
+        //Provoke, Ignore as it is a hidden stat
         Death,
         Dispel
+    }
+
+    public enum ElementProperty
+    {
+        Normal,
+        Bomb, // Absorb element does not change
+        Skytank // Will ensure physical attacks are mapped to magic except Lightning's Attack
+    }
+
+    public enum Character
+    {
+        Lightning,
+        Snow,
+        Vanille,
+        Sazh,
+        Hope,
+        Fang
     }
 }

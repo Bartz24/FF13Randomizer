@@ -11,7 +11,7 @@ namespace FF13Randomizer
 {
     public class RandoTreasure : Randomizer
     {
-        public List<string> shopsRemaining = new List<string>();
+        public Dictionary<string, string> ShopMappings = new Dictionary<string, string>();
         public List<Item> blacklistedWeapons = new List<Item>();
 
         public DataStoreWDB<DataStoreTreasure, DataStoreID> oldTreasures;
@@ -48,7 +48,7 @@ namespace FF13Randomizer
 
             Dictionary<Treasure, Tuple<Item, int>> plando = main.treasurePlando1.GetTreasures();
 
-            plando.Values.ToList().ForEach(i =>
+            plando.Values.ForEach(i =>
             {
                 if (i.Item1.ID.StartsWith("wea_") && i.Item1.ID.EndsWith("_001"))
                     blacklistedWeapons.Add(i.Item1);
@@ -56,7 +56,7 @@ namespace FF13Randomizer
 
             int completed = 0, index = -1;
             Flags.ItemFlags.Treasures.SetRand();
-            treasures.IdList.Where(id=>!id.ID.StartsWith("!")).ToList().ForEach(tID =>
+            treasures.IdList.Where(id=>!id.ID.StartsWith("!")).ForEach(tID =>
             {
                 Treasure current = Treasures.treasures.Find(tr => tr.ID == tID.ID);
                 DataStoreTreasure t = treasures[tID.ID];
@@ -112,21 +112,40 @@ namespace FF13Randomizer
 
             if (Flags.ItemFlags.ShopLocations)
             {
+                ShopMappings.Clear();
+                Dictionary<Item, Item> shops = main.shopOrderPlando1.GetShopReplacements();
+
+                List<string> shopsRemaining = new List<string>();
+
                 Flags.ItemFlags.ShopLocations.SetRand();
-                shopsRemaining.Clear();
                 for (int i = 1; i <= 13; i++)
                 {
-                    if (i == 4)
+                    string id = "key_shop_" + i.ToString("00");
+                    if (i == 4 || shops.Values.Where(item=>item.ID == id).Count() > 0)
                         continue;
-                    shopsRemaining.Add("key_shop_" + i.ToString("00"));
+                    shopsRemaining.Add(id);
                 }
                 shopsRemaining.Shuffle();
-                treasures.DataList.ToList().ForEach(treasure =>
+
+                for (int i = 1; i <= 13; i++)
+                {
+                    string id = "key_shop_" + i.ToString("00");
+                    if (i == 4)
+                        continue;
+                    if (shops.Keys.Where(item => item.ID == id).Count() > 0)
+                        ShopMappings.Add(id, shops[shops.Keys.Where(item => item.ID == id).First()].ID);
+                    else
+                    {
+                        ShopMappings.Add(id, shopsRemaining[0]);
+                        shopsRemaining.RemoveAt(0);
+                    }
+                }
+
+                treasures.DataList.ForEach(treasure =>
                 {
                     if (treasure.ItemID.StartsWith("key_shop_"))
                     {
-                        treasure.ItemID = shopsRemaining[0];
-                        shopsRemaining.RemoveAt(0);
+                        treasure.ItemID = ShopMappings[treasure.ItemID];
                     }
                 });
                 RandomNum.ClearRand();

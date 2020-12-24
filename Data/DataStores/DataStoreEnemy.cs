@@ -82,39 +82,58 @@ namespace FF13Data
 
         public ElementalRes FireRes
         {
-            get { return (ElementalRes)(Data.ReadByte(0x128) / 0x10); }
-            set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) % 0x10 + (byte)value * 0x10)); }
+            get { return fromByte(Data.ReadByte(0x128) / 0x10); }
+            set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) % 0x10 + fromElemRes(value) * 0x10)); }
         }
         public ElementalRes MagicRes
         {
-            get { return (ElementalRes)(Data.ReadByte(0x128) % 0x10); }
-            set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) / 0x10 * 0x10 + (byte)value)); }
+            get { return fromByte(Data.ReadByte(0x128) % 0x10); }
+            set { Data.SetByte(0x128, (byte)(Data.ReadByte(0x128) / 0x10 * 0x10 + fromElemRes(value))); }
         }
         public ElementalRes EarthRes
         {
-            get { return (ElementalRes)(Data.ReadByte(0x12D) % 0x10); }
-            set { Data.SetByte(0x12D, (byte)(Data.ReadByte(0x12D) / 0x10 * 0x10 + (byte)value)); }
+            get { return fromByte(Data.ReadByte(0x12D) % 0x10); }
+            set { Data.SetByte(0x12D, (byte)(Data.ReadByte(0x12D) / 0x10 * 0x10 + fromElemRes(value))); }
         }
         public ElementalRes WindRes
         {
-            get { return (ElementalRes)(Data.ReadByte(0x12E) / 0x10); }
-            set { Data.SetByte(0x12E, (byte)(Data.ReadByte(0x12E) % 0x10 + (byte)value * 0x10)); }
+            get { return fromByte(Data.ReadByte(0x12E) / 0x10); }
+            set { Data.SetByte(0x12E, (byte)(Data.ReadByte(0x12E) % 0x10 + fromElemRes(value) * 0x10)); }
         }
         public ElementalRes WaterRes
         {
-            get { return (ElementalRes)(Data.ReadByte(0x12E) % 0x10); }
-            set { Data.SetByte(0x12E, (byte)(Data.ReadByte(0x12E) / 0x10 * 0x10 + (byte)value)); }
+            get { return fromByte(Data.ReadByte(0x12E) % 0x10); }
+            set { Data.SetByte(0x12E, (byte)(Data.ReadByte(0x12E) / 0x10 * 0x10 + fromElemRes(value))); }
         }
         public ElementalRes ThunderRes
         {
-            get { return (ElementalRes)(Data.ReadByte(0x12F) / 0x10); }
-            set { Data.SetByte(0x12F, (byte)(Data.ReadByte(0x12F) % 0x10 + (byte)value * 0x10)); }
+            get { return fromByte(Data.ReadByte(0x12F) / 0x10); }
+            set { Data.SetByte(0x12F, (byte)(Data.ReadByte(0x12F) % 0x10 + fromElemRes(value) * 0x10)); }
         }
         public ElementalRes IceRes
         {
-            get { return (ElementalRes)(Data.ReadByte(0x12F) % 0x10); }
-            set { Data.SetByte(0x12F, (byte)(Data.ReadByte(0x12F) / 0x10 * 0x10 + (byte)value)); }
+            get { return fromByte(Data.ReadByte(0x12F) % 0x10); }
+            set { Data.SetByte(0x12F, (byte)(Data.ReadByte(0x12F) / 0x10 * 0x10 + fromElemRes(value))); }
         }
+
+        private ElementalRes fromByte(int val)
+        {
+            if (val == 0)
+                return ElementalRes.Normal;
+            if (val == 1)
+                return ElementalRes.Weak;
+            return (ElementalRes)val;
+        }
+
+        private byte fromElemRes(ElementalRes res)
+        {
+            if (res == ElementalRes.Weak)
+                return 1;
+            if (res == ElementalRes.Normal)
+                return 0;
+            return (byte)res;
+        }
+
         public byte FogRes
         {
             get { return (byte)(Data.ReadByte(0x12D) / 0x10 + Data.ReadByte(0x12C) % 0x10 * 0x10); }
@@ -310,8 +329,8 @@ namespace FF13Data
                         return CurseRes;
                     case Debuff.Daze:
                         return DazeRes;
-                    case Debuff.Provoke:
-                        return ProvokeRes;
+                    //case Debuff.Provoke:
+                    //    return ProvokeRes;
                     case Debuff.Death:
                         return DeathRes;
                     case Debuff.Dispel:
@@ -351,9 +370,9 @@ namespace FF13Data
                     case Debuff.Daze:
                         DazeRes = value;
                         break;
-                    case Debuff.Provoke:
-                        ProvokeRes = value;
-                        break;
+                    //case Debuff.Provoke:
+                    //    ProvokeRes = value;
+                    //    break;
                     case Debuff.Death:
                         DeathRes = value;
                         break;

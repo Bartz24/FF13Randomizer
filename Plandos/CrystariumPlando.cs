@@ -62,7 +62,7 @@ namespace FF13Randomizer
             dataGridView1.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             DataGridViewComboBoxColumn column2 = new DataGridViewComboBoxColumn();
-            column2.Items.AddRange(new string[] { "???" }.Concat(Enum.GetNames(typeof(CrystariumType)).ToList().Replace(CrystariumType.ATBLevel.ToString(), "ATB Level").Replace(CrystariumType.RoleLevel.ToString(), "Role Level")).ToArray());
+            column2.Items.AddRange(new string[] { "???" }.Concat(Enum.GetNames(typeof(CrystariumType)).SkipWhile(s => s == CrystariumType.Unknown.ToString()).ToList().Replace(CrystariumType.ATBLevel.ToString(), "ATB Level").Replace(CrystariumType.RoleLevel.ToString(), "Role Level")).ToArray());
             column2.HeaderText = "New Type";
             column2.DisplayMember = "New Type";
             column2.ValueMember = "New Type";
@@ -113,7 +113,7 @@ namespace FF13Randomizer
                 sorted.Add(name, sortedList);
             }
 
-            crystariums.Keys.ToList().ForEach(k => sorted[k].ForEach(s => AddEntry(s, k, crystariums[k][s.ID].Role.ToString(), displayNames[k][s])));
+            crystariums.Keys.ForEach(k => sorted[k].ForEach(s => AddEntry(s, k, crystariums[k][s.ID].Role.ToString(), displayNames[k][s])));
             foreach (DataRow row in dataTable.Rows)
             {
                 DataStoreCrystarium cryst = crystariums[row.Field<string>(1)][row.Field<string>(0)];
@@ -159,7 +159,7 @@ namespace FF13Randomizer
                     dataGridView1.Rows[row].Visible = dataTable.Rows[row].Field<string>(1) == charName && dataTable.Rows[row].Field<string>(2) == role;
                 }
                 currencyManager1.ResumeBinding();
-                dataGridView1.Refresh();                
+                dataGridView1.Refresh();
             }
         }
 
@@ -175,22 +175,74 @@ namespace FF13Randomizer
                     MessageBox.Show("Must enter a number from 0-9999999");
                 }
             }
+            FormMain.PlandoModified = true;
         }
 
-        public Dictionary<Treasure, Tuple<Item, int>> GetTreasures()
+        public Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> GetNodes()
         {
-            Dictionary<Treasure, Tuple<Item, int>> dict = new Dictionary<Treasure, Tuple<Item, int>>();
+            Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> dict = new Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>>();
+            RandoCrystarium.CharNames.ForEach(s => dict.Add(s, new Dictionary<string, Tuple<CrystariumType, Ability, int>>()));
+
             foreach (DataRow row in dataTable.Rows)
             {
-                Treasure first = Treasures.treasures.Find(t => t.ID == row.Field<string>(0));
-                Item item = Items.items.Find(i => i.Name == row.Field<string>(3));
-                int amount = row.Field<int>(4);
-                if(first!=null && item!= null)
+                string nodeId = row.Field<string>(0);
+                string name = row.Field<string>(1);
+                CrystariumType type = row.Field<string>(6) == "???" ? CrystariumType.Unknown : ((CrystariumType[])Enum.GetValues(typeof(CrystariumType)))[Enum.GetNames(typeof(CrystariumType)).ToList().IndexOf(row.Field<string>(6).Replace(" ", ""))];
+                Ability ability = Abilities.abilities.Find(a => a.Name == row.Field<string>(7));
+                int statAmount = row.Field<int>(8);
+                if (!(type == CrystariumType.Unknown && ability == null))
                 {
-                    dict.Add(first, new Tuple<Item, int>(item, amount));
+                    if (type == CrystariumType.Ability)
+                    {
+                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(type, ability, 0));
+                    }
+                    else if (ability == null)
+                    {
+                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(type, null, statAmount));
+                    }
+                    else if (ability != null)
+                    {
+                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(CrystariumType.Ability, ability, 0));
+                    }
                 }
             }
             return dict;
+        }
+
+        public class JSONPlandoCrystarium
+        {
+            public string ID { get; set; }
+            public string Type { get; set; }
+            public string AbilityName { get; set; }
+            public int Value { get; set; }
+        }
+
+        public List<JSONPlandoCrystarium> GetJSONPlando()
+        {
+            List<JSONPlandoCrystarium> list = new List<JSONPlandoCrystarium>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                list.Add(new JSONPlandoCrystarium()
+                {
+                    ID = row.Field<string>(0),
+                    Type = row.Field<string>(6),
+                    AbilityName = row.Field<string>(7),
+                    Value = row.Field<int>(8)
+                });
+            }
+            return list;
+        }
+
+        public void LoadJSONPlando(List<JSONPlandoCrystarium> list)
+        {
+            foreach (DataRow row in dataTable.Rows)
+            {
+                JSONPlandoCrystarium json = list.Find(j => j.ID == row.Field<string>(0));
+                row.SetField<string>(6, json.Type);
+                row.SetField<string>(7, json.AbilityName);
+                row.SetField<int>(8, json.Value);
+            }
         }
     }
 }

@@ -38,7 +38,7 @@ namespace FF13Randomizer
         public static void CreateCrystariumDocs(Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>> crystariums, Dictionary<string, Role[]> primaryRoles)
         {
             Dictionary<string, Dictionary<string, JSONCrystariumRole>> jsons = new Dictionary<string, Dictionary<string, JSONCrystariumRole>>();
-            crystariums.Keys.ToList().ForEach(name =>
+            crystariums.Keys.ForEach(name =>
             {
                 Dictionary<string, JSONCrystariumRole> jsonRoles = new Dictionary<string, JSONCrystariumRole>();
                 DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
