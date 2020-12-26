@@ -41,6 +41,8 @@ namespace FF13Randomizer
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (e.Error != null)
+                throw new Exception("Randomizer Error", e.Error);
             this.Close();
         }
     }

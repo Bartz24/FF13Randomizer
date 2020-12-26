@@ -53,7 +53,7 @@ namespace FF13Randomizer
                 Flags.ItemFlags.Shops.SetRand();
                 RandoEquip randoEquip = randomizers.Get<RandoEquip>("Equip");
 
-                Dictionary<Shop, List<Item>> plando = main.shopPlando1.GetShops();
+                Dictionary<Tuple<Shop, int>, List<Item>> plando = main.shopPlando1.GetShops();
 
                 List<Item> guaranteed = Items.items.Where(item => item.PreferredShop != null &&
                                                             randoEquip.equip.IdList.Where(id => id.ID == item.ID).Count() > 0 &&
@@ -85,8 +85,6 @@ namespace FF13Randomizer
 
                     List<Item> list = new List<Item>();
 
-                    list.AddRange(plando[shopID]);
-
                     if (Flags.ItemFlags.Shops.ExtraSelected)
                     {
                         list.AddRange(guaranteed.Where(item => item.PreferredShop == shopID));
@@ -105,7 +103,8 @@ namespace FF13Randomizer
                     }
 
                     List<Item> possible = Flags.ItemFlags.Shops.ExtraSelected ? shuffled.Where(item => item.PreferredShop == shopID).ToList() : new List<Item>(shuffled);
-                    int maxSize = RandomNum.RandInt(Math.Max(minSize, list.Count), Math.Min(list.Count + possible.Count, 32));
+                    int maxPlandoSize = plando.Keys.Where(k => k.Item1 == shopID).Select(key => plando[key].Count).Max();
+                    int maxSize = RandomNum.RandInt(Math.Min(32 - maxPlandoSize, Math.Max(minSize, list.Count)), Math.Min(list.Count + possible.Count, 32 - maxPlandoSize));
 
                     while (list.Count < maxSize && possible.Count > 0)
                     {
@@ -142,14 +141,17 @@ namespace FF13Randomizer
                     }
 
                     List<int> splits = new List<int>();
-                    for (int i = 0; i < shopID.Tiers - 1; i++)
+                    if (list.Count > 1)
                     {
-                        int num = -1;
-                        do
+                        for (int i = 0; i < shopID.Tiers - 1; i++)
                         {
-                            num = RandomNum.RandInt(1, list.Count - 1);
-                        } while (splits.Contains(num));
-                        splits.Add(num);
+                            int num = -1;
+                            do
+                            {
+                                num = RandomNum.RandInt(1, list.Count - 1);
+                            } while (splits.Contains(num) && splits.Count < list.Count - 1);
+                            splits.Add(num);
+                        }
                     }
                     splits.Add(list.Count);
 
@@ -157,7 +159,13 @@ namespace FF13Randomizer
 
                     for (int i = 0; i < shopID.Tiers; i++)
                     {
-                        List<Item> itemsAtTier = list.ToArray().SubArray(0, splits[i]).OrderBy(item => Items.items.IndexOf(item)).ToList();
+                        List<Item> itemsAtTier = new List<Item>(plando[new Tuple<Shop, int>(shopID, i)]);
+
+                        List<Item> remaining = list.ToArray().SubArray(0, splits[Math.Min(i, splits.Count - 1)]).OrderBy(item => Items.items.IndexOf(item)).ToList();
+                        itemsAtTier.AddRange(remaining.Take(Math.Min(32 - itemsAtTier.Count, remaining.Count)));
+
+                        if (itemsAtTier.Count > 32)
+                            throw new Exception($"{shopID.Name} {i} has too many items.");
                         for (int i2 = 0; i2 < 32; i2++)
                         {
                             shops[$"{shopID.ID}{i}"].SetItemID(i2, i2 < itemsAtTier.Count ? itemsAtTier[i2].ID : "");

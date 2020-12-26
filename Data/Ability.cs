@@ -64,6 +64,30 @@ namespace FF13Data
             return false;
         }
 
+        public string GetCharacters()
+        {
+            return string.Join("", list.SelectMany(a => a.Characters.ToCharArray()).Distinct().OrderBy(c => "lsvzhf".ToCharArray().ToList().IndexOf(c)).Select(c =>
+              {
+                  switch (c)
+                  {
+                      case 'l':
+                          return "L";
+                      case 's':
+                          return "Sn";
+                      case 'v':
+                          return "V";
+                      case 'z':
+                          return "Sz";
+                      case 'h':
+                          return "H";
+                      case 'f':
+                          return "F";
+                      default:
+                          return "";
+                  }
+              }));
+        }
+
         public string GetAbility(string character)
         {
             for (int i = list.Count - 1; i >= 0; i--)
@@ -71,7 +95,27 @@ namespace FF13Data
                 if (list[i].HasCharacter(character))
                     return list[i].ID;
             }
-            throw new InvalidCastException("Character does not have the ability!");
+            throw new Exception($"{GetName(character)} cannot have the {Name} ability!");
+        }
+
+        private Character GetName(string character)
+        {
+            switch (character)
+            {
+                case "l":
+                    return Character.Lightning;
+                case "s":
+                    return Character.Snow;
+                case "v":
+                    return Character.Vanille;
+                case "z":
+                    return Character.Sazh;
+                case "h":
+                    return Character.Hope;
+                case "f":
+                    return Character.Fang;
+            }
+            return Character.Lightning;
         }
 
         public Ability SetStarting()

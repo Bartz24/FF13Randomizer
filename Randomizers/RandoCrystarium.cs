@@ -63,6 +63,7 @@ namespace FF13Randomizer
             backgroundWorker.ReportProgress(10);
             if (Flags.CrystariumFlags.RandStats)
                 RandomizeStats(plando, statAverages);
+
             backgroundWorker.ReportProgress(20);
 
             if (Tweaks.Boosts.ScaledCPCost)
@@ -74,6 +75,17 @@ namespace FF13Randomizer
             backgroundWorker.ReportProgress(40);
 
             RandomizeAbilities(plando);
+
+            foreach (string name in CharNames)
+            {
+                foreach (DataStoreIDCrystarium id in crystariums[name].IdList.Where(id => !id.ID.StartsWith("!")))
+                {
+                    DataStoreCrystarium c = crystariums[name][id.ID];
+                    if (c.Type == CrystariumType.Unknown)
+                        throw new Exception($"{name.Substring(0, 1).ToUpper() + name.Substring(1)} {c.Role} Stage {c.Stage} Node {Crystarium.GetDisplayNames(crystariums[name])[id]} is invalid.");
+                }
+            }
+
             backgroundWorker.ReportProgress(100);
         }
 
@@ -110,7 +122,7 @@ namespace FF13Randomizer
                 Dictionary<Role, List<Ability>> abilities = new Dictionary<Role, List<Ability>>();
                 foreach (Role role in Enum.GetValues(typeof(Role)))
                 {
-                    abilities.Add(role, crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.Ability).Select(c => Abilities.GetAbility(name, c)).ToList());
+                    abilities.Add(role, crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.Ability && c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role))).Select(c => Abilities.GetAbility(name, c)).ToList());
                 }
                 dict.Add(name, abilities);
             }
@@ -187,6 +199,30 @@ namespace FF13Randomizer
             });
             RandomNum.ClearRand();
             return statAverages;
+        }
+
+        public void SetRemaining(List<DataStoreCrystarium> list)
+        {
+            foreach (string name in CharNames)
+            {
+                DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium> crystarium = crystariums[name];
+                foreach (DataStoreCrystarium c in list)
+                {
+                    if (!(c.Type == CrystariumType.HP || c.Type == CrystariumType.Strength || c.Type == CrystariumType.Magic))
+                    {
+                        int stage = c.Stage;
+                        List<DataStoreCrystarium> others;
+                        do
+                        {
+                            others = new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.SelectMany(t => crystarium.DataList.Where(o => o.Role == c.Role && o.Stage == c.Stage && o.Type == t)).ToList();
+                            stage--;
+                        } while (others.Count == 0);
+                        DataStoreCrystarium other = others[RandomNum.RandInt(0, others.Count - 1)];
+                        c.Type = other.Type;
+                        c.Value = other.Value;
+                    }
+                }
+            }
         }
 
         public void RandomizeStats(Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando, Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages)
@@ -288,7 +324,7 @@ namespace FF13Randomizer
 
             foreach (string name in CharNames)
             {
-                crystariums[name].DataList.Where(c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role))).ForEach(c => c.Type = CrystariumType.Unknown);
+                List<DataStoreCrystarium> unknowns = crystariums[name].DataList.Where(c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role))).ToList();
 
                 foreach (string id in plando[name].Keys)
                 {
@@ -310,6 +346,7 @@ namespace FF13Randomizer
                         cryst.Type = plando[name][id].Item1;
                         cryst.Value = (ushort)plando[name][id].Item3;
                     }
+                    unknowns.Remove(cryst);
                 }
 
                 List<DataStoreCrystarium> possible;
@@ -320,12 +357,13 @@ namespace FF13Randomizer
                         id => !id.ID.StartsWith("!") && !plando[name].Keys.Contains(id.ID)).Select(id => crystariums[name][id.ID]).Where(
                         c => c.Role == role &&
                         c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(role))
-                        && c.Type == CrystariumType.Unknown).ToList();
+                        && unknowns.Contains(c)).ToList();
                     for (int i = 0; i < nodes[name][role].Count; i++)
                     {
                         int select = RandomNum.RandInt(0, possible.Count - 1);
                         possible[select].Type = CrystariumType.Ability;
                         possible[select].AbilityName = nodes[name][role][i].GetAbility(Abilities.GetCharID(name));
+                        unknowns.Remove(possible[select]);
                         possible.RemoveAt(select);
                     }
 
@@ -334,19 +372,21 @@ namespace FF13Randomizer
                     {
                         int select = RandomNum.RandInt(0, possible.Count - 1);
                         possible[select].Type = CrystariumType.RoleLevel;
+                        unknowns.Remove(possible[select]);
                         possible.RemoveAt(select);
                     }
                 }
 
                 possible = crystariums[name].IdList.Where(
                     id => !id.ID.StartsWith("!") && !plando[name].Keys.Contains(id.ID)).Select(id => crystariums[name][id.ID]).Where(
-                    c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role)) && c.Type == CrystariumType.Unknown).ToList();
+                    c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role)) && unknowns.Contains(c)).ToList();
 
                 int atbLevelCount = crystariums[name].DataList.Where(c => c.Type == CrystariumType.ATBLevel).Count();
                 if (atbLevelCount == 0)
                 {
                     int select = RandomNum.RandInt(0, possible.Count - 1);
                     possible[select].Type = CrystariumType.ATBLevel;
+                    unknowns.Remove(possible[select]);
                     possible.RemoveAt(select);
                 }
 
@@ -355,7 +395,26 @@ namespace FF13Randomizer
                 {
                     int select = RandomNum.RandInt(0, possible.Count - 1);
                     possible[select].Type = CrystariumType.Accessory;
+                    unknowns.Remove(possible[select]);
                     possible.RemoveAt(select);
+                }
+
+                SetRemaining(unknowns);
+            }
+
+            foreach (string name in CharNames)
+            {
+                for (Role role = (Role)1; role <= (Role)6; role++)
+                {
+                    for (int stage = 1; stage <= 10; stage++)
+                    {
+                        List<DataStoreCrystarium> shuffle = crystariums[name].IdList.Where(
+                            id => !id.ID.StartsWith("!") && !plando[name].Keys.Contains(id.ID)).Select(id => crystariums[name][id.ID]).Where(
+                            c => c.Role == role &&
+                            c.Stage == stage &&
+                            c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(role))).ToList();
+                        shuffle.Shuffle((a, b) => a.SwapStatsAbilities(b));
+                    }
                 }
             }
 

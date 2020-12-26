@@ -18,7 +18,7 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string Version { get; set; } = "1.8.0.Pre";
+        public static string Version { get; set; } = "1.8.0.Pre-2";
 
         public static bool PlandoModified { get; set; } = false;
 
@@ -714,6 +714,7 @@ namespace FF13Randomizer
             {
                 flag.ResetRandom(seed);
             }
+            RandomNum.ClearRand();
 
             foreach(string path in fileNamesModified)
             {
@@ -732,24 +733,34 @@ namespace FF13Randomizer
             randomizers.Add(new RandoMusic(this, randomizers));
             randomizers.Add(new RandoRunSpeed(this, randomizers));
 
-            new ProgressForm("Loading data...", bw => LoadRandos(randomizers, bw)).ShowDialog();
 
-            foreach(Randomizer rando in randomizers)
+            try
             {
-                new ProgressForm(rando.GetProgressMessage(), bw => rando.Randomize(bw)).ShowDialog();
+                new ProgressForm("Loading data...", bw => LoadRandos(randomizers, bw)).ShowDialog();
+                foreach (Randomizer rando in randomizers)
+                {
+                    new ProgressForm(rando.GetProgressMessage(), bw => rando.Randomize(bw)).ShowDialog();
+                }
+                new ProgressForm("Saving data...", bw => SaveRandos(randomizers, bw)).ShowDialog();
+
+
+                new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
+
+                UserFlagsSeed.Export(RandoPath, textBoxSeed.Text.Trim(), Version);
+                addHistory();
+
+                //UserFlagsSeed.Export("logs", textBoxSeed.Text.Trim(), version);
+
+                MessageBox.Show("Complete! Ready to play! Whenever you need to uninstall the rando, come back to this program and go to the Uninstall tab!");
+            } catch(Exception ex)
+            {
+                Exception innerMost = ex;
+                while(innerMost.InnerException != null)
+                {
+                    innerMost = innerMost.InnerException;
+                }
+                MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message, "Rando failed");
             }
-
-            new ProgressForm("Saving data...", bw => SaveRandos(randomizers, bw)).ShowDialog();
-
-
-            new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
-
-            UserFlagsSeed.Export(RandoPath, textBoxSeed.Text.Trim(), Version);
-            addHistory();
-            
-            //UserFlagsSeed.Export("logs", textBoxSeed.Text.Trim(), version);
-
-            MessageBox.Show("Complete! Ready to play! Whenever you need to uninstall the rando, come back to this program and go to the Uninstall tab!");
         }
 
         public void LoadRandos(List<Randomizer> randomizers, BackgroundWorker worker)
@@ -1102,8 +1113,9 @@ namespace FF13Randomizer
             {
                 PlandoFile.Write(dialog.FileName, this);
                 Process.Start(Path.GetDirectoryName(dialog.FileName));
+                MessageBox.Show("Plando exported! Opened location where file has been saved.");
+                PlandoModified = false;
             }
-            PlandoModified = false;
         }
 
         private void button14_Click(object sender, EventArgs e)
@@ -1125,8 +1137,9 @@ namespace FF13Randomizer
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 PlandoFile.Read(dialog.FileName, this);
+                MessageBox.Show("Plando imported!");
+                PlandoModified = false;
             }
-            PlandoModified = false;
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)

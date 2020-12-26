@@ -109,19 +109,20 @@ namespace FF13Randomizer
             }
         }
 
-        public Dictionary<Shop, List<Item>> GetShops()
+        public Dictionary<Tuple<Shop, int>, List<Item>> GetShops()
         {
-            Dictionary<Shop, List<Item>> dict = new Dictionary<Shop, List<Item>>();
-            Shops.shops.ForEach(s => dict.Add(s, new List<Item>()));
+            Dictionary<Tuple<Shop, int>, List<Item>> dict = new Dictionary<Tuple<Shop, int>, List<Item>>();
+            Shops.shops.ForEach(s => Enumerable.Range(0, s.Tiers).ForEach(tier => dict.Add(new Tuple<Shop, int>(s, tier), new List<Item>())));
             foreach (DataRow row in dataTable.Rows)
             {
                 Shop shop = Shops.shops.Find(s => s.GetAllIds().Contains(row.Field<string>(0)));
+                int tier = shop.GetAllIds().IndexOf(row.Field<string>(0));
                 Item item = Items.items.Find(i => i.Name == row.Field<string>(3) || i.ID == row.Field<string>(3));
                 if (row.Field<string>(3) == "None")
                     item = Items.Gil;
                 if (item != null)
                 {
-                    dict[shop].Add(item);
+                    dict[new Tuple<Shop, int>(shop, tier)].Add(item);
                 }
             }
             return dict;

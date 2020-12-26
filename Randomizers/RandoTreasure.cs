@@ -63,7 +63,7 @@ namespace FF13Randomizer
                 index++;
                 Item item = Items.items.Where(i => i.ID == t.ItemID).FirstOrDefault();
                 int rank = -1;
-                if (item != null)
+                if (item != null && Flags.ItemFlags.Treasures)
                 {
                     if (current != null && plando.ContainsKey(current))
                     {
@@ -80,7 +80,7 @@ namespace FF13Randomizer
                     else
                     {
                         rank = TieredItems.manager.GetRank(item, (int)t.Count);
-                        if (rank != -1 && Flags.ItemFlags.Treasures)
+                        if (rank != -1)
                         {
                             if (rankAdj > 0)
                                 rank = RandomNum.RandInt(Math.Max(0, rank - rankAdj), Math.Min(TieredItems.manager.GetHighBound(), rank + rankAdj));

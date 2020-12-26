@@ -71,7 +71,7 @@ namespace FF13Randomizer
             dataGridView1.Columns.Add(column2);
 
             DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
-            column.Items.AddRange(new string[] { "???" }.Concat(Abilities.abilities.Select(a => a.Name).ToList()).ToArray());
+            column.Items.AddRange(GetAbilityDropdownNames());
             column.HeaderText = "New Ability";
             column.DisplayMember = "New Ability";
             column.ValueMember = "New Ability";
@@ -85,6 +85,11 @@ namespace FF13Randomizer
             dataGridView1.Columns[5].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             dataGridView1.DataSource = dataTable;
+        }
+
+        private static string[] GetAbilityDropdownNames()
+        {
+            return new string[] { "???" }.Concat(Abilities.abilities.Select(a => a.Name + (a.GetCharacters() != "LSnVSzHF" ? $" ({a.GetCharacters()})" : "")).ToList()).ToArray();
         }
 
         private void AddEntry(DataStoreIDCrystarium crystId, string charName, string role, string locationName)
@@ -188,7 +193,7 @@ namespace FF13Randomizer
                 string nodeId = row.Field<string>(0);
                 string name = row.Field<string>(1);
                 CrystariumType type = row.Field<string>(6) == "???" ? CrystariumType.Unknown : ((CrystariumType[])Enum.GetValues(typeof(CrystariumType)))[Enum.GetNames(typeof(CrystariumType)).ToList().IndexOf(row.Field<string>(6).Replace(" ", ""))];
-                Ability ability = Abilities.abilities.Find(a => a.Name == row.Field<string>(7));
+                Ability ability = Abilities.abilities.Find(a => a.Name == GetAbilityName(row.Field<string>(7)));
                 int statAmount = row.Field<int>(8);
                 if (!(type == CrystariumType.Unknown && ability == null))
                 {
@@ -207,6 +212,11 @@ namespace FF13Randomizer
                 }
             }
             return dict;
+        }
+
+        private string GetAbilityName(string name)
+        {
+            return name.Contains("(") ? name.Substring(0, name.IndexOf("(") - 1).Trim() : name;
         }
 
         public class JSONPlandoCrystarium
@@ -240,7 +250,9 @@ namespace FF13Randomizer
             {
                 JSONPlandoCrystarium json = list.Find(j => j.ID == row.Field<string>(0));
                 row.SetField<string>(6, json.Type);
-                row.SetField<string>(7, json.AbilityName);
+
+                row.SetField<string>(7, GetAbilityDropdownNames().Where(s => s == json.AbilityName || s.StartsWith(json.AbilityName)).FirstOrDefault());
+
                 row.SetField<int>(8, json.Value);
             }
         }
