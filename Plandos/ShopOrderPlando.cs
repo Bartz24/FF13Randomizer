@@ -15,7 +15,6 @@ namespace FF13Randomizer
 {
     public partial class ShopOrderPlando : UserControl
     {
-        private bool loaded = false;
         public DataTable dataTable = new DataTable();
         public ShopOrderPlando()
         {
@@ -61,12 +60,11 @@ namespace FF13Randomizer
 
         public void ReloadData(FormMain main)
         {
-            if (loaded)
-                return;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataTable.Clear();
 
             AddRowEntries();
-
-            loaded = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         public Dictionary<Item, Item> GetShopReplacements()
@@ -82,6 +80,11 @@ namespace FF13Randomizer
                 }
             }
             return dict;
+        }
+
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            FormMain.PlandoModified = true;
         }
 
         public class JSONPlandoShopOrder
@@ -105,18 +108,25 @@ namespace FF13Randomizer
             return list;
         }
 
-        public void LoadJSONPlando(List<JSONPlandoShopOrder> list)
+        public void LoadJSONPlando(List<JSONPlandoShopOrder> list, string version)
         {
+            list = MigrateJSON(list, version);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             foreach (DataRow row in dataTable.Rows)
             {
                 JSONPlandoShopOrder json = list.Find(j => j.ShopID == row.Field<string>(0));
                 row.SetField<string>(2, json.NewShop);
             }
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private List<JSONPlandoShopOrder> MigrateJSON(List<JSONPlandoShopOrder> list, string version)
         {
-            FormMain.PlandoModified = true;
+            if (version == FormMain.Version)
+                return list;
+            List<JSONPlandoShopOrder> migrated = new List<JSONPlandoShopOrder>(list);
+
+            return migrated;
         }
     }
 }

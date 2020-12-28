@@ -121,13 +121,13 @@ namespace FF13Data
             if (val == 0)
                 return ElementalRes.Normal;
             if (val == 1)
-                return ElementalRes.Weak;
+                return ElementalRes.Weakness;
             return (ElementalRes)val;
         }
 
         private byte fromElemRes(ElementalRes res)
         {
-            if (res == ElementalRes.Weak)
+            if (res == ElementalRes.Weakness)
                 return 1;
             if (res == ElementalRes.Normal)
                 return 0;
@@ -267,7 +267,7 @@ namespace FF13Data
                         return EarthRes;
                     case Element.Physical:
                         return PhysicalRes;
-                    case Element.Magic:
+                    case Element.Magical:
                         return MagicRes;
                     default:
                         return ElementalRes.Normal;
@@ -298,7 +298,7 @@ namespace FF13Data
                     case Element.Physical:
                         PhysicalRes = value;
                         break;
-                    case Element.Magic:
+                    case Element.Magical:
                         MagicRes = value;
                         break;
                 }

@@ -48,11 +48,14 @@ namespace FF13Randomizer
 
             Dictionary<Treasure, Tuple<Item, int>> plando = main.treasurePlando1.GetTreasures();
 
-            plando.Values.ForEach(i =>
+            if (Flags.ItemFlags.Treasures)
             {
-                if (i.Item1.ID.StartsWith("wea_") && i.Item1.ID.EndsWith("_001"))
-                    blacklistedWeapons.Add(i.Item1);
-            });
+                plando.Values.ForEach(i =>
+                {
+                    if (i.Item1.ID.StartsWith("wea_") && i.Item1.ID.EndsWith("_001"))
+                        blacklistedWeapons.Add(i.Item1);
+                });
+            }
 
             int completed = 0, index = -1;
             Flags.ItemFlags.Treasures.SetRand();
@@ -69,7 +72,7 @@ namespace FF13Randomizer
                     {
                         Item newItem = plando[current].Item1;
                         int amount = plando[current].Item2;
-                        if (amount == 0)
+                        if (amount == -1)
                         {
                             Tiered<Item> tiered = TieredItems.manager.list.Find(tier => tier.Items.Contains(newItem));
                             amount = RandomNum.RandInt(tiered.LowBound, tiered.HighBound);

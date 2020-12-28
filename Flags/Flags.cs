@@ -48,6 +48,14 @@ namespace FF13Randomizer
                 "Each character and role gets varied multipliers on stats based on the stage. These multipliers stack.\n" +
                 "The amount of nodes that appear is also related to the stat multiplier. For example: Higher HP multiplier also means more HP nodes will appear."
             }.Register(FlagType.Crystarium);
+            public static FlagBool RandCP = (FlagBool)new FlagBool("Special & Branch Nodes More Expensive")
+            {
+                Text = "Randomize CP Costs",
+                FlagID = "RanCP",
+                DescriptionFormat = "Randomize CP Costs in a stage.\n" +
+                "Total CP cost on a stage remains constant.",
+                ExtraDescriptionFormat = "Ability, ATB, Role, and Accessory nodes and branch nodes are more likely to be expensive"
+            }.Register(FlagType.Crystarium);
         }
         public class AbilityFlags
         {
@@ -92,7 +100,7 @@ namespace FF13Randomizer
 
             public static Flag ShopLocations = new Flag()
             {
-                Text = "Shuffle Shop Location",
+                Text = "Shuffle Shop Locations",
                 FlagID = "ShShop",
                 DescriptionFormat = "All shops except Unicorn Mart will shuffle locations.\n" +
                 "Includes shops from special battle drops and treasures.\n" +

@@ -46,5 +46,9 @@ namespace FF13Data
         {
             enumerable.ToList().ForEach(action);
         }
+        public static E GetEnumValue<E>(string name)
+        {
+            return ((E[])Enum.GetValues(typeof(E)))[Enum.GetNames(typeof(E)).ToList().IndexOf(name)];
+        }
     }
 }

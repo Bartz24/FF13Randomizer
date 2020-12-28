@@ -46,7 +46,7 @@ namespace FF13Data
         private static Dictionary<byte, ElementalRes> GetPhysMapping() {
             Dictionary<byte, ElementalRes> mapping = new Dictionary<byte, ElementalRes>();
             #region Set Physical Resistances
-            mapping.Add(0x0D, ElementalRes.Weak);
+            mapping.Add(0x0D, ElementalRes.Weakness);
 
             mapping.Add(0x00, ElementalRes.Normal);
             mapping.Add(0x01, ElementalRes.Normal);

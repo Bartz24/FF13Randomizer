@@ -50,7 +50,6 @@ namespace FF13Randomizer
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
-            Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando = main.crystariumPlando1.GetNodes();
 
             Dictionary<int, Dictionary<CrystariumType, List<int>>> statAverages = new Dictionary<int, Dictionary<CrystariumType, List<int>>>();
             if (Flags.CrystariumFlags.RandStats)
@@ -58,19 +57,17 @@ namespace FF13Randomizer
 
             Dictionary<string, Dictionary<Role, List<Ability>>> nodes = GetNodeAbilities();
 
+            Dictionary<string, Dictionary<string, Tuple<CrystariumType, Ability, int>>> plando = CharNames.ToDictionary(c => c, c => new Dictionary<string, Tuple<CrystariumType, Ability, int>>());
             if (Flags.CrystariumFlags.ShuffleNodes)
+            {
+                plando = main.crystariumPlando1.GetNodes();
                 PlaceNodes(plando, nodes);
+            }
             backgroundWorker.ReportProgress(10);
             if (Flags.CrystariumFlags.RandStats)
                 RandomizeStats(plando, statAverages);
 
             backgroundWorker.ReportProgress(20);
-
-            if (Tweaks.Boosts.ScaledCPCost)
-                ApplyScaledCPCosts();
-
-            if (Tweaks.Boosts.HalfSecondaryCPCost)
-                ApplyHalfCPCosts();
 
             backgroundWorker.ReportProgress(40);
 
@@ -85,8 +82,34 @@ namespace FF13Randomizer
                         throw new Exception($"{name.Substring(0, 1).ToUpper() + name.Substring(1)} {c.Role} Stage {c.Stage} Node {Crystarium.GetDisplayNames(crystariums[name])[id]} is invalid.");
                 }
             }
+            backgroundWorker.ReportProgress(70);
+
+            if (Flags.CrystariumFlags.RandCP)
+                RandomizeCPCosts();
+
+            if (Tweaks.Boosts.HalfSecondaryCPCost)
+                ApplyHalfCPCosts();
+
+            if (Tweaks.Boosts.ScaledCPCost)
+                ApplyScaledCPCosts();
+
+            if (Flags.CrystariumFlags.RandCP)
+                ApplyPlandoCPCosts();
 
             backgroundWorker.ReportProgress(100);
+        }
+
+        public void ApplyPlandoCPCosts()
+        {
+            Dictionary<string, Dictionary<string, int>> plando = main.crystariumPlando1.GetCPCosts();
+
+            foreach (string name in CharNames)
+            {
+                foreach (string id in plando[name].Keys)
+                {
+                    crystariums[name][id].CPCost = (uint)plando[name][id];
+                }
+            }
         }
 
         public void ApplyScaledCPCosts()
@@ -95,8 +118,11 @@ namespace FF13Randomizer
             {
                 foreach (DataStoreCrystarium c in crystariums[name].DataList)
                 {
-                    int cpCost = (int)Math.Floor(c.CPCost * Math.Max(0.5, Math.Min(1, 1.08684 * Math.Exp(-0.08664 * c.Stage))));
-                    c.CPCost = (uint)(Math.Round(cpCost / 5.0 / Math.Floor(Math.Log10(cpCost))) * 5 * Math.Floor(Math.Log10(cpCost)));
+                    if (c.CPCost > 0)
+                    {
+                        int cpCost = (int)Math.Floor(c.CPCost * Math.Max(0.5, Math.Min(1, 1.08684 * Math.Exp(-0.08664 * c.Stage))));
+                        c.CPCost = Math.Max(1, (uint)(Math.Round(cpCost / 5.0 / Math.Floor(Math.Log10(cpCost))) * 5 * Math.Floor(Math.Log10(cpCost))));
+                    }
                 }
             }
         }
@@ -106,12 +132,50 @@ namespace FF13Randomizer
             {
                 foreach (DataStoreCrystarium c in crystariums[name].DataList)
                 {
-                    if (!primaryRoles[name].Contains(c.Role))
+                    if (c.CPCost > 0 && !primaryRoles[name].Contains(c.Role))
                     {
-                        c.CPCost /= 2;
+                        c.CPCost = Math.Max(1, c.CPCost / 2);
                     }
                 }
             }
+        }
+
+        public void RandomizeCPCosts()
+        {
+            Flags.CrystariumFlags.RandCP.SetRand();
+            foreach (string name in CharNames)
+            {
+                foreach (Role role in Enum.GetValues(typeof(Role)))
+                {
+                    if (role == Role.None)
+                        continue;
+                    List<DataStoreIDCrystarium> roleCrysts = crystariums[name].IdList.Where(id => !id.ID.StartsWith("!") && crystariums[name][id.ID].CPCost > 0 && crystariums[name][id.ID].Role == role).ToList();
+                    for (int stage = 1; stage <= 10; stage++)
+                    {
+                        List<DataStoreIDCrystarium> crysts = roleCrysts.Where(id => crystariums[name][id.ID].Stage == stage).ToList();
+                        int[] weights = crysts.Select(id =>
+                        {
+                            DataStoreCrystarium c = crystariums[name][id.ID];
+                            int val = 10000;
+                            if (Flags.CrystariumFlags.RandCP.ExtraSelected && (c.Type == CrystariumType.Ability || c.Type == CrystariumType.Accessory || c.Type == CrystariumType.ATBLevel || c.Type == CrystariumType.RoleLevel))
+                                val = (int)(val * 2);
+                            if(id.SubNode > 0)
+                                val = (int)(val * 1.5);
+                            return val;
+                        }).ToArray();
+
+                        StatValuesWeighted cpCosts = new StatValuesWeighted(weights);
+                        Tuple<int, int>[] bounds = Enumerable.Range(0, crysts.Count).Select(i => new Tuple<int, int>(1, Int32.MaxValue)).ToArray();
+                        cpCosts.Randomize(bounds, crysts.Select(id =>  (long)crystariums[name][id.ID].CPCost).Sum());
+
+                        for(int i = 0; i < crysts.Count; i++)
+                        {
+                            crystariums[name][crysts[i].ID].CPCost = (uint)cpCosts[i];
+                        }
+                    }
+                }
+            }
+            RandomNum.ClearRand();
         }
 
         public Dictionary<string, Dictionary<Role, List<Ability>>> GetNodeAbilities()

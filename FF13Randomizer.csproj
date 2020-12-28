@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataStores\DataExtensions.cs" />
+    <Compile Include="Data\DataStores\DataStoreChara.cs" />
     <Compile Include="Data\DataStores\DataStoreIDCrystarium.cs" />
     <Compile Include="Data\DataStores\DataStoreItem.cs" />
     <Compile Include="Data\DataStores\DataStoreEquip.cs" />
@@ -160,6 +161,30 @@
     </Compile>
     <Compile Include="NumericRange.cs" />
     <Compile Include="NumericRangeMinMax.cs" />
+    <Compile Include="Plandos\EnemyDebuffResistPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\EnemyDebuffResistPlando.Designer.cs">
+      <DependentUpon>EnemyDebuffResistPlando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plandos\EnemyElementResistPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\EnemyElementResistPlando.Designer.cs">
+      <DependentUpon>EnemyElementResistPlando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plandos\EnemyStatsPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\EnemyStatsPlando.Designer.cs">
+      <DependentUpon>EnemyStatsPlando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plandos\RunSpeedPlando.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plandos\RunSpeedPlando.Designer.cs">
+      <DependentUpon>RunSpeedPlando.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plandos\CrystariumPlando.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -218,6 +243,7 @@
     <Compile Include="Randomizers\Randomizer.cs" />
     <Compile Include="StatValuesWeighted.cs" />
     <Compile Include="StatValues.cs" />
+    <Compile Include="VersionOrder.cs" />
     <EmbeddedResource Include="Flags\FlagBool.resx">
       <DependentUpon>FlagBool.cs</DependentUpon>
     </EmbeddedResource>
@@ -238,6 +264,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ItemChanceForm.resx">
       <DependentUpon>ItemChanceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\EnemyDebuffResistPlando.resx">
+      <DependentUpon>EnemyDebuffResistPlando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\EnemyElementResistPlando.resx">
+      <DependentUpon>EnemyElementResistPlando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\EnemyStatsPlando.resx">
+      <DependentUpon>EnemyStatsPlando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plandos\RunSpeedPlando.resx">
+      <DependentUpon>RunSpeedPlando.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Plandos\CrystariumPlando.resx">
       <DependentUpon>CrystariumPlando.cs</DependentUpon>

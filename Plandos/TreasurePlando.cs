@@ -15,7 +15,6 @@ namespace FF13Randomizer
 {
     public partial class TreasurePlando : UserControl
     {
-        private bool loaded = false;
         public DataTable dataTable = new DataTable();
         public TreasurePlando()
         {
@@ -63,12 +62,6 @@ namespace FF13Randomizer
             dataGridView1.Columns[3].DataPropertyName = "Amount";
             dataGridView1.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-
-            foreach (Treasure treasure in Treasures.treasures)
-            {
-                AddEntry(treasure.ID);
-            }           
-
             dataGridView1.DataSource = dataTable;
         }
 
@@ -76,16 +69,21 @@ namespace FF13Randomizer
         {
             Treasure first = Treasures.treasures.Find(t => t.ID == treasureID);
             if(first!=null)
-                dataTable.Rows.Add(treasureID, first.Name, "Unknown", "???", 0);
+                dataTable.Rows.Add(treasureID, first.Name, "Unknown", "???", -1);
             else
-                dataTable.Rows.Add(treasureID, treasureID, "Unknown", "???", 0);
+                dataTable.Rows.Add(treasureID, treasureID, "Unknown", "???", -1);
 
         }
 
         public void ReloadData(FormMain main)
         {
-            if (loaded)
-                return;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataTable.Clear();
+
+            foreach (Treasure treasure in Treasures.treasures)
+            {
+                AddEntry(treasure.ID);
+            }
 
             DataStoreWDB<DataStoreTreasure, DataStoreID> treasures = new DataStoreWDB<DataStoreTreasure, DataStoreID>();
 
@@ -97,8 +95,7 @@ namespace FF13Randomizer
                 Item item = Items.items.Find(i => i.ID == treasures[row.Field<string>(0)].ItemID);
                 row.SetField<string>(2, $"{(item == null ? treasures[row.Field<string>(0)].ItemID : item.Name)} x {treasures[row.Field<string>(0)].Count}");
             }
-
-            loaded = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -107,10 +104,10 @@ namespace FF13Randomizer
             {
                 int i = -1;
 
-                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || i < 0 || i > 9999999)
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || !(i == -1 || i >= 1 && i <= 9999999))
                 {
                     e.Cancel = true;
-                    MessageBox.Show("Must enter a number from 0-9999999");
+                    MessageBox.Show("Must enter a number from 1-9999999 or -1");
                 }
             }
             FormMain.PlandoModified = true;
@@ -121,6 +118,7 @@ namespace FF13Randomizer
             if (dataGridView1.DataSource != null)
             {
                 dataGridView1.Visible = true;
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[dataGridView1.DataSource];
                 currencyManager1.SuspendBinding();
                 TreasureArea area = Enum.GetValues(typeof(TreasureArea)).Cast<TreasureArea>().ToArray()[comboBox1.SelectedIndex];
@@ -130,6 +128,7 @@ namespace FF13Randomizer
                     dataGridView1.Rows[row].Visible = first == null && area == TreasureArea.UnknownOrUnused || first != null && first.Area == area;
                 }
                 currencyManager1.ResumeBinding();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dataGridView1.Refresh();
             }
         }
@@ -173,14 +172,31 @@ namespace FF13Randomizer
             return list;
         }
 
-        public void LoadJSONPlando(List<JSONPlandoTreasure> list)
+        public void LoadJSONPlando(List<JSONPlandoTreasure> list, string version)
         {
+            list = MigrateJSON(list, version);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             foreach (DataRow row in dataTable.Rows)
             {
                 JSONPlandoTreasure json = list.Find(j => j.ID == row.Field<string>(0));
                 row.SetField<string>(3, json.Item);
                 row.SetField<int>(4, json.Amount);
             }
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private List<JSONPlandoTreasure> MigrateJSON(List<JSONPlandoTreasure> list, string version)
+        {
+            if (version == FormMain.Version)
+                return list;
+            List<JSONPlandoTreasure> migrated = new List<JSONPlandoTreasure>(list);
+
+            if (VersionOrder.Compare(version, "1.8.0.Pre-3") == -1)
+            {
+                migrated.Where(j => j.Amount == 0).ForEach(j => j.Amount = -1);
+            }
+
+            return migrated;
         }
     }
 }

@@ -15,7 +15,6 @@ namespace FF13Randomizer
 {
     public partial class ShopPlando : UserControl
     {
-        private bool loaded = false;
         public DataTable dataTable = new DataTable();
         public ShopPlando()
         {
@@ -65,8 +64,8 @@ namespace FF13Randomizer
 
         public void ReloadData(FormMain main)
         {
-            if (loaded)
-                return;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataTable.Clear();
 
             DataStoreWDB<DataStoreShop, DataStoreID> shops = new DataStoreWDB<DataStoreShop, DataStoreID>();
 
@@ -85,8 +84,7 @@ namespace FF13Randomizer
                     name = item.Name;
                 row.SetField<string>(2, name);
             }
-
-            loaded = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,6 +92,7 @@ namespace FF13Randomizer
             if (dataGridView1.DataSource != null && comboBox1.SelectedIndex > -1)
             {
                 dataGridView1.Visible = true;
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 CurrencyManager currencyManager1 = (CurrencyManager)dataGridView1.BindingContext[dataGridView1.DataSource];
                 currencyManager1.SuspendBinding();
                 string uiShopName = Shops.shops.SelectMany(s => Enumerable.Range(0, s.Tiers).Select(i => s.Name + " " + ++i)).ToArray()[comboBox1.SelectedIndex];
@@ -105,6 +104,7 @@ namespace FF13Randomizer
                     dataGridView1.Rows[row].Visible = dataTable.Rows[row].Field<string>(0) == (shopID + tier);
                 }
                 currencyManager1.ResumeBinding();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dataGridView1.Refresh();                
             }
         }
@@ -126,6 +126,11 @@ namespace FF13Randomizer
                 }
             }
             return dict;
+        }
+
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            FormMain.PlandoModified = true;
         }
 
         public class JSONPlandoShop
@@ -151,18 +156,25 @@ namespace FF13Randomizer
             return list;
         }
 
-        public void LoadJSONPlando(List<JSONPlandoShop> list)
+        public void LoadJSONPlando(List<JSONPlandoShop> list, string version)
         {
+            list = MigrateJSON(list, version);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             foreach (DataRow row in dataTable.Rows)
             {
                 JSONPlandoShop json = list.Find(j => j.ShopID == row.Field<string>(0) && j.Index == row.Field<int>(1));
                 row.SetField<string>(3, json.Item);
             }
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private List<JSONPlandoShop> MigrateJSON(List<JSONPlandoShop> list, string version)
         {
-            FormMain.PlandoModified = true;
+            if (version == FormMain.Version)
+                return list;
+            List<JSONPlandoShop> migrated = new List<JSONPlandoShop>(list);
+
+            return migrated;
         }
     }
 }

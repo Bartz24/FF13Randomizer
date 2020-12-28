@@ -15,7 +15,6 @@ namespace FF13Randomizer
 {
     public partial class EnemyDropPlando : UserControl
     {
-        private bool loaded = false;
         public DataTable dataTable = new DataTable();
         public EnemyDropPlando()
         {
@@ -71,12 +70,6 @@ namespace FF13Randomizer
             column2.SortMode = DataGridViewColumnSortMode.NotSortable;
             dataGridView1.Columns.Add(column2);
 
-
-            foreach (Enemy e in Enemies.enemies.Where(e=>e.ParentData == null).OrderBy(e => e.Name))
-            {
-                AddEntry(e);
-            }
-
             dataGridView1.DataSource = dataTable;
         }
 
@@ -87,8 +80,13 @@ namespace FF13Randomizer
 
         public void ReloadData(FormMain main)
         {
-            if (loaded)
-                return;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataTable.Clear();
+
+            foreach (Enemy e in Enemies.enemies.Where(e => e.ParentData == null).OrderBy(e => e.Name))
+            {
+                AddEntry(e);
+            }
 
             DataStoreWDB<DataStoreEnemy, DataStoreID> enemies = new DataStoreWDB<DataStoreEnemy, DataStoreID>();
 
@@ -115,8 +113,7 @@ namespace FF13Randomizer
                     name = rare.Name;
                 row.SetField<string>(4, name);
             }
-
-            loaded = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -167,14 +164,26 @@ namespace FF13Randomizer
             return list;
         }
 
-        public void LoadJSONPlando(List<JSONPlandoEnemyDrops> list)
+        public void LoadJSONPlando(List<JSONPlandoEnemyDrops> list, string version)
         {
+            list = MigrateJSON(list, version);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             foreach (DataRow row in dataTable.Rows)
             {
                 JSONPlandoEnemyDrops json = list.Find(j => j.ID == row.Field<string>(0));
                 row.SetField<string>(3, json.Common);
                 row.SetField<string>(5, json.Rare);
             }
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private List<JSONPlandoEnemyDrops> MigrateJSON(List<JSONPlandoEnemyDrops> list, string version)
+        {
+            if (version == FormMain.Version)
+                return list;
+            List<JSONPlandoEnemyDrops> migrated = new List<JSONPlandoEnemyDrops>(list);
+
+            return migrated;
         }
     }
 }

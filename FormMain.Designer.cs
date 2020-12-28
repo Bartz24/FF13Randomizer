@@ -91,24 +91,51 @@
             this.tabPagePlando = new System.Windows.Forms.TabPage();
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.tabPagePlandoAbout = new System.Windows.Forms.TabPage();
-            this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.button15 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.label29 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelp = new System.Windows.Forms.TabPage();
+            this.tabControl5 = new System.Windows.Forms.TabControl();
+            this.tabPagePlandoHelpGeneral = new System.Windows.Forms.TabPage();
+            this.label32 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpTreasures = new System.Windows.Forms.TabPage();
+            this.label33 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpShops = new System.Windows.Forms.TabPage();
+            this.label34 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpShopOrder = new System.Windows.Forms.TabPage();
+            this.label35 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpEnemyStats = new System.Windows.Forms.TabPage();
+            this.label36 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpEnemyDrops = new System.Windows.Forms.TabPage();
+            this.label37 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpCrystarium = new System.Windows.Forms.TabPage();
+            this.label38 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpAbilities = new System.Windows.Forms.TabPage();
+            this.label39 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpRunSpeeds = new System.Windows.Forms.TabPage();
+            this.label40 = new System.Windows.Forms.Label();
             this.tabPagePlandoTreasure = new System.Windows.Forms.TabPage();
             this.treasurePlando1 = new FF13Randomizer.TreasurePlando();
             this.tabPagePlandoShop = new System.Windows.Forms.TabPage();
             this.shopPlando1 = new FF13Randomizer.ShopPlando();
             this.tabPagePlandoShopOrder = new System.Windows.Forms.TabPage();
             this.shopOrderPlando1 = new FF13Randomizer.ShopOrderPlando();
-            this.tabPageEnemyDrops = new System.Windows.Forms.TabPage();
+            this.tabPagePlandoEnemyStats = new System.Windows.Forms.TabPage();
+            this.enemyStatsPlando1 = new FF13Randomizer.EnemyStatsPlando();
+            this.tabPagePlandoEnemyResists = new System.Windows.Forms.TabPage();
+            this.enemyElementResistPlando1 = new FF13Randomizer.EnemyElementResistPlando();
+            this.tabPagePlandoEnemyDebuffs = new System.Windows.Forms.TabPage();
+            this.enemyDebuffResistPlando1 = new FF13Randomizer.EnemyDebuffResistPlando();
+            this.tabPagePlandoEnemyDrops = new System.Windows.Forms.TabPage();
             this.enemyDropPlando1 = new FF13Randomizer.EnemyDropPlando();
             this.tabPagePlandoCrystarium = new System.Windows.Forms.TabPage();
             this.crystariumPlando1 = new FF13Randomizer.CrystariumPlando();
             this.tabPagePlandoAbilities = new System.Windows.Forms.TabPage();
             this.abilityPlando1 = new FF13Randomizer.AbilityPlando();
+            this.tabPagePlandoRunSpeed = new System.Windows.Forms.TabPage();
+            this.runSpeedPlando1 = new FF13Randomizer.RunSpeedPlando();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
             this.label18 = new System.Windows.Forms.Label();
             this.labelFlagsSelected = new System.Windows.Forms.Label();
@@ -125,6 +152,10 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
+            this.tabPagePlandoHelpEnemyElementResists = new System.Windows.Forms.TabPage();
+            this.tabPagePlandoHelpEnemyDebuffResists = new System.Windows.Forms.TabPage();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
@@ -134,16 +165,33 @@
             this.tabPagePlando.SuspendLayout();
             this.tabControl4.SuspendLayout();
             this.tabPagePlandoAbout.SuspendLayout();
+            this.tabPagePlandoHelp.SuspendLayout();
+            this.tabControl5.SuspendLayout();
+            this.tabPagePlandoHelpGeneral.SuspendLayout();
+            this.tabPagePlandoHelpTreasures.SuspendLayout();
+            this.tabPagePlandoHelpShops.SuspendLayout();
+            this.tabPagePlandoHelpShopOrder.SuspendLayout();
+            this.tabPagePlandoHelpEnemyStats.SuspendLayout();
+            this.tabPagePlandoHelpEnemyDrops.SuspendLayout();
+            this.tabPagePlandoHelpCrystarium.SuspendLayout();
+            this.tabPagePlandoHelpAbilities.SuspendLayout();
+            this.tabPagePlandoHelpRunSpeeds.SuspendLayout();
             this.tabPagePlandoTreasure.SuspendLayout();
             this.tabPagePlandoShop.SuspendLayout();
             this.tabPagePlandoShopOrder.SuspendLayout();
-            this.tabPageEnemyDrops.SuspendLayout();
+            this.tabPagePlandoEnemyStats.SuspendLayout();
+            this.tabPagePlandoEnemyResists.SuspendLayout();
+            this.tabPagePlandoEnemyDebuffs.SuspendLayout();
+            this.tabPagePlandoEnemyDrops.SuspendLayout();
             this.tabPagePlandoCrystarium.SuspendLayout();
             this.tabPagePlandoAbilities.SuspendLayout();
+            this.tabPagePlandoRunSpeed.SuspendLayout();
             this.tabPageFinish.SuspendLayout();
             this.tabPageUninstall.SuspendLayout();
             this.tabPageTools.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
+            this.tabPagePlandoHelpEnemyElementResists.SuspendLayout();
+            this.tabPagePlandoHelpEnemyDebuffResists.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -434,10 +482,10 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(9, 439);
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(9, 436);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(238, 13);
+            this.label26.Size = new System.Drawing.Size(288, 16);
             this.label26.TabIndex = 29;
             this.label26.Text = "Tweak Presets  (Default: Perserverance)";
             // 
@@ -577,10 +625,10 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(9, 166);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(9, 163);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(207, 13);
+            this.label10.Size = new System.Drawing.Size(248, 16);
             this.label10.TabIndex = 12;
             this.label10.Text = "Flag Presets      (Default: Diversity)";
             // 
@@ -783,12 +831,17 @@
             // tabControl4
             // 
             this.tabControl4.Controls.Add(this.tabPagePlandoAbout);
+            this.tabControl4.Controls.Add(this.tabPagePlandoHelp);
             this.tabControl4.Controls.Add(this.tabPagePlandoTreasure);
             this.tabControl4.Controls.Add(this.tabPagePlandoShop);
             this.tabControl4.Controls.Add(this.tabPagePlandoShopOrder);
-            this.tabControl4.Controls.Add(this.tabPageEnemyDrops);
+            this.tabControl4.Controls.Add(this.tabPagePlandoEnemyStats);
+            this.tabControl4.Controls.Add(this.tabPagePlandoEnemyResists);
+            this.tabControl4.Controls.Add(this.tabPagePlandoEnemyDebuffs);
+            this.tabControl4.Controls.Add(this.tabPagePlandoEnemyDrops);
             this.tabControl4.Controls.Add(this.tabPagePlandoCrystarium);
             this.tabControl4.Controls.Add(this.tabPagePlandoAbilities);
+            this.tabControl4.Controls.Add(this.tabPagePlandoRunSpeed);
             this.tabControl4.Location = new System.Drawing.Point(4, 3);
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.SelectedIndex = 0;
@@ -798,7 +851,6 @@
             // 
             // tabPagePlandoAbout
             // 
-            this.tabPagePlandoAbout.Controls.Add(this.label32);
             this.tabPagePlandoAbout.Controls.Add(this.label31);
             this.tabPagePlandoAbout.Controls.Add(this.label30);
             this.tabPagePlandoAbout.Controls.Add(this.button15);
@@ -811,21 +863,13 @@
             this.tabPagePlandoAbout.Text = "Basics";
             this.tabPagePlandoAbout.UseVisualStyleBackColor = true;
             // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(43, 191);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(481, 143);
-            this.label32.TabIndex = 5;
-            this.label32.Text = resources.GetString("label32.Text");
-            // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(43, 98);
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(32, 98);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(353, 65);
+            this.label31.Size = new System.Drawing.Size(440, 128);
             this.label31.TabIndex = 4;
             this.label31.Text = resources.GetString("label31.Text");
             // 
@@ -866,6 +910,222 @@
             this.label29.Size = new System.Drawing.Size(318, 13);
             this.label29.TabIndex = 0;
             this.label29.Text = "Import plando data (with the seed and flags used) from a JSON file";
+            // 
+            // tabPagePlandoHelp
+            // 
+            this.tabPagePlandoHelp.Controls.Add(this.tabControl5);
+            this.tabPagePlandoHelp.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelp.Name = "tabPagePlandoHelp";
+            this.tabPagePlandoHelp.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlandoHelp.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoHelp.TabIndex = 10;
+            this.tabPagePlandoHelp.Text = "Help";
+            this.tabPagePlandoHelp.UseVisualStyleBackColor = true;
+            // 
+            // tabControl5
+            // 
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpGeneral);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpTreasures);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpShops);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpShopOrder);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpEnemyStats);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpEnemyElementResists);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpEnemyDebuffResists);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpEnemyDrops);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpCrystarium);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpAbilities);
+            this.tabControl5.Controls.Add(this.tabPagePlandoHelpRunSpeeds);
+            this.tabControl5.Location = new System.Drawing.Point(6, 6);
+            this.tabControl5.Name = "tabControl5";
+            this.tabControl5.SelectedIndex = 0;
+            this.tabControl5.Size = new System.Drawing.Size(784, 585);
+            this.tabControl5.TabIndex = 0;
+            // 
+            // tabPagePlandoHelpGeneral
+            // 
+            this.tabPagePlandoHelpGeneral.Controls.Add(this.label32);
+            this.tabPagePlandoHelpGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPagePlandoHelpGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpGeneral.Name = "tabPagePlandoHelpGeneral";
+            this.tabPagePlandoHelpGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlandoHelpGeneral.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpGeneral.TabIndex = 0;
+            this.tabPagePlandoHelpGeneral.Text = "General";
+            this.tabPagePlandoHelpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(3, 0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(665, 96);
+            this.label32.TabIndex = 6;
+            this.label32.Text = resources.GetString("label32.Text");
+            // 
+            // tabPagePlandoHelpTreasures
+            // 
+            this.tabPagePlandoHelpTreasures.Controls.Add(this.label33);
+            this.tabPagePlandoHelpTreasures.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpTreasures.Name = "tabPagePlandoHelpTreasures";
+            this.tabPagePlandoHelpTreasures.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlandoHelpTreasures.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpTreasures.TabIndex = 1;
+            this.tabPagePlandoHelpTreasures.Text = "Treasures";
+            this.tabPagePlandoHelpTreasures.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(3, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(400, 80);
+            this.label33.TabIndex = 7;
+            this.label33.Text = "Required Flags:\r\n-\"Randomize Treasures and Rewards\": Required for all values set\r" +
+    "\n\r\nInfo:\r\n-\"Amount\" is Optional. If -1, a random amount will be picked";
+            // 
+            // tabPagePlandoHelpShops
+            // 
+            this.tabPagePlandoHelpShops.Controls.Add(this.label34);
+            this.tabPagePlandoHelpShops.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpShops.Name = "tabPagePlandoHelpShops";
+            this.tabPagePlandoHelpShops.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpShops.TabIndex = 2;
+            this.tabPagePlandoHelpShops.Text = "Shops";
+            this.tabPagePlandoHelpShops.UseVisualStyleBackColor = true;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(3, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(612, 80);
+            this.label34.TabIndex = 8;
+            this.label34.Text = resources.GetString("label34.Text");
+            // 
+            // tabPagePlandoHelpShopOrder
+            // 
+            this.tabPagePlandoHelpShopOrder.Controls.Add(this.label35);
+            this.tabPagePlandoHelpShopOrder.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpShopOrder.Name = "tabPagePlandoHelpShopOrder";
+            this.tabPagePlandoHelpShopOrder.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpShopOrder.TabIndex = 3;
+            this.tabPagePlandoHelpShopOrder.Text = "Shop Locations";
+            this.tabPagePlandoHelpShopOrder.UseVisualStyleBackColor = true;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(3, 0);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(765, 128);
+            this.label35.TabIndex = 9;
+            this.label35.Text = resources.GetString("label35.Text");
+            // 
+            // tabPagePlandoHelpEnemyStats
+            // 
+            this.tabPagePlandoHelpEnemyStats.Controls.Add(this.label36);
+            this.tabPagePlandoHelpEnemyStats.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpEnemyStats.Name = "tabPagePlandoHelpEnemyStats";
+            this.tabPagePlandoHelpEnemyStats.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpEnemyStats.TabIndex = 4;
+            this.tabPagePlandoHelpEnemyStats.Text = "Enemy Stats";
+            this.tabPagePlandoHelpEnemyStats.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(3, 0);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(547, 64);
+            this.label36.TabIndex = 8;
+            this.label36.Text = resources.GetString("label36.Text");
+            // 
+            // tabPagePlandoHelpEnemyDrops
+            // 
+            this.tabPagePlandoHelpEnemyDrops.Controls.Add(this.label37);
+            this.tabPagePlandoHelpEnemyDrops.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpEnemyDrops.Name = "tabPagePlandoHelpEnemyDrops";
+            this.tabPagePlandoHelpEnemyDrops.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpEnemyDrops.TabIndex = 5;
+            this.tabPagePlandoHelpEnemyDrops.Text = "Enemy Drops";
+            this.tabPagePlandoHelpEnemyDrops.UseVisualStyleBackColor = true;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(3, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(527, 80);
+            this.label37.TabIndex = 8;
+            this.label37.Text = "Required Flags:\r\n-\"Randomize Enemy Drops\": Required for all values set\r\n\r\nInfo:\r\n" +
+    "None values can be replaced, but they may not drop as the drop chance may still " +
+    "be 0%";
+            // 
+            // tabPagePlandoHelpCrystarium
+            // 
+            this.tabPagePlandoHelpCrystarium.Controls.Add(this.label38);
+            this.tabPagePlandoHelpCrystarium.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpCrystarium.Name = "tabPagePlandoHelpCrystarium";
+            this.tabPagePlandoHelpCrystarium.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpCrystarium.TabIndex = 6;
+            this.tabPagePlandoHelpCrystarium.Text = "Crystarium";
+            this.tabPagePlandoHelpCrystarium.UseVisualStyleBackColor = true;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.Location = new System.Drawing.Point(3, 0);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(643, 224);
+            this.label38.TabIndex = 7;
+            this.label38.Text = resources.GetString("label38.Text");
+            // 
+            // tabPagePlandoHelpAbilities
+            // 
+            this.tabPagePlandoHelpAbilities.Controls.Add(this.label39);
+            this.tabPagePlandoHelpAbilities.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpAbilities.Name = "tabPagePlandoHelpAbilities";
+            this.tabPagePlandoHelpAbilities.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpAbilities.TabIndex = 7;
+            this.tabPagePlandoHelpAbilities.Text = "Abilities";
+            this.tabPagePlandoHelpAbilities.UseVisualStyleBackColor = true;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label39.Location = new System.Drawing.Point(3, 0);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(431, 48);
+            this.label39.TabIndex = 9;
+            this.label39.Text = "Required Flags:\r\n-\"Randomize ATB Costs\": Required for changes to ATB based abilit" +
+    "ies.\r\n-\"Randomize TP Costs\": Required for changes to techniques.";
+            // 
+            // tabPagePlandoHelpRunSpeeds
+            // 
+            this.tabPagePlandoHelpRunSpeeds.Controls.Add(this.label40);
+            this.tabPagePlandoHelpRunSpeeds.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpRunSpeeds.Name = "tabPagePlandoHelpRunSpeeds";
+            this.tabPagePlandoHelpRunSpeeds.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpRunSpeeds.TabIndex = 8;
+            this.tabPagePlandoHelpRunSpeeds.Text = "Run Speeds";
+            this.tabPagePlandoHelpRunSpeeds.UseVisualStyleBackColor = true;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label40.Location = new System.Drawing.Point(3, 0);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(338, 32);
+            this.label40.TabIndex = 10;
+            this.label40.Text = "Required Flags:\r\n-\"Randomize Run Speed\": Required for all changes set.";
             // 
             // tabPagePlandoTreasure
             // 
@@ -924,15 +1184,66 @@
             this.shopOrderPlando1.Size = new System.Drawing.Size(790, 591);
             this.shopOrderPlando1.TabIndex = 0;
             // 
-            // tabPageEnemyDrops
+            // tabPagePlandoEnemyStats
             // 
-            this.tabPageEnemyDrops.Controls.Add(this.enemyDropPlando1);
-            this.tabPageEnemyDrops.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEnemyDrops.Name = "tabPageEnemyDrops";
-            this.tabPageEnemyDrops.Size = new System.Drawing.Size(796, 597);
-            this.tabPageEnemyDrops.TabIndex = 7;
-            this.tabPageEnemyDrops.Text = "Enemy Drops";
-            this.tabPageEnemyDrops.UseVisualStyleBackColor = true;
+            this.tabPagePlandoEnemyStats.Controls.Add(this.enemyStatsPlando1);
+            this.tabPagePlandoEnemyStats.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoEnemyStats.Name = "tabPagePlandoEnemyStats";
+            this.tabPagePlandoEnemyStats.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoEnemyStats.TabIndex = 9;
+            this.tabPagePlandoEnemyStats.Text = "Enemy Stats";
+            this.tabPagePlandoEnemyStats.UseVisualStyleBackColor = true;
+            // 
+            // enemyStatsPlando1
+            // 
+            this.enemyStatsPlando1.Location = new System.Drawing.Point(3, 3);
+            this.enemyStatsPlando1.Name = "enemyStatsPlando1";
+            this.enemyStatsPlando1.Size = new System.Drawing.Size(790, 591);
+            this.enemyStatsPlando1.TabIndex = 0;
+            // 
+            // tabPagePlandoEnemyResists
+            // 
+            this.tabPagePlandoEnemyResists.Controls.Add(this.enemyElementResistPlando1);
+            this.tabPagePlandoEnemyResists.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoEnemyResists.Name = "tabPagePlandoEnemyResists";
+            this.tabPagePlandoEnemyResists.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoEnemyResists.TabIndex = 11;
+            this.tabPagePlandoEnemyResists.Text = "Enemy Element Resists";
+            this.tabPagePlandoEnemyResists.UseVisualStyleBackColor = true;
+            // 
+            // enemyElementResistPlando1
+            // 
+            this.enemyElementResistPlando1.Location = new System.Drawing.Point(3, 3);
+            this.enemyElementResistPlando1.Name = "enemyElementResistPlando1";
+            this.enemyElementResistPlando1.Size = new System.Drawing.Size(790, 591);
+            this.enemyElementResistPlando1.TabIndex = 0;
+            // 
+            // tabPagePlandoEnemyDebuffs
+            // 
+            this.tabPagePlandoEnemyDebuffs.Controls.Add(this.enemyDebuffResistPlando1);
+            this.tabPagePlandoEnemyDebuffs.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoEnemyDebuffs.Name = "tabPagePlandoEnemyDebuffs";
+            this.tabPagePlandoEnemyDebuffs.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoEnemyDebuffs.TabIndex = 12;
+            this.tabPagePlandoEnemyDebuffs.Text = "Enemy Debuff Resists";
+            this.tabPagePlandoEnemyDebuffs.UseVisualStyleBackColor = true;
+            // 
+            // enemyDebuffResistPlando1
+            // 
+            this.enemyDebuffResistPlando1.Location = new System.Drawing.Point(3, 3);
+            this.enemyDebuffResistPlando1.Name = "enemyDebuffResistPlando1";
+            this.enemyDebuffResistPlando1.Size = new System.Drawing.Size(790, 591);
+            this.enemyDebuffResistPlando1.TabIndex = 0;
+            // 
+            // tabPagePlandoEnemyDrops
+            // 
+            this.tabPagePlandoEnemyDrops.Controls.Add(this.enemyDropPlando1);
+            this.tabPagePlandoEnemyDrops.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoEnemyDrops.Name = "tabPagePlandoEnemyDrops";
+            this.tabPagePlandoEnemyDrops.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoEnemyDrops.TabIndex = 7;
+            this.tabPagePlandoEnemyDrops.Text = "Enemy Drops";
+            this.tabPagePlandoEnemyDrops.UseVisualStyleBackColor = true;
             // 
             // enemyDropPlando1
             // 
@@ -974,6 +1285,23 @@
             this.abilityPlando1.Name = "abilityPlando1";
             this.abilityPlando1.Size = new System.Drawing.Size(790, 591);
             this.abilityPlando1.TabIndex = 0;
+            // 
+            // tabPagePlandoRunSpeed
+            // 
+            this.tabPagePlandoRunSpeed.Controls.Add(this.runSpeedPlando1);
+            this.tabPagePlandoRunSpeed.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoRunSpeed.Name = "tabPagePlandoRunSpeed";
+            this.tabPagePlandoRunSpeed.Size = new System.Drawing.Size(796, 597);
+            this.tabPagePlandoRunSpeed.TabIndex = 8;
+            this.tabPagePlandoRunSpeed.Text = "Run Speeds";
+            this.tabPagePlandoRunSpeed.UseVisualStyleBackColor = true;
+            // 
+            // runSpeedPlando1
+            // 
+            this.runSpeedPlando1.Location = new System.Drawing.Point(3, 3);
+            this.runSpeedPlando1.Name = "runSpeedPlando1";
+            this.runSpeedPlando1.Size = new System.Drawing.Size(790, 591);
+            this.runSpeedPlando1.TabIndex = 0;
             // 
             // tabPageFinish
             // 
@@ -1152,6 +1480,48 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
+            // tabPagePlandoHelpEnemyElementResists
+            // 
+            this.tabPagePlandoHelpEnemyElementResists.Controls.Add(this.label41);
+            this.tabPagePlandoHelpEnemyElementResists.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpEnemyElementResists.Name = "tabPagePlandoHelpEnemyElementResists";
+            this.tabPagePlandoHelpEnemyElementResists.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpEnemyElementResists.TabIndex = 9;
+            this.tabPagePlandoHelpEnemyElementResists.Text = "Enemy Element Resists";
+            this.tabPagePlandoHelpEnemyElementResists.UseVisualStyleBackColor = true;
+            // 
+            // tabPagePlandoHelpEnemyDebuffResists
+            // 
+            this.tabPagePlandoHelpEnemyDebuffResists.Controls.Add(this.label42);
+            this.tabPagePlandoHelpEnemyDebuffResists.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpEnemyDebuffResists.Name = "tabPagePlandoHelpEnemyDebuffResists";
+            this.tabPagePlandoHelpEnemyDebuffResists.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpEnemyDebuffResists.TabIndex = 10;
+            this.tabPagePlandoHelpEnemyDebuffResists.Text = "Enemy Debuff Resists";
+            this.tabPagePlandoHelpEnemyDebuffResists.UseVisualStyleBackColor = true;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(3, 0);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(573, 32);
+            this.label41.TabIndex = 9;
+            this.label41.Text = "Required Flags:\r\n-\"Randomize Elemental Resistances\": Required for all changes mad" +
+    "e to elemental resistances.";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(3, 0);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(530, 32);
+            this.label42.TabIndex = 10;
+            this.label42.Text = "Required Flags:\r\n-\"Randomize Debuff Resistances\": Required for all changes made t" +
+    "o debuff resistances.";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1176,12 +1546,36 @@
             this.tabControl4.ResumeLayout(false);
             this.tabPagePlandoAbout.ResumeLayout(false);
             this.tabPagePlandoAbout.PerformLayout();
+            this.tabPagePlandoHelp.ResumeLayout(false);
+            this.tabControl5.ResumeLayout(false);
+            this.tabPagePlandoHelpGeneral.ResumeLayout(false);
+            this.tabPagePlandoHelpGeneral.PerformLayout();
+            this.tabPagePlandoHelpTreasures.ResumeLayout(false);
+            this.tabPagePlandoHelpTreasures.PerformLayout();
+            this.tabPagePlandoHelpShops.ResumeLayout(false);
+            this.tabPagePlandoHelpShops.PerformLayout();
+            this.tabPagePlandoHelpShopOrder.ResumeLayout(false);
+            this.tabPagePlandoHelpShopOrder.PerformLayout();
+            this.tabPagePlandoHelpEnemyStats.ResumeLayout(false);
+            this.tabPagePlandoHelpEnemyStats.PerformLayout();
+            this.tabPagePlandoHelpEnemyDrops.ResumeLayout(false);
+            this.tabPagePlandoHelpEnemyDrops.PerformLayout();
+            this.tabPagePlandoHelpCrystarium.ResumeLayout(false);
+            this.tabPagePlandoHelpCrystarium.PerformLayout();
+            this.tabPagePlandoHelpAbilities.ResumeLayout(false);
+            this.tabPagePlandoHelpAbilities.PerformLayout();
+            this.tabPagePlandoHelpRunSpeeds.ResumeLayout(false);
+            this.tabPagePlandoHelpRunSpeeds.PerformLayout();
             this.tabPagePlandoTreasure.ResumeLayout(false);
             this.tabPagePlandoShop.ResumeLayout(false);
             this.tabPagePlandoShopOrder.ResumeLayout(false);
-            this.tabPageEnemyDrops.ResumeLayout(false);
+            this.tabPagePlandoEnemyStats.ResumeLayout(false);
+            this.tabPagePlandoEnemyResists.ResumeLayout(false);
+            this.tabPagePlandoEnemyDebuffs.ResumeLayout(false);
+            this.tabPagePlandoEnemyDrops.ResumeLayout(false);
             this.tabPagePlandoCrystarium.ResumeLayout(false);
             this.tabPagePlandoAbilities.ResumeLayout(false);
+            this.tabPagePlandoRunSpeed.ResumeLayout(false);
             this.tabPageFinish.ResumeLayout(false);
             this.tabPageFinish.PerformLayout();
             this.tabPageUninstall.ResumeLayout(false);
@@ -1190,6 +1584,10 @@
             this.tabPageTools.PerformLayout();
             this.tabPageDebug.ResumeLayout(false);
             this.tabPageDebug.PerformLayout();
+            this.tabPagePlandoHelpEnemyElementResists.ResumeLayout(false);
+            this.tabPagePlandoHelpEnemyElementResists.PerformLayout();
+            this.tabPagePlandoHelpEnemyDebuffResists.ResumeLayout(false);
+            this.tabPagePlandoHelpEnemyDebuffResists.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1284,14 +1682,45 @@
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TabPage tabPagePlandoShopOrder;
         public ShopOrderPlando shopOrderPlando1;
         private System.Windows.Forms.TabPage tabPagePlandoAbilities;
         public AbilityPlando abilityPlando1;
-        private System.Windows.Forms.TabPage tabPageEnemyDrops;
+        private System.Windows.Forms.TabPage tabPagePlandoEnemyDrops;
         public EnemyDropPlando enemyDropPlando1;
+        private System.Windows.Forms.TabPage tabPagePlandoRunSpeed;
+        public RunSpeedPlando runSpeedPlando1;
+        private System.Windows.Forms.TabPage tabPagePlandoEnemyStats;
+        public EnemyStatsPlando enemyStatsPlando1;
+        private System.Windows.Forms.TabPage tabPagePlandoHelp;
+        private System.Windows.Forms.TabControl tabControl5;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpGeneral;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpTreasures;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpShops;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpShopOrder;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpEnemyStats;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpEnemyDrops;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpCrystarium;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpAbilities;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpRunSpeeds;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TabPage tabPagePlandoEnemyResists;
+        public EnemyElementResistPlando enemyElementResistPlando1;
+        private System.Windows.Forms.TabPage tabPagePlandoEnemyDebuffs;
+        public EnemyDebuffResistPlando enemyDebuffResistPlando1;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpEnemyElementResists;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.TabPage tabPagePlandoHelpEnemyDebuffResists;
+        private System.Windows.Forms.Label label42;
     }
 }
 

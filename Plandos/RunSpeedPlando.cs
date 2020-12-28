@@ -13,10 +13,10 @@ using System.Text.RegularExpressions;
 
 namespace FF13Randomizer
 {
-    public partial class AbilityPlando : UserControl
+    public partial class RunSpeedPlando : UserControl
     {
         public DataTable dataTable = new DataTable();
-        public AbilityPlando()
+        public RunSpeedPlando()
         {
             InitializeComponent();
             AddEntries();
@@ -24,7 +24,7 @@ namespace FF13Randomizer
         private void AddEntries()
         {
             dataTable.Columns.Add("Name", typeof(string));
-            dataTable.Columns.Add("ATB/TP Cost", typeof(int));
+            dataTable.Columns.Add("Run Speed", typeof(int));
 
             dataGridView1.AutoGenerateColumns = false;
 
@@ -35,16 +35,16 @@ namespace FF13Randomizer
             dataGridView1.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
-            dataGridView1.Columns[1].HeaderText = "ATB/TP Cost (Full ATB = 6)";
-            dataGridView1.Columns[1].DataPropertyName = "ATB/TP Cost";
+            dataGridView1.Columns[1].HeaderText = "Run Speed";
+            dataGridView1.Columns[1].DataPropertyName = "Run Speed";
             dataGridView1.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             dataGridView1.DataSource = dataTable;
         }
 
-        private void AddEntry(Ability ability)
+        private void AddEntry(Character character, int runSpeed)
         {
-            dataTable.Rows.Add(ability.Name, -1);
+            dataTable.Rows.Add($"{character} (Default: {runSpeed})", -1);
         }
 
         public void ReloadData(FormMain main)
@@ -52,11 +52,10 @@ namespace FF13Randomizer
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dataTable.Clear();
 
-            DataStoreWDB<DataStoreAbility, DataStoreID> abilities = new DataStoreWDB<DataStoreAbility, DataStoreID>();
+            DataStoreWDB<DataStoreChara, DataStoreID>  characters = new DataStoreWDB<DataStoreChara, DataStoreID>();
+            characters.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\charafamily.wdb"));
 
-            abilities.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\bt_ability.wdb"));
-
-            Abilities.abilities.Where(aID => abilities.IdList.IndexOf(aID.GetIDs()[0]) > -1).ForEach(a => AddEntry(a));
+            ((Character[])Enum.GetValues(typeof(Character))).ForEach(c => AddEntry(c, characters[RandoRunSpeed.GetID(c)].RunSpeed));
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
@@ -66,73 +65,68 @@ namespace FF13Randomizer
             {
                 int i = -1;
 
-                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || !(i == -1 || i >= 1 && i <= 6))
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || !(i == -1 || i >= 1 && i <= 255))
                 {
                     e.Cancel = true;
-                    MessageBox.Show("Must enter a number from 1-6 or -1");
+                    MessageBox.Show("Must enter a number from 1-255 or -1");
                 }
             }
             FormMain.PlandoModified = true;
         }
 
-        public Dictionary<Ability, int> GetAbilities()
+        public Dictionary<Character, int> GetRunSpeeds()
         {
-            Dictionary<Ability, int> dict = new Dictionary<Ability, int>();
+            Dictionary<Character, int> dict = new Dictionary<Character, int>();
             foreach (DataRow row in dataTable.Rows)
             {
-                Ability ability = Abilities.abilities.Find(a => a.Name == row.Field<string>(0));
-                int cost = row.Field<int>(1);
-                if(cost > 0)
+                Character character = ((Character[])Enum.GetValues(typeof(Character)))[Enum.GetNames(typeof(Character)).ToList().FindIndex(n => row.Field<string>(0).StartsWith(n))];
+                int speed = row.Field<int>(1);
+                if(speed > 0)
                 {
-                    dict.Add(ability, cost);
+                    dict.Add(character, speed);
                 }
             }
             return dict;
         }
 
-        public class JSONPlandoAbility
+        public class JSONPlandoRunSpeed
         {
             public string Name { get; set; }
-            public int Cost { get; set; }
+            public int Speed { get; set; }
         }
 
-        public List<JSONPlandoAbility> GetJSONPlando()
+        public List<JSONPlandoRunSpeed> GetJSONPlando()
         {
-            List<JSONPlandoAbility> list = new List<JSONPlandoAbility>();
+            List<JSONPlandoRunSpeed> list = new List<JSONPlandoRunSpeed>();
 
             foreach (DataRow row in dataTable.Rows)
             {
-                list.Add(new JSONPlandoAbility()
+                list.Add(new JSONPlandoRunSpeed()
                 {
                     Name = row.Field<string>(0),
-                    Cost = row.Field<int>(1)
+                    Speed = row.Field<int>(1)
                 });
             }
             return list;
         }
 
-        public void LoadJSONPlando(List<JSONPlandoAbility> list, string version)
+        public void LoadJSONPlando(List<JSONPlandoRunSpeed> list, string version)
         {
             list = MigrateJSON(list, version);
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             foreach (DataRow row in dataTable.Rows)
             {
-                JSONPlandoAbility json = list.Find(j => j.Name == row.Field<string>(0));
-                row.SetField<int>(1, json.Cost);
+                JSONPlandoRunSpeed json = list.Find(j => j.Name == row.Field<string>(0));
+                row.SetField<int>(1, json.Speed);
             }
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private List<JSONPlandoAbility> MigrateJSON(List<JSONPlandoAbility> list, string version)
+        private List<JSONPlandoRunSpeed> MigrateJSON(List<JSONPlandoRunSpeed> list, string version)
         {
             if (version == FormMain.Version)
                 return list;
-            List<JSONPlandoAbility> migrated = new List<JSONPlandoAbility>(list);
-
-            if(VersionOrder.Compare(version, "1.8.0.Pre-3") == -1)
-            {
-                migrated.Where(j => j.Cost == 0).ForEach(j => j.Cost = -1);
-            }
+            List<JSONPlandoRunSpeed> migrated = new List<JSONPlandoRunSpeed>(list);
 
             return migrated;
         }

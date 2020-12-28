@@ -18,7 +18,7 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string Version { get; set; } = "1.8.0.Pre-2";
+        public static string Version { get; set; } = "1.8.0.Pre-3";
 
         public static bool PlandoModified { get; set; } = false;
 
@@ -319,7 +319,7 @@ namespace FF13Randomizer
         }
         public void LoadPlandos(BackgroundWorker worker)
         {
-            int inc = 100 / 6;
+            int inc = 100 / 10;
             treasurePlando1.ReloadData(this);
             worker.ReportProgress(inc * 1);
             shopPlando1.ReloadData(this);
@@ -328,10 +328,18 @@ namespace FF13Randomizer
             worker.ReportProgress(inc * 3);
             enemyDropPlando1.ReloadData(this);
             worker.ReportProgress(inc * 4);
-            crystariumPlando1.ReloadData(this);
+            enemyStatsPlando1.ReloadData(this);
             worker.ReportProgress(inc * 5);
-            abilityPlando1.ReloadData(this);
+            enemyElementResistPlando1.ReloadData(this);
             worker.ReportProgress(inc * 6);
+            enemyDebuffResistPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 7);
+            crystariumPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 8);
+            abilityPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 9);
+            runSpeedPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 10);
         }
 
         private void Flag_OnChanged(object sender, EventArgs e)
@@ -868,6 +876,8 @@ namespace FF13Randomizer
             Flags.Other.Music.FlagEnabled = true;
 
             Flags.CrystariumFlags.NewAbilities.ExtraSelected = false;
+            Flags.CrystariumFlags.RandCP.FlagEnabled = false;
+            Flags.CrystariumFlags.RandCP.ExtraSelected = false;
             Flags.EnemyFlags.Resistances.FlagEnabled = false;
             Flags.EnemyFlags.Debuffs.FlagEnabled = false;
             Flags.EnemyFlags.RandLevel.FlagEnabled = false;
@@ -893,6 +903,8 @@ namespace FF13Randomizer
             Flags.CrystariumFlags.ShuffleNodes.FlagEnabled = true;
             Flags.CrystariumFlags.RandStats.FlagEnabled = true;
             Flags.CrystariumFlags.RandStats.Range.Value = 25;
+            Flags.CrystariumFlags.RandCP.FlagEnabled = true;
+            Flags.CrystariumFlags.RandCP.ExtraSelected = true;
             Flags.EnemyFlags.RandStats.FlagEnabled = true;
             Flags.EnemyFlags.RandStats.Range.Value = 25;
             Flags.EnemyFlags.RandLevel.FlagEnabled = true;
@@ -928,6 +940,7 @@ namespace FF13Randomizer
             Flags.CrystariumFlags.ShuffleNodes.FlagEnabled = true;
             Flags.CrystariumFlags.RandStats.FlagEnabled = true;
             Flags.CrystariumFlags.RandStats.Range.Value = 50;
+            Flags.CrystariumFlags.RandCP.FlagEnabled = true;
             Flags.EnemyFlags.Debuffs.FlagEnabled = true;
             Flags.EnemyFlags.RandStats.FlagEnabled = true;
             Flags.EnemyFlags.RandStats.Range.Value = 50;
@@ -948,6 +961,7 @@ namespace FF13Randomizer
             Flags.Other.RunSpeed.Range.Value = 25;
 
             Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
+            Flags.CrystariumFlags.RandCP.ExtraSelected = false;
             Flags.EnemyFlags.Resistances.FlagEnabled = false;
             Flags.ItemFlags.Shops.ExtraSelected = false;
             Flags.ItemFlags.Shops.ExtraSelected2 = false;
@@ -963,6 +977,7 @@ namespace FF13Randomizer
             Flags.CrystariumFlags.ShuffleNodes.FlagEnabled = true;
             Flags.CrystariumFlags.RandStats.FlagEnabled = true;
             Flags.CrystariumFlags.RandStats.Range.Value = 100;
+            Flags.CrystariumFlags.RandCP.FlagEnabled = true;
             Flags.EnemyFlags.Resistances.FlagEnabled = true;
             Flags.EnemyFlags.Debuffs.FlagEnabled = true;
             Flags.EnemyFlags.RandStats.FlagEnabled = true;
@@ -984,6 +999,7 @@ namespace FF13Randomizer
             Flags.Other.RunSpeed.Range.Value = 50;
 
             Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
+            Flags.CrystariumFlags.RandCP.ExtraSelected = false;
             Flags.ItemFlags.Shops.ExtraSelected = false;
             Flags.ItemFlags.Shops.ExtraSelected2 = false;
 

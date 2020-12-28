@@ -31,7 +31,7 @@ namespace FF13Data
 
     public enum ElementalRes : byte
     {
-        Weak = 0,
+        Weakness = 0,
         Normal = 1,
         Halved = 2,
         Resistant = 3,
@@ -48,7 +48,7 @@ namespace FF13Data
         Wind,
         Earth,
         Physical,
-        Magic
+        Magical
     }
 
     public enum Debuff

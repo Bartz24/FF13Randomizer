@@ -15,7 +15,6 @@ namespace FF13Randomizer
 {
     public partial class CrystariumPlando : UserControl
     {
-        private bool loaded = false;
         public DataTable dataTable = new DataTable();
         public CrystariumPlando()
         {
@@ -40,6 +39,7 @@ namespace FF13Randomizer
             dataTable.Columns.Add("New Type", typeof(string));
             dataTable.Columns.Add("New Ability", typeof(string));
             dataTable.Columns.Add("New Stat Amount", typeof(int));
+            dataTable.Columns.Add("New CP Cost", typeof(int));
 
             dataGridView1.AutoGenerateColumns = false;
 
@@ -84,6 +84,11 @@ namespace FF13Randomizer
             dataGridView1.Columns[5].DataPropertyName = "New Stat Amount";
             dataGridView1.Columns[5].SortMode = DataGridViewColumnSortMode.NotSortable;
 
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[6].HeaderText = "New CP Cost";
+            dataGridView1.Columns[6].DataPropertyName = "New CP Cost";
+            dataGridView1.Columns[6].SortMode = DataGridViewColumnSortMode.NotSortable;
+
             dataGridView1.DataSource = dataTable;
         }
 
@@ -94,13 +99,13 @@ namespace FF13Randomizer
 
         private void AddEntry(DataStoreIDCrystarium crystId, string charName, string role, string locationName)
         {
-            dataTable.Rows.Add(crystId.ID, charName, role, crystId.Stage, locationName, "Unknown", "???", "???", 0);
+            dataTable.Rows.Add(crystId.ID, charName, role, crystId.Stage, locationName, "Unknown", "???", "???", -1, -1);
         }
 
         public void ReloadData(FormMain main)
         {
-            if (loaded)
-                return;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataTable.Clear();
 
             Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>> crystariums = new Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>>();
             Dictionary<string, Dictionary<DataStoreIDCrystarium, string>> displayNames = new Dictionary<string, Dictionary<DataStoreIDCrystarium, string>>();
@@ -146,8 +151,7 @@ namespace FF13Randomizer
 
                 row.SetField<string>(5, name);
             }
-
-            loaded = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,6 +159,7 @@ namespace FF13Randomizer
             if (dataGridView1.DataSource != null && comboBox1.SelectedIndex > -1 && comboBox2.SelectedIndex > -1)
             {
                 dataGridView1.Visible = true;
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 CurrencyManager currencyManager1 = (CurrencyManager)dataGridView1.BindingContext[dataGridView1.DataSource];
                 currencyManager1.SuspendBinding();
                 string charName = RandoCrystarium.CharNames[comboBox1.SelectedIndex];
@@ -164,6 +169,7 @@ namespace FF13Randomizer
                     dataGridView1.Rows[row].Visible = dataTable.Rows[row].Field<string>(1) == charName && dataTable.Rows[row].Field<string>(2) == role;
                 }
                 currencyManager1.ResumeBinding();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dataGridView1.Refresh();
             }
         }
@@ -174,10 +180,20 @@ namespace FF13Randomizer
             {
                 int i = -1;
 
-                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || i < 0 || i > 9999999)
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || !(i == -1 || i >= 0 && i <= 999999))
                 {
                     e.Cancel = true;
-                    MessageBox.Show("Must enter a number from 0-9999999");
+                    MessageBox.Show("Must enter a number from 0-999999 or -1");
+                }
+            }
+            if (e.ColumnIndex == 6)
+            {
+                int i = -1;
+
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || !(i == -1 || i >= 0 && i <= 9999999))
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("Must enter a number from 0-9999999 or -1");
                 }
             }
             FormMain.PlandoModified = true;
@@ -199,16 +215,38 @@ namespace FF13Randomizer
                 {
                     if (type == CrystariumType.Ability)
                     {
-                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(type, ability, 0));
+                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(type, ability, -1));
                     }
-                    else if (ability == null)
+                    else if ((type == CrystariumType.HP || type == CrystariumType.Strength || type == CrystariumType.Magic) && statAmount > -1)
                     {
                         dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(type, null, statAmount));
                     }
+                    else if (type == CrystariumType.Accessory || type == CrystariumType.ATBLevel || type == CrystariumType.RoleLevel)
+                    {
+                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(type, null, 0));
+                    }
                     else if (ability != null)
                     {
-                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(CrystariumType.Ability, ability, 0));
+                        dict[name].Add(nodeId, new Tuple<CrystariumType, Ability, int>(CrystariumType.Ability, ability, -1));
                     }
+                }
+            }
+            return dict;
+        }
+
+        public Dictionary<string, Dictionary<string, int>> GetCPCosts()
+        {
+            Dictionary<string, Dictionary<string, int>> dict = new Dictionary<string, Dictionary<string, int>>();
+            RandoCrystarium.CharNames.ForEach(s => dict.Add(s, new Dictionary<string, int>()));
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string nodeId = row.Field<string>(0);
+                string name = row.Field<string>(1);
+                int cpCost = row.Field<int>(9);
+                if (cpCost > 0)
+                {
+                    dict[name].Add(nodeId, cpCost);
                 }
             }
             return dict;
@@ -225,6 +263,7 @@ namespace FF13Randomizer
             public string Type { get; set; }
             public string AbilityName { get; set; }
             public int Value { get; set; }
+            public int CPCost { get; set; }
         }
 
         public List<JSONPlandoCrystarium> GetJSONPlando()
@@ -238,14 +277,17 @@ namespace FF13Randomizer
                     ID = row.Field<string>(0),
                     Type = row.Field<string>(6),
                     AbilityName = row.Field<string>(7),
-                    Value = row.Field<int>(8)
+                    Value = row.Field<int>(8),
+                    CPCost = row.Field<int>(9)
                 });
             }
             return list;
         }
 
-        public void LoadJSONPlando(List<JSONPlandoCrystarium> list)
+        public void LoadJSONPlando(List<JSONPlandoCrystarium> list, string version)
         {
+            list = MigrateJSON(list, version);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             foreach (DataRow row in dataTable.Rows)
             {
                 JSONPlandoCrystarium json = list.Find(j => j.ID == row.Field<string>(0));
@@ -254,7 +296,24 @@ namespace FF13Randomizer
                 row.SetField<string>(7, GetAbilityDropdownNames().Where(s => s == json.AbilityName || s.StartsWith(json.AbilityName)).FirstOrDefault());
 
                 row.SetField<int>(8, json.Value);
+                row.SetField<int>(9, json.CPCost);
             }
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private List<JSONPlandoCrystarium> MigrateJSON(List<JSONPlandoCrystarium> list, string version)
+        {
+            if (version == FormMain.Version)
+                return list;
+            List<JSONPlandoCrystarium> migrated = new List<JSONPlandoCrystarium>(list);
+
+            if (VersionOrder.Compare(version, "1.8.0.Pre-3") == -1)
+            {
+                migrated.Where(j => j.Value == 0).ForEach(j => j.Value = -1);
+                migrated.ForEach(j => j.CPCost = -1);
+            }
+
+            return migrated;
         }
     }
 }

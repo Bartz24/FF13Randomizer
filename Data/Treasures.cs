@@ -401,29 +401,29 @@ namespace FF13Data
 
         #region Orphan's Cradle
 
-        public static Treasure ocTT1 = new Treasure("The Tesseracts 1", "tre_lasd_001", TreasureArea.OrphansCradle);
-        public static Treasure ocTT2 = new Treasure("The Tesseracts 2", "tre_lasd_002", TreasureArea.OrphansCradle);
-        public static Treasure ocTT3 = new Treasure("The Tesseracts 3", "tre_lasd_003", TreasureArea.OrphansCradle);
-        public static Treasure ocTT4 = new Treasure("The Tesseracts 4", "tre_lasd_005", TreasureArea.OrphansCradle);
-        public static Treasure ocTT5 = new Treasure("The Tesseracts 5", "tre_lasd_008", TreasureArea.OrphansCradle);
-        public static Treasure ocTT6 = new Treasure("The Tesseracts 6", "tre_lasd_009", TreasureArea.OrphansCradle);
-        public static Treasure ocTT7 = new Treasure("The Tesseracts 7", "tre_lasd_006", TreasureArea.OrphansCradle);
-        public static Treasure ocTT8 = new Treasure("The Tesseracts 8", "tre_lasd_007", TreasureArea.OrphansCradle);
-        public static Treasure ocTT9 = new Treasure("The Tesseracts 9", "tre_lasd_012", TreasureArea.OrphansCradle);
-        public static Treasure ocTT10 = new Treasure("The Tesseracts 10", "tre_lasd_004", TreasureArea.OrphansCradle);
-        public static Treasure ocTT11 = new Treasure("The Tesseracts 11", "tre_lasd_010", TreasureArea.OrphansCradle);
-        public static Treasure ocTT12 = new Treasure("The Tesseracts 12", "tre_lasd_011", TreasureArea.OrphansCradle);
-        public static Treasure ocTT13 = new Treasure("The Tesseracts 13", "tre_lasd_013", TreasureArea.OrphansCradle);
-        public static Treasure ocTT14 = new Treasure("The Tesseracts 14", "tre_lasd_014", TreasureArea.OrphansCradle);
-        public static Treasure ocTT15 = new Treasure("The Tesseracts 15", "tre_lasd_015", TreasureArea.OrphansCradle);
-        public static Treasure ocTT16 = new Treasure("The Tesseracts 16", "tre_lasd_016", TreasureArea.OrphansCradle);
-        public static Treasure ocTT17 = new Treasure("The Tesseracts 17", "tre_lasd_017", TreasureArea.OrphansCradle);
-        public static Treasure ocTT18 = new Treasure("The Tesseracts 18", "tre_lasd_018", TreasureArea.OrphansCradle);
-        public static Treasure ocTT19 = new Treasure("The Tesseracts 19", "tre_lasd_019", TreasureArea.OrphansCradle);
-        public static Treasure ocTT20 = new Treasure("The Tesseracts 20", "tre_lasd_021", TreasureArea.OrphansCradle);
-        public static Treasure ocTT21 = new Treasure("The Tesseracts 21", "tre_lasd_020", TreasureArea.OrphansCradle);
-        public static Treasure ocTT22 = new Treasure("The Tesseracts 22", "tre_lasd_022", TreasureArea.OrphansCradle);
-        public static Treasure ocTT23 = new Treasure("The Tesseracts 23", "tre_lasd_023", TreasureArea.OrphansCradle);
+        public static Treasure ocTT1 = new Treasure("The Tesseracts 1st Section 1", "tre_lasd_001", TreasureArea.OrphansCradle);
+        public static Treasure ocTT2 = new Treasure("The Tesseracts 1st Section 2", "tre_lasd_002", TreasureArea.OrphansCradle);
+        public static Treasure ocTT3 = new Treasure("The Tesseracts 1st Section 3", "tre_lasd_003", TreasureArea.OrphansCradle);
+        public static Treasure ocTT4 = new Treasure("The Tesseracts 2nd Section 1", "tre_lasd_005", TreasureArea.OrphansCradle);
+        public static Treasure ocTT5 = new Treasure("The Tesseracts 2nd Section 2", "tre_lasd_008", TreasureArea.OrphansCradle);
+        public static Treasure ocTT6 = new Treasure("The Tesseracts 2nd Section 3", "tre_lasd_009", TreasureArea.OrphansCradle);
+        public static Treasure ocTT7 = new Treasure("The Tesseracts 2nd Section 4", "tre_lasd_006", TreasureArea.OrphansCradle);
+        public static Treasure ocTT8 = new Treasure("The Tesseracts 3rd Section 1", "tre_lasd_007", TreasureArea.OrphansCradle);
+        public static Treasure ocTT9 = new Treasure("The Tesseracts 3rd Section 2", "tre_lasd_012", TreasureArea.OrphansCradle);
+        public static Treasure ocTT10 = new Treasure("The Tesseracts 3rd Section 3", "tre_lasd_004", TreasureArea.OrphansCradle);
+        public static Treasure ocTT11 = new Treasure("The Tesseracts 3rd Section 4", "tre_lasd_010", TreasureArea.OrphansCradle);
+        public static Treasure ocTT12 = new Treasure("The Tesseracts 3rd Section 5", "tre_lasd_011", TreasureArea.OrphansCradle);
+        public static Treasure ocTT13 = new Treasure("The Tesseracts 4th Section 1", "tre_lasd_013", TreasureArea.OrphansCradle);
+        public static Treasure ocTT14 = new Treasure("The Tesseracts 4th Section 2", "tre_lasd_014", TreasureArea.OrphansCradle);
+        public static Treasure ocTT15 = new Treasure("The Tesseracts 4th Section 3", "tre_lasd_015", TreasureArea.OrphansCradle);
+        public static Treasure ocTT16 = new Treasure("The Tesseracts 4th Section 4", "tre_lasd_016", TreasureArea.OrphansCradle);
+        public static Treasure ocTT17 = new Treasure("The Tesseracts 4th Section 5", "tre_lasd_017", TreasureArea.OrphansCradle);
+        public static Treasure ocTT18 = new Treasure("The Tesseracts 5th Section 1", "tre_lasd_018", TreasureArea.OrphansCradle);
+        public static Treasure ocTT19 = new Treasure("The Tesseracts 5th Section 2", "tre_lasd_019", TreasureArea.OrphansCradle);
+        public static Treasure ocTT20 = new Treasure("The Tesseracts 5th Section 3", "tre_lasd_021", TreasureArea.OrphansCradle);
+        public static Treasure ocTT21 = new Treasure("The Tesseracts 5th Section 4", "tre_lasd_020", TreasureArea.OrphansCradle);
+        public static Treasure ocTT22 = new Treasure("The Tesseracts 6th Section 1", "tre_lasd_022", TreasureArea.OrphansCradle);
+        public static Treasure ocTT23 = new Treasure("The Tesseracts 6th Section 2", "tre_lasd_023", TreasureArea.OrphansCradle);
         public static Treasure ocTN = new Treasure("The Narthex", "tre_lasd_024", TreasureArea.OrphansCradle);
 
         #endregion
