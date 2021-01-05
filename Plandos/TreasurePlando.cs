@@ -115,7 +115,7 @@ namespace FF13Randomizer
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.DataSource != null)
+            if (dataGridView1.DataSource != null && comboBox1.SelectedIndex > -1)
             {
                 dataGridView1.Visible = true;
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;

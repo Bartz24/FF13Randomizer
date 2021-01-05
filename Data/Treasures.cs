@@ -244,10 +244,10 @@ namespace FF13Data
         public static Treasure asCE5 = new Treasure("Central Expanse 5", "tre_gpda_019", TreasureArea.TheArchylteSteppe);
         public static Treasure asCE6 = new Treasure("Central Expanse 6", "tre_gpda_004", TreasureArea.TheArchylteSteppe);
         public static Treasure asNH1 = new Treasure("Northern Highplain 1", "tre_gpda_023", TreasureArea.TheArchylteSteppe);
-        public static Treasure asNH2 = new Treasure("Northern Highplain 2 (East Guarded?)", "tre_gpda_015", TreasureArea.TheArchylteSteppe);
-        public static Treasure asNH3 = new Treasure("Northern Highplain 3 (West Guarded?)", "tre_gpda_020", TreasureArea.TheArchylteSteppe);
+        public static Treasure asNH2 = new Treasure("Northern Highplain 2 (West Adamanchelid)", "tre_gpda_015", TreasureArea.TheArchylteSteppe);
+        public static Treasure asNH3 = new Treasure("Northern Highplain 3 (Needs Chocobo)", "tre_gpda_020", TreasureArea.TheArchylteSteppe);
         public static Treasure asNH4 = new Treasure("Northern Highplain 4", "tre_gpda_014", TreasureArea.TheArchylteSteppe);
-        public static Treasure asNH5 = new Treasure("Northern Highplain 5 (East Chocobo?)", "tre_gpda_029", TreasureArea.TheArchylteSteppe);
+        public static Treasure asNH5 = new Treasure("Northern Highplain 5 (East Adamanchelid)", "tre_gpda_029", TreasureArea.TheArchylteSteppe);
         public static Treasure asWB1 = new Treasure("Western Benchland 1", "tre_gpda_013", TreasureArea.TheArchylteSteppe);
         public static Treasure asWB2 = new Treasure("Western Benchland 2", "tre_gpda_002", TreasureArea.TheArchylteSteppe);
         public static Treasure asWB3 = new Treasure("Western Benchland 3", "tre_gpda_030", TreasureArea.TheArchylteSteppe);
@@ -281,14 +281,14 @@ namespace FF13Data
         public static Treasure mDG1 = new Treasure("Dusktide Grotto 1", "tre_gpyu_005", TreasureArea.Mahhabara);
         public static Treasure mDG2 = new Treasure("Dusktide Grotto 2", "tre_gpyu_012", TreasureArea.Mahhabara);
         public static Treasure mDG3 = new Treasure("Dusktide Grotto 3", "tre_gpyu_006", TreasureArea.Mahhabara);
-        public static Treasure mDG4 = new Treasure("Dusktide Grotto 4? (Perfect Conductors 1)", "tre_gpyu_007", TreasureArea.Mahhabara);
-        public static Treasure mAAfL1 = new Treasure("An Asylum from Light 1? (Perfect Conductors 2)", "tre_gpyu_015", TreasureArea.Mahhabara);
+        public static Treasure mDG4 = new Treasure("Dusktide Grotto 4", "tre_gpyu_007", TreasureArea.Mahhabara);
+        public static Treasure mAAfL1 = new Treasure("An Asylum from Light 1", "tre_gpyu_015", TreasureArea.Mahhabara);
         public static Treasure mAAfL2 = new Treasure("An Asylum from Light 2", "tre_gpyu_014", TreasureArea.Mahhabara);
         public static Treasure mAAfL3 = new Treasure("An Asylum from Light 3", "tre_gpyu_008", TreasureArea.Mahhabara);
-        public static Treasure mAAfL4 = new Treasure("An Asylum from Light 4? (Particle Accelerator 1)", "tre_gpyu_009", TreasureArea.Mahhabara);
+        public static Treasure mAAfL4 = new Treasure("An Asylum from Light 4", "tre_gpyu_009", TreasureArea.Mahhabara);
         public static Treasure mAAfL5 = new Treasure("An Asylum from Light 5", "tre_gpyu_013", TreasureArea.Mahhabara);
         public static Treasure mAD1 = new Treasure("Abandoned Dig 1", "tre_gpyu_010", TreasureArea.Mahhabara);
-        public static Treasure mAD2 = new Treasure("Abandoned Dig 2? (Particle Accelerator 2)", "tre_gpyu_018", TreasureArea.Mahhabara);
+        public static Treasure mAD2 = new Treasure("Abandoned Dig 2", "tre_gpyu_018", TreasureArea.Mahhabara);
         public static Treasure mAD3 = new Treasure("Abandoned Dig 3", "tre_gpyu_017", TreasureArea.Mahhabara);
 
         #endregion
@@ -366,11 +366,11 @@ namespace FF13Data
         #region The Faultwarrens
 
         public static Treasure tfADoS1 = new Treasure("A Dance of Shadow 1", "tre_gpoc_005", TreasureArea.TheFaultwarrens);
-        public static Treasure tfADoS2 = new Treasure("A Dance of Shadow 2? (Starblossom 1)", "tre_gpoc_001", TreasureArea.TheFaultwarrens);
-        public static Treasure tfVL = new Treasure("Via Lunae (Should be Zealot's Amulet)", "tre_gpoc_002", TreasureArea.TheFaultwarrens);
-        public static Treasure tfVS = new Treasure("Via Solis? (Starblossom 2)", "tre_gpoc_004", TreasureArea.TheFaultwarrens);
+        public static Treasure tfADoS2 = new Treasure("A Dance of Shadow 2", "tre_gpoc_001", TreasureArea.TheFaultwarrens);
+        public static Treasure tfVL = new Treasure("Via Lunae (Should be Zealot's Amulet?)", "tre_gpoc_002", TreasureArea.TheFaultwarrens);
+        public static Treasure tfVS = new Treasure("Via Solis", "tre_gpoc_004", TreasureArea.TheFaultwarrens);
         public static Treasure tfTGP = new Treasure("The Gaian Path", "tre_gpoc_009", TreasureArea.TheFaultwarrens);
-        public static Treasure tfTSP = new Treasure("The Sylphid Path? (Starblossom 3)", "tre_gpoc_006", TreasureArea.TheFaultwarrens);
+        public static Treasure tfTSP = new Treasure("The Sylphid Path", "tre_gpoc_006", TreasureArea.TheFaultwarrens);
         public static Treasure tfTNP = new Treasure("The Nereid Path", "tre_gpoc_007", TreasureArea.TheFaultwarrens);
 
         #endregion

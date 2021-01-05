@@ -71,6 +71,8 @@ namespace FF13Randomizer
                 guaranteed.Add(Items.Adamantite);
                 guaranteed.Add(Items.DarkMatter);
                 guaranteed.Add(Items.Trapezohedron);
+                guaranteed.Add(Items.ParticleAccelerator);
+                guaranteed.Add(Items.UltracompactReactor);
                 guaranteed.Shuffle();
 
                 int initalGuaranteedCount = guaranteed.Count;

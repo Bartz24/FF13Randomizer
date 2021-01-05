@@ -287,14 +287,14 @@ namespace FF13Data
         public static Enemy vetala = new Enemy("Vetala", "m199").ForParties(Parties.Ch10_11);
         public static Enemy vetalaBarrier = new Enemy("Vetala Barrier", "m199_guard", vetala);
 
-        public static Enemy verci1 = new Enemy("Vercingetorix 1", "m201",null, EnemyType.Rare).ForParties(Parties.Ch13Post);
-        public static Enemy verci2 = new Enemy("Vercingetorix 2", "m201_4w", verci1, EnemyType.Rare);
-        public static Enemy verci3 = new Enemy("Vercingetorix 3", "m201_6w", verci1, EnemyType.Rare);
-        public static Enemy verci4 = new Enemy("Vercingetorix 4", "m201_8w", verci1, EnemyType.Rare);
-        public static Enemy verci5 = new Enemy("Vercingetorix 5", "m201_invi", verci1, EnemyType.Rare);
-        public static Enemy verci6 = new Enemy("Vercingetorix 6", "m201_invi_4w", verci1, EnemyType.Rare);
-        public static Enemy verci7 = new Enemy("Vercingetorix 7", "m201_invi_6w", verci1, EnemyType.Rare);
-        public static Enemy verci8 = new Enemy("Vercingetorix 8", "m201_invi_8w", verci1, EnemyType.Rare);
+        public static Enemy verci1 = new Enemy("Vercingetorix 2-wing", "m201",null, EnemyType.Rare).ForParties(Parties.Ch13Post);
+        public static Enemy verci2 = new Enemy("Vercingetorix 4-wing", "m201_4w", verci1, EnemyType.Rare);
+        public static Enemy verci3 = new Enemy("Vercingetorix 6-wing", "m201_6w", verci1, EnemyType.Rare);
+        public static Enemy verci4 = new Enemy("Vercingetorix 8-wing", "m201_8w", verci1, EnemyType.Rare);
+        public static Enemy verci5 = new Enemy("Vercingetorix 2-wing Barrier", "m201_invi", verci1, EnemyType.Rare);
+        public static Enemy verci6 = new Enemy("Vercingetorix 4-wing Barrier", "m201_invi_4w", verci1, EnemyType.Rare);
+        public static Enemy verci7 = new Enemy("Vercingetorix 6-wing Barrier", "m201_invi_6w", verci1, EnemyType.Rare);
+        public static Enemy verci8 = new Enemy("Vercingetorix 8-wing Barrier", "m201_invi_8w", verci1, EnemyType.Rare);
 
         public static Enemy anima = new Enemy("Anima", "m203", null, EnemyType.Boss).ForParties(Parties.Ch2LSnSz);
 
@@ -324,8 +324,8 @@ namespace FF13Data
 
         public static Enemy syphax = new Enemy("Syphax", "m222",null, EnemyType.Rare).ForParties(Parties.Ch10_11);
 
-        public static Enemy animaManip1 = new Enemy("Anima Maniuplator L/R?", "m223").ForParties(Parties.Ch2LSnSz);
-        public static Enemy animaManip2 = new Enemy("Anima Maniuplator L/R?", "m224").ForParties(Parties.Ch2LSnSz);
+        public static Enemy animaManip1 = new Enemy("Anima Right Manipulator", "m223").ForParties(Parties.Ch2LSnSz);
+        public static Enemy animaManip2 = new Enemy("Anima Left Manipulator", "m224").ForParties(Parties.Ch2LSnSz);
 
         public static Enemy psicomBombardier = new Enemy("PSICOM Bombardier", "m229").ForParties(Parties.Ch7SnH, Parties.Ch7FL, Parties.Ch7LFH);
         public static Enemy psicomDestroyer = new Enemy("PSICOM Destroyer", "m230").ForParties(Parties.Ch9All);
@@ -376,10 +376,10 @@ namespace FF13Data
 
         public static Enemy bart1 = new Enemy("Barthandelus 1 Phase 1", "m300", null, EnemyType.Boss).ForParties(Parties.Ch9All);
         public static Enemy bart1Phase2 = new Enemy("Barthandelus 1 Phase 2", "m300_hard", bart1, EnemyType.Boss);
-        public static Enemy bart1Face1 = new Enemy("Barthandelus 1 Face 1", "m301").ForParties(Parties.Ch9All);
-        public static Enemy bart1Face2 = new Enemy("Barthandelus 1 Face 2", "m302").ForParties(Parties.Ch9All);
-        public static Enemy bart1Face3 = new Enemy("Barthandelus 1 Face 3", "m303").ForParties(Parties.Ch9All);
-        public static Enemy bart1Face4 = new Enemy("Barthandelus 1 Face 4", "m304").ForParties(Parties.Ch9All);
+        public static Enemy bart1Face1 = new Enemy("Barthandelus 1 Right Pauldron", "m301").ForParties(Parties.Ch9All);
+        public static Enemy bart1Face2 = new Enemy("Barthandelus 1 Right Ailette", "m302").ForParties(Parties.Ch9All);
+        public static Enemy bart1Face3 = new Enemy("Barthandelus 1 Left Ailette", "m303").ForParties(Parties.Ch9All);
+        public static Enemy bart1Face4 = new Enemy("Barthandelus 1 Left Pauldron", "m304").ForParties(Parties.Ch9All);
 
         public static Enemy bart2 = new Enemy("Barthandelus 2", "m310", null, EnemyType.Boss).ForParties(Parties.Ch10_11);
         public static Enemy bart2Phase2 = new Enemy("Barthandelus 2 Phase 2", "m310_s1", bart2, EnemyType.Boss).ForParties(Parties.Ch10_11);

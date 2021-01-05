@@ -530,6 +530,6 @@ namespace FF13Data
         public static Item LenorasGarage = new Item("Lenora's Garage", "key_shop_12", null);
         public static Item RDDepot = new Item("R&D Depot", "key_shop_13", null);
 
-        public static Item ctool = new Item("ctool", "key_ctool", null);
+        public static Item Omnikit = new Item("Omni-kit", "key_ctool", null);
     }
 }
