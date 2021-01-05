@@ -388,6 +388,8 @@ namespace FF13Randomizer
 
             foreach (string name in CharNames)
             {
+                Dictionary<Role, int> origAbilityCounts = Enumerable.Range(1, 6).ToDictionary(i => (Role)i, i => nodes[name][(Role)i].Count);
+
                 List<DataStoreCrystarium> unknowns = crystariums[name].DataList.Where(c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role))).ToList();
 
                 foreach (string id in plando[name].Keys)
@@ -422,7 +424,9 @@ namespace FF13Randomizer
                         c => c.Role == role &&
                         c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(role))
                         && unknowns.Contains(c)).ToList();
-                    for (int i = 0; i < nodes[name][role].Count; i++)
+
+                    int abilityCount = crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.Ability && !unknowns.Contains(c)).Count();
+                    for (int i = 0; i < origAbilityCounts[role] - abilityCount; i++)
                     {
                         int select = RandomNum.RandInt(0, possible.Count - 1);
                         possible[select].Type = CrystariumType.Ability;
@@ -431,7 +435,7 @@ namespace FF13Randomizer
                         possible.RemoveAt(select);
                     }
 
-                    int roleLevelCount = crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.RoleLevel).Count();
+                    int roleLevelCount = crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.RoleLevel && !unknowns.Contains(c)).Count();
                     for (int i = 0; i < 4 - roleLevelCount; i++)
                     {
                         int select = RandomNum.RandInt(0, possible.Count - 1);
@@ -445,7 +449,7 @@ namespace FF13Randomizer
                     id => !id.ID.StartsWith("!") && !plando[name].Keys.Contains(id.ID)).Select(id => crystariums[name][id.ID]).Where(
                     c => c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(c.Role)) && unknowns.Contains(c)).ToList();
 
-                int atbLevelCount = crystariums[name].DataList.Where(c => c.Type == CrystariumType.ATBLevel).Count();
+                int atbLevelCount = crystariums[name].DataList.Where(c => c.Type == CrystariumType.ATBLevel && !unknowns.Contains(c)).Count();
                 if (atbLevelCount == 0)
                 {
                     int select = RandomNum.RandInt(0, possible.Count - 1);
@@ -454,7 +458,7 @@ namespace FF13Randomizer
                     possible.RemoveAt(select);
                 }
 
-                int accessoryCount = crystariums[name].DataList.Where(c => c.Type == CrystariumType.Accessory).Count();
+                int accessoryCount = crystariums[name].DataList.Where(c => c.Type == CrystariumType.Accessory && !unknowns.Contains(c)).Count();
                 for (int i = 0; i < 3 - accessoryCount; i++)
                 {
                     int select = RandomNum.RandInt(0, possible.Count - 1);
