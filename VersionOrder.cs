@@ -11,6 +11,7 @@ namespace FF13Randomizer
         private static List<string> VersionHistory = new List<string>() { 
             "1.8.0.Pre",
             "1.8.0.Pre-2",
+            "1.8.0.Pre-3",
             FormMain.Version
         };
 
