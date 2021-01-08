@@ -104,7 +104,7 @@ namespace FF13Randomizer
                         {
                             RandomizeDrop(e, eID, true, plandoDrops);
                             RandomizeDrop(e, eID, false, plandoDrops);
-                        } while (e.CommonDropID == e.RareDropID && !string.IsNullOrEmpty(e.CommonDropID));
+                        } while (!AreDropsValid(e, eID, plandoDrops));
                         RandomNum.ClearRand();
                     }
                 }
@@ -215,6 +215,15 @@ namespace FF13Randomizer
                 }
                 RandomNum.ClearRand();
             }
+        }
+
+        private bool AreDropsValid(DataStoreEnemy e, Enemy eID, Dictionary<Enemy, Tuple<Item, Item>> plandoDrops)
+        {
+            if (plandoDrops.ContainsKey(eID) && plandoDrops[eID].Item1 != null && plandoDrops[eID].Item1 != null)
+            {
+                return true;
+            }
+            return (e.CommonDropID != e.RareDropID) || (string.IsNullOrEmpty(e.CommonDropID) && string.IsNullOrEmpty(e.RareDropID));
         }
 
         public override void Save()
