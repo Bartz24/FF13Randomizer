@@ -425,7 +425,7 @@ namespace FF13Randomizer
                         c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(role))
                         && unknowns.Contains(c)).ToList();
 
-                    int abilityCount = crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.Ability && !unknowns.Contains(c)).Count();
+                    int abilityCount = crystariums[name].DataList.Where(c => c.Role == role && c.Type == CrystariumType.Ability && !unknowns.Contains(c) && c.CPCost > 0 && (c.Stage > 1 || primaryRoles[name].Contains(role))).Count();
                     for (int i = 0; i < origAbilityCounts[role] - abilityCount; i++)
                     {
                         int select = RandomNum.RandInt(0, possible.Count - 1);
