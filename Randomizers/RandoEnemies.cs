@@ -388,7 +388,7 @@ namespace FF13Randomizer
                 plandoDebuffResists[enemyID].ForEach(pair => { bounds[pair.Key] = new int[] { pair.Value, pair.Value }; if (pair.Value == 100) immunities--; });
             }
 
-            immunities = Math.Max(0, Math.Min(11, immunities));
+            immunities = Math.Max(0, Math.Min(11 - bounds.Values.Where(a => a[0] == 100 && a[1] == 100).Count(), immunities));
 
             for (int i = 0; i < immunities; i++)
             {

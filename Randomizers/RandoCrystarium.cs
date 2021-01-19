@@ -278,12 +278,20 @@ namespace FF13Randomizer
                         List<DataStoreCrystarium> others;
                         do
                         {
-                            others = new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.SelectMany(t => crystarium.DataList.Where(o => o.Role == c.Role && o.Stage == c.Stage && o.Type == t)).ToList();
+                            others = new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }.SelectMany(t => crystarium.DataList.Where(o => o.Role == c.Role && o.Stage == stage && o.Type == t)).ToList();
                             stage--;
-                        } while (others.Count == 0);
-                        DataStoreCrystarium other = others[RandomNum.RandInt(0, others.Count - 1)];
-                        c.Type = other.Type;
-                        c.Value = other.Value;
+                        } while (others.Count == 0 && stage > 0);
+                        if (others.Count > 0)
+                        {
+                            DataStoreCrystarium other = others[RandomNum.RandInt(0, others.Count - 1)];
+                            c.Type = other.Type;
+                            c.Value = other.Value;
+                        }
+                        else
+                        {
+                            c.Type = new CrystariumType[] { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic }[RandomNum.RandInt(0, 2)];
+                            c.Value = 1;
+                        }
                     }
                 }
             }

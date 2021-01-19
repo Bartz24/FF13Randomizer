@@ -23,7 +23,7 @@ namespace FF13Randomizer
 
         public void Randomize(Tuple<int, int>[] bounds, long amount)
         {
-            int randTotal = (int)Math.Min(Math.Min(amount, bounds.Select(t => (long)t.Item2).Sum()), Int32.MaxValue);
+            int randTotal = (int)Math.Min(Math.Min(amount, bounds.Select(t => (long)t.Item2 - (long)t.Item1).Sum()), Int32.MaxValue);
             while (Vals.Sum() < randTotal)
             {
                 int select = SelectNext();
