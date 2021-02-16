@@ -367,7 +367,7 @@ namespace FF13Data
 
         public static Treasure tfADoS1 = new Treasure("A Dance of Shadow 1", "tre_gpoc_005", TreasureArea.TheFaultwarrens);
         public static Treasure tfADoS2 = new Treasure("A Dance of Shadow 2", "tre_gpoc_001", TreasureArea.TheFaultwarrens);
-        public static Treasure tfVL = new Treasure("Via Lunae (Should be Zealot's Amulet?)", "tre_gpoc_002", TreasureArea.TheFaultwarrens);
+        public static Treasure tfVL = new Treasure("Via Lunae", "tre_gpoc_002", TreasureArea.TheFaultwarrens);
         public static Treasure tfVS = new Treasure("Via Solis", "tre_gpoc_004", TreasureArea.TheFaultwarrens);
         public static Treasure tfTGP = new Treasure("The Gaian Path", "tre_gpoc_009", TreasureArea.TheFaultwarrens);
         public static Treasure tfTSP = new Treasure("The Sylphid Path", "tre_gpoc_006", TreasureArea.TheFaultwarrens);
@@ -499,8 +499,8 @@ namespace FF13Data
         public static Treasure mission32Repeat = new Treasure("Mission 32 Repeat", "tre_ms_n014_02", TreasureArea.Mission);
         public static Treasure mission33 = new Treasure("Mission 33", "tre_ms_n016_01", TreasureArea.Mission);
         public static Treasure mission33Repeat = new Treasure("Mission 33 Repeat", "tre_ms_n016_02", TreasureArea.Mission);
-        public static Treasure mission34 = new Treasure("Mission 34", "tre_ms_n023_01", TreasureArea.Mission);
-        public static Treasure mission34Repeat = new Treasure("Mission 34 Repeat", "tre_ms_n023_02", TreasureArea.Mission);
+        public static Treasure mission34 = new Treasure("Mission 34", "tre_ms_n009_01", TreasureArea.Mission);
+        public static Treasure mission34Repeat = new Treasure("Mission 34 Repeat", "tre_ms_n009_02", TreasureArea.Mission);
         public static Treasure mission35 = new Treasure("Mission 35", "tre_ms_n035_01", TreasureArea.Mission);
         public static Treasure mission35Repeat = new Treasure("Mission 35 Repeat", "tre_ms_n035_02", TreasureArea.Mission);
         public static Treasure mission36 = new Treasure("Mission 36", "tre_ms_n019_01", TreasureArea.Mission);
@@ -511,8 +511,8 @@ namespace FF13Data
         public static Treasure mission38Repeat = new Treasure("Mission 38 Repeat", "tre_ms_n021_02", TreasureArea.Mission);
         public static Treasure mission39 = new Treasure("Mission 39", "tre_ms_n022_01", TreasureArea.Mission);
         public static Treasure mission39Repeat = new Treasure("Mission 39 Repeat", "tre_ms_n022_02", TreasureArea.Mission);
-        public static Treasure mission40 = new Treasure("Mission 40", "tre_ms_n009_01", TreasureArea.Mission);
-        public static Treasure mission40Repeat = new Treasure("Mission 40 Repeat", "tre_ms_n009_02", TreasureArea.Mission);
+        public static Treasure mission40 = new Treasure("Mission 40", "tre_ms_n023_01", TreasureArea.Mission);
+        public static Treasure mission40Repeat = new Treasure("Mission 40 Repeat", "tre_ms_n023_02", TreasureArea.Mission);
 
         public static Treasure mission41 = new Treasure("Mission 41", "tre_ms_n024_01", TreasureArea.Mission);
         public static Treasure mission41Repeat = new Treasure("Mission 41 Repeat", "tre_ms_n024_02", TreasureArea.Mission);

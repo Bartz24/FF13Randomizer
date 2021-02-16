@@ -303,8 +303,8 @@ namespace FF13Data
         public static Item SaintsAmulet = new Item("Saints Amulet", "acc_029_000", Shops.magicalMoments);
         public static Item BlessedTalisman = new Item("Blessed Talisman", "acc_029_001", Shops.magicalMoments);
 
-        public static Item ZealotAmulet = new Item("Zealot Amulet", "acc_030_000", Shops.magicalMoments);
-        public static Item BattleTalisman = new Item("Battle Talisman", "acc_030_001", Shops.magicalMoments);
+        public static Item ZealotAmulet = new Item("Zealot Amulet", "acc_035_000", Shops.magicalMoments);
+        public static Item BattleTalisman = new Item("Battle Talisman", "acc_035_001", Shops.magicalMoments);
 
         public static Item FlamebaneBrooch = new Item("Flamebane Brooch", "acc_031_000", Shops.magicalMoments);
         public static Item FlameshieldEarring = new Item("Flameshield Earring", "acc_031_001", Shops.magicalMoments);
@@ -318,8 +318,8 @@ namespace FF13Data
         public static Item AquabaneBrooch = new Item("Aquabane Brooch", "acc_034_000", Shops.magicalMoments);
         public static Item AquashieldEarring = new Item("Aquashield Earring", "acc_034_001", Shops.magicalMoments);
 
-        public static Item HermesSandals = new Item("Hermes Sandals", "acc_035_000", Shops.moogleworks);
-        public static Item SprintShoes = new Item("Sprint Shoes", "acc_035_001", Shops.sanctumLabs);
+        public static Item HermesSandals = new Item("Hermes Sandals", "acc_030_000", Shops.moogleworks);
+        public static Item SprintShoes = new Item("Sprint Shoes", "acc_030_001", Shops.sanctumLabs);
 
         public static Item TetradicCrown = new Item("Tetradic Crown", "acc_036_000", Shops.moogleworks);
         public static Item TetradicTiara = new Item("Tetradic Tiara", "acc_036_001", Shops.rdDepot);
