@@ -25,7 +25,7 @@ namespace FF13Randomizer
 
         private void SetupCombobox()
         {
-            comboBox1.Items.AddRange(Enum.GetValues(typeof(TreasureArea)).Cast<TreasureArea>().Select(v => Regex.Replace(v.ToString(), "([a-z])([A-Z])", "$1 $2")).ToArray());
+            comboBox1.Items.AddRange(Enum.GetValues(typeof(TreasureArea)).Cast<TreasureArea>().Select(v => v.SeparateWords()).ToArray());
         }
         private void AddEntries()
         {

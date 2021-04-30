@@ -78,14 +78,7 @@ namespace FF13Data
         {
             if (Type == CrystariumType.Ability)
             {
-                if (AbilityName != null)
-                {
-                    DataStoreString value = new DataStoreString() { Value = AbilityName };
-                    if (!list.Contains(value))
-                        list.Add(value, list.Length);
-                    AbilityPointer = (uint)list.IndexOf(value);
-                }
-                AbilityName = list[(int)AbilityPointer].Value;
+                UpdateStringPointer(list, AbilityName, AbilityPointer, v => AbilityName = v, v => AbilityPointer = v);
             }
         }
     }

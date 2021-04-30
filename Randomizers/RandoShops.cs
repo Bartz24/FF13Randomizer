@@ -56,8 +56,8 @@ namespace FF13Randomizer
                 Dictionary<Tuple<Shop, int>, List<Item>> plando = main.shopPlando1.GetShops();
 
                 List<Item> guaranteed = Items.items.Where(item => item.PreferredShop != null &&
-                                                            randoEquip.equip.IdList.Where(id => id.ID == item.ID).Count() > 0 &&
-                                                            randoEquip.equip.DataList.ToList().Where(e => e.UpgradeInto == item.ID).Count() == 0 &&
+                                                            randoEquip.equips.IdList.Where(id => id.ID == item.ID).Count() > 0 &&
+                                                            randoEquip.equips.DataList.ToList().Where(e => e.UpgradeInto == item.ID).Count() == 0 &&
                                                             !plando.Values.SelectMany(l => l).Contains(item)).ToList();
                 guaranteed.Add(Items.Potion);
                 guaranteed.Add(Items.PhoenixDown);

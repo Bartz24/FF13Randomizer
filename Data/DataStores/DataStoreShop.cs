@@ -54,14 +54,7 @@ namespace FF13Data
         {
             for (int i = 0; i < itemPointers.Length; i++)
             {
-                if (itemIDs[i] != null)
-                {
-                    DataStoreString value = new DataStoreString() { Value = itemIDs[i] };
-                    if (!list.Contains(value))
-                        list.Add(value, list.Length);
-                    itemPointers[i] = (uint)list.IndexOf(value);
-                }
-                itemIDs[i] = list[(int)itemPointers[i]].Value;
+                UpdateStringPointer(list, itemIDs[i], itemPointers[i], v => itemIDs[i] = v, v => itemPointers[i] = v);
             }
         }
     }

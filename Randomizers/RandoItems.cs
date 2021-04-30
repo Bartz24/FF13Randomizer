@@ -30,10 +30,10 @@ namespace FF13Randomizer
             items = new DataStoreWDB<DataStoreItem, DataStoreID>();
             items.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\item.wdb"));
 
-            ApplyModifications();
+            ApplyModifications(items);
         }
 
-        private void ApplyModifications()
+        public static void ApplyModifications(DataStoreWDB<DataStoreItem, DataStoreID> itemsData)
         {
             Dictionary<Item, uint> newBuyPrices = new Dictionary<Item, uint>();
 
@@ -199,12 +199,67 @@ namespace FF13Randomizer
 
             foreach(Item item in newBuyPrices.Keys)
             {
-                items[item].BuyPrice = newBuyPrices[item];
+                itemsData[item].BuyPrice = newBuyPrices[item];
             }
         }
 
         public override void Randomize(BackgroundWorker backgroundWorker)
-        {            
+        {
+            if (Flags.ItemFlags.EquipmentSynthesis)
+            {
+                Dictionary<Item, SynthesisGroup> plandoGroups = main.equipPlando1.GetSynthesisGroups();
+
+                Flags.ItemFlags.EquipmentSynthesis.SetRand();
+                SynthesisGroup[] synthesisGroups = ((SynthesisGroup[])Enum.GetValues(typeof(SynthesisGroup)));
+                Items.items.Where(i => items.IdList.IndexOf(i.ID) != -1 && items[i].SynthesisGroup > 0x80).ForEach(i =>
+                {
+                    if (plandoGroups.ContainsKey(i))
+                        items[i].SynthesisGroup = (byte)plandoGroups[i];
+                    else
+                        items[i].SynthesisGroup = (byte)synthesisGroups[RandomNum.RandInt(0, synthesisGroups.Length - 1)];
+                });
+                RandomNum.ClearRand();
+            }
+
+            if (Flags.ItemFlags.ItemPrices)
+            {
+                Dictionary<Item, int[]> plandoPrices = main.itemPlando1.GetItems();
+
+                Flags.ItemFlags.ItemPrices.SetRand();
+                int variance = Flags.ItemFlags.ItemPrices.Range.Value;
+                Items.items.Where(i => items.IdList.IndexOf(i.ID) != -1 && items[i].BuyPrice > 0 && items[i].SellPrice > 0).ForEach(i =>
+                  {
+                      if (plandoPrices.ContainsKey(i))
+                      {
+                          if (plandoPrices[i][0] != -1 && plandoPrices[i][1] != -1)
+                          {
+                              items[i].BuyPrice = (uint)plandoPrices[i][0];
+                              items[i].SellPrice = (uint)plandoPrices[i][1];
+                          }
+                          else if (plandoPrices[i][0] != -1)
+                          {
+                              float scale = (float)plandoPrices[i][0] / items[i].BuyPrice;
+                              items[i].BuyPrice = (uint)plandoPrices[i][0];
+                              items[i].SellPrice = (uint)(items[i].SellPrice * scale);
+                          }
+                          else if (plandoPrices[i][1] != -1)
+                          {
+                              float scale = (float)plandoPrices[i][1] / items[i].SellPrice;
+                              items[i].BuyPrice = (uint)(items[i].BuyPrice * scale);
+                              items[i].SellPrice = (uint)plandoPrices[i][1];
+                          }
+                      }
+                      else
+                      {
+                          float scale = RandomNum.RandInt(100 - variance, 100 + variance);
+                          int buy = (int)(items[i].BuyPrice * scale / 100f);
+                          items[i].BuyPrice = Math.Max(1, (uint)(Math.Round(buy / 5.0 / Math.Floor(Math.Log10(buy))) * 5 * Math.Floor(Math.Log10(buy))));
+                          int sell = (int)(items[i].SellPrice * scale / 100f);
+                          items[i].SellPrice = Math.Max(1, (uint)(Math.Round(sell / 5.0 / Math.Floor(Math.Log10(sell))) * 5 * Math.Floor(Math.Log10(sell))));
+                      }
+                  });
+                RandomNum.ClearRand();
+            }
         }
 
         public override void Save()

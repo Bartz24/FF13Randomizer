@@ -36,6 +36,9 @@ namespace FF13Randomizer
                 data.Add("enemyStats", main.enemyStatsPlando1.GetJSONPlando());
                 data.Add("enemyElemResists", main.enemyElementResistPlando1.GetJSONPlando());
                 data.Add("enemyDebuffResists", main.enemyDebuffResistPlando1.GetJSONPlando());
+                data.Add("equip", main.equipPlando1.GetJSONPlando());
+                data.Add("equipPassives", main.equipPassivesPlando1.GetJSONPlando());
+                data.Add("items", main.itemPlando1.GetJSONPlando());
 
                 File.WriteAllText(path, JsonConvert.SerializeObject(data));
             }
@@ -66,6 +69,9 @@ namespace FF13Randomizer
                 LoadPlando<EnemyStatsPlando.JSONPlandoEnemyStats>(data, "enemyStats", l => main.enemyStatsPlando1.LoadJSONPlando(l, general.Version), () => main.enemyStatsPlando1.ReloadData(main));
                 LoadPlando<EnemyElementResistPlando.JSONPlandoEnemyElementResists>(data, "enemyElemResists", l => main.enemyElementResistPlando1.LoadJSONPlando(l, general.Version), () => main.enemyElementResistPlando1.ReloadData(main));
                 LoadPlando<EnemyDebuffResistPlando.JSONPlandoEnemyDebuffResists>(data, "enemyDebuffResists", l => main.enemyDebuffResistPlando1.LoadJSONPlando(l, general.Version), () => main.enemyDebuffResistPlando1.ReloadData(main));
+                LoadPlando<EquipPlando.JSONPlandoEquip>(data, "equip", l => main.equipPlando1.LoadJSONPlando(l, general.Version), () => main.equipPlando1.ReloadData(main));
+                LoadPlando<EquipPassivesPlando.JSONPlandoEquipPassive>(data, "equipPassives", l => main.equipPassivesPlando1.LoadJSONPlando(l, general.Version), () => main.equipPassivesPlando1.ReloadData(main));
+                LoadPlando<ItemPlando.JSONPlandoItem>(data, "items", l => main.itemPlando1.LoadJSONPlando(l, general.Version), () => main.itemPlando1.ReloadData(main));
             }
             catch (Exception e)
             {

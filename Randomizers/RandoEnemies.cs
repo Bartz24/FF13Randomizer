@@ -1,4 +1,5 @@
-﻿using FF13Data;
+﻿using Bartz24.Docs;
+using FF13Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,9 +59,9 @@ namespace FF13Randomizer
                 if (Tweaks.Challenges.BoostLevel)
                 {
                     int boost = Tweaks.Challenges.BoostLevel.Range.Value;
-                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(hpBase, Extensions.CubeRoot(boost)));
-                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(strMagBase, Extensions.CubeRoot(boost)));
-                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(strMagBase, Extensions.CubeRoot(boost)));
+                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(hpBase, RandoExtensions.CubeRoot(boost)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(strMagBase, RandoExtensions.CubeRoot(boost)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(strMagBase, RandoExtensions.CubeRoot(boost)));
                 }
 
                 if (Flags.EnemyFlags.RandLevel)
@@ -79,12 +80,12 @@ namespace FF13Randomizer
                         e.CP = (uint)plandoStats[eID][6];
                     int levelDiff = e.Level - level;
 
-                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(hpBase, Extensions.CubeRoot(levelDiff)));
-                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(strMagBase, Extensions.CubeRoot(levelDiff)));
-                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(strMagBase, Extensions.CubeRoot(levelDiff)));
+                    e.HP = (uint)Math.Max(10, e.HP * Math.Pow(hpBase, RandoExtensions.CubeRoot(levelDiff)));
+                    e.Strength = (ushort)Math.Max(1, e.Strength * Math.Pow(strMagBase, RandoExtensions.CubeRoot(levelDiff)));
+                    e.Magic = (ushort)Math.Max(1, e.Magic * Math.Pow(strMagBase, RandoExtensions.CubeRoot(levelDiff)));
 
                     if (e.CP > 0 && (!plandoStats.ContainsKey(eID) || plandoStats[eID][6] == -1))
-                        e.CP = (uint)Math.Max(1, e.CP * Math.Pow(cpBase, Extensions.CubeRoot(levelDiff)));
+                        e.CP = (uint)Math.Max(1, e.CP * Math.Pow(cpBase, RandoExtensions.CubeRoot(levelDiff)));
                     if (lv0 && (!plandoStats.ContainsKey(eID) || plandoStats[eID][0] == -1))
                         e.Level = 0;
                     RandomNum.ClearRand();
@@ -224,6 +225,23 @@ namespace FF13Randomizer
                 return true;
             }
             return (e.CommonDropID != e.RareDropID) || (string.IsNullOrEmpty(e.CommonDropID) && string.IsNullOrEmpty(e.RareDropID));
+        }
+
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Enemies", "template/documentation.html");
+            
+            page.HTMLElements.Add(new Table("Enemies", 
+                new string[] { "Name", "Level", "HP", "Strength", "Magic", "Chain Resistance", "Stagger Point", "Fire Resistance", "Ice Resistance", "Thunder Resistance", "Water Resistance", "Wind Resistance", "Earth Resistance", "Physical Resistance", "Magical Resistance", "CP", "Common Drop", "Rare Drop" }.ToList(), 
+                new int[] { 12, 4,4,4,4,4,4,5,5,5,5,5,5,5,5,4,10,10 }.ToList(), 
+                Enemies.enemies.OrderBy(e => e.Name).Select(e =>
+            {
+                Item common = Items.items.Find(i => i.ID == enemies[e].CommonDropID);
+                Item rare = Items.items.Find(i => i.ID == enemies[e].RareDropID);
+                return new string[] { e.Name, enemies[e].Level.ToString(), enemies[e].HP.ToString(), enemies[e].Strength.ToString(), enemies[e].Magic.ToString(), enemies[e].ChainRes.ToString(), enemies[e].StaggerPoint.ToString(), enemies[e].FireRes.ToString(), enemies[e].IceRes.ToString(), enemies[e].ThunderRes.ToString(), enemies[e].WaterRes.ToString(), enemies[e].WindRes.ToString(), enemies[e].EarthRes.ToString(), enemies[e].PhysicalRes.ToString(), enemies[e].MagicRes.ToString(), enemies[e].CP.ToString(), $"{(common == null ? enemies[e].CommonDropID : common == Items.Gil ? "-" : common.Name)}", $"{(rare == null ? enemies[e].RareDropID : rare == Items.Gil ? "-" : rare.Name)}" }.ToList();
+            }).ToList()));
+            
+            return page;
         }
 
         public override void Save()
@@ -525,7 +543,7 @@ namespace FF13Randomizer
                     return 0;
                 case ElementalRes.Normal:
                 default:
-                    return 300;
+                    return 200;
                 case ElementalRes.Halved:
                     return 525;
                 case ElementalRes.Resistant:

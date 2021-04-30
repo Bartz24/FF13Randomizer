@@ -35,15 +35,7 @@ namespace FF13Data
 
         public override void UpdateStringPointers(DataStorePointerList<DataStoreString> list)
         {
-            if (ItemID != null)
-            {
-                DataStoreString value = new DataStoreString() { Value = ItemID };
-                if (!list.Contains(value))
-                    list.Add(value, list.Length);
-                StartingPointer = (uint)list.IndexOf(value);
-                EndingPointer = (uint)(StartingPointer + value.Value.Length);
-            }
-            ItemID = list[(int)StartingPointer].Value;
+            UpdateStringPointer(list, ItemID, StartingPointer, v => ItemID = v, v => StartingPointer = v, v => EndingPointer = v);
         }
     }
 }

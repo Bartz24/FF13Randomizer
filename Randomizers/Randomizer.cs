@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bartz24.Docs;
 
 namespace FF13Randomizer
 {
@@ -31,6 +32,11 @@ namespace FF13Randomizer
         public virtual void Save()
         {
 
+        }
+
+        public virtual HTMLPage GetDocumentation()
+        {
+            return null;
         }
 
         public virtual string GetProgressMessage()

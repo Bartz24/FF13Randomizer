@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Bartz24.Docs;
 
 namespace FF13Randomizer
 {
@@ -141,6 +142,13 @@ namespace FF13Randomizer
                 newSoundFiles.Shuffle();
                 RandomNum.ClearRand();
             }
+        }
+
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Music", "template/documentation.html");
+            page.HTMLElements.Add(new Table("Music", new string[] { "Original Track", "New Track" }.ToList(), new int[] { 50, 50 }.ToList(), Enumerable.Range(0, soundFiles.Count).Select(i => new string[] { names[soundFiles[i]], names[newSoundFiles[i]] }.ToList()).ToList())); ;
+            return page;
         }
 
         public override void Save()

@@ -390,23 +390,8 @@ namespace FF13Data
 
         public override void UpdateStringPointers(DataStorePointerList<DataStoreString> list)
         {
-            if (CommonDropID != null)
-            {
-                DataStoreString value = new DataStoreString() { Value = CommonDropID };
-                if (!list.Contains(value))
-                    list.Add(value, list.Length);
-                CommonDropPointer = (uint)list.IndexOf(value);
-            }
-            CommonDropID = list[(int)CommonDropPointer].Value;
-
-            if (RareDropID != null)
-            {
-                DataStoreString value = new DataStoreString() { Value = RareDropID };
-                if (!list.Contains(value))
-                    list.Add(value, list.Length);
-                RareDropPointer = (uint)list.IndexOf(value);
-            }
-            RareDropID = list[(int)RareDropPointer].Value;
+            UpdateStringPointer(list, CommonDropID, CommonDropPointer, v => CommonDropID = v, v => CommonDropPointer = v);
+            UpdateStringPointer(list, RareDropID, RareDropPointer, v => RareDropID = v, v => RareDropPointer = v);
         }
     }
 }

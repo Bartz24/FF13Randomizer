@@ -18,6 +18,17 @@ namespace FF13Data
             get { return Data.ReadUInt(0x10); }
             set { Data.SetUInt(0x10, value); }
         }
+        public byte SynthesisGroup
+        {
+            get { return Data.ReadByte(0x18); }
+            set { Data.SetByte(0x18, value); }
+        }
+
+        public byte Rank
+        {
+            get { return Data.ReadNibbleLeft(0x19); }
+            set { Data.SetNibbleLeft(0x19, value); }
+        }
 
         public override int GetDefaultLength()
         {

@@ -118,6 +118,28 @@ namespace FF13Randomizer
                 ExtraDescriptionFormat2 = "Shops that have unlocks throughout the story will be sorted such that\n" +
                 "cheaper items tend to appear earlier."
             }.Register(FlagType.Items);
+
+            public static FlagValue ItemPrices = (FlagValue)new FlagValue(0, 0, 100)
+            {
+                Text = "Randomize Item Prices",
+                FlagID = "RandPrice",
+                DescriptionFormat = "Item buy and sell prices will be randomized."
+            }.Register(FlagType.Items);
+
+            public static Flag EquipmentStatsPassives = new Flag()
+            {
+                Text = "Randomize Equipment Stats and Passives",
+                FlagID = "RandEqSP",
+                DescriptionFormat = "Weapon stats and weapon/accessory passives will be randomized.\n" +
+                "Accessories will keep their vanilla passives if the passives are randomized to another accessory."
+            }.Register(FlagType.Items);
+
+            public static Flag EquipmentSynthesis = new Flag()
+            {
+                Text = "Randomize Equipment Synthesis Groups",
+                FlagID = "RandEqSyn",
+                DescriptionFormat = "Equipment synthesis groups will be randomized."
+            }.Register(FlagType.Items);
         }
 
         public class EnemyFlags

@@ -12,12 +12,21 @@ namespace FF13Data
         public string Name { get; set; }
         public Shop PreferredShop { get; set; }
 
+        public Tuple<PassiveSet, int> EquipPassive { get; set; }
+
         public Item(string name, string id, Shop shop)
         {
             this.Name = name;
             this.ID = id;
             this.PreferredShop = shop;
             Items.items.Add(this);
+        }
+
+        public Item SetPassive(PassiveSet set, int tier)
+        {
+            EquipPassive = new Tuple<PassiveSet, int>(set, tier);
+
+            return this;
         }
     }
 }

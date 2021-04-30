@@ -24,5 +24,22 @@ namespace FF13Data
         public abstract int GetDefaultLength();
 
         public virtual void UpdateStringPointers(DataStorePointerList<DataStoreString> list) { }
+        public void UpdateStringPointer(DataStorePointerList<DataStoreString> list, string actualString, uint pointer, Action<string> setString, Action<uint> setPointer)
+        {
+            UpdateStringPointer(list, actualString, pointer, setString, setPointer, v => { });
+        }
+        public void UpdateStringPointer(DataStorePointerList<DataStoreString> list, string actualString, uint pointer, Action<string> setString, Action<uint> setStartingPointer, Action<uint> setEndingPointer)
+        {
+            if (actualString != null)
+            {
+                DataStoreString value = new DataStoreString() { Value = actualString };
+                if (!list.Contains(value))
+                    list.Add(value, list.Length);
+                pointer = (uint)list.IndexOf(value);
+                setStartingPointer.Invoke(pointer);
+                setEndingPointer.Invoke(pointer + (uint)value.Value.Length);
+            }
+            setString.Invoke(list[(int)pointer].Value);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FF13Data;
+﻿using Bartz24.Docs;
+using FF13Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -153,6 +154,26 @@ namespace FF13Randomizer
                 });
                 RandomNum.ClearRand();
             }
+        }
+
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Treasures", "template/documentation.html");
+
+            foreach(TreasureArea area in Enum.GetValues(typeof(TreasureArea)))
+            {
+                if (Treasures.treasures.Where(t => t.Area == area).Count() > 0)
+                {
+                    page.HTMLElements.Add(new Table(area.SeparateWords(), new string[] { "Name", "Original Contents", "New Contents" }.ToList(), new int[] { 40, 30, 30 }.ToList(), Treasures.treasures.Where(t => t.Area == area).Select(t =>
+                    {
+                        Item oldItem = Items.items.Find(i => i.ID == oldTreasures[t].ItemID);
+                        Item item = Items.items.Find(i => i.ID == treasures[t].ItemID);
+                        return new string[] { t.Name, $"{(oldItem == null ? oldTreasures[t].ItemID : oldItem.Name)} x {oldTreasures[t].Count}", $"{(item == null ? treasures[t].ItemID : item.Name)} x {treasures[t].Count}" }.ToList();
+                    }).ToList()));
+                }
+
+            }
+            return page;
         }
 
         public override void Save()

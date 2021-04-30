@@ -108,7 +108,7 @@ namespace FF13Randomizer
                 {
                     string res = row.Field<string>(3 + 2 * i);
                     if (res != "???")
-                        vals.Add((Element)i, Extensions.GetEnumValue<ElementalRes>(res));
+                        vals.Add((Element)i, RandoExtensions.GetEnumValue<ElementalRes>(res));
                 }
                 if (vals.Count > 0)
                 {

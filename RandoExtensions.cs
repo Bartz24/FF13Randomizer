@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FF13Data
 {
-    public static class Extensions
+    public static class RandoExtensions
     {
         public static double CubeRoot(double x)
         {
@@ -49,6 +50,11 @@ namespace FF13Data
         public static E GetEnumValue<E>(string name)
         {
             return ((E[])Enum.GetValues(typeof(E)))[Enum.GetNames(typeof(E)).ToList().IndexOf(name)];
+        }
+
+        public static string SeparateWords(this object str)
+        {
+            return Regex.Replace(str.ToString(), "([a-z])([A-Z])", "$1 $2");
         }
     }
 }

@@ -13,12 +13,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utilities;
+using Bartz24.Docs;
 
 namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string Version { get; set; } = "1.8.4";
+        public static string Version { get; set; } = "1.9.0.Pre";
 
         public static bool PlandoModified { get; set; } = false;
 
@@ -319,7 +320,7 @@ namespace FF13Randomizer
         }
         public void LoadPlandos(BackgroundWorker worker)
         {
-            int inc = 100 / 10;
+            int inc = 100 / 13;
             treasurePlando1.ReloadData(this);
             worker.ReportProgress(inc * 1);
             shopPlando1.ReloadData(this);
@@ -340,6 +341,12 @@ namespace FF13Randomizer
             worker.ReportProgress(inc * 9);
             runSpeedPlando1.ReloadData(this);
             worker.ReportProgress(inc * 10);
+            equipPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 11);
+            equipPassivesPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 12);
+            itemPlando1.ReloadData(this);
+            worker.ReportProgress(inc * 13);
         }
 
         private void Flag_OnChanged(object sender, EventArgs e)
@@ -750,6 +757,7 @@ namespace FF13Randomizer
                     new ProgressForm(rando.GetProgressMessage(), bw => rando.Randomize(bw)).ShowDialog();
                 }
                 new ProgressForm("Saving data...", bw => SaveRandos(randomizers, bw)).ShowDialog();
+                new ProgressForm("Generating Documentation...", bw => GenerateDocumentation(randomizers, bw)).ShowDialog();
 
 
                 new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
@@ -786,6 +794,21 @@ namespace FF13Randomizer
                 randomizers[i].Save();
                 worker.ReportProgress((i + 1) * 100 / randomizers.Count);
             }
+        }
+        public void GenerateDocumentation(List<Randomizer> randomizers, BackgroundWorker worker)
+        {
+            Docs docs = new Docs();
+            docs.Settings.Name = "FF13 Randomizer";
+            for (int i = 0; i < randomizers.Count; i++)
+            {
+                HTMLPage page = randomizers[i].GetDocumentation();
+                if (page != null)
+                {
+                    docs.AddPage(randomizers[i].GetID().ToLower(), page);
+                }
+                worker.ReportProgress((i + 1) * 100 / randomizers.Count);
+            }
+            docs.Generate($"docs/latest", "docs/template");
         }
 
         public string RandoPath
@@ -889,6 +912,10 @@ namespace FF13Randomizer
             Flags.ItemFlags.Shops.FlagEnabled = false;
             Flags.ItemFlags.Shops.ExtraSelected = false;
             Flags.ItemFlags.Shops.ExtraSelected2 = false;
+            Flags.ItemFlags.ItemPrices.FlagEnabled = false;
+            Flags.ItemFlags.ItemPrices.Range.Value = 0;
+            Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = false;
+            Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = false;
             Flags.Other.RunSpeed.FlagEnabled = false;
             Flags.Other.RunSpeed.Range.Value = 0;
 
@@ -917,6 +944,10 @@ namespace FF13Randomizer
             Flags.ItemFlags.Shops.FlagEnabled = true;
             Flags.ItemFlags.Shops.ExtraSelected = true;
             Flags.ItemFlags.Shops.ExtraSelected2 = true;
+            Flags.ItemFlags.ItemPrices.FlagEnabled = false;
+            Flags.ItemFlags.ItemPrices.Range.Value = 0;
+            Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = false;
+            Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = false;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 10;
@@ -941,6 +972,7 @@ namespace FF13Randomizer
             Flags.CrystariumFlags.RandStats.FlagEnabled = true;
             Flags.CrystariumFlags.RandStats.Range.Value = 50;
             Flags.CrystariumFlags.RandCP.FlagEnabled = true;
+            Flags.EnemyFlags.Resistances.FlagEnabled = true;
             Flags.EnemyFlags.Debuffs.FlagEnabled = true;
             Flags.EnemyFlags.RandStats.FlagEnabled = true;
             Flags.EnemyFlags.RandStats.Range.Value = 50;
@@ -956,13 +988,16 @@ namespace FF13Randomizer
             Flags.ItemFlags.Drops.Range.Value = 50;
             Flags.ItemFlags.ShopLocations.FlagEnabled = true;
             Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.ItemFlags.ItemPrices.FlagEnabled = true;
+            Flags.ItemFlags.ItemPrices.Range.Value = 15;
+            Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = true;
+            Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = true;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 25;
 
             Flags.CrystariumFlags.NewAbilities.ExtraSelected2 = false;
             Flags.CrystariumFlags.RandCP.ExtraSelected = false;
-            Flags.EnemyFlags.Resistances.FlagEnabled = false;
             Flags.ItemFlags.Shops.ExtraSelected = false;
             Flags.ItemFlags.Shops.ExtraSelected2 = false;
 
@@ -994,6 +1029,10 @@ namespace FF13Randomizer
             Flags.ItemFlags.Drops.Range.Value = 100;
             Flags.ItemFlags.ShopLocations.FlagEnabled = true;
             Flags.ItemFlags.Shops.FlagEnabled = true;
+            Flags.ItemFlags.ItemPrices.FlagEnabled = true;
+            Flags.ItemFlags.ItemPrices.Range.Value = 100;
+            Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = true;
+            Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = true;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 50;
@@ -1167,6 +1206,12 @@ namespace FF13Randomizer
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists("docs/latest/"))
+                Process.Start(Path.GetDirectoryName("docs/latest/"));
         }
 
         private void FullUninstall(BackgroundWorker backgroundWorker)
