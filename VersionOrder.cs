@@ -17,6 +17,7 @@ namespace FF13Randomizer
             "1.8.2",
             "1.8.3",
             "1.8.4",
+            "1.9.0.Pre",
             FormMain.Version
         };
 

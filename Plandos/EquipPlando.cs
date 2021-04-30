@@ -195,7 +195,7 @@ namespace FF13Randomizer
             foreach (DataRow row in dataTable.Rows)
             {
                 Item item = Items.items.Find(i => i.ID == row.Field<string>(0));
-                string synthGroup = row.Field<string>(1);
+                string synthGroup = row.Field<string>(12);
                 if (synthGroup != "???")
                 {
                     dict.Add(item, Enum.GetValues(typeof(SynthesisGroup)).Cast<SynthesisGroup>().Where(s => s.SeparateWords() == synthGroup).First());
