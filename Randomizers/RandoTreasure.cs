@@ -76,7 +76,7 @@ namespace FF13Randomizer
                         if (amount == -1)
                         {
                             Tiered<Item> tiered = TieredItems.manager.list.Find(tier => tier.Items.Contains(newItem));
-                            amount = RandomNum.RandInt(tiered.LowBound, tiered.HighBound);
+                            amount = tiered.GetCount(RandomNum.RandInt(tiered.LowBound, tiered.HighBound), Int32.MaxValue);
                         }
                         t.ItemID = newItem.ID;
                         t.Count = (uint)amount;

@@ -251,6 +251,7 @@
     <Compile Include="Data\Values\ValueUInt.cs" />
     <Compile Include="Data\Values\ValueShort.cs" />
     <Compile Include="Data\Values\ValueUShort.cs" />
+    <Compile Include="MathExtensions.cs" />
     <Compile Include="Plandos\EquipPassivesPlando.cs">
       <SubType>UserControl</SubType>
     </Compile>

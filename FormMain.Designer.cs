@@ -102,6 +102,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.tabPagePlandoHelpTreasures = new System.Windows.Forms.TabPage();
             this.label33 = new System.Windows.Forms.Label();
+            this.tabPagePlandoHelpItems = new System.Windows.Forms.TabPage();
+            this.label45 = new System.Windows.Forms.Label();
             this.tabPagePlandoHelpEquip = new System.Windows.Forms.TabPage();
             this.label43 = new System.Windows.Forms.Label();
             this.tabPagePlandoHelpEquipPassives = new System.Windows.Forms.TabPage();
@@ -138,6 +140,7 @@
             this.tabPagePlandoAbilities = new System.Windows.Forms.TabPage();
             this.tabPagePlandoRunSpeed = new System.Windows.Forms.TabPage();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
+            this.button16 = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.labelFlagsSelected = new System.Windows.Forms.Label();
             this.buttonRandomize = new System.Windows.Forms.Button();
@@ -153,8 +156,6 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.tabPagePlandoHelpItems = new System.Windows.Forms.TabPage();
-            this.label45 = new System.Windows.Forms.Label();
             this.itemPlando1 = new FF13Randomizer.ItemPlando();
             this.equipPlando1 = new FF13Randomizer.EquipPlando();
             this.equipPassivesPlando1 = new FF13Randomizer.EquipPassivesPlando();
@@ -168,7 +169,6 @@
             this.crystariumPlando1 = new FF13Randomizer.CrystariumPlando();
             this.abilityPlando1 = new FF13Randomizer.AbilityPlando();
             this.runSpeedPlando1 = new FF13Randomizer.RunSpeedPlando();
-            this.button16 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
@@ -182,6 +182,7 @@
             this.tabControl5.SuspendLayout();
             this.tabPagePlandoHelpGeneral.SuspendLayout();
             this.tabPagePlandoHelpTreasures.SuspendLayout();
+            this.tabPagePlandoHelpItems.SuspendLayout();
             this.tabPagePlandoHelpEquip.SuspendLayout();
             this.tabPagePlandoHelpEquipPassives.SuspendLayout();
             this.tabPagePlandoHelpShops.SuspendLayout();
@@ -210,7 +211,6 @@
             this.tabPageUninstall.SuspendLayout();
             this.tabPageTools.SuspendLayout();
             this.tabPageDebug.SuspendLayout();
-            this.tabPagePlandoHelpItems.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -1009,6 +1009,26 @@
             this.label33.Text = "Required Flags:\r\n-\"Randomize Treasures and Rewards\": Required for all values set\r" +
     "\n\r\nInfo:\r\n-\"Amount\" is Optional. If -1, a random amount will be picked";
             // 
+            // tabPagePlandoHelpItems
+            // 
+            this.tabPagePlandoHelpItems.Controls.Add(this.label45);
+            this.tabPagePlandoHelpItems.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlandoHelpItems.Name = "tabPagePlandoHelpItems";
+            this.tabPagePlandoHelpItems.Size = new System.Drawing.Size(776, 559);
+            this.tabPagePlandoHelpItems.TabIndex = 13;
+            this.tabPagePlandoHelpItems.Text = "Items";
+            this.tabPagePlandoHelpItems.UseVisualStyleBackColor = true;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.Location = new System.Drawing.Point(3, 0);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(301, 32);
+            this.label45.TabIndex = 9;
+            this.label45.Text = "Required Flags:\r\n-\"Randomize Item Prices\": Required for prices set";
+            // 
             // tabPagePlandoHelpEquip
             // 
             this.tabPagePlandoHelpEquip.Controls.Add(this.label43);
@@ -1086,7 +1106,7 @@
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label35.Location = new System.Drawing.Point(3, 0);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(765, 128);
+            this.label35.Size = new System.Drawing.Size(765, 144);
             this.label35.TabIndex = 9;
             this.label35.Text = resources.GetString("label35.Text");
             // 
@@ -1379,6 +1399,18 @@
             this.tabPageFinish.Text = "Finish";
             this.tabPageFinish.UseVisualStyleBackColor = true;
             // 
+            // button16
+            // 
+            this.button16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button16.Location = new System.Drawing.Point(89, 241);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(148, 35);
+            this.button16.TabIndex = 14;
+            this.button16.Text = "Open Documentation Folder For Latest Seed";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -1543,26 +1575,6 @@
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // tabPagePlandoHelpItems
-            // 
-            this.tabPagePlandoHelpItems.Controls.Add(this.label45);
-            this.tabPagePlandoHelpItems.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePlandoHelpItems.Name = "tabPagePlandoHelpItems";
-            this.tabPagePlandoHelpItems.Size = new System.Drawing.Size(776, 559);
-            this.tabPagePlandoHelpItems.TabIndex = 13;
-            this.tabPagePlandoHelpItems.Text = "Items";
-            this.tabPagePlandoHelpItems.UseVisualStyleBackColor = true;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label45.Location = new System.Drawing.Point(3, 0);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(301, 32);
-            this.label45.TabIndex = 9;
-            this.label45.Text = "Required Flags:\r\n-\"Randomize Item Prices\": Required for prices set";
-            // 
             // itemPlando1
             // 
             this.itemPlando1.Location = new System.Drawing.Point(3, 3);
@@ -1660,18 +1672,6 @@
             this.runSpeedPlando1.Size = new System.Drawing.Size(790, 591);
             this.runSpeedPlando1.TabIndex = 0;
             // 
-            // button16
-            // 
-            this.button16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button16.Location = new System.Drawing.Point(89, 241);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(148, 35);
-            this.button16.TabIndex = 14;
-            this.button16.Text = "Open Documentation Folder For Latest Seed";
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1702,6 +1702,8 @@
             this.tabPagePlandoHelpGeneral.PerformLayout();
             this.tabPagePlandoHelpTreasures.ResumeLayout(false);
             this.tabPagePlandoHelpTreasures.PerformLayout();
+            this.tabPagePlandoHelpItems.ResumeLayout(false);
+            this.tabPagePlandoHelpItems.PerformLayout();
             this.tabPagePlandoHelpEquip.ResumeLayout(false);
             this.tabPagePlandoHelpEquip.PerformLayout();
             this.tabPagePlandoHelpEquipPassives.ResumeLayout(false);
@@ -1745,8 +1747,6 @@
             this.tabPageTools.PerformLayout();
             this.tabPageDebug.ResumeLayout(false);
             this.tabPageDebug.PerformLayout();
-            this.tabPagePlandoHelpItems.ResumeLayout(false);
-            this.tabPagePlandoHelpItems.PerformLayout();
             this.ResumeLayout(false);
 
         }

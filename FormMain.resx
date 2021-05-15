@@ -190,7 +190,8 @@ Info:
 -It is recommended to set new shop replacements here, and not in Treasures.
     If you change a treasure to a different shop, changes to Shop Locations will apply afterwards.
     Ex: Mission 7 treasure is changed to Magical Moments, and Magical Moments in Shop Locations is changed to Sanctum Labs, 
-        Mission 7 will now be Sanctum Labs.</value>
+        Mission 7 will now be Sanctum Labs.
+-Unicorn Mart cannot be swapped, but it allowed as an option for New Shop to limit shops to be available.</value>
   </data>
   <data name="label36.Text" xml:space="preserve">
     <value>Required Flags:

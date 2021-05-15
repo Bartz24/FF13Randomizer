@@ -36,7 +36,7 @@ namespace FF13Randomizer
             dataGridView1.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
-            column.Items.AddRange(new string[] { "???" }.Concat(Items.items.Where(i=>i.ID.StartsWith("key_shop") && i != Items.UnicornMart).Select(i => i.Name).ToList()).ToArray());
+            column.Items.AddRange(new string[] { "???" }.Concat(Items.items.Where(i=>i.ID.StartsWith("key_shop")).Select(i => i.Name).ToList()).ToArray());
             column.HeaderText = "New Shop";
             column.DisplayMember = "New Shop";
             column.ValueMember = "New Shop";
