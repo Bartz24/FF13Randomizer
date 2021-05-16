@@ -26,10 +26,10 @@ namespace FF13Data
         public static PassiveSet StaggerLock = new PassiveSet(PassiveType.Weapon)
             .Add("Stagger Lock", "awp_all_000", 0.9f, 0.9f, "", "$awp_all_000h", 0, 0, 0);
         public static PassiveSet QuickStagger = new PassiveSet(PassiveType.Weapon)
-            .Add("Quick Stagger", "awp_c000_200", 0.3f, 0.3f, "", "$awp_c000_200h", 0, 0, 0);
+            .Add("Quick Stagger", "awp_c000_200", 0.6f, 0.6f, "", "$awp_c000_200h", 0, 0, 0);
         public static PassiveSet AugmentMaintenance = new PassiveSet(PassiveType.Weapon)
-            .Add("Augment Maintenance", "awp_c002_000", 0.4f, 0.4f, "", "$awp_c002_000h", 0, 0, 0)
-            .Add("Augment Maintenance II", "awp_c002_050", 0.4f, 0.4f, "", "$awp_c002_050h", 0, 0, 0);
+            .Add("Augment Maintenance", "awp_c002_000", 0.8f, 0.8f, "", "$awp_c002_000h", 0, 0, 0)
+            .Add("Augment Maintenance II", "awp_c002_050", 0.8f, 0.8f, "", "$awp_c002_050h", 0, 0, 0);
         public static PassiveSet PaperTiger = new PassiveSet(PassiveType.Weapon, LockingLevel.Fixed)
             .Add("Paper Tiger", "", 2.4f, 2.4f, "$awp_all_400", "$awp_all_400h", -60, 3, 1)
             .Add("Silk Tiger", "", 2.4f, 2.4f, "$awp_all_450", "$awp_all_450h", -40, 3, 1);
@@ -58,8 +58,8 @@ namespace FF13Data
             .Add("Siphon Boost", "awp_c003_100", 0.75f, 0.75f, "", "$awp_c003_100h", 0, 0, 0)
             .Add("Siphon Boost II", "awp_c003_150", 0.75f, 0.75f, "", "$awp_c003_150h", 0, 0, 0);
         public static PassiveSet DefenseMaintenance = new PassiveSet(PassiveType.Weapon)
-            .Add("Defense Maintenance", "awp_c003_200", 0.45f, 0.35f, "", "$awp_c003_200h", 0, 0, 0)
-            .Add("Defense Maintenance II", "awp_c003_250", 0.45f, 0.35f, "", "$awp_c003_250h", 0, 0, 0);
+            .Add("Defense Maintenance", "awp_c003_200", 0.8f, 0.8f, "", "$awp_c003_200h", 0, 0, 0)
+            .Add("Defense Maintenance II", "awp_c003_250", 0.8f, 0.8f, "", "$awp_c003_250h", 0, 0, 0);
         public static PassiveSet StifledMagic = new PassiveSet(PassiveType.Weapon, LockingLevel.SameType)
             .Add("Stifled Magic", "awp_all_300", 1.5f, 0, "", "$awp_all_300h", 0, 0, 0)
             .Add("Fettered Magic", "awp_all_350", 1.5f, 0, "", "$awp_all_350h", 0, 0, 0);

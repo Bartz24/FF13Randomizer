@@ -65,7 +65,7 @@ namespace FF13Randomizer
                     return list.Take(Items.items.Where(i => i.ID.StartsWith("wea") && i.EquipPassive.Item1 != Passives.Uncapped && GetCharacter(i.ID) == c && i.EquipPassive.Item1.LockingLevel > LockingLevel.Fixed && i.EquipPassive.Item2 == 0 && !plandoPassives.ContainsKey(i)).Select(i => i.EquipPassive.Item1).Count()).ToList();
                 });
 
-                Dictionary<Item, Tuple<float, float>> weaponMults = GetWeaponMults(plandoPassives, sets);
+                Dictionary<Item, Tuple<float, float>> weaponMults = GetWeaponMults(plandoPassives, sets.ToDictionary(p => p.Key, p => new List<PassiveSet>(p.Value)));
 
                 Dictionary<PassiveSet, int> tierCounts = Passives.passives.ToDictionary(s => s, s => Items.items.Where(i => (i.ID.StartsWith("wea") || i.ID.StartsWith("acc")) && i.EquipPassive.Item1 == s).Max(i => i.EquipPassive.Item2) + 1);
 
@@ -113,16 +113,16 @@ namespace FF13Randomizer
 
                     if (i.ID.StartsWith("wea"))
                     {
-                        float strMult = (float)Math.Pow(finalPassive.StrengthModifier, 1f / Math.Pow(tier + 1, 1.5f)) * weaponMults[i].Item1;
-                        float magMult = (float)Math.Pow(finalPassive.MagicModifier, 1f / Math.Pow(tier + 1, 1.5f)) * weaponMults[i].Item2;
+                        float strMult = (float)Math.Pow(finalPassive.StrengthModifier, 1f / Math.Pow(tier + 1, 1.2f)) * weaponMults[i].Item1;
+                        float magMult = (float)Math.Pow(finalPassive.MagicModifier, 1f / Math.Pow(tier + 1, 1.2f)) * weaponMults[i].Item2;                        
 
-                        float avgInit = ((initPassive.StrengthModifier == 0 ? 0 : equip.StrengthInitial / (float)Math.Pow(initPassive.StrengthModifier, 1f / Math.Pow(tier + 1, 1.5f))) + (initPassive.MagicModifier == 0 ? 0 : equip.MagicInitial / (float)Math.Pow(initPassive.MagicModifier, 1f / Math.Pow(tier + 1, 1.5f)))) / (equip.StrengthInitial == 0 || equip.MagicInitial == 0 || initPassive.StrengthModifier == 0 || initPassive.MagicModifier == 0 ? 1f : 2f);
-                        float avgInc = ((initPassive.StrengthModifier == 0 ? 0 : equip.StrengthIncrease / (float)Math.Pow(initPassive.StrengthModifier, 0.5f / Math.Pow(tier + 1, 1.5f))) + (initPassive.MagicModifier == 0 ? 0 : equip.MagicIncrease / (float)Math.Pow(initPassive.MagicModifier, 0.5f / Math.Pow(tier + 1, 1.5f)))) / (equip.StrengthIncrease == 0 || equip.MagicIncrease == 0 || initPassive.StrengthModifier == 0 || initPassive.MagicModifier == 0 ? 1f : 2f);
+                        float avgInit = ((initPassive.StrengthModifier == 0 ? 0 : equip.StrengthInitial / (float)Math.Pow(initPassive.StrengthModifier, 1f / Math.Pow(tier + 1, 1.2f))) + (initPassive.MagicModifier == 0 ? 0 : equip.MagicInitial / (float)Math.Pow(initPassive.MagicModifier, 1f / Math.Pow(tier + 1, 1.2f)))) / (equip.StrengthInitial == 0 || equip.MagicInitial == 0 || initPassive.StrengthModifier == 0 || initPassive.MagicModifier == 0 ? .75f : 2f);
+                        float avgInc = ((initPassive.StrengthModifier == 0 ? 0 : equip.StrengthIncrease / (float)Math.Pow(initPassive.StrengthModifier, 0.75f)) + (initPassive.MagicModifier == 0 ? 0 : equip.MagicIncrease / (float)Math.Pow(initPassive.MagicModifier, 0.75f))) / (equip.StrengthIncrease == 0 || equip.MagicIncrease == 0 || initPassive.StrengthModifier == 0 || initPassive.MagicModifier == 0 ? .75f : 2f);
 
                         equip.StrengthInitial = (short)(avgInit * strMult);
-                        equip.StrengthIncrease = (ushort)(avgInc * Math.Sqrt(strMult));
+                        equip.StrengthIncrease = (ushort)(avgInc * Math.Pow(strMult, 0.75f));
                         equip.MagicInitial = (short)(avgInit * magMult);
-                        equip.MagicIncrease = (ushort)(avgInc * Math.Sqrt(magMult));
+                        equip.MagicIncrease = (ushort)(avgInc * Math.Pow(magMult, 0.75f));
 
                         if (equips[i].UpgradeInto == "")
                         {
@@ -161,7 +161,10 @@ namespace FF13Randomizer
                 else if (i.EquipPassive.Item1.LockingLevel == LockingLevel.Fixed)
                     s = i.EquipPassive.Item1;
                 else
+                {
                     s = sets[GetCharacter(i.ID)][0];
+                    sets[GetCharacter(i.ID)].RemoveAt(0);
+                }
                 if (s.GetPassiveDirect(0, Int32.MaxValue).StrengthModifier > 0 && s.GetPassiveDirect(0, Int32.MaxValue).MagicModifier > 0)
                 {
                     if (RandomNum.RandInt(0, 100) < 3)
@@ -178,7 +181,7 @@ namespace FF13Randomizer
                     else
                     {
                         StatValues strMag = new StatValues(2);
-                        strMag.Randomize(75);
+                        strMag.Randomize(75, 0.6f);
                         return new Tuple<float, float>(strMag[0] / 100f, strMag[1] / 100f);
                     }
                 }
