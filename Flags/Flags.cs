@@ -123,7 +123,7 @@ namespace FF13Randomizer
             {
                 Text = "Randomize Item Prices",
                 FlagID = "RandPrice",
-                DescriptionFormat = "Item buy and sell prices will be randomized."
+                DescriptionFormat = "Item buy and sell prices will be randomized. Variance of ${Value}%."
             }.Register(FlagType.Items);
 
             public static Flag EquipmentStatsPassives = new Flag()
@@ -149,8 +149,7 @@ namespace FF13Randomizer
                 Text = "Randomize Elemental Resistances",
                 FlagID = "ShElemRes",
                 DescriptionFormat = "Elemental resistances will be randomized on each enemy.\n" +
-                "Resistances will be more likely to be weaknesses to elements the party has.",
-                Experimental = true
+                "Resistances will be more likely to be weaknesses to elements the party has."
             }.Register(FlagType.Enemies);
 
             public static Flag Debuffs = new Flag()
@@ -158,8 +157,7 @@ namespace FF13Randomizer
                 Text = "Randomize Debuff Resistances",
                 FlagID = "ShDebffRes",
                 DescriptionFormat = "Debuff resistances will be randomized on each enemy (Provoke not included).\n" +
-                "Resistances will be more likely to be weaknesses to debuffs the party has.",
-                Experimental = true
+                "Resistances will be more likely to be weaknesses to debuffs the party has."
             }.Register(FlagType.Enemies);
 
 
@@ -167,8 +165,8 @@ namespace FF13Randomizer
             {
                 Text = "Randomize Stats",
                 FlagID = "RanEStat",
-                DescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}\n" +
-                "Also affects Elemental and Debuff Resistances if those flags are on.%"
+                DescriptionFormat = "Enemies' HP, Strength, Magic, Stagger Point, and Chain Resistance get randomized. Variance of ${Value}%\n" +
+                "Also affects Elemental and Debuff Resistances if those flags are on."
             }.Register(FlagType.Enemies);
 
             public static FlagValue RandLevel = (FlagValue)new FlagValue(0, 0, 50)
