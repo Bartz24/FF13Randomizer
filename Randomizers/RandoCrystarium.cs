@@ -1,4 +1,5 @@
-﻿using FF13Data;
+﻿using Bartz24.Docs;
+using FF13Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -701,6 +702,80 @@ namespace FF13Randomizer
             }
 
             DocsJSONGenerator.CreateCrystariumDocs(crystariums, primaryRoles);
+        }
+
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Crystarium", "template/documentation.html");
+
+            CharNames.ForEach(name =>
+            {
+                page.HTMLElements.Add(new Table(name[0].ToString().ToUpper() + name.Substring(1),
+                    new string[] { "Stage", "Commando", "Ravager", "Sentinel", "Synergist", "Saboteur", "Medic"}.ToList(),
+                    new int[] { 10, 15, 15, 15, 15, 15, 15 }.ToList(),
+                    Enumerable.Range(1, 10).Select(stage => {
+                        List<string> list = new List<string>();
+                        list.Add(stage.ToString());
+                        list.AddRange(new string[] { "", "", "", "", "", "" });
+                        foreach (Role role in Enum.GetValues(typeof(Role)))
+                        {
+                            List<string> additions = new List<string>();
+                            if (role == Role.None)
+                                continue;
+                            List<DataStoreCrystarium> roleCrysts = crystariums[name].IdList.Where(id => !id.ID.StartsWith("!") && crystariums[name][id.ID].Role == role && crystariums[name][id.ID].Stage == stage).Select(id => crystariums[name][id.ID]).ToList();
+                            int hp = roleCrysts.Where(c => c.Type == CrystariumType.HP).Sum(c => c.Value);
+                            int strength = roleCrysts.Where(c => c.Type == CrystariumType.Strength).Sum(c => c.Value);
+                            int magic = roleCrysts.Where(c => c.Type == CrystariumType.Magic).Sum(c => c.Value);
+                            int roleLevels = roleCrysts.Where(c => c.Type == CrystariumType.RoleLevel).Count();
+                            int accessories = roleCrysts.Where(c => c.Type == CrystariumType.Accessory).Count();
+                            int atbLevel = roleCrysts.Where(c => c.Type == CrystariumType.ATBLevel).Count();
+                            List<string> abilities = roleCrysts.Where(c => c.Type == CrystariumType.Ability).Select(c => {
+                                Ability ability = Abilities.abilities.Where(a => a.HasCharacter(Abilities.GetCharID(name)) && a.GetAbility(Abilities.GetCharID(name)) == c.AbilityName).FirstOrDefault();
+                                return ability.Name;
+                            }).ToList();
+                            if (hp > 0)
+                                additions.Add($"HP + {hp}");
+                            if (strength > 0)
+                                additions.Add($"Strength + {strength}");
+                            if (magic > 0)
+                                additions.Add($"Magic + {magic}");
+                            if (roleLevels > 0)
+                                additions.Add($"Role Level + {roleLevels}");
+                            if (accessories > 0)
+                                additions.Add($"Accessories + {accessories}");
+                            if (atbLevel > 0)
+                                additions.Add($"ATB Level");
+                            additions.AddRange(abilities);
+                            int roleCol = 0;
+                            switch (role)
+                            {
+                                case Role.Commando:
+                                    roleCol = 1;
+                                    break;
+                                case Role.Ravager:
+                                    roleCol = 2;
+                                    break;
+                                case Role.Sentinel:
+                                    roleCol = 3;
+                                    break;
+                                case Role.Synergist:
+                                    roleCol = 4;
+                                    break;
+                                case Role.Medic:
+                                    roleCol = 6;
+                                    break;
+                                case Role.Saboteur:
+                                    roleCol = 5;
+                                    break;
+                            }
+                            list[roleCol] = String.Join("<br>", additions);
+                        }
+                        return list;
+                    })
+                    .ToList(), false));
+            });
+
+            return page;
         }
     }
 }
