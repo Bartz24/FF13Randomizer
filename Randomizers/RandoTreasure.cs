@@ -179,9 +179,6 @@ namespace FF13Randomizer
         public override void Save()
         {
             File.WriteAllBytes($"db\\resident\\treasurebox.wdb", treasures.Data);
-
-            DocsJSONGenerator.CreateTreasureDocs(treasures, ranks);
-
         }
 
         public static int GetTreasureWeight(Tiered<Item> t, bool mission, bool missableOrRepeatable)

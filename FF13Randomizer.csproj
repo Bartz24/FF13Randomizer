@@ -304,7 +304,6 @@
       <DependentUpon>FlagValue.cs</DependentUpon>
     </Compile>
     <Compile Include="Flags\FormattingMap.cs" />
-    <Compile Include="DocsJSONGenerator.cs" />
     <Compile Include="Flags\UserFlagsSeed.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>

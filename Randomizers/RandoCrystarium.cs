@@ -700,8 +700,6 @@ namespace FF13Randomizer
 
                 File.WriteAllBytes($"db\\crystal\\crystal_{name}.wdb", crystarium.Data);
             }
-
-            DocsJSONGenerator.CreateCrystariumDocs(crystariums, primaryRoles);
         }
 
         public override HTMLPage GetDocumentation()
