@@ -135,10 +135,10 @@ namespace FF13Randomizer
         }
         public override void Randomize(BackgroundWorker backgroundWorker)
         {
+            newSoundFiles.AddRange(soundFiles);
             if (Flags.Other.Music)
             {
                 Flags.Other.Music.SetRand();
-                newSoundFiles.AddRange(soundFiles);
                 newSoundFiles.Shuffle();
                 RandomNum.ClearRand();
             }
