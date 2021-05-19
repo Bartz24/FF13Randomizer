@@ -17,44 +17,42 @@ namespace FF13Data
                 return Math.Pow(x, 1d / 3d);
         }
 
-        public static void Swap<T>(ref T a, ref T b)
+        public static IList<T> Shuffle<T>(this IList<T> list)
         {
-            T temp = a;
-            a = b;
-            b = temp;
-        }
-
-        public static void Swap<T>(this List<T> list, int i1, int i2)
-        {
-            T temp = list[i1];
-            list.Insert(i1, list[i2]);
-            list.RemoveAt(i1 + 1);
-            list.Insert(i2, temp);
-            list.RemoveAt(i2 + 1);
-        }
-
-        public static List<T> Replace<T>(this List<T> list, T origValue, T newValue)
-        {
-            int index = list.IndexOf(origValue);
-            if (index > -1)
+            int n = list.Count;
+            while (n > 1)
             {
-                list[index] = newValue;
+                n--;
+                int k = RandomNum.RandInt(0, n);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
             }
             return list;
         }
 
-        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        public static void Shuffle<T>(this IList<T> list, Action<T, T> swapFunc)
         {
-            enumerable.ToList().ForEach(action);
-        }
-        public static E GetEnumValue<E>(string name)
-        {
-            return ((E[])Enum.GetValues(typeof(E)))[Enum.GetNames(typeof(E)).ToList().IndexOf(name)];
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = RandomNum.RandInt(0, n);
+                swapFunc.Invoke(list[n], list[k]);
+            }
         }
 
-        public static string SeparateWords(this object str)
+        public static IList<T> ShuffleWeighted<T>(this IList<T> list, IList<int> weights)
         {
-            return Regex.Replace(str.ToString(), "([a-z])([A-Z])", "$1 $2");
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                for (int w = 0; w < weights[i]; w++)
+                    map.Add(map.Count, i);
+            }
+            List<int> shuffled = Enumerable.Range(0, map.Count).ToList().Shuffle().ToList();
+            list = Enumerable.Range(0, map.Count).Select(i => list[map[shuffled[i]]]).ToList();
+            return list;
         }
     }
 }

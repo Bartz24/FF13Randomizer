@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FF13Data;
 using System.IO;
 using System.Text.RegularExpressions;
+using Bartz24.Data;
 
 namespace FF13Randomizer
 {
@@ -108,7 +109,7 @@ namespace FF13Randomizer
                 {
                     string res = row.Field<string>(3 + 2 * i);
                     if (res != "???")
-                        vals.Add((Element)i, RandoExtensions.GetEnumValue<ElementalRes>(res));
+                        vals.Add((Element)i, DataExtensions.GetEnumValue<ElementalRes>(res));
                 }
                 if (vals.Count > 0)
                 {

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utilities;
 using Bartz24.Docs;
+using Bartz24.Data;
 
 namespace FF13Randomizer
 {

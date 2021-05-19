@@ -203,13 +203,10 @@
   <ItemGroup>
     <Compile Include="Data\Passives.cs" />
     <Compile Include="Data\PassiveSet.cs" />
-    <Compile Include="Data\DataStores\DataExtensions.cs" />
     <Compile Include="Data\DataStores\DataStoreChara.cs" />
     <Compile Include="Data\DataStores\DataStoreIDCrystarium.cs" />
     <Compile Include="Data\DataStores\DataStoreItem.cs" />
     <Compile Include="Data\DataStores\DataStoreEquip.cs" />
-    <Compile Include="Data\DataStores\DataStoreID.cs" />
-    <Compile Include="Data\DataStores\DataStoreIDList.cs" />
     <Compile Include="Data\DataStores\DataStoreShop.cs" />
     <Compile Include="Data\DataStores\DataStoreAbility.cs" />
     <Compile Include="Data\DataStores\DataStoreWDB.cs" />
@@ -233,10 +230,6 @@
     <Compile Include="Data\Abilities.cs" />
     <Compile Include="Data\Item.cs" />
     <Compile Include="Data\Ability.cs" />
-    <Compile Include="Data\DataStores\DataStore.cs" />
-    <Compile Include="Data\DataStores\DataStorePointerList.cs" />
-    <Compile Include="Data\DataStores\DataStoreString.cs" />
-    <Compile Include="Data\DataStores\DataStoreList.cs" />
     <Compile Include="Data\DataStores\DataStoreCrystarium.cs" />
     <Compile Include="Data\RandomNum.cs" />
     <Compile Include="Data\Text\TextDialog.cs" />
@@ -244,13 +237,7 @@
     <Compile Include="Data\TieredManager.cs" />
     <Compile Include="Data\Tiered.cs" />
     <Compile Include="Data\TieredItems.cs" />
-    <Compile Include="Data\Values\ValueNibble.cs" />
-    <Compile Include="Data\Values\ValueByte.cs" />
     <Compile Include="Data\Enums\Enums.cs" />
-    <Compile Include="Data\Values\ValueStatus.cs" />
-    <Compile Include="Data\Values\ValueUInt.cs" />
-    <Compile Include="Data\Values\ValueShort.cs" />
-    <Compile Include="Data\Values\ValueUShort.cs" />
     <Compile Include="MathExtensions.cs" />
     <Compile Include="Plandos\EquipPassivesPlando.cs">
       <SubType>UserControl</SubType>
@@ -503,6 +490,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bartz24.Data\Bartz24.Data.csproj">
+      <Project>{8719CAB8-EEE3-45A8-85BB-9399F8B7D991}</Project>
+      <Name>Bartz24.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bartz24.FF13\Bartz24.FF13.csproj">
+      <Project>{1cdd69f4-023c-460e-9928-65a157f925e8}</Project>
+      <Name>Bartz24.FF13</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bartz24.Rando\Bartz24.Rando.csproj">
+      <Project>{41db58b4-6ecb-4a6b-958f-75ca4fa588bb}</Project>
+      <Name>Bartz24.Rando</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Docs\Bartz24.Docs.csproj">
       <Project>{3ad632b7-f466-4b39-b02a-8ac60c4f7e55}</Project>
       <Name>Bartz24.Docs</Name>

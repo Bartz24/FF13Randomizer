@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FF13Data;
 using System.IO;
 using System.Text.RegularExpressions;
+using Bartz24.Data;
 
 namespace FF13Randomizer
 {

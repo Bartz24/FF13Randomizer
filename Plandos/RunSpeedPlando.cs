@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FF13Data;
 using System.IO;
 using System.Text.RegularExpressions;
+using Bartz24.Data;
 
 namespace FF13Randomizer
 {
@@ -52,7 +53,7 @@ namespace FF13Randomizer
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dataTable.Clear();
 
-            DataStoreWDB<DataStoreChara, DataStoreID>  characters = new DataStoreWDB<DataStoreChara, DataStoreID>();
+            DataStoreWDB<DataStoreChara, DataStoreID> characters = new DataStoreWDB<DataStoreChara, DataStoreID>();
             characters.LoadData(File.ReadAllBytes($"{main.RandoPath}\\original\\db\\resident\\charafamily.wdb"));
 
             ((Character[])Enum.GetValues(typeof(Character))).ForEach(c => AddEntry(c, characters[RandoRunSpeed.GetID(c)].RunSpeed));

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bartz24.Data;
 
 namespace FF13Randomizer
 {
@@ -252,7 +253,7 @@ namespace FF13Randomizer
 
             statAverages.Values.ForEach(d =>
             {
-                d.Keys.ToList().ForEach(k =>
+                d.Keys.ForEach(k =>
                 {
                     int avg = (int)Math.Ceiling((double)d[k].Sum(v => v) / d[k].Count);
                     d[k].Clear();
