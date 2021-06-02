@@ -8,19 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bartz24.Data;
+using Bartz24.Rando;
 
 namespace FF13Randomizer
 {
     public class RandoCrystarium : Randomizer
     {
         public static string[] CharNames = new string[] { "lightning", "fang", "snow", "sazh", "hope", "vanille" };
+        FormMain main;
 
         public Dictionary<Role, StatValues> roleMults = new Dictionary<Role, StatValues>();
         public Dictionary<string, StatValues> charMults = new Dictionary<string, StatValues>();
         public Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>> crystariums = new Dictionary<string, DataStoreWDB<DataStoreCrystarium, DataStoreIDCrystarium>>();
         public Dictionary<string, Role[]> primaryRoles = new Dictionary<string, Role[]>();
 
-        public RandoCrystarium(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
+        public RandoCrystarium(FormMain formMain, RandomizerManager randomizers) : base( randomizers) { main = formMain; }
 
         public override string GetProgressMessage()
         {

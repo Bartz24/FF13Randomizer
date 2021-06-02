@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Rando;
 using FF13Data;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace FF13Randomizer
     public class RandoAbilities : Randomizer
     {
         DataStoreWDB<DataStoreAbility, DataStoreID> abilities;
+        FormMain main;
 
-        public RandoAbilities(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
+        public RandoAbilities(FormMain formMain, RandomizerManager randomizers) : base(randomizers) { main = formMain; }
 
         public override string GetProgressMessage()
         {

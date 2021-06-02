@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
+using Bartz24.Rando;
 using FF13Data;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace FF13Randomizer
         DataStoreWDB<DataStoreEnemy, DataStoreID> enemies;
         byte[] bytes;
 
-        public RandoEnemies(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
+        FormMain main;
+        public RandoEnemies(FormMain formMain, RandomizerManager randomizers) : base(randomizers) { main = formMain; }
 
         public override string GetProgressMessage()
         {

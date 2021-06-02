@@ -1,4 +1,5 @@
-﻿using FF13Data;
+﻿using Bartz24.Rando;
+using FF13Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

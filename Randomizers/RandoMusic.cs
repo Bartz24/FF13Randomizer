@@ -8,15 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bartz24.Docs;
+using Bartz24.Rando;
 
 namespace FF13Randomizer
 {
     public class RandoMusic : Randomizer
     {
         List<string> soundFiles = new List<string>();
-        List<string> newSoundFiles = new List<string>();
+        List<string> newSoundFiles = new List<string>();        
         Dictionary<string, string> names = new Dictionary<string, string>();
-        public RandoMusic(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
+
+        FormMain main;
+        public RandoMusic(FormMain formMain, RandomizerManager randomizers) : base(randomizers) { main = formMain; }
 
         public override string GetProgressMessage()
         {

@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
+using Bartz24.Rando;
 using FF13Data;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,9 @@ namespace FF13Randomizer
         public DataStoreWDB<DataStoreTreasure, DataStoreID> treasures;
         int[] ranks;
 
-        public RandoTreasure(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
+        FormMain main;
+
+        public RandoTreasure(FormMain formMain, RandomizerManager randomizers) : base( randomizers) { main = formMain; }
 
         public override string GetProgressMessage()
         {

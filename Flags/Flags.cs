@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bartz24.Rando;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FF13Randomizer
 {
-    public enum FlagType
+    public enum FlagType:int
     {
         Crystarium,
         Abilities,
@@ -196,6 +197,8 @@ namespace FF13Randomizer
 
         public Flags()
         {
+            Flag.FlagsList = flags;
+            Flag.TweaksList = Tweaks.tweaks;
             new CrystariumFlags();
             new AbilityFlags();
             new ItemFlags();

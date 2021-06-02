@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using Utilities;
 using Bartz24.Docs;
 using Bartz24.Data;
+using Bartz24.Rando;
 
 namespace FF13Randomizer
 {
@@ -225,15 +226,15 @@ namespace FF13Randomizer
 
             foreach (Flag flag in Flags.flags)
             {
-                addFlag(type, tableLayout, flag);
+                addFlag((int)type, tableLayout, flag);
             }
             foreach (Flag flag in Tweaks.tweaks)
             {
-                addFlag(type, tableLayout, flag);
+                addFlag((int)type, tableLayout, flag);
             }
         }
 
-        private void addFlag(FlagType type, TableLayoutPanel tableLayout, Flag flag)
+        private void addFlag(int type, TableLayoutPanel tableLayout, Flag flag)
         {
             if (flag.FlagType == type)
             {

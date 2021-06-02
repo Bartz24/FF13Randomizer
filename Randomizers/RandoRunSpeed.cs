@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Rando;
 using FF13Data;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace FF13Randomizer
     public class RandoRunSpeed : Randomizer
     {
         DataStoreWDB<DataStoreChara, DataStoreID> characters;
+        FormMain main;
 
-        public RandoRunSpeed(FormMain formMain, RandomizerManager randomizers) : base(formMain, randomizers) { }
+        public RandoRunSpeed(FormMain formMain, RandomizerManager randomizers) : base(randomizers) { main = formMain; }
 
         public override string GetProgressMessage()
         {

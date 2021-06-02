@@ -212,7 +212,6 @@
     <Compile Include="Data\DataStores\DataStoreWDB.cs" />
     <Compile Include="Data\Enemy.cs" />
     <Compile Include="Data\Enemies.cs" />
-    <Compile Include="Data\Identifier.cs" />
     <Compile Include="Data\Crystarium.cs" />
     <Compile Include="Data\Party\Member.cs" />
     <Compile Include="Data\Party\Parties.cs" />
@@ -224,14 +223,12 @@
     <Compile Include="Data\TieredAbilities.cs" />
     <Compile Include="Data\DataStores\DataStoreEnemy.cs" />
     <Compile Include="Data\DataStores\DataStoreTreasure.cs" />
-    <Compile Include="Data\Random.cs" />
     <Compile Include="Data\TieredDependent.cs" />
     <Compile Include="Data\Items.cs" />
     <Compile Include="Data\Abilities.cs" />
     <Compile Include="Data\Item.cs" />
     <Compile Include="Data\Ability.cs" />
     <Compile Include="Data\DataStores\DataStoreCrystarium.cs" />
-    <Compile Include="Data\RandomNum.cs" />
     <Compile Include="Data\Text\TextDialog.cs" />
     <Compile Include="Data\Text\TextFile.cs" />
     <Compile Include="Data\TieredManager.cs" />
@@ -257,41 +254,8 @@
     <Compile Include="Plandos\EquipPlando.Designer.cs">
       <DependentUpon>EquipPlando.cs</DependentUpon>
     </Compile>
-    <Compile Include="RandoExtensions.cs" />
-    <Compile Include="Flags\FlagBool.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\FlagBool.Designer.cs">
-      <DependentUpon>FlagBool.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Flags\FlagBool2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\FlagBool2.Designer.cs">
-      <DependentUpon>FlagBool2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Flags\Tweaks.cs" />
-    <Compile Include="Flags\HistoryView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\HistoryView.Designer.cs">
-      <DependentUpon>HistoryView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Flags\Flag.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\Flag.Designer.cs">
-      <DependentUpon>Flag.cs</DependentUpon>
-    </Compile>
     <Compile Include="Flags\Flags.cs" />
-    <Compile Include="Flags\FlagValue.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Flags\FlagValue.Designer.cs">
-      <DependentUpon>FlagValue.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Flags\FormattingMap.cs" />
-    <Compile Include="Flags\UserFlagsSeed.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -378,7 +342,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Randomizers\RandoItems.cs" />
     <Compile Include="Randomizers\RandoEquip.cs" />
-    <Compile Include="Randomizers\RandomizerManager.cs" />
     <Compile Include="Randomizers\RandoEnemies.cs" />
     <Compile Include="Randomizers\RandoAbilities.cs" />
     <Compile Include="Randomizers\RandoShops.cs" />
@@ -386,25 +349,9 @@
     <Compile Include="Randomizers\RandoMusic.cs" />
     <Compile Include="Randomizers\RandoTreasure.cs" />
     <Compile Include="Randomizers\RandoCrystarium.cs" />
-    <Compile Include="Randomizers\Randomizer.cs" />
     <Compile Include="StatValuesWeighted.cs" />
     <Compile Include="StatValues.cs" />
     <Compile Include="VersionOrder.cs" />
-    <EmbeddedResource Include="Flags\FlagBool.resx">
-      <DependentUpon>FlagBool.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Flags\FlagBool2.resx">
-      <DependentUpon>FlagBool2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Flags\HistoryView.resx">
-      <DependentUpon>HistoryView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Flags\Flag.resx">
-      <DependentUpon>Flag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Flags\FlagValue.resx">
-      <DependentUpon>FlagValue.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -499,7 +446,7 @@
       <Name>Bartz24.FF13</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bartz24.Rando\Bartz24.Rando.csproj">
-      <Project>{41db58b4-6ecb-4a6b-958f-75ca4fa588bb}</Project>
+      <Project>{48BC7FA7-1AD5-4C79-B9C8-7AA78104B731}</Project>
       <Name>Bartz24.Rando</Name>
     </ProjectReference>
     <ProjectReference Include="..\Docs\Bartz24.Docs.csproj">

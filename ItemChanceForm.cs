@@ -1,4 +1,5 @@
-﻿using FF13Data;
+﻿using Bartz24.Rando;
+using FF13Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,7 +38,7 @@ namespace FF13Randomizer
 
             Dictionary<Item, Tuple<int, int, int>> table = new Dictionary<Item, Tuple<int, int, int>>();
             // Low, High, Count
-            RandomNum.SetRand(new FF13Data.Random());
+            RandomNum.SetRand(new Bartz24.Rando.Random());
             int times = 10000;
             for (int i = 0; i < times; i++)
             {
