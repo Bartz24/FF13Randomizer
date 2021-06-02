@@ -73,8 +73,10 @@ namespace FF13Randomizer
                 {
                     for (Item i2 = Items.items.Find(i3 => i3.ID == equips[i].UpgradeInto); ; i2 = Items.items.Find(i3 => i3.ID == equips[i2].UpgradeInto))
                     {
+                        if (i2.EquipPassive.Item1 != i.EquipPassive.Item1)
+                            break;
                         plandoPassives.Add(i2, plandoPassives[i]);
-                        if (equips[i2].UpgradeInto == "" || i2.EquipPassive.Item1 != i.EquipPassive.Item1)
+                        if (equips[i2].UpgradeInto == "")
                             break;
                     }
                 });
@@ -206,9 +208,13 @@ namespace FF13Randomizer
 
             Passives.passives.Where(s => s.LockingLevel < LockingLevel.Any).ForEach(s => mappings.Add(s, s));
 
-            plandoPassives.Where(p => p.Key.EquipPassive.Item1.LockingLevel == LockingLevel.Any).ForEach(p => mappings.Add(p.Key.EquipPassive.Item1, p.Value));
+            plandoPassives.Where(p => p.Key.EquipPassive.Item1.LockingLevel == LockingLevel.Any).ForEach(p =>
+            {
+                if (!mappings.ContainsKey(p.Key.EquipPassive.Item1))
+                    mappings.Add(p.Key.EquipPassive.Item1, p.Value);
+            });
 
-            AddToMappings(mappings, Passives.passives.Where(s => s.LockingLevel == LockingLevel.Any && !plandoPassives.Values.Contains(s)).ToList().Shuffle().ToList());
+            AddToMappings(mappings, Passives.passives.Where(s => s.LockingLevel == LockingLevel.Any && !mappings.ContainsKey(s) && !plandoPassives.Values.Contains(s)).ToList().Shuffle().ToList());
             AddToMappings(mappings, Passives.passives.Where(s => !mappings.ContainsKey(s)).ToList().Shuffle().ToList());
             return mappings;
         }
