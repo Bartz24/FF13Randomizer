@@ -127,18 +127,31 @@
             this.tabPagePlandoHelpRunSpeeds = new System.Windows.Forms.TabPage();
             this.label40 = new System.Windows.Forms.Label();
             this.tabPagePlandoItems = new System.Windows.Forms.TabPage();
+            this.itemPlando1 = new FF13Randomizer.ItemPlando();
             this.tabPagePlandoEquip = new System.Windows.Forms.TabPage();
+            this.equipPlando1 = new FF13Randomizer.EquipPlando();
             this.tabPagePlandoEquipPassives = new System.Windows.Forms.TabPage();
+            this.equipPassivesPlando1 = new FF13Randomizer.EquipPassivesPlando();
             this.tabPagePlandoTreasure = new System.Windows.Forms.TabPage();
+            this.treasurePlando1 = new FF13Randomizer.TreasurePlando();
             this.tabPagePlandoShop = new System.Windows.Forms.TabPage();
+            this.shopPlando1 = new FF13Randomizer.ShopPlando();
             this.tabPagePlandoShopOrder = new System.Windows.Forms.TabPage();
+            this.shopOrderPlando1 = new FF13Randomizer.ShopOrderPlando();
             this.tabPagePlandoEnemyStats = new System.Windows.Forms.TabPage();
+            this.enemyStatsPlando1 = new FF13Randomizer.EnemyStatsPlando();
             this.tabPagePlandoEnemyResists = new System.Windows.Forms.TabPage();
+            this.enemyElementResistPlando1 = new FF13Randomizer.EnemyElementResistPlando();
             this.tabPagePlandoEnemyDebuffs = new System.Windows.Forms.TabPage();
+            this.enemyDebuffResistPlando1 = new FF13Randomizer.EnemyDebuffResistPlando();
             this.tabPagePlandoEnemyDrops = new System.Windows.Forms.TabPage();
+            this.enemyDropPlando1 = new FF13Randomizer.EnemyDropPlando();
             this.tabPagePlandoCrystarium = new System.Windows.Forms.TabPage();
+            this.crystariumPlando1 = new FF13Randomizer.CrystariumPlando();
             this.tabPagePlandoAbilities = new System.Windows.Forms.TabPage();
+            this.abilityPlando1 = new FF13Randomizer.AbilityPlando();
             this.tabPagePlandoRunSpeed = new System.Windows.Forms.TabPage();
+            this.runSpeedPlando1 = new FF13Randomizer.RunSpeedPlando();
             this.tabPageFinish = new System.Windows.Forms.TabPage();
             this.button16 = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
@@ -156,19 +169,6 @@
             this.tabPageDebug = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.itemPlando1 = new FF13Randomizer.ItemPlando();
-            this.equipPlando1 = new FF13Randomizer.EquipPlando();
-            this.equipPassivesPlando1 = new FF13Randomizer.EquipPassivesPlando();
-            this.treasurePlando1 = new FF13Randomizer.TreasurePlando();
-            this.shopPlando1 = new FF13Randomizer.ShopPlando();
-            this.shopOrderPlando1 = new FF13Randomizer.ShopOrderPlando();
-            this.enemyStatsPlando1 = new FF13Randomizer.EnemyStatsPlando();
-            this.enemyElementResistPlando1 = new FF13Randomizer.EnemyElementResistPlando();
-            this.enemyDebuffResistPlando1 = new FF13Randomizer.EnemyDebuffResistPlando();
-            this.enemyDropPlando1 = new FF13Randomizer.EnemyDropPlando();
-            this.crystariumPlando1 = new FF13Randomizer.CrystariumPlando();
-            this.abilityPlando1 = new FF13Randomizer.AbilityPlando();
-            this.runSpeedPlando1 = new FF13Randomizer.RunSpeedPlando();
             this.tabControl1.SuspendLayout();
             this.tabPageBasics.SuspendLayout();
             this.tabPageFlags.SuspendLayout();
@@ -1265,6 +1265,13 @@
             this.tabPagePlandoItems.Text = "Items";
             this.tabPagePlandoItems.UseVisualStyleBackColor = true;
             // 
+            // itemPlando1
+            // 
+            this.itemPlando1.Location = new System.Drawing.Point(3, 3);
+            this.itemPlando1.Name = "itemPlando1";
+            this.itemPlando1.Size = new System.Drawing.Size(790, 591);
+            this.itemPlando1.TabIndex = 0;
+            // 
             // tabPagePlandoEquip
             // 
             this.tabPagePlandoEquip.Controls.Add(this.equipPlando1);
@@ -1274,6 +1281,13 @@
             this.tabPagePlandoEquip.TabIndex = 13;
             this.tabPagePlandoEquip.Text = "Equipment";
             this.tabPagePlandoEquip.UseVisualStyleBackColor = true;
+            // 
+            // equipPlando1
+            // 
+            this.equipPlando1.Location = new System.Drawing.Point(3, 3);
+            this.equipPlando1.Name = "equipPlando1";
+            this.equipPlando1.Size = new System.Drawing.Size(790, 591);
+            this.equipPlando1.TabIndex = 0;
             // 
             // tabPagePlandoEquipPassives
             // 
@@ -1285,6 +1299,13 @@
             this.tabPagePlandoEquipPassives.Text = "Equipment Passives";
             this.tabPagePlandoEquipPassives.UseVisualStyleBackColor = true;
             // 
+            // equipPassivesPlando1
+            // 
+            this.equipPassivesPlando1.Location = new System.Drawing.Point(3, 3);
+            this.equipPassivesPlando1.Name = "equipPassivesPlando1";
+            this.equipPassivesPlando1.Size = new System.Drawing.Size(790, 591);
+            this.equipPassivesPlando1.TabIndex = 0;
+            // 
             // tabPagePlandoTreasure
             // 
             this.tabPagePlandoTreasure.Controls.Add(this.treasurePlando1);
@@ -1294,6 +1315,16 @@
             this.tabPagePlandoTreasure.TabIndex = 1;
             this.tabPagePlandoTreasure.Text = "Treasures";
             this.tabPagePlandoTreasure.UseVisualStyleBackColor = true;
+            // 
+            // treasurePlando1
+            // 
+            this.treasurePlando1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treasurePlando1.Location = new System.Drawing.Point(3, 3);
+            this.treasurePlando1.Name = "treasurePlando1";
+            this.treasurePlando1.Size = new System.Drawing.Size(790, 591);
+            this.treasurePlando1.TabIndex = 0;
             // 
             // tabPagePlandoShop
             // 
@@ -1305,6 +1336,16 @@
             this.tabPagePlandoShop.Text = "Shops";
             this.tabPagePlandoShop.UseVisualStyleBackColor = true;
             // 
+            // shopPlando1
+            // 
+            this.shopPlando1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.shopPlando1.Location = new System.Drawing.Point(3, 3);
+            this.shopPlando1.Name = "shopPlando1";
+            this.shopPlando1.Size = new System.Drawing.Size(790, 594);
+            this.shopPlando1.TabIndex = 0;
+            // 
             // tabPagePlandoShopOrder
             // 
             this.tabPagePlandoShopOrder.Controls.Add(this.shopOrderPlando1);
@@ -1314,6 +1355,13 @@
             this.tabPagePlandoShopOrder.TabIndex = 5;
             this.tabPagePlandoShopOrder.Text = "Shop Locations";
             this.tabPagePlandoShopOrder.UseVisualStyleBackColor = true;
+            // 
+            // shopOrderPlando1
+            // 
+            this.shopOrderPlando1.Location = new System.Drawing.Point(3, 3);
+            this.shopOrderPlando1.Name = "shopOrderPlando1";
+            this.shopOrderPlando1.Size = new System.Drawing.Size(790, 591);
+            this.shopOrderPlando1.TabIndex = 0;
             // 
             // tabPagePlandoEnemyStats
             // 
@@ -1325,6 +1373,13 @@
             this.tabPagePlandoEnemyStats.Text = "Enemy Stats";
             this.tabPagePlandoEnemyStats.UseVisualStyleBackColor = true;
             // 
+            // enemyStatsPlando1
+            // 
+            this.enemyStatsPlando1.Location = new System.Drawing.Point(3, 3);
+            this.enemyStatsPlando1.Name = "enemyStatsPlando1";
+            this.enemyStatsPlando1.Size = new System.Drawing.Size(790, 591);
+            this.enemyStatsPlando1.TabIndex = 0;
+            // 
             // tabPagePlandoEnemyResists
             // 
             this.tabPagePlandoEnemyResists.Controls.Add(this.enemyElementResistPlando1);
@@ -1334,6 +1389,13 @@
             this.tabPagePlandoEnemyResists.TabIndex = 11;
             this.tabPagePlandoEnemyResists.Text = "Enemy Element Resists";
             this.tabPagePlandoEnemyResists.UseVisualStyleBackColor = true;
+            // 
+            // enemyElementResistPlando1
+            // 
+            this.enemyElementResistPlando1.Location = new System.Drawing.Point(3, 3);
+            this.enemyElementResistPlando1.Name = "enemyElementResistPlando1";
+            this.enemyElementResistPlando1.Size = new System.Drawing.Size(790, 591);
+            this.enemyElementResistPlando1.TabIndex = 0;
             // 
             // tabPagePlandoEnemyDebuffs
             // 
@@ -1345,6 +1407,13 @@
             this.tabPagePlandoEnemyDebuffs.Text = "Enemy Debuff Resists";
             this.tabPagePlandoEnemyDebuffs.UseVisualStyleBackColor = true;
             // 
+            // enemyDebuffResistPlando1
+            // 
+            this.enemyDebuffResistPlando1.Location = new System.Drawing.Point(3, 3);
+            this.enemyDebuffResistPlando1.Name = "enemyDebuffResistPlando1";
+            this.enemyDebuffResistPlando1.Size = new System.Drawing.Size(790, 591);
+            this.enemyDebuffResistPlando1.TabIndex = 0;
+            // 
             // tabPagePlandoEnemyDrops
             // 
             this.tabPagePlandoEnemyDrops.Controls.Add(this.enemyDropPlando1);
@@ -1354,6 +1423,13 @@
             this.tabPagePlandoEnemyDrops.TabIndex = 7;
             this.tabPagePlandoEnemyDrops.Text = "Enemy Drops";
             this.tabPagePlandoEnemyDrops.UseVisualStyleBackColor = true;
+            // 
+            // enemyDropPlando1
+            // 
+            this.enemyDropPlando1.Location = new System.Drawing.Point(3, 3);
+            this.enemyDropPlando1.Name = "enemyDropPlando1";
+            this.enemyDropPlando1.Size = new System.Drawing.Size(790, 591);
+            this.enemyDropPlando1.TabIndex = 0;
             // 
             // tabPagePlandoCrystarium
             // 
@@ -1365,6 +1441,13 @@
             this.tabPagePlandoCrystarium.Text = "Crystarium";
             this.tabPagePlandoCrystarium.UseVisualStyleBackColor = true;
             // 
+            // crystariumPlando1
+            // 
+            this.crystariumPlando1.Location = new System.Drawing.Point(3, 3);
+            this.crystariumPlando1.Name = "crystariumPlando1";
+            this.crystariumPlando1.Size = new System.Drawing.Size(790, 591);
+            this.crystariumPlando1.TabIndex = 0;
+            // 
             // tabPagePlandoAbilities
             // 
             this.tabPagePlandoAbilities.Controls.Add(this.abilityPlando1);
@@ -1375,6 +1458,13 @@
             this.tabPagePlandoAbilities.Text = "Abilities";
             this.tabPagePlandoAbilities.UseVisualStyleBackColor = true;
             // 
+            // abilityPlando1
+            // 
+            this.abilityPlando1.Location = new System.Drawing.Point(3, 3);
+            this.abilityPlando1.Name = "abilityPlando1";
+            this.abilityPlando1.Size = new System.Drawing.Size(790, 591);
+            this.abilityPlando1.TabIndex = 0;
+            // 
             // tabPagePlandoRunSpeed
             // 
             this.tabPagePlandoRunSpeed.Controls.Add(this.runSpeedPlando1);
@@ -1384,6 +1474,13 @@
             this.tabPagePlandoRunSpeed.TabIndex = 8;
             this.tabPagePlandoRunSpeed.Text = "Run Speeds";
             this.tabPagePlandoRunSpeed.UseVisualStyleBackColor = true;
+            // 
+            // runSpeedPlando1
+            // 
+            this.runSpeedPlando1.Location = new System.Drawing.Point(3, 3);
+            this.runSpeedPlando1.Name = "runSpeedPlando1";
+            this.runSpeedPlando1.Size = new System.Drawing.Size(790, 591);
+            this.runSpeedPlando1.TabIndex = 0;
             // 
             // tabPageFinish
             // 
@@ -1416,9 +1513,11 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(86, 82);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(362, 91);
+            this.label18.Size = new System.Drawing.Size(417, 65);
             this.label18.TabIndex = 13;
-            this.label18.Text = resources.GetString("label18.Text");
+            this.label18.Text = "NOTES:\r\n-In case you didn\'t know, you can pick both a flag preset and tweak prese" +
+    "t (not in yet).\r\n\r\n-Be sure to check out the details for key items and progressi" +
+    "on linked on the mod page!\r\n\r\n";
             // 
             // labelFlagsSelected
             // 
@@ -1574,103 +1673,6 @@
             this.button10.TabIndex = 13;
             this.button10.Text = "Import Flags and Seed";
             this.button10.UseVisualStyleBackColor = true;
-            // 
-            // itemPlando1
-            // 
-            this.itemPlando1.Location = new System.Drawing.Point(3, 3);
-            this.itemPlando1.Name = "itemPlando1";
-            this.itemPlando1.Size = new System.Drawing.Size(790, 591);
-            this.itemPlando1.TabIndex = 0;
-            // 
-            // equipPlando1
-            // 
-            this.equipPlando1.Location = new System.Drawing.Point(3, 3);
-            this.equipPlando1.Name = "equipPlando1";
-            this.equipPlando1.Size = new System.Drawing.Size(790, 591);
-            this.equipPlando1.TabIndex = 0;
-            // 
-            // equipPassivesPlando1
-            // 
-            this.equipPassivesPlando1.Location = new System.Drawing.Point(3, 3);
-            this.equipPassivesPlando1.Name = "equipPassivesPlando1";
-            this.equipPassivesPlando1.Size = new System.Drawing.Size(790, 591);
-            this.equipPassivesPlando1.TabIndex = 0;
-            // 
-            // treasurePlando1
-            // 
-            this.treasurePlando1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treasurePlando1.Location = new System.Drawing.Point(3, 3);
-            this.treasurePlando1.Name = "treasurePlando1";
-            this.treasurePlando1.Size = new System.Drawing.Size(790, 591);
-            this.treasurePlando1.TabIndex = 0;
-            // 
-            // shopPlando1
-            // 
-            this.shopPlando1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.shopPlando1.Location = new System.Drawing.Point(3, 3);
-            this.shopPlando1.Name = "shopPlando1";
-            this.shopPlando1.Size = new System.Drawing.Size(790, 594);
-            this.shopPlando1.TabIndex = 0;
-            // 
-            // shopOrderPlando1
-            // 
-            this.shopOrderPlando1.Location = new System.Drawing.Point(3, 3);
-            this.shopOrderPlando1.Name = "shopOrderPlando1";
-            this.shopOrderPlando1.Size = new System.Drawing.Size(790, 591);
-            this.shopOrderPlando1.TabIndex = 0;
-            // 
-            // enemyStatsPlando1
-            // 
-            this.enemyStatsPlando1.Location = new System.Drawing.Point(3, 3);
-            this.enemyStatsPlando1.Name = "enemyStatsPlando1";
-            this.enemyStatsPlando1.Size = new System.Drawing.Size(790, 591);
-            this.enemyStatsPlando1.TabIndex = 0;
-            // 
-            // enemyElementResistPlando1
-            // 
-            this.enemyElementResistPlando1.Location = new System.Drawing.Point(3, 3);
-            this.enemyElementResistPlando1.Name = "enemyElementResistPlando1";
-            this.enemyElementResistPlando1.Size = new System.Drawing.Size(790, 591);
-            this.enemyElementResistPlando1.TabIndex = 0;
-            // 
-            // enemyDebuffResistPlando1
-            // 
-            this.enemyDebuffResistPlando1.Location = new System.Drawing.Point(3, 3);
-            this.enemyDebuffResistPlando1.Name = "enemyDebuffResistPlando1";
-            this.enemyDebuffResistPlando1.Size = new System.Drawing.Size(790, 591);
-            this.enemyDebuffResistPlando1.TabIndex = 0;
-            // 
-            // enemyDropPlando1
-            // 
-            this.enemyDropPlando1.Location = new System.Drawing.Point(3, 3);
-            this.enemyDropPlando1.Name = "enemyDropPlando1";
-            this.enemyDropPlando1.Size = new System.Drawing.Size(790, 591);
-            this.enemyDropPlando1.TabIndex = 0;
-            // 
-            // crystariumPlando1
-            // 
-            this.crystariumPlando1.Location = new System.Drawing.Point(3, 3);
-            this.crystariumPlando1.Name = "crystariumPlando1";
-            this.crystariumPlando1.Size = new System.Drawing.Size(790, 591);
-            this.crystariumPlando1.TabIndex = 0;
-            // 
-            // abilityPlando1
-            // 
-            this.abilityPlando1.Location = new System.Drawing.Point(3, 3);
-            this.abilityPlando1.Name = "abilityPlando1";
-            this.abilityPlando1.Size = new System.Drawing.Size(790, 591);
-            this.abilityPlando1.TabIndex = 0;
-            // 
-            // runSpeedPlando1
-            // 
-            this.runSpeedPlando1.Location = new System.Drawing.Point(3, 3);
-            this.runSpeedPlando1.Name = "runSpeedPlando1";
-            this.runSpeedPlando1.Size = new System.Drawing.Size(790, 591);
-            this.runSpeedPlando1.TabIndex = 0;
             // 
             // FormMain
             // 

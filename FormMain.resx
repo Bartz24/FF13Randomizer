@@ -215,15 +215,6 @@ Stats:
 Other special nodes:
 -Set only the "New Type"</value>
   </data>
-  <data name="label18.Text" xml:space="preserve">
-    <value>NOTES:
--Only works with English voices right now!
-
--In case you didn't know, you can pick both a flag preset and tweak preset.
-
--Very crude logs for crystarium and treasures can
-be found in the logs folder where this program is located</value>
-  </data>
   <data name="label8.Text" xml:space="preserve">
     <value>NOTES:
 -If you are just starting a new seed, just hit randomize again!
