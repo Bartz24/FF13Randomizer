@@ -731,7 +731,7 @@ namespace FF13Randomizer
             }
             RandomNum.ClearRand();
 
-            foreach(string path in fileNamesModified)
+            foreach (string path in fileNamesModified)
             {
                 if (File.Exists(path))
                     File.Delete(path);
@@ -757,10 +757,16 @@ namespace FF13Randomizer
                     new ProgressForm(rando.GetProgressMessage(), bw => rando.Randomize(bw)).ShowDialog();
                 }
                 new ProgressForm("Saving data...", bw => SaveRandos(randomizers, bw)).ShowDialog();
-                new ProgressForm("Generating Documentation...", bw => GenerateDocumentation(randomizers, bw)).ShowDialog();
-
-
                 new ProgressForm("Inserting files...", bw => insertFiles(bw, true)).ShowDialog();
+
+                try
+                {
+                    new ProgressForm("Generating Documentation...", bw => GenerateDocumentation(randomizers, bw)).ShowDialog();
+                } catch (Exception)
+                {
+                    MessageBox.Show("Documention generation encountered an error. The game is still playable, but docs may not exist or be incorrect.");
+                }
+
 
                 UserFlagsSeed.Export(RandoPath, textBoxSeed.Text.Trim(), Version);
                 addHistory();
@@ -768,10 +774,10 @@ namespace FF13Randomizer
                 //UserFlagsSeed.Export("logs", textBoxSeed.Text.Trim(), version);
 
                 MessageBox.Show("Complete! Ready to play! Whenever you need to uninstall the rando, come back to this program and go to the Uninstall tab!");
-            } catch(Exception ex)
+            } catch (Exception ex)
             {
                 Exception innerMost = ex;
-                while(innerMost.InnerException != null)
+                while (innerMost.InnerException != null)
                 {
                     innerMost = innerMost.InnerException;
                 }

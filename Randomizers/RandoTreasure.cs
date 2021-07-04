@@ -131,6 +131,7 @@ namespace FF13Randomizer
                 }
                 shopsRemaining.Shuffle();
 
+                ShopMappings.Add("key_shop_00", "key_shop_00");
                 for (int i = 1; i <= 13; i++)
                 {
                     string id = "key_shop_" + i.ToString("00");
