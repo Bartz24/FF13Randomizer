@@ -109,7 +109,7 @@ namespace FF13Randomizer
             {
                 Enemy enemy = Enemies.enemies.Find(e => e.ID == row.Field<string>(0));
                 Dictionary<Debuff, int> vals = new Dictionary<Debuff, int>();
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 11; i++)
                 {
                     int res = row.Field<int>(3 + 2 * i);
                     if (res > -1)

@@ -68,7 +68,7 @@ namespace FF13Randomizer
             newBuyPrices.Add(Items.FulmenRing, 15000);
             newBuyPrices.Add(Items.RiptideRing, 15000);
             newBuyPrices.Add(Items.GaleRing, 15000);
-            newBuyPrices.Add(Items.StilstoneRing, 15000);
+            newBuyPrices.Add(Items.SiltstoneRing, 15000);
             newBuyPrices.Add(Items.ShieldTalisman, 17000);
             newBuyPrices.Add(Items.SoulfontTalisman, 17000);
             newBuyPrices.Add(Items.ShroudingTalisman, 17000);
@@ -220,6 +220,23 @@ namespace FF13Randomizer
                         items[i].SynthesisGroup = (byte)plandoGroups[i];
                     else
                         items[i].SynthesisGroup = (byte)synthesisGroups[RandomNum.RandInt(0, synthesisGroups.Length - 1)];
+                });
+                RandomNum.ClearRand();
+            }
+
+            if (Flags.ItemFlags.EquipmentRanks)
+            {
+                Dictionary<Item, int> plandoRanks = main.equipPlando1.GetRanks();
+
+                Flags.ItemFlags.EquipmentRanks.SetRand();
+
+                int variance = Flags.ItemFlags.EquipmentRanks.Range.Value;
+                Items.items.Where(i => items.IdList.IndexOf(i.ID) != -1 && items[i].SynthesisGroup > 0x80).ForEach(i =>
+                {
+                    if (plandoRanks.ContainsKey(i))
+                        items[i].Rank = (byte)plandoRanks[i];
+                    else
+                        items[i].Rank = (byte)RandomNum.RandInt(Math.Max(1, items[i].Rank - variance), Math.Min(11, items[i].Rank + variance));
                 });
                 RandomNum.ClearRand();
             }

@@ -172,7 +172,7 @@ namespace FF13Data
 
         public static Tiered<Item> EarthRing = new Tiered<Item>
             (15, Items.ClayRing, 10)
-            .Add(28, Items.StilstoneRing)
+            .Add(28, Items.SiltstoneRing)
             .Add(48, Items.EarthCharm)
             .Add(52, Items.GaianRing)
             .Register(manager);

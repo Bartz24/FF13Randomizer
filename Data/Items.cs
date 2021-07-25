@@ -249,7 +249,7 @@ namespace FF13Data
         public static Item SylphidRing = new Item("Sylphid Ring", "acc_005_002", Shops.moogleworks).SetPassive(Passives.ResistWind, 2);
 
         public static Item ClayRing = new Item("Clay Ring", "acc_006_000", Shops.magicalMoments).SetPassive(Passives.ResistEarth, 0);
-        public static Item StilstoneRing = new Item("Stilstone Ring", "acc_006_001", Shops.magicalMoments).SetPassive(Passives.ResistEarth, 1);
+        public static Item SiltstoneRing = new Item("Siltstone Ring", "acc_006_001", Shops.magicalMoments).SetPassive(Passives.ResistEarth, 1);
         public static Item GaianRing = new Item("Gaian Ring", "acc_006_002", Shops.moogleworks).SetPassive(Passives.ResistEarth, 2);
 
         public static Item GiantsGlove = new Item("Giants Glove", "acc_009_000", Shops.bwOutfitter).SetPassive(Passives.ResistDebrave, 0);

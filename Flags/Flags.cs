@@ -141,6 +141,15 @@ namespace FF13Randomizer
                 FlagID = "RandEqSyn",
                 DescriptionFormat = "Equipment synthesis groups will be randomized."
             }.Register(FlagType.Items);
+
+            public static FlagValue EquipmentRanks = (FlagValue)new FlagValue(1, 1, 10)
+            {
+                Text = "Randomize Equipment Ranks",
+                FlagID = "RandEqRank",
+                DescriptionFormat = "Equipment ranks will be randomized by +/- ${Value}.\n" +
+                "Note: This will affect EXP as well. EXP = Base EXP x Rank\n" +
+                "Base EXP is some 'base' value, not the vanilla EXP."
+            }.Register(FlagType.Items);
         }
 
         public class EnemyFlags

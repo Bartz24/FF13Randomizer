@@ -21,7 +21,7 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string Version { get; set; } = "1.9.0.Pre-7";
+        public static string Version { get; set; } = "1.9.0.Pre-8";
 
         public static bool PlandoModified { get; set; } = false;
 
@@ -924,6 +924,7 @@ namespace FF13Randomizer
             Flags.ItemFlags.ItemPrices.Range.Value = 0;
             Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = false;
             Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = false;
+            Flags.ItemFlags.EquipmentRanks.FlagEnabled = false;
             Flags.Other.RunSpeed.FlagEnabled = false;
             Flags.Other.RunSpeed.Range.Value = 0;
 
@@ -952,10 +953,6 @@ namespace FF13Randomizer
             Flags.ItemFlags.Shops.FlagEnabled = true;
             Flags.ItemFlags.Shops.ExtraSelected = true;
             Flags.ItemFlags.Shops.ExtraSelected2 = true;
-            Flags.ItemFlags.ItemPrices.FlagEnabled = false;
-            Flags.ItemFlags.ItemPrices.Range.Value = 0;
-            Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = false;
-            Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = false;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 10;
@@ -967,6 +964,11 @@ namespace FF13Randomizer
             Flags.AbilityFlags.ATBCost.Range.Value = 1;
             Flags.AbilityFlags.TPCost.FlagEnabled = false;
             Flags.AbilityFlags.TPCost.Range.Value = 1;
+            Flags.ItemFlags.ItemPrices.FlagEnabled = false;
+            Flags.ItemFlags.ItemPrices.Range.Value = 0;
+            Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = false;
+            Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = false;
+            Flags.ItemFlags.EquipmentRanks.FlagEnabled = false;
 
             if (sender != null)
                 MessageBox.Show("Applied!");
@@ -1000,6 +1002,8 @@ namespace FF13Randomizer
             Flags.ItemFlags.ItemPrices.Range.Value = 15;
             Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = true;
             Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = true;
+            Flags.ItemFlags.EquipmentRanks.FlagEnabled = true;
+            Flags.ItemFlags.EquipmentRanks.Range.Value = 2;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 25;
@@ -1041,6 +1045,8 @@ namespace FF13Randomizer
             Flags.ItemFlags.ItemPrices.Range.Value = 100;
             Flags.ItemFlags.EquipmentStatsPassives.FlagEnabled = true;
             Flags.ItemFlags.EquipmentSynthesis.FlagEnabled = true;
+            Flags.ItemFlags.EquipmentRanks.FlagEnabled = true;
+            Flags.ItemFlags.EquipmentRanks.Range.Value = 10;
             Flags.Other.Music.FlagEnabled = true;
             Flags.Other.RunSpeed.FlagEnabled = true;
             Flags.Other.RunSpeed.Range.Value = 50;

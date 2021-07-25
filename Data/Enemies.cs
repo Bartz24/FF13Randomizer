@@ -136,7 +136,7 @@ namespace FF13Data
         public static Enemy vernalHarvesterWater = new Enemy("Vernal Harvester Exowater", "m098_w", vernalHarvester, EnemyType.Rare);
 
         public static Enemy crawler = new Enemy("Crawler", "m099").ForParties(Parties.Ch5HL, Parties.Ch5LH);
-        public static Enemy noctilucale = new Enemy("Nuctilucale", "m100").ForParties(Parties.Ch10PreCid);
+        public static Enemy noctilucale = new Enemy("Noctilucale", "m100").ForParties(Parties.Ch10PreCid);
         public static Enemy alraune = new Enemy("Alraune", "m101").ForParties(Parties.Ch11NoH);
         public static Enemy fragLeech = new Enemy("Frag Leech", "m102").ForParties(Parties.Ch5HL);
 

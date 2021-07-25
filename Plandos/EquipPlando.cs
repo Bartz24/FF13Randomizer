@@ -37,6 +37,8 @@ namespace FF13Randomizer
             dataTable.Columns.Add("New Passive Stat Increase", typeof(int));
             dataTable.Columns.Add("Synthesis Group", typeof(string));
             dataTable.Columns.Add("New Synthesis Group", typeof(string));
+            dataTable.Columns.Add("Rank", typeof(string));
+            dataTable.Columns.Add("New Rank", typeof(int));
 
             dataGridView1.AutoGenerateColumns = false;
 
@@ -109,12 +111,23 @@ namespace FF13Randomizer
             column.SortMode = DataGridViewColumnSortMode.NotSortable;
             dataGridView1.Columns.Add(column);
 
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[12].HeaderText = "Rank";
+            dataGridView1.Columns[12].DataPropertyName = "Rank";
+            dataGridView1.Columns[12].ReadOnly = true;
+            dataGridView1.Columns[12].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[13].HeaderText = "New Rank";
+            dataGridView1.Columns[13].DataPropertyName = "New Rank";
+            dataGridView1.Columns[13].SortMode = DataGridViewColumnSortMode.NotSortable;
+
             dataGridView1.DataSource = dataTable;
         }
 
         private void AddEntry(Item item)
         {
-            dataTable.Rows.Add(item.ID, item.Name, "", -1, -1, "", -1, -1, "", -1, -1, "", "???");
+            dataTable.Rows.Add(item.ID, item.Name, "", -1, -1, "", -1, -1, "", -1, -1, "", "???", "", -1);
         }
 
         public void ReloadData(FormMain main)
@@ -147,6 +160,7 @@ namespace FF13Randomizer
                 }
                 row.SetField<string>(8, passiveName);
                 row.SetField<string>(11, ((SynthesisGroup)items[item].SynthesisGroup).SeparateWords());
+                row.SetField<string>(13, items[item].Rank.ToString());
             }
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -155,7 +169,7 @@ namespace FF13Randomizer
 
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            if (e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 5 || e.ColumnIndex == 6 || e.ColumnIndex == 8 || e.ColumnIndex == 9)
+            if (e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 5 || e.ColumnIndex == 6 || e.ColumnIndex == 8 || e.ColumnIndex == 9 || e.ColumnIndex == 13)
             {
                 int i = -1;
 
@@ -205,6 +219,21 @@ namespace FF13Randomizer
             return dict;
         }
 
+        public Dictionary<Item, int> GetRanks()
+        {
+            Dictionary<Item, int> dict = new Dictionary<Item, int>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Item item = Items.items.Find(i => i.ID == row.Field<string>(0));
+                int rank = row.Field<int>(14);
+                if (rank != -1)
+                {
+                    dict.Add(item, rank);
+                }
+            }
+            return dict;
+        }
+
         public class JSONPlandoEquip
         {
             public string ID { get; set; }
@@ -215,6 +244,7 @@ namespace FF13Randomizer
             public int StatInitial { get; set; }
             public int StatIncrease { get; set; }
             public string SynthesisGroup { get; set; }
+            public int Rank { get; set; }
         }
 
         public List<JSONPlandoEquip> GetJSONPlando()
@@ -232,7 +262,8 @@ namespace FF13Randomizer
                     MagicIncrease = row.Field<int>(7),
                     StatInitial = row.Field<int>(9),
                     StatIncrease = row.Field<int>(10),
-                    SynthesisGroup = row.Field<string>(12)
+                    SynthesisGroup = row.Field<string>(12),
+                    Rank = row.Field<int>(14)
                 });
             }
             
@@ -254,6 +285,7 @@ namespace FF13Randomizer
                 row.SetField<int>(9, json.StatInitial);
                 row.SetField<int>(10, json.StatIncrease);
                 row.SetField<string>(12, json.SynthesisGroup);
+                row.SetField<int>(14, json.Rank);
             }
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
@@ -263,6 +295,11 @@ namespace FF13Randomizer
             if (version == FormMain.Version)
                 return list;
             List<JSONPlandoEquip> migrated = new List<JSONPlandoEquip>(list);
+
+            if (VersionOrder.Compare(version, "1.9.0.Pre-8") == -1)
+            {
+                migrated.Where(j => j.Rank == 0).ForEach(j => j.Rank = -1);
+            }
 
             return migrated;
         }
