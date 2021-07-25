@@ -223,7 +223,6 @@
     <Compile Include="Data\TieredAbilities.cs" />
     <Compile Include="Data\DataStores\DataStoreEnemy.cs" />
     <Compile Include="Data\DataStores\DataStoreTreasure.cs" />
-    <Compile Include="Data\TieredDependent.cs" />
     <Compile Include="Data\Items.cs" />
     <Compile Include="Data\Abilities.cs" />
     <Compile Include="Data\Item.cs" />
@@ -231,8 +230,6 @@
     <Compile Include="Data\DataStores\DataStoreCrystarium.cs" />
     <Compile Include="Data\Text\TextDialog.cs" />
     <Compile Include="Data\Text\TextFile.cs" />
-    <Compile Include="Data\TieredManager.cs" />
-    <Compile Include="Data\Tiered.cs" />
     <Compile Include="Data\TieredItems.cs" />
     <Compile Include="Data\Enums\Enums.cs" />
     <Compile Include="MathExtensions.cs" />
