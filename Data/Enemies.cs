@@ -74,7 +74,7 @@ namespace FF13Data
 
         public static Enemy munchkin = new Enemy("Munchkin", "m054").ForParties(Parties.Ch10_11);
         public static Enemy borgbear = new Enemy("Borgbear", "m055").ForParties(Parties.Ch12_13);
-        public static Enemy goblinChieftan = new Enemy("Goblin Chieftan", "m056").ForParties(Parties.Ch10_11);
+        public static Enemy goblinChieftan = new Enemy("Goblin Chieftain", "m056").ForParties(Parties.Ch10_11);
         public static Enemy munchkinMaestro = new Enemy("Munchkin Maestro", "m057").ForParties(Parties.Ch10_11);
         public static Enemy borgbearHero = new Enemy("Borgbear Hero", "m058", null, EnemyType.Rare).ForParties(Parties.Ch12_13);
 

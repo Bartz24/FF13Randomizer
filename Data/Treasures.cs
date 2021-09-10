@@ -455,11 +455,11 @@ namespace FF13Data
         public static Treasure mission11Repeat = new Treasure("Mission 11 Repeat", "tre_ms_n006_02", TreasureArea.Mission);
         public static Treasure mission12 = new Treasure("Mission 12: Geiseric", "tre_ms_k002_01", TreasureArea.Mission);
         public static Treasure mission12Repeat = new Treasure("Mission 12 Repeat", "tre_ms_k002_02", TreasureArea.Mission);
-        public static Treasure mission13 = new Treasure("Mission 13: Goblin Chieftan", "tre_ms_n008_01", TreasureArea.Mission);
+        public static Treasure mission13 = new Treasure("Mission 13: Goblin Chieftain", "tre_ms_n008_01", TreasureArea.Mission);
         public static Treasure mission13Repeat = new Treasure("Mission 13 Repeat", "tre_ms_n008_02", TreasureArea.Mission);
         public static Treasure mission14 = new Treasure("Mission 14: Sahagin", "tre_ms_n007_01", TreasureArea.Mission);
         public static Treasure mission14Repeat = new Treasure("Mission 14 Repeat", "tre_ms_n007_02", TreasureArea.Mission);
-        public static Treasure mission15 = new Treasure("Mission 15: Goblin Chieftan", "tre_ms_n011_01", TreasureArea.Mission);
+        public static Treasure mission15 = new Treasure("Mission 15: Goblin Chieftain", "tre_ms_n011_01", TreasureArea.Mission);
         public static Treasure mission15Repeat = new Treasure("Mission 15 Repeat", "tre_ms_n011_02", TreasureArea.Mission);
         public static Treasure mission16 = new Treasure("Mission 16: Sahagin", "tre_ms_n012_01", TreasureArea.Mission);
         public static Treasure mission16Repeat = new Treasure("Mission 16 Repeat", "tre_ms_n012_02", TreasureArea.Mission);
@@ -469,7 +469,7 @@ namespace FF13Data
         public static Treasure mission18Repeat = new Treasure("Mission 18 Repeat", "tre_ms_t006_02", TreasureArea.Mission);
         public static Treasure mission19 = new Treasure("Mission 19: Uridimmu", "tre_ms_t007_01", TreasureArea.Mission);
         public static Treasure mission19Repeat = new Treasure("Mission 19 Repeat", "tre_ms_t007_02", TreasureArea.Mission);
-        public static Treasure mission20 = new Treasure("Mission 20: Goblin Chieftan", "tre_ms_t008_01", TreasureArea.Mission);
+        public static Treasure mission20 = new Treasure("Mission 20: Goblin Chieftain", "tre_ms_t008_01", TreasureArea.Mission);
         public static Treasure mission20Repeat = new Treasure("Mission 20 Repeat", "tre_ms_t008_02", TreasureArea.Mission);
 
         public static Treasure mission21 = new Treasure("Mission 21: Gelatitan", "tre_ms_z001_01", TreasureArea.Mission);

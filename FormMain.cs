@@ -21,7 +21,7 @@ namespace FF13Randomizer
 {
     public partial class FormMain : Form
     {
-        public static string Version { get; set; } = "1.9.0.Pre-8";
+        public static string Version { get; set; } = "1.9.0";
 
         public static bool PlandoModified { get; set; } = false;
 

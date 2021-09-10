@@ -192,6 +192,10 @@ namespace FF13Randomizer
                 return list;
             List<JSONPlandoTreasure> migrated = new List<JSONPlandoTreasure>(list);
 
+            if (VersionOrder.Compare(version, "1.9.0") == -1)
+            {
+                migrated.Where(j => j.Item == "Stilstone Ring").ForEach(j => j.Item = "Siltstone Ring");
+            }
             if (VersionOrder.Compare(version, "1.8.0.Pre-3") == -1)
             {
                 migrated.Where(j => j.Amount == 0).ForEach(j => j.Amount = -1);
